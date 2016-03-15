@@ -1,5 +1,12 @@
 .gradle
+*.class
 build/
+
+
+# Package Files #
+*.jar
+*.war
+*.ear
 
 # Ignore Gradle GUI config
 gradle-app.setting
