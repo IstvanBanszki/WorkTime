@@ -2,4 +2,4 @@ rootProject.name = 'WorkTime'
 
 include 'worktime-api'
 include 'worktime-web'
-include 'worktime-services'
+include 'worktime-service'

@@ -1,5 +1,5 @@
 description = 'WorkTimeService'
 group = 'com.worktime.service'
 
-dependencies{
+dependencies {
 }
