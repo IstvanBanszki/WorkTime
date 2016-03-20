@@ -1,0 +1,5 @@
+description = 'WorkTimeApi'
+group = 'com.worktime.api'
+
+dependencies{
+}

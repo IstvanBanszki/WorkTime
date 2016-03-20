@@ -1,0 +1,5 @@
+description = 'WorkTimeWeb'
+group = 'com.worktime.web'
+
+dependencies{
+}
