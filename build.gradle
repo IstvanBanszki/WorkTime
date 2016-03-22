@@ -1,26 +1,26 @@
-
+description = 'WorkTime'
 
 allprojects {
-	apply plugin: 'base'
-	apply plugin: 'java'
-	apply plugin: 'groovy'
+    apply plugin: 'base'
+    apply plugin: 'java'
+    apply plugin: 'groovy'
 	
-	version = '1.0.0-SNAPSHOT'
-	group = 'com.worktime'
+    version = '0.0.1-SNAPSHOT'
+    group = 'hu.unideb'
 
-	repositories {
-		mavenCentral()
-	}
+    repositories {
+    	mavenCentral()
+    }
 	
-	dependencies {
-		// mandatory dependencies for using Spock
-		compile "org.codehaus.groovy:groovy-all:2.4.1"
-		testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+    dependencies {
+    	// mandatory dependencies for using Spock
+    	compile "org.codehaus.groovy:groovy-all:2.4.1"
+	testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
 
-		// optional dependencies for using Spock
-		testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
-		testRuntime "cglib:cglib-nodep:3.1"          // allows mocking of classes (in addition to interfaces)
-		testRuntime "org.objenesis:objenesis:2.1"    // allows mocking of classes without default constructor (together with CGLIB)
-	}
+	// optional dependencies for using Spock
+	testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
+	testRuntime "cglib:cglib-nodep:3.1"          // allows mocking of classes (in addition to interfaces)
+	testRuntime "org.objenesis:objenesis:2.1"    // allows mocking of classes without default constructor (together with CGLIB)
+    }
 }
 

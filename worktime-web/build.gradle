@@ -1,5 +1,5 @@
 description = 'WorkTimeWeb'
-group = 'com.worktime.web'
+group = 'hu.unideb.web'
 
 dependencies{
 }

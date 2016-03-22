@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value="/login")
 public class LoginController {
 	
+    //TODO Dummy login service for test purposes
     @RequestMapping(value="/{user}", method=RequestMethod.GET)
     public String example( @PathVariable Integer userId ){
 	return "Hello World" + userId;
