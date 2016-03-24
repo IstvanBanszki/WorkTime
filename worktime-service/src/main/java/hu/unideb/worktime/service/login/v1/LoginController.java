@@ -1,4 +1,4 @@
-package com.worktime.service.login.v1;
+package hu.unideb.worktime.service.login.v1;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -19,7 +19,7 @@ apply plugin: 'spring-boot'
 
 jar {
     baseName = 'worktime-service'
-    //version = '0.0.1-SNAPSHOT'
+    version = '0.0.1-SNAPSHOT'
 }
 
 dependencies {
