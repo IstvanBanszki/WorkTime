@@ -1,9 +1,13 @@
 package hu.unideb.worktime.service;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootApplication
+@Configuration
+@ComponentScan(basePackages = "hu.unideb.worktime.service")
+@EnableAutoConfiguration
 public class SpringBootMainApplication {
 
     public static void main(String[] args) {
