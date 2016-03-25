@@ -1,4 +1,4 @@
-package hu.unideb.worktime.service.security;
+package hu.unideb.worktime.security;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
