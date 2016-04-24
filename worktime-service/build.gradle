@@ -6,13 +6,13 @@ buildscript {
         mavenCentral()
     }
     ext {
-	springSecurityVersion = '4.0.4.RELEASE'
-	springBootVersion = '1.3.3.RELEASE'
-        mySqlConnectorVersion = '5.1.13'
+		springSecurityVersion = '4.0.4.RELEASE'
+		springBootVersion = '1.3.3.RELEASE'
+		mySqlConnectorVersion = '5.1.38'
     }
     dependencies {
-	classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-	classpath "io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE"
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+		classpath "io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE"
     }
 }
 
@@ -23,7 +23,13 @@ jar {
     version = '0.0.1-SNAPSHOT'
 }
 
+repositories {
+	mavenCentral()
+}
+
 dependencies {
+	//Add the project dependency
+	compile project(':worktime-api')
     //Add SpringBoot
     compile ("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude module: "spring-boot-starter-tomcat"
