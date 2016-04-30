@@ -1,17 +1,9 @@
-var app = angular.module('exampleApp', ['ngRoute'])
+(function () {
 
-module.config(['$routeProvider',
-    function($routeProvider) {
-        $routeProvider.
-            when('/route1/:param', {
-                templateUrl: 'angular-route-template-1.jsp',
-                controller: 'RouteController'
-            }).
-            when('/route2/:param', {
-                templateUrl: 'angular-route-template-2.jsp',
-                controller: 'RouteController'
-            }).
-            otherwise({
-                redirectTo: '/'
-    		});
-}]);
+    'use strict';
+    angular
+        .module('app', ['ngRoute', 'ngCookies'])
+        .config(config)
+        .run(run);
+
+})();
