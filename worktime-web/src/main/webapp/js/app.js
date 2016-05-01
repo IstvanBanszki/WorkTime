@@ -1,6 +1,5 @@
-
-// declare modules
-angular.module('myApp', ['ngRoute'])        
+angular.module('Login', [])
+angular.module('myApp', ['Login', 'ngRoute'])        
 	.config(['$routeProvider', function ($routeProvider) {
 		$routeProvider
 			.when('/login', {

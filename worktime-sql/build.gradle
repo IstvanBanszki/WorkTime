@@ -1,0 +1,10 @@
+description = 'WorkTimeApi'
+group = 'hu.unideb.api'
+
+jar {
+    baseName = 'worktime-api'
+	version = '0.0.1-SNAPSHOT'
+}
+
+dependencies{
+}
