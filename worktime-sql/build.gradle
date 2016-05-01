@@ -1,10 +1,11 @@
-description = 'WorkTimeApi'
+description = 'WorkTimeSql'
 group = 'hu.unideb.api'
 
 jar {
-    baseName = 'worktime-api'
+    baseName = 'worktime-sql'
 	version = '0.0.1-SNAPSHOT'
 }
 
 dependencies{
+	compile project(':worktime-api')
 }

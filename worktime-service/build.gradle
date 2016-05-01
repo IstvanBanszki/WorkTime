@@ -29,7 +29,7 @@ repositories {
 
 dependencies {
 	//Add the project dependency
-	compile project(':worktime-api')
+	compile project(':worktime-sql')
     //Add SpringBoot
     compile ("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude module: "spring-boot-starter-tomcat"
