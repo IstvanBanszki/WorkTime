@@ -8,7 +8,6 @@ buildscript {
     ext {
 		springSecurityVersion = '4.0.4.RELEASE'
 		springBootVersion = '1.3.3.RELEASE'
-		mySqlConnectorVersion = '5.1.38'
     }
     dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
@@ -29,7 +28,7 @@ repositories {
 
 dependencies {
 	//Add the project dependency
-	compile project(':worktime-sql')
+	compile project(':worktime-jdbc')
     //Add SpringBoot
     compile ("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude module: "spring-boot-starter-tomcat"
@@ -37,5 +36,13 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
     //compile "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
-    compile "mysql:mysql-connector-java:${mySqlConnectorVersion}"
+		
+    // mandatory dependencies for using Spock
+    compile "org.codehaus.groovy:groovy-all:2.4.1"
+	testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+
+	// optional dependencies for using Spock
+	testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
+	testRuntime "cglib:cglib-nodep:3.1"          // allows mocking of classes (in addition to interfaces)
+	testRuntime "org.objenesis:objenesis:2.1"    // allows mocking of classes without default constructor (together with CGLIB)
 }

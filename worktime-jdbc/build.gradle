@@ -1,12 +1,30 @@
-description = 'WorkTimeApi'
-group = 'hu.unideb.api'
+description = 'WorkTimeJdbc'
+group = 'hu.unideb.jdbc'
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    ext {
+		mySqlConnectorVersion = '5.1.38'
+    }
+}
+	
 jar {
-    baseName = 'worktime-api'
+    baseName = 'worktime-jdbc'
 	version = '0.0.1-SNAPSHOT'
 }
 
+repositories {
+	mavenCentral()
+}
+
 dependencies{
+	compile project(':worktime-api')
+
+    compile "org.springframework:spring-jdbc:4.2.5.RELEASE"
+    compile "mysql:mysql-connector-java:${mySqlConnectorVersion}"
+    compile "org.slf4j:slf4j-api:1.7.21"
 	
     // mandatory dependencies for using Spock
     compile "org.codehaus.groovy:groovy-all:2.4.1"
