@@ -1,0 +1,7 @@
+description = 'WorkTimeSql'
+group = 'hu.unideb.sql'
+
+jar {
+    baseName = 'worktime-sql'
+	version = '0.0.1-SNAPSHOT'
+}

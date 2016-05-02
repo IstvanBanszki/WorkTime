@@ -9,19 +9,19 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
 public class LoginSP extends StoredProcedure {
-    
+
     private static final String SP_NAME = "get_login";
-        
-    public void install(DataSource dataSource){
+
+    public void install(DataSource dataSource) {
         this.setDataSource(dataSource);
         this.setSql(SP_NAME);
         this.declareParameter(new SqlParameter("login_name", Types.VARCHAR));
-        this.declareParameter(new SqlParameter("password",   Types.VARCHAR));
-        this.declareParameter(new SqlOutParameter("status",  Types.INTEGER));
+        this.declareParameter(new SqlParameter("password", Types.VARCHAR));
+        this.declareParameter(new SqlOutParameter("status", Types.INTEGER));
         compile();
     }
-    
-    public int execute(String loginName, String password){
+
+    public int execute(String loginName, String password) {
         return (Integer) super.execute(loginName, password).get("status");
     }
 }
