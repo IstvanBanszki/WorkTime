@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = "hu.unideb.worktime.service")
+@ComponentScan(basePackages = "hu.unideb.worktime")
 @EnableAutoConfiguration
 public class SpringBootMainApplication {
 

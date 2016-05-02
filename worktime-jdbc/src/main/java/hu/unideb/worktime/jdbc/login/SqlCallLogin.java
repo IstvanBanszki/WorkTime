@@ -6,21 +6,23 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-public class LoginSqlCall extends WTConnection {
+@Repository("sqlCallLogin")
+public class SqlCallLogin extends WTConnection {
 
     @Autowired
-    private LoginSP loginSp;
+    private SPLogin spLogin;
     private Logger logger;
 
-    public LoginSqlCall() {
-        this.logger = LoggerFactory.getLogger(LoginSqlCall.class);
+    public SqlCallLogin() {
+        this.logger = LoggerFactory.getLogger(SqlCallLogin.class);
     }
 
     @PostConstruct
     public void setSP() {
         try {
-            this.loginSp.install(this.getDataSource());
+            this.spLogin.install(this.getDataSource());
         } catch (SQLException ex) {
             logger.debug(ex.getMessage());
         }
@@ -30,7 +32,7 @@ public class LoginSqlCall extends WTConnection {
         Integer result = null;
         logger.info("Call get_login SP with given parameters: {}, {}", loginName, password);
         try {
-            result = loginSp.execute(loginName, password);
+            result = spLogin.execute(loginName, password);
         } catch(Exception ex){            
             logger.debug("There is an exception during get_login SP call: {}", ex);
         }

@@ -7,8 +7,10 @@ import org.springframework.jdbc.core.SqlOutParameter;
 
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
+import org.springframework.stereotype.Repository;
 
-public class LoginSP extends StoredProcedure {
+@Repository("spLogin")
+public class SPLogin extends StoredProcedure {
 
     private static final String SP_NAME = "get_login";
 

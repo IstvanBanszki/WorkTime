@@ -7,6 +7,7 @@ buildscript {
     }
     ext {
 		mySqlConnectorVersion = '5.1.38'
+                springVersion = '4.2.5.RELEASE'
     }
 }
 	
@@ -22,7 +23,10 @@ repositories {
 dependencies{
 	compile project(':worktime-api')
 
-    compile "org.springframework:spring-jdbc:4.2.5.RELEASE"
+    compile "org.springframework:spring-core:${springVersion}"
+    compile "org.springframework:spring-beans:${springVersion}"
+    compile "org.springframework:spring-context:${springVersion}"
+    compile "org.springframework:spring-jdbc:${springVersion}"
     compile "mysql:mysql-connector-java:${mySqlConnectorVersion}"
     compile "org.slf4j:slf4j-api:1.7.21"
 	
