@@ -1,15 +1,12 @@
 package hu.unideb.worktime.jdbc.login;
 
-import hu.unideb.worktime.jdbc.connection.WTConnection;
-import java.sql.SQLException;
-import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository("sqlCallLogin")
-public class SqlCallLogin extends WTConnection {
+@Component
+public class SqlCallLogin {
 
     @Autowired
     private SPLogin spLogin;
@@ -19,21 +16,21 @@ public class SqlCallLogin extends WTConnection {
         this.logger = LoggerFactory.getLogger(SqlCallLogin.class);
     }
 
-    @PostConstruct
-    public void setSP() {
+    /*
+    public void setSpLogin() {
         try {
-            this.spLogin.install(this.getDataSource());
+            this.spLogin = new SPLogin(this.getDataSource());
         } catch (SQLException ex) {
             logger.debug(ex.getMessage());
         }
-    }
+    }*/
 
     public Integer authenticate(String loginName, String password) {
         Integer result = null;
         logger.info("Call get_login SP with given parameters: {}, {}", loginName, password);
         try {
             result = spLogin.execute(loginName, password);
-        } catch(Exception ex){            
+        } catch (Exception ex) {
             logger.debug("There is an exception during get_login SP call: {}", ex);
         }
         logger.info("Result of get_login SP: {}", result);

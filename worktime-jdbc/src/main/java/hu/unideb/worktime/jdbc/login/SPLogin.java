@@ -1,25 +1,27 @@
 package hu.unideb.worktime.jdbc.login;
 
+import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.Types;
 
-import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.SqlOutParameter;
 
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
-@Repository("spLogin")
+@Repository
 public class SPLogin extends StoredProcedure {
 
     private static final String SP_NAME = "get_login";
 
-    public void install(DataSource dataSource) {
-        this.setDataSource(dataSource);
-        this.setSql(SP_NAME);
-        this.declareParameter(new SqlParameter("login_name", Types.VARCHAR));
-        this.declareParameter(new SqlParameter("password", Types.VARCHAR));
-        this.declareParameter(new SqlOutParameter("status", Types.INTEGER));
+    @Autowired
+    public SPLogin(WTConnection wtConnection) {
+        super.setDataSource(wtConnection.getDataSource());
+        setSql(SP_NAME);
+        declareParameter(new SqlParameter("login_name", Types.VARCHAR));
+        declareParameter(new SqlParameter("password", Types.VARCHAR));
+        declareParameter(new SqlOutParameter("status", Types.INTEGER));
         compile();
     }
 
