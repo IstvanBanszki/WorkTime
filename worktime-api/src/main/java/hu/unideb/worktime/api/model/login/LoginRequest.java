@@ -6,7 +6,7 @@ public class LoginRequest implements Serializable {
 
     private final String loginName;
     private final String password;
-    
+
     public LoginRequest() {
         this.loginName = "";
         this.password = "";
@@ -45,12 +45,12 @@ public class LoginRequest implements Serializable {
             return false;
         }
         final LoginRequest other = (LoginRequest) obj;
-        if( (other.loginName == this.loginName) || 
-            (this.loginName != null && this.loginName.equals(other.loginName)) ){
+        if ((other.loginName == this.loginName)
+                || (this.loginName != null && this.loginName.equals(other.loginName))) {
             return false;
         }
-        if( (other.password == this.password) || 
-            (this.password != null && this.password.equals(other.password)) ){
+        if ((other.password == this.password)
+                || (this.password != null && this.password.equals(other.password))) {
             return false;
         }
         return true;
@@ -60,5 +60,4 @@ public class LoginRequest implements Serializable {
     public String toString() {
         return "LoginRequest{" + "loginName=" + loginName + ", password=" + password + '}';
     }
-    
 }

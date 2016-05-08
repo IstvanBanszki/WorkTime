@@ -1,7 +1,9 @@
 package hu.unideb.worktime.jdbc.login;
 
+import hu.unideb.worktime.api.model.login.LoginResponse;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.Types;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.SqlOutParameter;
@@ -21,11 +23,13 @@ public class SPLogin extends StoredProcedure {
         setSql(SP_NAME);
         declareParameter(new SqlParameter("login_name", Types.VARCHAR));
         declareParameter(new SqlParameter("password", Types.VARCHAR));
-        declareParameter(new SqlOutParameter("status", Types.INTEGER));
+        declareParameter(new SqlOutParameter("role_name", Types.VARCHAR));
+        declareParameter(new SqlOutParameter("worker_id", Types.INTEGER));
         compile();
     }
 
-    public int execute(String loginName, String password) {
-        return (Integer) super.execute(loginName, password).get("status");
+    public LoginResponse execute(String loginName, String password) {
+        Map<String, Object> result = super.execute(loginName, password);
+        return new LoginResponse((int) result.get("worker_id"), (String) result.get("role_name"));
     }
 }

@@ -2,6 +2,7 @@ package hu.unideb.worktime.service.controller.login.v1;
 
 import hu.unideb.worktime.api.model.login.LoginRequest;
 import hu.unideb.worktime.jdbc.login.SqlCallLogin;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,13 +23,12 @@ public class LoginController {
     --------------------
     {
 	"login_name": "login",
-	"password": "easy",
+	"password": "easy"
     }
     */
     @RequestMapping(value="/getlogin", method=RequestMethod.POST, headers = "Content-Type=application/json")
     public String getLogin( @RequestBody LoginRequest request ){
-
-        return sqlCallLogin.authenticate(request.getLoginName(), request.getPassword())+" value";
+        return sqlCallLogin.authenticate(request.getLoginName(), request.getPassword())+"";
     }
 	
     //TODO Dummy login service for test purposes

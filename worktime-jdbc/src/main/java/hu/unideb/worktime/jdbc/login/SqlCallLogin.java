@@ -1,5 +1,6 @@
 package hu.unideb.worktime.jdbc.login;
 
+import hu.unideb.worktime.api.model.login.LoginResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +17,8 @@ public class SqlCallLogin {
         this.logger = LoggerFactory.getLogger(SqlCallLogin.class);
     }
 
-    /*
-    public void setSpLogin() {
-        try {
-            this.spLogin = new SPLogin(this.getDataSource());
-        } catch (SQLException ex) {
-            logger.debug(ex.getMessage());
-        }
-    }*/
-
-    public Integer authenticate(String loginName, String password) {
-        Integer result = null;
+    public LoginResponse authenticate(String loginName, String password) {
+        LoginResponse result = null;
         logger.info("Call get_login SP with given parameters: {}, {}", loginName, password);
         try {
             result = spLogin.execute(loginName, password);
