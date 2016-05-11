@@ -2,12 +2,12 @@ package hu.unideb.worktime.api.model.login;
 
 import java.io.Serializable;
 
-public class LoginResponse implements Serializable {
+public class LoginRecord implements Serializable {
 
     private final int workerId;
     private final String roleName;
 
-    public LoginResponse(int workerId, String roleName) {
+    public LoginRecord(int workerId, String roleName) {
         this.workerId = workerId;
         this.roleName = roleName;
     }
@@ -39,7 +39,7 @@ public class LoginResponse implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LoginResponse other = (LoginResponse) obj;
+        final LoginRecord other = (LoginRecord) obj;
         if (this.workerId != other.workerId) {
             return false;
         }

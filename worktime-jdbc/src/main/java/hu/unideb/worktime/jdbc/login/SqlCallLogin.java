@@ -1,6 +1,7 @@
 package hu.unideb.worktime.jdbc.login;
 
-import hu.unideb.worktime.api.model.login.LoginResponse;
+import hu.unideb.worktime.api.model.login.LoginKey;
+import hu.unideb.worktime.api.model.login.LoginRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,16 @@ public class SqlCallLogin {
         this.logger = LoggerFactory.getLogger(SqlCallLogin.class);
     }
 
-    public LoginResponse authenticate(String loginName, String password) {
-        LoginResponse result = null;
-        logger.info("Call get_login SP with given parameters: {}, {}", loginName, password);
+    public LoginRecord authenticate(LoginKey request) {
+        LoginRecord result = null;
+        logger.info("Call get_login SP with given parameters: {}", request);
         try {
-            result = spLogin.execute(loginName, password);
+            result = spLogin.execute(request);
+            if(result == null){
+                logger.debug("There is no such login user in database! Key: {}", request);
+            }
         } catch (Exception ex) {
-            logger.debug("There is an exception during get_login SP call: {}", ex);
+            logger.error("There is an exception during get_login SP call: {}", ex);
         }
         logger.info("Result of get_login SP: {}", result);
         return result;

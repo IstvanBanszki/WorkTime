@@ -1,6 +1,6 @@
 package hu.unideb.worktime.service.controller.login.v1;
 
-import hu.unideb.worktime.api.model.login.LoginRequest;
+import hu.unideb.worktime.api.model.login.LoginKey;
 import hu.unideb.worktime.jdbc.login.SqlCallLogin;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,8 @@ public class LoginController {
     }
     */
     @RequestMapping(value="/getlogin", method=RequestMethod.POST, headers = "Content-Type=application/json")
-    public String getLogin( @RequestBody LoginRequest request ){
-        return sqlCallLogin.authenticate(request.getLoginName(), request.getPassword())+"";
+    public String getLogin( @RequestBody LoginKey request ){
+        return sqlCallLogin.authenticate(request)+"";
     }
 	
     //TODO Dummy login service for test purposes
