@@ -1,7 +1,6 @@
 rootProject.name = 'WorkTime'
 
 include 'worktime-api'
-include 'worktime-web'
 include 'worktime-service'
 include 'worktime-jdbc'
 include 'worktime-sql'

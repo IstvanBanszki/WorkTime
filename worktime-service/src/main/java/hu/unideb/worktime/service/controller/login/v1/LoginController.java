@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value="/login/v1")
+@RequestMapping(value = "/rest/login/v1")
 public class LoginController {
-    
+
     @Autowired
-    SqlCallLogin sqlCallLogin;    
-    
+    SqlCallLogin sqlCallLogin;
+
     /*
     --------------------
     Example JSON content
@@ -26,15 +26,15 @@ public class LoginController {
 	"password": "easy"
     }
     */
-    @RequestMapping(value="/getlogin", method=RequestMethod.POST, headers = "Content-Type=application/json")
-    public String getLogin( @RequestBody LoginKey request ){
-        return sqlCallLogin.authenticate(request)+"";
+    @RequestMapping(value = "/getlogin", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    public String getLogin(@RequestBody LoginKey request) {
+        return sqlCallLogin.authenticate(request) + "";
     }
-	
-    //TODO Dummy login service for test purposes
-    @RequestMapping(value="/{user}", method=RequestMethod.GET)
-    public String example( @PathVariable(value = "user") int userId ){
+
+    //TODO Dummy service for test purposes, after the app is finished, it should be deleted
+    @RequestMapping(value = "/{user}", method = RequestMethod.GET)
+    public String example(@PathVariable(value = "user") int userId) {
         System.out.println("Hello World" + userId);
-	return "Hello World" + userId;
+        return "Hello World" + userId;
     }
 }
