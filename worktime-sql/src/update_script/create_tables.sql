@@ -58,11 +58,11 @@ CREATE TABLE `department` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /* ***************************************************
-				absence_type_id table creation
+				absence_type table creation
    *************************************************** */
    
-DROP TABLE IF EXISTS `absence_type_id`;
-CREATE TABLE `absence_type_id` (
+DROP TABLE IF EXISTS `absence_type`;
+CREATE TABLE `absence_type` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` tinytext NOT NULL,
   PRIMARY KEY (`id`)
@@ -125,8 +125,8 @@ CREATE TABLE `work_log` (
   `absence_type_id` bigint(20) NOT NULL,
   `worker_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_wl_worker_id_idx` (`worker_id`),
-  KEY `FK_wl_absence_type_id_idx` (`absence_type_id`),
-  CONSTRAINT `FK_wl_absence_type_id` FOREIGN KEY (`absence_type_id`) REFERENCES `absence_type_id` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `FK_wl_worker_idx` (`worker_id`),
+  KEY `FK_wl_absence_type_idx` (`absence_type_id`),
+  CONSTRAINT `FK_wl_absence_type_id` FOREIGN KEY (`absence_type`) REFERENCES `absence_type_id` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_wl_worker_id` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
