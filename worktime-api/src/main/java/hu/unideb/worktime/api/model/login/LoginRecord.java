@@ -6,10 +6,12 @@ public class LoginRecord implements Serializable {
 
     private final int workerId;
     private final String roleName;
+    private final String password;
 
-    public LoginRecord(int workerId, String roleName) {
+    public LoginRecord(int workerId, String roleName, String password) {
         this.workerId = workerId;
         this.roleName = roleName;
+        this.password = password;
     }
 
     public int getWorkerId() {
@@ -20,11 +22,16 @@ public class LoginRecord implements Serializable {
         return roleName;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 59 * hash + this.workerId;
         hash = 59 * hash + (this.roleName != null ? this.roleName.hashCode() : 0);
+        hash = 59 * hash + (this.password != null ? this.password.hashCode() : 0);
         return hash;
     }
 
@@ -40,18 +47,13 @@ public class LoginRecord implements Serializable {
             return false;
         }
         final LoginRecord other = (LoginRecord) obj;
-        if (this.workerId != other.workerId) {
-            return false;
-        }
-        if ((other.roleName == this.roleName)
-                || (this.roleName != null && this.roleName.equals(other.roleName))) {
-            return false;
-        }
-        return true;
+        return this.workerId != other.workerId &&
+               (this.roleName != null ? this.roleName.equals(other.roleName) : other.roleName == null) &&
+               (this.password != null ? this.password.equals(other.password) : other.password == null);
     }
 
     @Override
     public String toString() {
-        return "LoginResponse{" + "workerId=" + workerId + ", roleName=" + roleName + '}';
+        return "LoginRecord{" + "workerId=" + workerId + ", roleName=" + roleName + ", password=" + password + '}';
     }
 }

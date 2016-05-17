@@ -1,7 +1,7 @@
 angular.module("Login")
 .factory('LoginService', ['$http', function LoginServiceFactory($http){
 	var service = {};	
-	service.Login = function (username, password){
+	service.Login = function( loginName, password ){
 		//var myHeaders = (username || password) ? {authorization : "Basic "
 		//	+ btoa(username + ":" + password),
 		//	'Content-Type': 'application/json'
@@ -9,12 +9,13 @@ angular.module("Login")
 		var response = {}
 		$http({
 			method : "POST",
-			url : "localhost:8080/rest/login/v1/getlogin",
-			headers : {authorization : "Basic "+ btoa(username + ":" + password),
+			url : "/rest/login/v1/getlogin",
+			headers : {
+				'Authorization' : "Basic "+ btoa(loginName + ":" + password),
 				'Content-Type': 'application/json'
 			},
 			data: { 
-				'username': username, 
+				'loginName': loginName, 
 				'password': password
 			}
 		}).then(function (response) {

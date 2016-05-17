@@ -1,9 +1,9 @@
 angular.module('Login')
 .controller('LoginController', ['$scope', '$http', 'LoginService',
     function ($scope, $http, LoginService) {
-		$scope.userName = "";
+		$scope.loginName = "";
 		$scope.password = "";
 		$scope.login = function(){
-			LoginService.Login($scope.userName, $scope.password);
+			LoginService.Login($scope.loginName, $scope.password);
 		}
     }]);

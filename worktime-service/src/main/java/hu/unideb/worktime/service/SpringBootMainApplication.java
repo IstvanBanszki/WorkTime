@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = "hu.unideb.worktime")
 @EnableAutoConfiguration
 public class SpringBootMainApplication {
-
+    
     public static void main(String[] args) {
         SpringApplication.run(SpringBootMainApplication.class, args);
     }

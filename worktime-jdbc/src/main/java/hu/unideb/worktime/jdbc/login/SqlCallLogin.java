@@ -1,6 +1,5 @@
 package hu.unideb.worktime.jdbc.login;
 
-import hu.unideb.worktime.api.model.login.LoginKey;
 import hu.unideb.worktime.api.model.login.LoginRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,13 +17,13 @@ public class SqlCallLogin {
         this.logger = LoggerFactory.getLogger(SqlCallLogin.class);
     }
 
-    public LoginRecord authenticate(LoginKey request) {
+    public LoginRecord authenticate(String loginName) {
         LoginRecord result = null;
-        logger.info("Call get_login SP with given parameters: {}", request);
+        logger.info("Call get_login SP with given parameters: {}", loginName);
         try {
-            result = spLogin.execute(request);
+            result = spLogin.execute(loginName);
             if(result == null){
-                logger.debug("There is no such login user in database! Key: {}", request);
+                logger.debug("There is no such login user in database! Key: {}", loginName);
             }
         } catch (Exception ex) {
             logger.error("There is an exception during get_login SP call: {}", ex);

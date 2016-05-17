@@ -12,7 +12,7 @@ buildscript {
 }
 	
 jar {
-    baseName = 'worktime-jdbc'
+    baseName = 'worktime-core'
 	version = '0.0.1-SNAPSHOT'
 }
 

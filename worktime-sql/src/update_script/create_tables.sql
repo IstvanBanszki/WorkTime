@@ -6,7 +6,7 @@ USE worktime;
    
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `role` tinytext NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -17,10 +17,10 @@ CREATE TABLE `role` (
    
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `login_name` tinytext NOT NULL,
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `password` varchar(32) NOT NULL,
+  `password` varchar(128) NOT NULL,
   `role_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_u_role_id_idx` (`role_id`),
@@ -33,7 +33,7 @@ CREATE TABLE `user` (
    
 DROP TABLE IF EXISTS `office`;
 CREATE TABLE `office` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` tinytext NOT NULL,
   `address` tinytext NOT NULL,
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -47,7 +47,7 @@ CREATE TABLE `office` (
    
 DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` tinytext NOT NULL,
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `date_of_foundation` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -63,7 +63,7 @@ CREATE TABLE `department` (
    
 DROP TABLE IF EXISTS `absence_type_id`;
 CREATE TABLE `absence_type_id` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` tinytext NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -74,7 +74,7 @@ CREATE TABLE `absence_type_id` (
 
 DROP TABLE IF EXISTS `worker`;
 CREATE TABLE `worker` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `first_name` tinytext NOT NULL,
   `last_name` tinytext NOT NULL,
   `gender` int(1) NOT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE `worker` (
 
 DROP TABLE IF EXISTS `worker_holiday_number`;
 CREATE TABLE `worker_holiday_number` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `year` int(4) NOT NULL,
   `worker_holiday_number_total` int(2) NOT NULL,
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -115,7 +115,7 @@ CREATE TABLE `worker_holiday_number` (
 
 DROP TABLE IF EXISTS `work_log`;
 CREATE TABLE `work_log` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `description` tinytext NOT NULL,
   `status` int(1) NOT NULL,
   `begin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

@@ -12,7 +12,9 @@ public class WTConnection {
     public WTConnection() {
         this.dataSourceManager = new DriverManagerDataSource();
         this.dataSourceManager.setDriverClassName("com.mysql.jdbc.Driver");
-        this.dataSourceManager.setUrl("jdbc:mysql://localhost:3306/worktime?useUnicode=yes&characterEncoding=UTF-8");
+        this.dataSourceManager.setUrl("jdbc:mysql://localhost:3306/worktime?"
+                + "useUnicode=yes&characterEncoding=UTF-8"
+                + "&verifyServerCertificate=false&useSSL=false&requireSSL=false");
         this.dataSourceManager.setUsername("root");
         this.dataSourceManager.setPassword("root");
     }

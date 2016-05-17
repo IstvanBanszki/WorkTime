@@ -1,33 +1,46 @@
 package hu.unideb.worktime.jdbc.login;
 
-import hu.unideb.worktime.api.model.login.LoginKey;
 import hu.unideb.worktime.api.model.login.LoginRecord;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 
 import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.core.SqlReturnResultSet;
 import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SPLogin extends StoredProcedure{
+public class SPLogin extends StoredProcedure implements RowMapper<LoginRecord> {
 
     private static final String SP_NAME = "get_login";
-
+    private static final String SP_PARAMETER_1 = "login_name";
+    
     @Autowired
     public SPLogin(WTConnection wtConnection) {
-        super.setDataSource(wtConnection.getDataSource());
-        setSql(SP_NAME);
-        declareParameter(new SqlParameter("login_name", Types.VARCHAR));
-        declareParameter(new SqlParameter("password", Types.VARCHAR));
+        super(wtConnection.getDataSource(), SP_NAME);
+        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
+        declareParameter(new SqlReturnResultSet("result", this));
+        setFunction(false);
         compile();
     }
 
-    public LoginRecord execute(LoginKey key) {
-        Map<String, Object> result = super.execute(key.getLoginName(), key.getPassword());
-        return new LoginRecord((int) result.get("worker_id"), (String) result.get("role_name"));
+    public LoginRecord execute(String loginName) {
+        LoginRecord result = null;
+        List<LoginRecord> spResult = (List<LoginRecord>) super.execute(loginName).get("result");
+        if(spResult != null){
+            result = spResult.get(0);
+        }
+        return result;
+    }
+
+    @Override
+    public LoginRecord mapRow(ResultSet rs, int i) throws SQLException {
+        return new LoginRecord(rs.getInt("worker_id"), rs.getString("role_name"), rs.getString("password"));
     }
 }
