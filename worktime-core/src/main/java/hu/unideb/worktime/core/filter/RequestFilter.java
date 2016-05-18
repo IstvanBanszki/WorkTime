@@ -1,6 +1,6 @@
-package hu.unideb.worktime.service.filter;
+package hu.unideb.worktime.core.filter;
 
-import hu.unideb.worktime.service.security.WTEncryption;
+import hu.unideb.worktime.core.security.WTEncryption;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

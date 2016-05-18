@@ -1,4 +1,4 @@
-package hu.unideb.worktime.service.security
+package hu.unideb.worktime.core.security
 
 import spock.lang.Specification
 

@@ -1,9 +1,9 @@
-package hu.unideb.worktime.service.controller.login.v1;
+package hu.unideb.worktime.core.controller.login.v1;
 
 import hu.unideb.worktime.api.model.login.LoginKey;
 import hu.unideb.worktime.api.model.login.LoginRecord;
 import hu.unideb.worktime.jdbc.login.SqlCallLogin;
-import hu.unideb.worktime.service.security.WTEncryption;
+import hu.unideb.worktime.core.security.WTEncryption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

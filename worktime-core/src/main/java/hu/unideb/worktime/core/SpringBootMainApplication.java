@@ -1,4 +1,4 @@
-package hu.unideb.worktime.service;
+package hu.unideb.worktime.core;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class SpringBootMainApplication {
     
     public static void main(String[] args) {
-        hu.unideb.worktime.service.security.WTEncryption enc = new hu.unideb.worktime.service.security.WTEncryption();
+        hu.unideb.worktime.core.security.WTEncryption enc = new hu.unideb.worktime.core.security.WTEncryption();
         System.out.println(enc.encryptPassword("stalin"));
         System.out.println(enc.encryptPassword("thunder"));
         System.out.println(enc.encryptPassword("zacsko"));

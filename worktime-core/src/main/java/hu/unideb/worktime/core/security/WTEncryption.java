@@ -1,4 +1,4 @@
-package hu.unideb.worktime.service.security;
+package hu.unideb.worktime.core.security;
 
 import org.jasypt.contrib.org.apache.commons.codec_1_3.binary.Base64;
 import org.jasypt.digest.StandardStringDigester;

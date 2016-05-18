@@ -1,5 +1,5 @@
-description = 'WorkTimeService'
-group = 'hu.unideb.service'
+description = 'WorkTimeCore'
+group = 'hu.unideb.core'
 
 buildscript {
     repositories {
@@ -18,7 +18,7 @@ buildscript {
 apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'worktime-service'
+    baseName = 'worktime-core'
     version = '0.0.1-SNAPSHOT'
 }
 
@@ -43,7 +43,7 @@ dependencies {
 	//Jasypt 
 	compile "org.jasypt:jasypt:${jasyptVersion}"
 	compile "org.jasypt:jasypt-spring31:${jasyptVersion}"
-		
+
     // mandatory dependencies for using Spock
     compile "org.codehaus.groovy:groovy-all:2.4.1"
 	testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
