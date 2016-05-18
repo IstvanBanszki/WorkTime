@@ -1,5 +1,5 @@
 angular.module('Login', [])
-angular.module('myApp', ['Login', 'ngRoute'])        
+angular.module('myApp', ['Login', 'ngRoute', 'ngCookies'])        
 	.config(['$routeProvider', function ($routeProvider, $httpProvider) {
 		$routeProvider
 			.when('/login', {
@@ -12,5 +12,7 @@ angular.module('myApp', ['Login', 'ngRoute'])
 			})
 			.otherwise('/login');
 	}])
-	.run(['$rootScope', function ($rootScope, $location) {
+	.run(['$rootScope', '$cookieStore', function ($rootScope, $cookieStore) {
+        $rootScope.userData = $cookieStore.get('_logged_user') || {};
+		
 	}])

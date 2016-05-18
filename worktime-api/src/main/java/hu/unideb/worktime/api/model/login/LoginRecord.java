@@ -48,8 +48,8 @@ public class LoginRecord implements Serializable {
         }
         final LoginRecord other = (LoginRecord) obj;
         return this.workerId != other.workerId &&
-               (this.roleName != null ? this.roleName.equals(other.roleName) : other.roleName == null) &&
-               (this.password != null ? this.password.equals(other.password) : other.password == null);
+              (this.roleName != null ? this.roleName.equals(other.roleName) : other.roleName == null) &&
+              (this.password != null ? this.password.equals(other.password) : other.password == null);
     }
 
     @Override

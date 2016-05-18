@@ -2,17 +2,17 @@ package hu.unideb.worktime.api.model.login;
 
 import java.io.Serializable;
 
-public class LoginKey implements Serializable {
+public class LoginRequest implements Serializable {
 
     private final String loginName;
     private final String password;
 
-    public LoginKey() {
+    public LoginRequest() {
         this.loginName = "";
         this.password = "";
     }
 
-    public LoginKey(String loginName, String password) {
+    public LoginRequest(String loginName, String password) {
         this.loginName = loginName;
         this.password = password;
     }
@@ -44,7 +44,7 @@ public class LoginKey implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LoginKey other = (LoginKey) obj;
+        final LoginRequest other = (LoginRequest) obj;
         if ((other.loginName == this.loginName)
                 || (this.loginName != null && this.loginName.equals(other.loginName))) {
             return false;

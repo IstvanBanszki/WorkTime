@@ -1,4 +1,5 @@
 -- role table test data
+INSERT INTO `worktime`.`role` (`role`) VALUES ('NOT-SET');
 INSERT INTO `worktime`.`role` (`role`) VALUES ('COMPANY-ADMIN-ROLE');
 INSERT INTO `worktime`.`role` (`role`) VALUES ('SUPERIOR-ROLE');
 INSERT INTO `worktime`.`role` (`role`) VALUES ('WORKER-ROLE');

@@ -1,7 +1,8 @@
 package hu.unideb.worktime.core.controller.login.v1;
 
-import hu.unideb.worktime.api.model.login.LoginKey;
+import hu.unideb.worktime.api.model.login.LoginRequest;
 import hu.unideb.worktime.api.model.login.LoginRecord;
+import hu.unideb.worktime.api.model.login.LoginResponse;
 import hu.unideb.worktime.jdbc.login.SqlCallLogin;
 import hu.unideb.worktime.core.security.WTEncryption;
 import org.slf4j.Logger;
@@ -38,11 +39,17 @@ public class LoginController {
     }
     */
     @RequestMapping(value = "/getlogin", method = RequestMethod.POST, headers = "Content-Type=application/json")
-    public String getLogin(@RequestBody LoginKey request) {
+    public LoginResponse getLogin(@RequestBody LoginRequest request) {
+        LoginResponse result = null;
+        
         logger.info("Calling getlogin webservice with the following key: {}", request);
         LoginRecord record = sqlCallLogin.authenticate(request.getLoginName());
         logger.info("Result of getlogin webservice: {}", record);
-        return wtEncryption.checkPassword(request.getPassword(), record.getPassword()) + "";
+        
+        if( wtEncryption.checkPassword(request.getPassword(), record.getPassword()) ){
+            result = new LoginResponse(record.getWorkerId(), record.getRoleName());
+        }        
+        return result;
     }
 
     //TODO Dummy service for test purposes, after the app is finished, it should be deleted
