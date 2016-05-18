@@ -4,11 +4,11 @@ angular.module('myApp', ['Login', 'ngRoute'])
 		$routeProvider
 			.when('/login', {
 				controller: 'LoginController',
-				templateUrl: 'js/modules/login/login.html'
+				templateUrl: 'modules/login/login.html'
 			})
 			.when('/home', {
 				controller: 'HomeController',
-				templateUrl: 'js/modules/home/home.html'
+				templateUrl: 'modules/home/home.html'
 			})
 			.otherwise('/login');
 	}])
