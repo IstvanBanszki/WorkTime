@@ -31,12 +31,12 @@ angular.module("Login")
 		return userData;
 	}
 	service.SetUserData = function( parameter ){
-		var userDataCoded = btoa(parameter.loginName+':'+parameter.password);
+		var userDataCoded = btoa(parameter.loginName+':'+parameter.password+':'+parameter.workerId+':'+parameter.roleName);
 		$rootScope.userData = {
 			loginName: parameter.loginName,
+			password : parameter.password,
 			workerId : parameter.workerId,
-			roleName : parameter.roleName,
-			secret	 : userDataCoded
+			roleName : parameter.roleName
 		};
 		$http.defaults.headers.common['Authorization'] = $rootScope.userData;
 		$cookies.putObject('data', $rootScope.userData);

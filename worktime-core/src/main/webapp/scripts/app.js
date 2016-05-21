@@ -6,12 +6,14 @@ angular.module('myApp', ['Login', 'Home', 'ngRoute', 'ngCookies'])
 	.config(['$routeProvider', function ($routeProvider, $httpProvider) {
 		$routeProvider
 			.when('/login', {
-				controller: 'LoginController',
-				templateUrl: 'modules/login/login.html'
+				controller : 'LoginController',
+				templateUrl: 'modules/login/login.html',
+				title	   : 'WorkTime - Login'
 			})
 			.when('/home', {
-				controller: 'HomeController',
-				templateUrl: 'modules/home/home.html'
+				controller : 'HomeController',
+				templateUrl: 'modules/home/home.html',
+				title	   : 'WorkTime - Home'
 			})
 			.otherwise('/login');
 	}])
@@ -20,9 +22,14 @@ angular.module('myApp', ['Login', 'Home', 'ngRoute', 'ngCookies'])
 		if( $rootScope.userData ){
 			$http.defaults.headers.common['Authorization'] = $rootScope.userData.secret;			
 		}
-		$rootScope.$on( "$locationChangeStart", function(event, next, current) {
+		$rootScope.$on("$locationChangeStart", function(event, next, current) {
 			if( $location.path() !== '/login' && !$rootScope.userData ){
                 $location.path('/login');
             }
         });
+		$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+			if( current.hasOwnProperty('$$route') ){
+				$rootScope.title = current.$$route.title;
+			}
+		});
 	}])

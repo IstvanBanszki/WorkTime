@@ -21,7 +21,7 @@ public class RequestFilter extends OncePerRequestFilter {
 
         String authorization = hsr.getHeader("Authorization");
         if( authorization != null ){
-            System.out.println(encryption.base64Decode(authorization));
+            //System.out.println(encryption.base64Decode(authorization));
         }
         fc.doFilter(hsr, hsr1);
     }
