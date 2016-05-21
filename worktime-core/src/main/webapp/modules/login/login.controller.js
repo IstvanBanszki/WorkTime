@@ -1,9 +1,15 @@
+'use strict';
+
 angular.module('Login')
-.controller('LoginController', ['$scope', '$http', 'LoginService',
-    function ($scope, $http, LoginService) {
+.controller('LoginController', ['$scope', '$http', '$location', 'LoginService',
+    function ($scope, $http, $location, LoginService) {
 		$scope.loginName = "";
 		$scope.password = "";
 		$scope.login = function(){
-			LoginService.Login($scope.loginName, $scope.password);
+			var data = LoginService.Login($scope.loginName, $scope.password);
+			if( data ){
+				LoginService.SetUserData(data);
+				$location.path('/home');
+			}
 		}
     }]);

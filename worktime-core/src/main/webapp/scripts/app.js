@@ -1,5 +1,8 @@
+'use strict';
+
 angular.module('Login', [])
-angular.module('myApp', ['Login', 'ngRoute', 'ngCookies'])        
+angular.module('Home', [])
+angular.module('myApp', ['Login', 'Home', 'ngRoute', 'ngCookies'])        
 	.config(['$routeProvider', function ($routeProvider, $httpProvider) {
 		$routeProvider
 			.when('/login', {
@@ -12,7 +15,14 @@ angular.module('myApp', ['Login', 'ngRoute', 'ngCookies'])
 			})
 			.otherwise('/login');
 	}])
-	.run(['$rootScope', '$cookieStore', function ($rootScope, $cookieStore) {
-        $rootScope.userData = $cookieStore.get('_logged_user') || {};
-		
+	.run(['$rootScope', '$cookies', '$location', '$http', function ($rootScope, $cookies, $location, $http) {
+        $rootScope.userData = $cookies.getObject('data');
+		if( $rootScope.userData ){
+			$http.defaults.headers.common['Authorization'] = $rootScope.userData.secret;			
+		}
+		$rootScope.$on( "$locationChangeStart", function(event, next, current) {
+			if( $location.path() !== '/login' && !$rootScope.userData ){
+                $location.path('/login');
+            }
+        });
 	}])

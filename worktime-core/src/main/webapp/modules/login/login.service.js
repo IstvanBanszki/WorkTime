@@ -1,8 +1,10 @@
+'use strict';
+
 angular.module("Login")
-.factory('LoginService', ['$http', '$cookieStore', '$rootScope', function LoginServiceFactory($http, $cookieStore, $rootScope){
+.factory('LoginService', ['$http', '$cookies', '$rootScope', function LoginServiceFactory($http, $cookies, $rootScope){
 	var service = {};	
 	service.Login = function( loginName, password ){
-		var response = {}
+		var userData = {}
 		$http({
 			method : "POST",
 			url : "/rest/login/v1/getlogin",
@@ -15,34 +17,34 @@ angular.module("Login")
 			}
 		}).then(function (response) {
 			if( response.data ){
-				response.workerId = response.data.workerId;
-				response.roleName = response.data.roleName;
-				response.loginName = response.data.loginName;
+				userData.workerId = response.data.workerId;
+				userData.roleName = response.data.roleName;
+				userData.loginName = loginName;
+				userData.password  = password;
 			} else {
-				response.workerId = {};
-				response.roleName = {};
-				response.loginName = {};				
+				userData.workerId = {};
+				userData.roleName = {};				
 			}
-			response.statuscode = response.status;
-			response.statustext = response.statustext; 
+			userData.statuscode = response.status;
+			userData.statustext = response.statustext; 
 		});
-		return response;
+		return userData;
 	}
-	service.SetUserData = function( loginName, password, workerId, roleName ){
+	service.SetUserData = function( parameter ){
+		var userDataCoded = btoa(parameter.loginName+':'+parameter.password);
 		$rootScope.userData = {
-			loginName: loginName,
-			password: password,
-			workerId: workerId,
-			roleName: roleName
+			loginName: parameter.loginName,
+			workerId : parameter.workerId,
+			roleName : parameter.roleName,
+			secret	 : userDataCoded
 		};
-		var userDataCoded = btoa(loginName+':'+password);
-		$http.defaults.headers.common['Authorization'] = userDataCoded;
-		$cookieStore.put('globals', userDataCoded);
+		$http.defaults.headers.common['Authorization'] = $rootScope.userData;
+		$cookies.putObject('data', $rootScope.userData);
 	}
-	service.ClearUserData = function(){
+	service.RemoveUserData = function(){
 		$rootScope.userData= {};
         $http.defaults.headers.common.Authorization = {};
-		$cookieStore.remove('globals');
+		$cookies.remove('data');
 	}
 	return service;
 }])
