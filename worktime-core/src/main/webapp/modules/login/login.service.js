@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module("Login")
-.factory('LoginService', ['$http', '$cookies', '$rootScope', function LoginServiceFactory($http, $cookies, $rootScope){
+.factory('LoginService', ['$http', '$cookies', '$rootScope', '$q', function LoginServiceFactory($http, $cookies, $rootScope, $q){
 	var service = {};	
 	service.Login = function( loginName, password ){
-		var userData = {}
-		$http({
+		var deferred = $q.defer();
+		var userData = {};
+		return $http({
 			method : "POST",
 			url : "/rest/login/v1/getlogin",
 			headers : {
@@ -15,20 +16,21 @@ angular.module("Login")
 				'loginName': loginName, 
 				'password': password
 			}
-		}).then(function (response) {
-			if( response.data ){
-				userData.workerId = response.data.workerId;
-				userData.roleName = response.data.roleName;
+		}).then(function successCallback(response) {
+			
+				userData.workerId  = response.data.workerId;
+				userData.roleName  = response.data.roleName;
 				userData.loginName = loginName;
 				userData.password  = password;
-			} else {
-				userData.workerId = {};
-				userData.roleName = {};				
-			}
-			userData.statuscode = response.status;
-			userData.statustext = response.statustext; 
-		});
-		return userData;
+
+				deferred.resolve(userData);
+				return deferred.promise;
+				
+			}, function errorCallback(response) {
+
+				deferred.reject(response);
+				return deferred.promise;
+			});
 	}
 	service.SetUserData = function( parameter ){
 		var userDataCoded = btoa(parameter.loginName+':'+parameter.password+':'+parameter.workerId+':'+parameter.roleName);

@@ -4,12 +4,20 @@ angular.module('Login')
 .controller('LoginController', ['$scope', '$http', '$location', 'LoginService',
     function ($scope, $http, $location, LoginService) {
 		$scope.loginName = "";
-		$scope.password = "";
+		$scope.password  = "";
+		$scope.error 	 = false;
 		$scope.login = function(){
-			var data = LoginService.Login($scope.loginName, $scope.password);
-			if( data ){
-				LoginService.SetUserData(data);
-				$location.path('/home');
-			}
+			LoginService.Login($scope.loginName, $scope.password)
+				.then(
+					function( result ){
+						LoginService.SetUserData( result );
+						$location.path('/home');
+					},
+					function( error ){
+						
+						$scope.error = true;
+						$scope.errorMessage = error.status;
+					}
+				);
 		}
     }]);
