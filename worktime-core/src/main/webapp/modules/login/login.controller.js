@@ -4,8 +4,8 @@ angular.module('Login')
 .controller('LoginController', ['$scope', '$http', '$location', 'LoginService',
     function ($scope, $http, $location, LoginService) {
 		$scope.loginName = "";
-		$scope.password  = "";
-		$scope.error 	 = false;
+		$scope.password = "";
+		$scope.error = false;
 		$scope.login = function(){
 			LoginService.Login($scope.loginName, $scope.password)
 				.then(
@@ -19,5 +19,9 @@ angular.module('Login')
 						$scope.errorMessage = error.status;
 					}
 				);
+		}
+		$scope.logout = function(){
+			LoginService.RemoveUserData();
+			$location.path('/login');
 		}
     }]);

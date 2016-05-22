@@ -15,8 +15,8 @@
 		<title ng-bind="title"></title>
 	</head>
 	<body>
-		<div ng-include="'modules/home/home.header.html'" ng-hide="URL == '/login'"></div>
+		<div ng-include="'modules/home/home.header.html'" ng-if="location.path() !== '/login'"></div>
 		<div ng-view></div>
-		<div ng-include="'modules/home/menu.html'" ng-hide="URL == '/login'"></div>
+		<div ng-include="'modules/home/menu.html'" ng-if="location.path() !== '/login'"></div>
 	</body>
 </html>
