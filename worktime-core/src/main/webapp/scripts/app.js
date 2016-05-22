@@ -12,7 +12,7 @@ angular.module('myApp', ['Login', 'Home', 'ngRoute', 'ngCookies'])
 			})
 			.when('/home', {
 				controller : 'HomeController',
-				templateUrl: 'modules/home/home.html',
+				templateUrl: 'modules/home/home.page.html',
 				title	   : 'WorkTime - Home'
 			})
 			.otherwise('/login');

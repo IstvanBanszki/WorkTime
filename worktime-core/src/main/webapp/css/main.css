@@ -2,3 +2,16 @@ body {
     margin: 0;
     padding: 0;
 }
+.menu {
+	position: fixed;
+	margin-left:15%;
+	width: 11%;
+	display: block;
+}
+.menu-element {
+    position: absolute;
+	width: 59%;
+	margin-left:26%;
+	margin-right:15%;
+	margin-top: 5%;
+}
