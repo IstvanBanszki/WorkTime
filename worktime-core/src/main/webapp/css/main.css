@@ -8,10 +8,9 @@ body {
 	width: 11%;
 	display: block;
 }
-.menu-element {
+.page-element {
     position: absolute;
 	width: 59%;
 	margin-left:26%;
 	margin-right:15%;
-	margin-top: 5%;
 }

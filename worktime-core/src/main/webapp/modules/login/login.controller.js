@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('Login')
-.controller('LoginController', ['$scope', '$http', '$location', 'LoginService',
-    function ($scope, $http, $location, LoginService) {
+.controller('LoginController', ['$scope', '$location', 'LoginService',
+    function ($scope, $location, LoginService) {
 		$scope.loginName = "";
 		$scope.password = "";
 		$scope.error = false;
