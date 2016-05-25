@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 public class SqlCallLogin {
 
     @Autowired
-    private SPLogin spLogin;
+    private SpLogin spLogin;
     private Logger logger;
 
     public SqlCallLogin() {
         this.logger = LoggerFactory.getLogger(SqlCallLogin.class);
     }
 
-    public LoginRecord authenticate(String loginName) {
+    public LoginRecord getLoginData(String loginName) {
         LoginRecord result = null;
         logger.info("Call get_login SP with given parameters: {}", loginName);
         try {

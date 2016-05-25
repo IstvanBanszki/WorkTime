@@ -16,23 +16,24 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SPLogin extends StoredProcedure implements RowMapper<LoginRecord> {
+public class SpLogin extends StoredProcedure implements RowMapper<LoginRecord> {
 
     private static final String SP_NAME = "get_login";
     private static final String SP_PARAMETER_1 = "login_name";
+    private static final String SP_RESULT = "result";
     
     @Autowired
-    public SPLogin(WTConnection wtConnection) {
+    public SpLogin(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
-        declareParameter(new SqlReturnResultSet("result", this));
+        declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();
     }
 
     public LoginRecord execute(String loginName) {
         LoginRecord result = null;
-        List<LoginRecord> spResult = (List<LoginRecord>) super.execute(loginName).get("result");
+        List<LoginRecord> spResult = (List<LoginRecord>) super.execute(loginName).get(SP_RESULT);
         if(spResult != null){
             result = spResult.get(0);
         }
@@ -41,6 +42,8 @@ public class SPLogin extends StoredProcedure implements RowMapper<LoginRecord> {
 
     @Override
     public LoginRecord mapRow(ResultSet rs, int i) throws SQLException {
-        return new LoginRecord(rs.getInt("worker_id"), rs.getString("role_name"), rs.getString("password"));
+        return new LoginRecord(rs.getInt("worker_id"), 
+                               rs.getString("role_name"), 
+                               rs.getString("password"));
     }
 }
