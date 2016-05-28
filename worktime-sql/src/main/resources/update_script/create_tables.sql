@@ -127,6 +127,6 @@ CREATE TABLE `work_log` (
   PRIMARY KEY (`id`),
   KEY `FK_wl_worker_idx` (`worker_id`),
   KEY `FK_wl_absence_type_idx` (`absence_type_id`),
-  CONSTRAINT `FK_wl_absence_type_id` FOREIGN KEY (`absence_type`) REFERENCES `absence_type_id` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_wl_absence_type_id` FOREIGN KEY (`absence_type_id`) REFERENCES `absence_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_wl_worker_id` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

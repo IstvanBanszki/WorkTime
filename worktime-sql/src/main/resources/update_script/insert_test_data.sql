@@ -5,13 +5,13 @@ INSERT INTO `worktime`.`role` (`role`) VALUES ('SUPERIOR-ROLE');
 INSERT INTO `worktime`.`role` (`role`) VALUES ('WORKER-ROLE');
 
 -- user table test data
-INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('root', 'AD3BwdmBpksCUTCj7cdYTnzyqavtcO+ZMhum6A==', 1); -- root
-INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('alajos', 'P1pcDYM6N5A3AY30tJgTi3d6HbPQEPUu5dmdPQ==', 3); -- szalonna
-INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('orc_worker', 'Wk9bcfJU036YdiSCD6xALHZjzKt7Ne0LvynG3A==', 2); -- test_password
-INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('angel', 'OD5QEBn2+aZhaGb9TGIBs4ENbYjaMRUIDE5r4g==', 3); -- palinka
-INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('joseph', 'onqj5XFLgXVsjLx6H9lLYSnHVMnCQTKaS/HlCg==', 2); -- stalin
-INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('rambo', 'GAE0V+VEW0153J8GWTEr6W1qrcJgn5mnEpGOTA==', 3); -- thunder
-INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('terminator', 'seLwFCP0j9VkEppU2i+S/41PJ7oVhC6f0vn9/A==', 3); -- zacsko
+INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('root', 'AD3BwdmBpksCUTCj7cdYTnzyqavtcO+ZMhum6A==', 2); -- root
+INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('alajos', 'P1pcDYM6N5A3AY30tJgTi3d6HbPQEPUu5dmdPQ==', 4); -- szalonna
+INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('orc_worker', 'Wk9bcfJU036YdiSCD6xALHZjzKt7Ne0LvynG3A==', 3); -- test_password
+INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('angel', 'OD5QEBn2+aZhaGb9TGIBs4ENbYjaMRUIDE5r4g==', 4); -- palinka
+INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('joseph', 'onqj5XFLgXVsjLx6H9lLYSnHVMnCQTKaS/HlCg==', 3); -- stalin
+INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('rambo', 'GAE0V+VEW0153J8GWTEr6W1qrcJgn5mnEpGOTA==', 4); -- thunder
+INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('terminator', 'seLwFCP0j9VkEppU2i+S/41PJ7oVhC6f0vn9/A==', 4); -- zacsko
 
 -- office table test data
 INSERT INTO `worktime`.`office` (`name`, `address`) VALUES ('Example Company', '4023 Debrecen Csapo utca 23.');
@@ -24,10 +24,10 @@ INSERT INTO `worktime`.`department` (`name`, `office_id`) VALUES ('Sales Departm
 INSERT INTO `worktime`.`department` (`name`, `office_id`) VALUES ('Management Department', 1);
 
 -- absence_type table test data
-INSERT INTO `worktime`.`absence_type_id` (`name`) VALUES ('PAYED');
-INSERT INTO `worktime`.`absence_type_id` (`name`) VALUES ('UNPAYED');
-INSERT INTO `worktime`.`absence_type_id` (`name`) VALUES ('SICK-PAY');
-INSERT INTO `worktime`.`absence_type_id` (`name`) VALUES ('VERIFIED');
+INSERT INTO `worktime`.`absence_type` (`name`) VALUES ('PAYED');
+INSERT INTO `worktime`.`absence_type` (`name`) VALUES ('UNPAYED');
+INSERT INTO `worktime`.`absence_type` (`name`) VALUES ('SICK-PAY');
+INSERT INTO `worktime`.`absence_type` (`name`) VALUES ('VERIFIED');
 
 -- worker table test data
 INSERT INTO `worktime`.`worker` (`first_name`, `last_name`, `gender`, `date_of_birth`, `nationality`, `position`, `email_address`, `daily_work_hour_total`, `superior_work_id`, `department_id`, `user_id`)
