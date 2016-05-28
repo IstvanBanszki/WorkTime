@@ -19,8 +19,6 @@
 		<title ng-bind="title"></title>
 	</head>
 	<body>
-		<div ng-include="'modules/home/home.header.html'" ng-controller="HomeController" ng-show="needToShow"></div>
 		<div ng-view></div>
-		<div ng-include="'modules/home/menu.html'" ng-controller="HomeController" ng-show="needToShow"></div>
 	</body>
 </html>

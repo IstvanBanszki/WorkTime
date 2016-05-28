@@ -2,7 +2,6 @@ package hu.unideb.worktime.api.model.profile;
 
 import hu.unideb.worktime.api.model.Gender;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 public class ProfileRecord {
     
@@ -30,6 +29,104 @@ public class ProfileRecord {
         this.dailyWorkHourTotal = dailyWorkHourTotal;
         this.departmentName = departmentName;
         this.officeName = officeName;
+    }
+
+    public static class ProfileRecordBuilder {
+        
+        private LocalDateTime dateOfRegistration;
+        private String firstName;
+        private String lastName;
+        private Gender gender;
+        private LocalDateTime dateOfBirth;
+        private String nationality;
+        private String position;
+        private String emailAddress;
+        private int dailyWorkHourTotal;
+        private String departmentName;
+        private String officeName;
+
+        public ProfileRecordBuilder() {
+            this.dateOfRegistration = null;
+            this.firstName = "";
+            this.lastName = "";
+            this.gender = Gender.NOT_SET;
+            this.dateOfBirth = null;
+            this.nationality = "";
+            this.position = "";
+            this.emailAddress = "";
+            this.dailyWorkHourTotal = 0;
+            this.departmentName = "";
+            this.officeName = "";
+        }
+
+        public ProfileRecordBuilder setDateOfRegistration(LocalDateTime dateOfRegistration) {
+            this.dateOfRegistration = dateOfRegistration;
+            return this;
+        }
+
+        public ProfileRecordBuilder setFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public ProfileRecordBuilder setLastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public ProfileRecordBuilder setGender(Gender gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public ProfileRecordBuilder setDateOfBirth(LocalDateTime dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
+            return this;
+        }
+
+        public ProfileRecordBuilder setNationality(String nationality) {
+            this.nationality = nationality;
+            return this;
+        }
+
+        public ProfileRecordBuilder setPosition(String position) {
+            this.position = position;
+            return this;
+        }
+
+        public ProfileRecordBuilder setEmailAddress(String emailAddress) {
+            this.emailAddress = emailAddress;
+            return this;
+        }
+
+        public ProfileRecordBuilder setDailyWorkHourTotal(int dailyWorkHourTotal) {
+            this.dailyWorkHourTotal = dailyWorkHourTotal;
+            return this;
+        }
+
+        public ProfileRecordBuilder setDepartmentName(String departmentName) {
+            this.departmentName = departmentName;
+            return this;
+        }
+
+        public ProfileRecordBuilder setOfficeName(String officeName) {
+            this.officeName = officeName;
+            return this;
+        }
+        
+        public ProfileRecord build(){
+            return new ProfileRecord(this.dateOfRegistration,
+                                     this.firstName,
+                                     this.lastName,
+                                     this.gender,
+                                     this.dateOfBirth,
+                                     this.nationality,
+                                     this.position,
+                                     this.emailAddress,
+                                     this.dailyWorkHourTotal,
+                                     this.departmentName,
+                                     this.officeName);
+        }
     }
 
     public LocalDateTime getDateOfRegistration() {

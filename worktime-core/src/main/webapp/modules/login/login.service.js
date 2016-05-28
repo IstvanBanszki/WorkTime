@@ -33,7 +33,6 @@ angular.module("Login")
 			});
 	}
 	service.SetUserData = function( parameter ){
-		$rootScope.needToShow = true;
 		var userDataCoded = btoa(parameter.loginName+':'+parameter.password+':'+parameter.workerId+':'+parameter.roleName);
 		$rootScope.userData = {
 			loginName: parameter.loginName,
@@ -45,7 +44,6 @@ angular.module("Login")
 		$cookies.putObject('data', $rootScope.userData);
 	}
 	service.RemoveUserData = function(){
-		$rootScope.needToShow = false;
 		$rootScope.userData= {};
         $http.defaults.headers.common.Authorization = {};
 		$cookies.remove('data');

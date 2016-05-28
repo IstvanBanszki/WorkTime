@@ -2,10 +2,12 @@ package hu.unideb.worktime.jdbc.profile;
 
 import hu.unideb.worktime.api.model.Gender;
 import hu.unideb.worktime.api.model.profile.ProfileRecord;
+import hu.unideb.worktime.api.model.profile.ProfileRecord.ProfileRecordBuilder;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -41,17 +43,18 @@ public class SpProfile extends StoredProcedure implements RowMapper<ProfileRecor
 
     @Override
     public ProfileRecord mapRow(ResultSet rs, int i) throws SQLException {
-        return new ProfileRecord(rs.getTimestamp("date_of_registration").toLocalDateTime(),
-                                 rs.getString("first_name"), 
-                                 rs.getString("last_name"), 
-                                 Gender.valueOf(rs.getInt("gender")), 
-                                 rs.getTimestamp("date_of_birth").toLocalDateTime(), 
-                                 rs.getString("nationality"), 
-                                 rs.getString("position"), 
-                                 rs.getString("email_address"), 
-                                 rs.getInt("daily_work_hour_total"), 
-                                 rs.getString("department_name"), 
-                                 rs.getString("office_name"));
+        return new ProfileRecordBuilder().setDateOfRegistration(rs.getTimestamp("date_of_registration").toLocalDateTime())
+                                         .setFirstName(rs.getString("first_name"))
+                                         .setLastName(rs.getString("last_name"))
+                                         .setGender(Gender.valueOf(rs.getInt("gender")))
+                                         .setDateOfBirth(rs.getTimestamp("date_of_birth").toLocalDateTime())
+                                         .setNationality(rs.getString("nationality"))
+                                         .setPosition(rs.getString("position"))
+                                         .setEmailAddress(rs.getString("email_address"))
+                                         .setDailyWorkHourTotal(rs.getInt("daily_work_hour_total"))
+                                         .setDepartmentName(rs.getString("department_name"))
+                                         .setOfficeName(rs.getString("office_name"))
+                                         .build();
     }
     
 }
