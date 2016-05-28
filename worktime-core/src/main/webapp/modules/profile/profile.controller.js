@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('Profile')
-.controller('ProfileController', ['$scope', 'ProfileService',
-    function ($scope, ProfileService) {
+.controller('ProfileController', ['$scope', '$rootScope', 'ProfileService',
+    function ($scope, $rootScope, ProfileService) {
 		$scope.tabs = [{
             title: 'Account',
             url: 'modules/profile/profile.account.html'
@@ -13,26 +13,40 @@ angular.module('Profile')
             title: 'Work',
             url: 'modules/profile/profile.work.html'
 		}];
-		$scope.currentTab = 'profile.account.html';
-		$scope.onClickTab = function (tab) {
-			$scope.currentTab = tab.url;
-		}
+		$scope.currentTab = 'modules/profile/profile.account.html';
+
 		$scope.isActiveTab = function(tabUrl) {
 			return tabUrl == $scope.currentTab;
 		}
-		// Account Tab - initial value
-		$scope.loginName = "";
-		$scope.dateOfRegistration = ";
-		$scope.role = "";
-		// Personal Tab - initial value
-		$scope.firstName = "";
-		$scope.lastName = "";
-		$scope.gender = "";
-		$scope.dateOfBirth = "";
-		$scope.nationality = "";
-		// Work Tab - initial value
-		$scope.position = "";
-		$scope.emailAddress = "";
-		$scope.dailyWorkHour = "";
-		$scope.superior = "";
+		$scope.onClickTab = function (tab) {
+			$scope.currentTab = tab.url;
+		}
+		$scope.init = function () {
+			ProfileService.Profile( $rootScope.userData.workerId ).then(
+				function( result ){
+					ProfileService.SetProfileData( result );
+					// Account Tab - initial value
+					$scope.loginName = $rootScope.userData.loginName;
+					$scope.dateOfRegistration = result.dateOfRegistration;
+					$scope.role = $rootScope.userData.roleName;
+					// Personal Tab - initial value
+					$scope.firstName = result.firstName;
+					$scope.lastName = result.lastName;
+					$scope.gender = result.gender;
+					$scope.dateOfBirth = result.dateOfBirth;
+					$scope.nationality = result.nationality ;
+					// Work Tab - initial value
+					$scope.position = result.position;
+					$scope.emailAddress = result.emailAddress;
+					$scope.dailyWorkHourTotal = result.dailyWorkHourTotal;
+					$scope.departmentName = result.departmentName;
+					$scope.officeName = result.officeName;
+				},
+				function( error ){
+					$scope.error = true;
+					ProfileService.RemoveProfileData();
+					$scope.errorMessage = error.status;
+				}
+			)
+		};
     }]);

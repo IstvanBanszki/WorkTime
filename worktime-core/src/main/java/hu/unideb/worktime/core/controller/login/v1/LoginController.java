@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -25,33 +26,34 @@ public class LoginController {
 
     @Autowired
     private WTEncryption wtEncryption;
-        
+
     private Logger logger;
-    
-    public LoginController(){
+
+    public LoginController() {
         this.logger = LoggerFactory.getLogger(LoginController.class);
     }
+
     /*
     --------------------
     Example JSON content
     --------------------
     {
-	"login_name": "login",
+	"loginName": "login",
 	"password": "easy"
     }
-    */
+     */
     @Async
     @RequestMapping(value = "/getlogin", method = RequestMethod.POST, headers = "Content-Type=application/json")
-    public LoginResponse getLogin(@RequestBody LoginRequest request) {
+    public @ResponseBody LoginResponse getLogin(@RequestBody LoginRequest request) {
         LoginResponse result = null;
-        
-        logger.info("Calling getlogin webservice with the following key: {}", request);
-        LoginRecord record = sqlCallLogin.authenticate(request.getLoginName());
-        logger.info("Result of getlogin webservice: {}", record);
-        
-        if( wtEncryption.checkPassword(request.getPassword(), record.getPassword()) ){
+
+        this.logger.info("Calling getlogin webservice with the following key: {}", request);
+        LoginRecord record = this.sqlCallLogin.authenticate(request.getLoginName());
+        this.logger.info("Result of getlogin webservice: {}", record);
+
+        if (record != null && this.wtEncryption.checkPassword(request.getPassword(), record.getPassword())) {
             result = new LoginResponse(record.getWorkerId(), record.getRoleName());
-        }        
+        }
         return result;
     }
 

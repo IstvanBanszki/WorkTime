@@ -17,7 +17,7 @@ public class SqlCallLogin {
         this.logger = LoggerFactory.getLogger(SqlCallLogin.class);
     }
 
-    public LoginRecord getLoginData(String loginName) {
+    public LoginRecord authenticate(String loginName) {
         LoginRecord result = null;
         logger.info("Call get_login SP with given parameters: {}", loginName);
         try {

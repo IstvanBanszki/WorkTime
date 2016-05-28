@@ -1,5 +1,5 @@
 <div class="page-element">
-	<div class="profile-tabs" ng-controller="ProfileController">
+	<div class="profile-tabs" ng-controller="ProfileController" ng-init="init()">
 		<ul>
 			<li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
 		</ul>

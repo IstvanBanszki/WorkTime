@@ -1,29 +1,34 @@
 'use strict';
 
 angular.module("Profile")
-.factory('ProfileService', ['$http', '$cookies', '$rootScope', '$q', function ProfileServiceFactory($http, $cookies, $rootScope, $q){
+.factory('ProfileService', ['$http', '$rootScope', '$q', function ProfileServiceFactory($http, $rootScope, $q){
 	var service = {};	
-	service.Login = function( loginName, password ){
+	service.Profile = function( workerId ){
 		var deferred = $q.defer();
-		var userData = {};
+		var profileData = {};
 		return $http({
 			method : "POST",
-			url : "/rest/login/v1/getlogin",
+			url : "/rest/profile/v1/getprofile/"+workerId,
 			headers : {
 				'Content-Type': 'application/json'
-			},
-			data: { 
-				'loginName': loginName, 
-				'password': password
 			}
 		}).then(function successCallback(response) {
 			
-				userData.workerId  = response.data.workerId;
-				userData.roleName  = response.data.roleName;
-				userData.loginName = loginName;
-				userData.password  = password;
+				profileData.dateOfRegistration = response.data.dateOfRegistration;
 
-				deferred.resolve(userData);
+				profileData.firstName = response.data.firstName;
+				profileData.lastName = response.data.lastName;
+				profileData.gender = response.data.gender;
+				profileData.dateOfBirth = response.data.dateOfBirth;
+				profileData.nationality = response.data.nationality;
+
+				profileData.position = response.data.position;
+				profileData.emailAddress = response.data.emailAddress;
+				profileData.dailyWorkHourTotal = response.data.dailyWorkHourTotal;
+				profileData.departmentName = response.data.departmentName;
+				profileData.officeName = response.data.officeName;
+
+				deferred.resolve(profileData);
 				return deferred.promise;
 				
 			}, function errorCallback(response) {
@@ -32,21 +37,21 @@ angular.module("Profile")
 				return deferred.promise;
 			});
 	}
-	service.SetUserData = function( parameter ){
-		var userDataCoded = btoa(parameter.loginName+':'+parameter.password+':'+parameter.workerId+':'+parameter.roleName);
-		$rootScope.userData = {
-			loginName: parameter.loginName,
-			password : parameter.password,
-			workerId : parameter.workerId,
-			roleName : parameter.roleName
+	service.SetProfileData = function( parameter ){
+		$rootScope.profileData = {
+			firstName: parameter.firstName,
+			lastName : parameter.lastName,
+			gender : parameter.gender,
+			dateOfBirth : parameter.dateOfBirth,
+			nationality : parameter.nationality,
+			position : parameter.position,
+			dailyWorkHourTotal : parameter.dailyWorkHourTotal,
+			departmentName : parameter.departmentName,
+			officeName : parameter.officeName
 		};
-		$http.defaults.headers.common['Authorization'] = $rootScope.userData;
-		$cookies.putObject('data', $rootScope.userData);
 	}
-	service.RemoveUserData = function(){
-		$rootScope.userData= {};
-        $http.defaults.headers.common.Authorization = {};
-		$cookies.remove('data');
+	service.RemoveProfileData = function(){
+		$rootScope.profileData= {};
 	}
 	return service;
 }])

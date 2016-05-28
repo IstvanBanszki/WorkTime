@@ -51,7 +51,7 @@ public class SpProfile extends StoredProcedure implements RowMapper<ProfileRecor
                                  rs.getString("email_address"), 
                                  rs.getInt("daily_work_hour_total"), 
                                  rs.getString("department_name"), 
-                                 rs.getString("department_name"));
+                                 rs.getString("office_name"));
     }
     
 }
