@@ -18,7 +18,18 @@ angular.module('Worklog')
 		$scope.onClickTab = function(tab) {
 			$scope.currentTab = tab.url;
 		}
-		$scope.addWorklog = function(begin, end, description) {
-			WorklogService.WorklogService
+		$scope.description = "";
+		$scope.begin = "";
+		$scope.end = "";
+
+		$scope.addWorklog = function() {
+			WorklogService.AddWorklog($scope.description, $scope.begin, $scope.end, $rootScope.userData.workerId).then(
+				function( result ){
+					
+				},
+				function( error ){
+					
+				}
+			)
 		}
     }]);

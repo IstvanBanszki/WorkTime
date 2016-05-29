@@ -1,7 +1,7 @@
 package hu.unideb.worktime.core.controller.worklog.v1;
 
 import hu.unideb.worktime.api.model.worklog.SaveWorklogRequest;
-import hu.unideb.worktime.jdbc.connection.worklog.SqlCallSaveWorklog;
+import hu.unideb.worktime.jdbc.worklog.SqlCallSaveWorklog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,8 @@ public class WorklogController {
     --------------------
     {
         "description": "test description",
-        "begin": "2016.05.20 08:30:00",
-        "end": "2016.05.20 16:30:00",
+        "begin": "2016-05-20T08:30:00.000",
+        "end": "2016-05-20T16:30:00.000",
         "workerId": 1
     }
      */

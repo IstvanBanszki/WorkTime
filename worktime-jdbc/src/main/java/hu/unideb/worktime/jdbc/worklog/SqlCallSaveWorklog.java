@@ -1,5 +1,6 @@
-package hu.unideb.worktime.jdbc.connection.worklog;
+package hu.unideb.worktime.jdbc.worklog;
 
+import hu.unideb.worktime.jdbc.worklog.SpSaveWorklog;
 import hu.unideb.worktime.api.model.worklog.SaveWorklogRequest;
 import hu.unideb.worktime.jdbc.profile.SqlCallProfile;
 import org.slf4j.Logger;
