@@ -110,11 +110,11 @@ CREATE TABLE `worker_holiday_number` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /* ***************************************************
-				work_log table creation
+				worklog table creation
    *************************************************** */
 
-DROP TABLE IF EXISTS `work_log`;
-CREATE TABLE `work_log` (
+DROP TABLE IF EXISTS `worklog`;
+CREATE TABLE `worklog` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `description` tinytext NOT NULL,
   `status` int(1) NOT NULL,

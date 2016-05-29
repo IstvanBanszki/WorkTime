@@ -15,9 +15,10 @@ angular.module('Worklog')
 		$scope.isActiveTab = function(tabUrl) {
 			return tabUrl == $scope.currentTab;
 		}
-		$scope.onClickTab = function (tab) {
+		$scope.onClickTab = function(tab) {
 			$scope.currentTab = tab.url;
 		}
-		$scope.init = function () {
-		};
+		$scope.addWorklog = function(begin, end, description) {
+			WorklogService.WorklogService
+		}
     }]);

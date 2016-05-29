@@ -1,7 +1,6 @@
 package hu.unideb.worktime.core.controller.profile.v1;
 
 import hu.unideb.worktime.api.model.profile.ProfileRecord;
-import hu.unideb.worktime.core.controller.login.v1.LoginController;
 import hu.unideb.worktime.jdbc.profile.SqlCallProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,21 +18,12 @@ public class ProfileController {
 
     @Autowired
     private SqlCallProfile sqlCallProfile;
-
     private Logger logger;
 
     public ProfileController() {
-        this.logger = LoggerFactory.getLogger(LoginController.class);
+        this.logger = LoggerFactory.getLogger(ProfileController.class);
     }
 
-    /*
-    --------------------
-    Example JSON content
-    --------------------
-    {
-        "workerId": 3
-    }
-     */
     @Async
     @RequestMapping(value = "/getprofile/{workerId}", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody ProfileRecord getProfile(@PathVariable Integer workerId) {

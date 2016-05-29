@@ -8,6 +8,7 @@ buildscript {
     ext {
 		springBootVersion = '1.3.5.RELEASE'
 		jasyptVersion = '1.9.2'
+		fasterXmlVersion = '2.6.1'
     }
     dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
@@ -39,7 +40,9 @@ dependencies {
 	
 	//Google Guava Libraries
 	
-	
+	//FasterXml for Java 8 time representation in JSON object
+	compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${fasterXmlVersion}"
+
 	//Jasypt 
 	compile "org.jasypt:jasypt:${jasyptVersion}"
 	compile "org.jasypt:jasypt-spring31:${jasyptVersion}"

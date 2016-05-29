@@ -3,12 +3,12 @@
 angular.module("Worklog")
 .factory('WorklogService', ['$http', '$rootScope', '$q', function WorklogServiceFactory($http, $rootScope, $q){
 	var service = {};	
-	service.Profile = function( workerId ){
+	service.AddProfile = function(begin, end, description) {
 		var deferred = $q.defer();
 		var profileData = {};
 		return $http({
 			method : "POST",
-			url : "/rest/profile/v1/getprofile/"+workerId,
+			url : "/rest/worklog/v1/getworklog/",
 			headers : {
 				'Content-Type': 'application/json'
 			}
