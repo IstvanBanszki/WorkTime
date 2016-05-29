@@ -2,9 +2,9 @@
 <div ng-include="'modules/home/home.header.html'"></div>
 <div ng-include="'modules/home/home.menu.html'"></div>
 <div class="page-element">
-	<div class="tab" ng-controller="WorklogController">
-		<ul>
-			<li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">{{tab.title}}</li>
+	<div ng-controller="WorklogController" ng-init="initWorklog()">
+		<ul class="w3-navbar w3-green w3-border w3-large">
+			<li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}"><a class="w3-hover-teal" ng-click="onClickTab(tab)">{{tab.title}}</a></li>
 		</ul>
 		<div id="tabView">
 			<div ng-include="currentTab"></div>

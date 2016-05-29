@@ -12,9 +12,16 @@ angular.module('Home')
 		}, {
 			title: 'Absence', url: '#absence'
 		}];
-
 		if( $rootScope.userData.roleName === 'COMPANY-ADMIN-ROLE' ){
 			$scope.links.push({ title: 'Worklog Administration', url: '#worklog.administration' });
 			$scope.links.push({ title: 'Absence Administration', url: '#absence.administration' });
+		}
+
+		$scope.currentLink = '#home';
+		$scope.isActiveLink = function(url) {
+			return url == $scope.currentLink;
+		}
+		$scope.onClickLink = function(link) {
+			$scope.currentLink = link.url;
 		}
     }]);

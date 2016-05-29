@@ -5,7 +5,6 @@ angular.module("Login")
 	var service = {};	
 	service.Login = function( loginName, password ){
 		var deferred = $q.defer();
-		var userData = {};
 		return $http({
 			method : "POST",
 			url : "/rest/login/v1/getlogin",
@@ -17,13 +16,8 @@ angular.module("Login")
 				'password': password
 			}
 		}).then(function successCallback(response) {
-			
-				userData.workerId  = response.data.workerId;
-				userData.roleName  = response.data.roleName;
-				userData.loginName = loginName;
-				userData.password  = password;
 
-				deferred.resolve(userData);
+				deferred.resolve(response.data);
 				return deferred.promise;
 				
 			}, function errorCallback(response) {
@@ -32,11 +26,11 @@ angular.module("Login")
 				return deferred.promise;
 			});
 	}
-	service.SetUserData = function( parameter ){
-		var userDataCoded = btoa(parameter.loginName+':'+parameter.password+':'+parameter.workerId+':'+parameter.roleName);
+	service.SetUserData = function( parameter, loginName, password ){
+		var userDataCoded = btoa(loginName+':'+password+':'+parameter.workerId+':'+parameter.roleName);
 		$rootScope.userData = {
-			loginName: parameter.loginName,
-			password : parameter.password,
+			loginName: loginName,
+			password : password,
 			workerId : parameter.workerId,
 			roleName : parameter.roleName
 		};

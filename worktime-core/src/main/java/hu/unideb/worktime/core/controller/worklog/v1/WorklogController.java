@@ -50,7 +50,7 @@ public class WorklogController {
     }
 
     @Async
-    @RequestMapping(value = "/getworklog/{workerId}", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/getworklog/{workerId}", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody List<GetWorklogResponse> getWorklog(@PathVariable Integer workerId) {
         List<GetWorklogResponse> result = null;
 

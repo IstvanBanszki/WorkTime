@@ -1,5 +1,5 @@
 <div class="menu">
-	<nav class="w3-sidenav w3-light-grey w3-border" ng-controller="HomeController" style="height:220px" >
+	<nav class="w3-sidenav w3-light-grey w3-border w3-large" ng-controller="HomeController" style="height:310px" >
 		<a class="w3-hover-text-blue" ng-repeat="link in links" href="{{link.url}}">{{link.title}}</a>
 		<a class="w3-hover-text-blue" href="" ng-controller="LoginController" ng-click="logout()">Logout</a>
 	</nav>

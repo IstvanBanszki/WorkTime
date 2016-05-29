@@ -21,6 +21,7 @@ angular.module('Worklog')
 		$scope.description = "";
 		$scope.begin = "";
 		$scope.end = "";
+		$scope.worklogs = [];
 
 		$scope.addWorklog = function() {
 			WorklogService.AddWorklog($scope.description, $scope.begin, $scope.end, $rootScope.userData.workerId).then(
@@ -31,5 +32,17 @@ angular.module('Worklog')
 					
 				}
 			)
+		}
+		$scope.initWorklog = function(){
+			if( typeof $scope.worklogs || $scope.worklogs.length === 0 ){
+				WorklogService.GetWorklog($rootScope.userData.workerId).then(
+					function( result ){
+						$scope.worklogs = result;
+					},
+					function( error ){
+						
+					}
+				)
+			}
 		}
     }]);

@@ -10,7 +10,7 @@ angular.module('Login')
 			LoginService.Login($scope.loginName, $scope.password)
 				.then(
 					function( result ){
-						LoginService.SetUserData( result );
+						LoginService.SetUserData( result, $scope.loginName, $scope.password );
 						$location.path('/home');
 					},
 					function( error ){

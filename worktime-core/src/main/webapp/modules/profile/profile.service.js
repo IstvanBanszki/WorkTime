@@ -5,7 +5,6 @@ angular.module("Profile")
 	var service = {};	
 	service.Profile = function( workerId ){
 		var deferred = $q.defer();
-		var profileData = {};
 		return $http({
 			method : "POST",
 			url : "/rest/profile/v1/getprofile/"+workerId,
@@ -13,22 +12,8 @@ angular.module("Profile")
 				'Content-Type': 'application/json'
 			}
 		}).then(function successCallback(response) {
-			
-				profileData.dateOfRegistration = response.data.dateOfRegistration;
 
-				profileData.firstName = response.data.firstName;
-				profileData.lastName = response.data.lastName;
-				profileData.gender = response.data.gender;
-				profileData.dateOfBirth = response.data.dateOfBirth;
-				profileData.nationality = response.data.nationality;
-
-				profileData.position = response.data.position;
-				profileData.emailAddress = response.data.emailAddress;
-				profileData.dailyWorkHourTotal = response.data.dailyWorkHourTotal;
-				profileData.departmentName = response.data.departmentName;
-				profileData.officeName = response.data.officeName;
-
-				deferred.resolve(profileData);
+				deferred.resolve(response.data);
 				return deferred.promise;
 				
 			}, function errorCallback(response) {
