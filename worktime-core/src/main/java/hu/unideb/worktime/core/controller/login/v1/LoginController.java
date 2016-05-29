@@ -47,9 +47,9 @@ public class LoginController {
     public @ResponseBody LoginResponse getLogin(@RequestBody LoginRequest request) {
         LoginResponse result = null;
 
-        this.logger.info("Calling getlogin webservice with the following key: {}", request);
+        this.logger.info("Calling /rest/login/v1/getlogin webservice with the following key: {}", request);
         LoginRecord record = this.sqlCallLogin.authenticate(request.getLoginName());
-        this.logger.info("Result of getlogin webservice: {}", record);
+        this.logger.info("Result of /rest/login/v1/getlogin webservice: {}", record);
 
         if (record != null && this.wtEncryption.checkPassword(request.getPassword(), record.getPassword())) {
             result = new LoginResponse(record.getWorkerId(), record.getRoleName());

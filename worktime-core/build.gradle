@@ -13,10 +13,12 @@ buildscript {
     dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
 		classpath "io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE"
+		classpath 'com.netflix.nebula:gradle-extra-configurations-plugin:3.0.3'
     }
 }
 
 apply plugin: 'spring-boot'
+apply plugin: 'nebula.provided-base'
 
 jar {
     baseName = 'worktime-core'
@@ -46,13 +48,6 @@ dependencies {
 	//Jasypt 
 	compile "org.jasypt:jasypt:${jasyptVersion}"
 	compile "org.jasypt:jasypt-spring31:${jasyptVersion}"
-
-    // mandatory dependencies for using Spock
-    compile "org.codehaus.groovy:groovy-all:2.4.1"
-	testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
-
-	// optional dependencies for using Spock
-	testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
-	testRuntime "cglib:cglib-nodep:3.1"          // allows mocking of classes (in addition to interfaces)
-	testRuntime "org.objenesis:objenesis:2.1"    // allows mocking of classes without default constructor (together with CGLIB)
+	
+	provided "org.spockframework:spock-core:1.0-groovy-2.4"
 }

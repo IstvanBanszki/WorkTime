@@ -66,5 +66,9 @@ public class SaveWorklogRequest {
               (this.begin != null ? this.begin.equals(other.begin) : other.begin == null) &&
               (this.end != null ? this.end.equals(other.end) : other.end == null);
     }
-    
+
+    @Override
+    public String toString() {
+        return "SaveWorklogRequest{" + "description=" + description + ", begin=" + begin + ", end=" + end + ", workerId=" + workerId + '}';
+    }
 }

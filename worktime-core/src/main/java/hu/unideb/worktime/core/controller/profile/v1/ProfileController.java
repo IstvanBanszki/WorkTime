@@ -29,9 +29,9 @@ public class ProfileController {
     public @ResponseBody ProfileRecord getProfile(@PathVariable Integer workerId) {
         ProfileRecord result = null;
 
-        this.logger.info("Calling getprofile webservice with the following key: {}", workerId);
+        this.logger.info("Calling /rest/profile/v1/getprofile webservice with the following key: {}", workerId);
         result = this.sqlCallProfile.getProfileData(workerId);
-        this.logger.info("Result of getprofile webservice: {}", result);
+        this.logger.info("Result of /rest/profile/v1/getprofile webservice: {}", result);
 
         return result;
     }

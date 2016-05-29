@@ -14,7 +14,11 @@ public class SqlCallLogin {
     private Logger logger;
 
     public SqlCallLogin() {
-        this.logger = LoggerFactory.getLogger(SqlCallLogin.class);
+        this(LoggerFactory.getLogger(SqlCallLogin.class));
+    }
+
+    public SqlCallLogin(Logger logger) {
+        this.logger = logger;
     }
 
     public LoginRecord authenticate(String loginName) {

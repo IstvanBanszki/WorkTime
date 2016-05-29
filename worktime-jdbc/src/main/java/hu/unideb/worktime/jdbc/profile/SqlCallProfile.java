@@ -14,7 +14,11 @@ public class SqlCallProfile {
     private Logger logger;
 
     public SqlCallProfile() {
-        this.logger = LoggerFactory.getLogger(SqlCallProfile.class);
+        this(LoggerFactory.getLogger(SqlCallProfile.class));
+    }
+
+    public SqlCallProfile(Logger logger) {
+        this.logger = logger;
     }
     
     public ProfileRecord getProfileData( int workerId ){

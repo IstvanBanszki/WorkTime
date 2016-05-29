@@ -57,21 +57,21 @@ INSERT INTO `worktime`.`worker_holiday_number` (`year`, `worker_holiday_number_t
 
 -- worklog table test data
 INSERT INTO `worktime`.`worklog` (`description`, `status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES ('test description 1', 0, '2016.05.27 08:00', '2016.05.27 16:00', 1, 1);
+VALUES ('test description 1', 1, '2016.05.27 08:00', '2016.05.27 16:00', 1, 1);
 INSERT INTO `worktime`.`worklog` (`description`, `status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES ('test description 2', 0, '2016.05.28 08:00', '2016.05.28 16:00', 1, 1);
+VALUES ('test description 2', 1, '2016.05.28 08:00', '2016.05.28 16:00', 1, 1);
 INSERT INTO `worktime`.`worklog` (`description`, `status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES ('test description 3', 0, '2016.05.29 08:00', '2016.05.29 16:00', 1, 1);
+VALUES ('test description 3', 1, '2016.05.29 08:00', '2016.05.29 16:00', 1, 1);
 INSERT INTO `worktime`.`worklog` (`description`, `status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES ('test description', 0, '2016.05.25 08:00', '2016.05.25 16:00', 1, 2);
+VALUES ('test description', 1, '2016.05.25 08:00', '2016.05.25 16:00', 1, 2);
 INSERT INTO `worktime`.`worklog` (`description`, `status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES ('test description', 0, '2016.05.26 08:00', '2016.05.26 16:00', 1, 2);
+VALUES ('test description', 1, '2016.05.26 08:00', '2016.05.26 16:00', 1, 2);
 INSERT INTO `worktime`.`worklog` (`description`, `status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES ('test description', 0, '2016.05.21 08:00', '2016.05.21 16:00', 1, 3);
+VALUES ('test description', 1, '2016.05.21 08:00', '2016.05.21 16:00', 1, 3);
 INSERT INTO `worktime`.`worklog` (`description`, `status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES ('test description', 0, '2016.05.22 08:00', '2016.05.22 16:00', 1, 3);
+VALUES ('test description', 1, '2016.05.22 08:00', '2016.05.22 16:00', 1, 3);
 INSERT INTO `worktime`.`worklog` (`description`, `status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES ('test description', 0, '2016.05.20 08:00', '2016.05.20 16:00', 1, 4);
+VALUES ('test description', 1, '2016.05.20 08:00', '2016.05.20 16:00', 1, 4);
 INSERT INTO `worktime`.`worklog` (`description`, `status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES ('test description', 0, '2016.05.22 08:00', '2016.05.22 16:00', 1, 4);
+VALUES ('test description', 1, '2016.05.22 08:00', '2016.05.22 16:00', 1, 4);
 

@@ -207,7 +207,7 @@ public class ProfileRecord {
               (this.dateOfRegistration != null ? this.dateOfRegistration.equals(other.dateOfRegistration) : other.dateOfRegistration == null) &&
               (this.firstName != null ? this.firstName.equals(other.firstName) : other.firstName == null) &&
               (this.lastName != null ? this.lastName.equals(other.lastName) : other.lastName == null) &&
-              (this.gender != null ? this.gender.equals(other.gender) : other.gender == null) &&
+              (this.gender == other.gender) &&
               (this.dateOfBirth != null ? this.dateOfBirth.equals(other.dateOfBirth) : other.dateOfBirth == null) &&
               (this.nationality != null ? this.nationality.equals(other.nationality) : other.nationality == null) &&
               (this.position != null ? this.position.equals(other.position) : other.position == null) &&
