@@ -11,18 +11,32 @@ angular.module('Worklog')
             url: 'modules/worklog/worklog.show.html'
         }];
 		$scope.currentTab = 'modules/worklog/worklog.add.html';
-
 		$scope.isActiveTab = function(tabUrl) {
 			return tabUrl == $scope.currentTab;
 		}
 		$scope.onClickTab = function(tab) {
 			$scope.currentTab = tab.url;
 		}
+		
+		$scope.worklogs = [];
+		$scope.sortType = "description";
+		$scope.sortReverse = false;
+		$scope.searchQuery = "";		
+		$scope.showDownCaret = function(tableHeader) {
+			return ($scope.sortType == tableHeader && !$scope.sortReverse);
+		}
+		$scope.showUpCaret = function(tableHeader) {
+			return ($scope.sortType == tableHeader && $scope.sortReverse);
+		}
+		$scope.setReverse = function(tableHeader) {
+			if($scope.sortType == tableHeader){
+				$scope.sortReverse = !$scope.sortReverse;
+			}
+		}
+
 		$scope.description = "";
 		$scope.begin = "";
 		$scope.end = "";
-		$scope.worklogs = [];
-
 		$scope.addWorklog = function() {
 			WorklogService.AddWorklog($scope.description, $scope.begin, $scope.end, $rootScope.userData.workerId).then(
 				function( result ){
