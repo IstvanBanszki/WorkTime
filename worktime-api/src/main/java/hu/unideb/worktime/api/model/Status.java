@@ -1,13 +1,12 @@
 package hu.unideb.worktime.api.model;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 public enum Status {
 
-    NOT_SET(0),
-    NOT_APPROVE(1),
-    APPROVE(2);
+    NOT_SET(1),
+    NOT_APPROVE(2),
+    APPROVE(3);
 
     private Status(int id) {
         this.id = id;
@@ -20,13 +19,6 @@ public enum Status {
     }
     
     public static Status valueOf(int id){
-        Optional<Status> s = Arrays.stream(Status.values()).filter(status -> status.getId() == id).findFirst();
-        if( s.isPresent() ){
-            return s.get();
-        } else {
-            throw new IllegalStateException("No valid Status enum found for the id: " + id);
-        }
+        return Arrays.stream(Status.values()).filter(status -> status.getId() == id).findFirst().orElse(NOT_SET);
     }
-
-    
 }

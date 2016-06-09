@@ -1,31 +1,29 @@
 
 <div class="page-element">
 	<div class="tab">
-		<div class="search-field">
-			<div class="w3-border w3-round">
-				<i class="fa fa-search"></i>
-				<input type="text" placeholder="Search" ng-model="searchQuery"> </input>
-			</div>
+		<div class="w3-border w3-round w3-padding-medium">
+				<i class="fa fa-search w3-padding-left w3-padding-right"></i>
+				<input type="text" placeholder="Search {{ sortType }}" ng-model="searchQuery"></input>
 		</div>
 	
 		<table class="w3-table-all w3-hoverable">
 			<tr>
-				<th ng-click="setReverse('description')">
+				<th ng-click="setSearchTypeOrReverse('description')">
 					Description
 					<span ng-show="showDownCaret('description')" class="fa fa-caret-down"></span>
 					<span ng-show="showUpCaret('description')" class="fa fa-caret-up"></span>
 				</th>
-				<th ng-click="setReverse('status')">
+				<th ng-click="setSearchTypeOrReverse('status')">
 					Status				
 					<span ng-show="showDownCaret('status')" class="fa fa-caret-down"></span>
 					<span ng-show="showUpCaret('status')" class="fa fa-caret-up"></span>
 				</th>
-				<th ng-click="setReverse('begin')">
+				<th ng-click="setSearchTypeOrReverse('begin')">
 					Begin				
 					<span ng-show="showDownCaret('begin')" class="fa fa-caret-down"></span>
 					<span ng-show="showUpCaret('begin')" class="fa fa-caret-up"></span>
 				</th>
-				<th ng-click="setReverse('end')">
+				<th ng-click="setSearchTypeOrReverse('end')">
 					End				
 					<span ng-show="showDownCaret('end')" class="fa fa-caret-down"></span>
 					<span ng-show="showUpCaret('end')" class="fa fa-caret-up"></span>

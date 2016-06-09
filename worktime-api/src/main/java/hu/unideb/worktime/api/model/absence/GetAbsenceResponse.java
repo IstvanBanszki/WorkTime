@@ -1,61 +1,70 @@
-package hu.unideb.worktime.api.model.worklog;
+package hu.unideb.worktime.api.model.absence;
 
 import hu.unideb.worktime.api.model.Status;
+import hu.unideb.worktime.api.model.AbsenceType;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class GetWorklogResponse implements Serializable {
+public class GetAbsenceResponse implements Serializable {
 
     private final String description;
     private final LocalDateTime begin;
     private final LocalDateTime end;
     private final Status status;
+    private final AbsenceType absenceType;
 
-    public GetWorklogResponse(String description, LocalDateTime begin, LocalDateTime end, Status status) {
+    public GetAbsenceResponse(String description, LocalDateTime begin, LocalDateTime end, Status status, AbsenceType absenceType) {
         this.description = description;
         this.begin = begin;
         this.end = end;
         this.status = status;
+        this.absenceType = absenceType;
     }
 
-    public static class GetWorklogResponseBuilder {
+    public static class GetAbsenceResponseBuilder {
 
         private String description;
         private LocalDateTime begin;
         private LocalDateTime end;
         private Status status;
+        private AbsenceType absenceType;
 
-        public GetWorklogResponseBuilder() {
+        public GetAbsenceResponseBuilder() {
             this.description = "";
             this.begin = null;
             this.end = null;
             this.status = Status.NOT_SET;
         }
 
-        public GetWorklogResponseBuilder setDescription(String description) {
+        public GetAbsenceResponseBuilder setDescription(String description) {
             this.description = description;
             return this;
         }
 
-        public GetWorklogResponseBuilder setBegin(LocalDateTime begin) {
+        public GetAbsenceResponseBuilder setBegin(LocalDateTime begin) {
             this.begin = begin;
             return this;
         }
 
-        public GetWorklogResponseBuilder setEnd(LocalDateTime end) {
+        public GetAbsenceResponseBuilder setEnd(LocalDateTime end) {
             this.end = end;
             return this;
         }
 
-        public GetWorklogResponseBuilder setStatus(Status status) {
+        public GetAbsenceResponseBuilder setStatus(Status status) {
             this.status = status;
             return this;
         }
 
-        public GetWorklogResponse build() {
-            return new GetWorklogResponse(this.description, this.begin, this.end, this.status);
+        public GetAbsenceResponseBuilder setAbsenceType(AbsenceType absenceType) {
+            this.absenceType = absenceType;
+            return this;
         }
-    }
+
+        public GetAbsenceResponse build() {
+            return new GetAbsenceResponse(this.description, this.begin, this.end, this.status, this.absenceType);
+        }
+    }    
 
     public String getDescription() {
         return this.description;
@@ -73,6 +82,10 @@ public class GetWorklogResponse implements Serializable {
         return this.status;
     }
 
+    public AbsenceType getAbsenceType() {
+        return this.absenceType;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -80,6 +93,7 @@ public class GetWorklogResponse implements Serializable {
         hash = 67 * hash + (this.begin != null ? this.begin.hashCode() : 0);
         hash = 67 * hash + (this.end != null ? this.end.hashCode() : 0);
         hash = 67 * hash + (this.status != null ? this.status.hashCode() : 0);
+        hash = 67 * hash + (this.absenceType != null ? this.absenceType.hashCode() : 0);
         return hash;
     }
 
@@ -94,16 +108,18 @@ public class GetWorklogResponse implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final GetWorklogResponse other = (GetWorklogResponse) obj;
+        final GetAbsenceResponse other = (GetAbsenceResponse) obj;
         return (this.description != null ? this.description.equals(other.description) : other.description == null) &&
                (this.begin != null ? this.begin.equals(other.begin) : other.begin == null) &&
                (this.end != null ? this.end.equals(other.end) : other.end == null) &&
-               (this.status == other.status);
+               (this.status == other.status) &&
+               (this.absenceType == other.absenceType);
     }
 
     @Override
     public String toString() {
-        return "GetWorklogResponse{" + "description=" + this.description + ", begin=" + 
-                this.begin + ", end=" + this.end + ", status=" + this.status + '}';
+        return "GetAbsenceResponse{" + "description=" + this.description + ", begin=" + 
+                this.begin + ", end=" + this.end + ", status=" + this.status + 
+                ", absenceType=" + this.absenceType + '}';
     }
 }

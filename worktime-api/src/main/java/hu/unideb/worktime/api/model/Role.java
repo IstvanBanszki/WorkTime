@@ -1,11 +1,13 @@
 package hu.unideb.worktime.api.model;
 
+import java.util.Arrays;
+
 public enum Role {
 
-    NOT_SET(1, "NOT-SET"),
-    WORKER_ROLE(2, "COMPANY-ADMIN-ROLE"),
-    SUPEROR_ROLE(3, "SUPERIOR-ROLE"),
-    COMPANY_ADMIN_ROLE(4, "WORKER-ROLE");
+    NOT_SET(1, "NOT_SET"),
+    WORKER_ROLE(2, "COMPANY_ADMIN-ROLE"),
+    SUPEROR_ROLE(3, "SUPERIOR_ROLE"),
+    COMPANY_ADMIN_ROLE(4, "WORKER_ROLE");
 
     private Role(int id, String name) {
         this.id = id;
@@ -21,5 +23,9 @@ public enum Role {
 
     public String getName() {
         return this.name;
+    }
+    
+    public static Role valueOf(int id){
+        return Arrays.stream(Role.values()).filter(role -> role.getId() == id).findFirst().orElse(NOT_SET);
     }
 }

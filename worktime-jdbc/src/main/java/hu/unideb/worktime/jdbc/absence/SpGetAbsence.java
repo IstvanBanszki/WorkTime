@@ -1,8 +1,9 @@
-package hu.unideb.worktime.jdbc.worklog;
+package hu.unideb.worktime.jdbc.absence;
 
+import hu.unideb.worktime.api.model.AbsenceType;
 import hu.unideb.worktime.api.model.Status;
-import hu.unideb.worktime.api.model.worklog.GetWorklogResponse;
-import hu.unideb.worktime.api.model.worklog.GetWorklogResponse.GetWorklogResponseBuilder;
+import hu.unideb.worktime.api.model.absence.GetAbsenceResponse;
+import hu.unideb.worktime.api.model.absence.GetAbsenceResponse.GetAbsenceResponseBuilder;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,14 +18,14 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpGetWorklog extends StoredProcedure implements RowMapper<GetWorklogResponse>{
+public class SpGetAbsence extends StoredProcedure implements RowMapper<GetAbsenceResponse>{
     
-    private static final String SP_NAME = "get_all_worklog_by_worker";
+    private static final String SP_NAME = "get_all_absence_by_worker";
     private static final String SP_PARAMETER_1 = "worker_id";
     private static final String SP_RESULT = "result";
     
     @Autowired
-    public SpGetWorklog(WTConnection wtConnection) {
+    public SpGetAbsence(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
@@ -32,20 +33,21 @@ public class SpGetWorklog extends StoredProcedure implements RowMapper<GetWorklo
         compile();
     }
 
-    public List<GetWorklogResponse> execute(Integer key) {
-        List<GetWorklogResponse> spResult = (List<GetWorklogResponse>) super.execute(key).get(SP_RESULT);
+    public List<GetAbsenceResponse> execute(Integer key) {
+        List<GetAbsenceResponse> spResult = (List<GetAbsenceResponse>) super.execute(key).get(SP_RESULT);
         if(spResult != null){
             return spResult;
         }
         return new ArrayList();
-    }
+    }    
 
     @Override
-    public GetWorklogResponse mapRow(ResultSet rs, int i) throws SQLException {
-        return new GetWorklogResponseBuilder().setDescription(rs.getString("description"))
+    public GetAbsenceResponse mapRow(ResultSet rs, int i) throws SQLException {
+        return new GetAbsenceResponseBuilder().setDescription(rs.getString("description"))
                                               .setBegin(rs.getTimestamp("begin").toLocalDateTime())
                                               .setEnd(rs.getTimestamp("end").toLocalDateTime())
                                               .setStatus(Status.valueOf(rs.getInt("status")))
+                                              .setAbsenceType(AbsenceType.valueOf(rs.getInt("absence_type_id")))
                                               .build();
-    }    
+    }   
 }

@@ -1,8 +1,9 @@
 package hu.unideb.worktime.api.model.worklog;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class SaveWorklogRequest {
+public class SaveWorklogRequest implements Serializable{
     
     private String description;
     private LocalDateTime begin;

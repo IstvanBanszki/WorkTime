@@ -17,6 +17,9 @@ body {
 .active {
     color: Aqua;
 }
-.tab{
+.tab {
 	padding-top: 50px;
+}
+.search-field {
+	background-color: #e7e7e7;
 }

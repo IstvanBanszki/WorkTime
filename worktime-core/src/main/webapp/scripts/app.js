@@ -4,7 +4,8 @@ angular.module('Login', [])
 angular.module('Home', [])
 angular.module('Profile', [])
 angular.module('Worklog', [])
-angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'ngRoute', 'ngCookies'])
+angular.module('Absence', [])
+angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'ngRoute', 'ngCookies'])
 	.config(['$routeProvider', function ($routeProvider, $httpProvider) {
 		$routeProvider
 			.when('/login', {
@@ -26,6 +27,11 @@ angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'ngRoute', 'ngCo
 				controller : 'WorklogController',
 				templateUrl: 'modules/worklog/worklog.page.html',
 				title	   : 'WorkTime - Worklog'
+			})
+			.when('/absence', {
+				controller : 'AbsenceController',
+				templateUrl: 'modules/absence/absence.page.html',
+				title	   : 'WorkTime - Absence'
 			})
 			.otherwise('/login');
 	}])

@@ -17,20 +17,22 @@ angular.module('Worklog')
 		$scope.onClickTab = function(tab) {
 			$scope.currentTab = tab.url;
 		}
-		
+
 		$scope.worklogs = [];
 		$scope.sortType = "description";
 		$scope.sortReverse = false;
-		$scope.searchQuery = "";		
+		$scope.searchQuery = "";
 		$scope.showDownCaret = function(tableHeader) {
 			return ($scope.sortType == tableHeader && !$scope.sortReverse);
 		}
 		$scope.showUpCaret = function(tableHeader) {
 			return ($scope.sortType == tableHeader && $scope.sortReverse);
 		}
-		$scope.setReverse = function(tableHeader) {
+		$scope.setSearchTypeOrReverse = function(tableHeader) {
 			if($scope.sortType == tableHeader){
 				$scope.sortReverse = !$scope.sortReverse;
+			} else {
+				$scope.sortType = tableHeader;
 			}
 		}
 
