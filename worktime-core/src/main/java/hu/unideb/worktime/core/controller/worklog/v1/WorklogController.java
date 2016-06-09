@@ -38,25 +38,25 @@ public class WorklogController {
     }
      */
     @Async
-    @RequestMapping(value = "/saveworklog", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/save", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public @ResponseBody Integer saveWorklog(@RequestBody SaveWorklogRequest request) {
         Integer result = null;
 
-        this.logger.info("Calling /rest/worklog/v1/saveWorklog webservice with the following key: {}", request);
+        this.logger.info("Calling /rest/worklog/v1/save webservice with the following key: {}", request);
         result = this.sqlCallSaveWorklog.saveWorklog(request);
-        this.logger.info("Result of /rest/worklog/v1/saveWorklog webservice: {}", result);
+        this.logger.info("Result of /rest/worklog/v1/save webservice: {}", result);
 
         return result;
     }
 
     @Async
-    @RequestMapping(value = "/getworklog/{workerId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/get/{workerId}", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody List<GetWorklogResponse> getWorklog(@PathVariable Integer workerId) {
         List<GetWorklogResponse> result = null;
 
-        this.logger.info("Calling /rest/worklog/v1/getworklog webservice with the following key: {}", workerId);
+        this.logger.info("Calling /rest/worklog/v1/get webservice with the following key: {}", workerId);
         result = this.sqlCallSaveWorklog.getWorklog(workerId);
-        this.logger.info("Result of /rest/worklog/v1/getworklog webservice: {}", result);
+        this.logger.info("Result of /rest/worklog/v1/get webservice: {}", result);
 
         return result;
     }

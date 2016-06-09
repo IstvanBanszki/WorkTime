@@ -43,13 +43,13 @@ public class LoginController {
     }
      */
     @Async
-    @RequestMapping(value = "/getlogin", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/get", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public @ResponseBody LoginResponse getLogin(@RequestBody LoginRequest request) {
         LoginResponse result = null;
 
-        this.logger.info("Calling /rest/login/v1/getlogin webservice with the following key: {}", request);
+        this.logger.info("Calling /rest/login/v1/get webservice with the following key: {}", request);
         LoginRecord record = this.sqlCallLogin.authenticate(request.getLoginName());
-        this.logger.info("Result of /rest/login/v1/getlogin webservice: {}", record);
+        this.logger.info("Result of /rest/login/v1/get webservice: {}", record);
 
         if (record != null && this.wtEncryption.checkPassword(request.getPassword(), record.getPassword())) {
             result = new LoginResponse(record.getWorkerId(), record.getRoleName());

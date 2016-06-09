@@ -23,16 +23,16 @@ public class SqlCallProfile {
     
     public ProfileRecord getProfileData( int workerId ){
         ProfileRecord result = null;
-        logger.info("Call get_profile_data SP with given parameters: {}", workerId);
+        this.logger.info("Call get_profile_data SP with given parameters: {}", workerId);
         try {
-            result = spProfile.execute(workerId);
+            result = this.spProfile.execute(workerId);
             if(result == null){
-                logger.debug("There is no such profile data in database! Key: {}", workerId);
+                this.logger.debug("There is no such profile data in database! Key: {}", workerId);
             }
         } catch (Exception ex) {
-            logger.error("There is an exception during get_profile_data SP call: {}", ex);
+            this.logger.error("There is an exception during get_profile_data SP call: {}", ex);
         }
-        logger.info("Result of get_profile_data SP: {}", result);
+        this.logger.info("Result of get_profile_data SP: {}", result);
         return result;
     }
 }

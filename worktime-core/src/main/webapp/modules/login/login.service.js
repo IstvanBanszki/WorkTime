@@ -7,7 +7,7 @@ angular.module("Login")
 		var deferred = $q.defer();
 		return $http({
 			method : "POST",
-			url : "/rest/login/v1/getlogin",
+			url : "/rest/login/v1/get",
 			headers : {
 				'Content-Type': 'application/json'
 			},

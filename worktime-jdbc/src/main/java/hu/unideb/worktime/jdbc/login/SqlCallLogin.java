@@ -23,16 +23,16 @@ public class SqlCallLogin {
 
     public LoginRecord authenticate(String loginName) {
         LoginRecord result = null;
-        logger.info("Call get_login SP with given parameters: {}", loginName);
+        this.logger.info("Call get_login SP with given parameters: {}", loginName);
         try {
-            result = spLogin.execute(loginName);
+            result = this.spLogin.execute(loginName);
             if(result == null){
-                logger.debug("There is no such login user in database! Key: {}", loginName);
+                this.logger.debug("There is no such login user in database! Key: {}", loginName);
             }
         } catch (Exception ex) {
-            logger.error("There is an exception during get_login SP call: {}", ex);
+            this.logger.error("There is an exception during get_login SP call: {}", ex);
         }
-        logger.info("Result of get_login SP: {}", result);
+        this.logger.info("Result of get_login SP: {}", result);
         return result;
     }
 }

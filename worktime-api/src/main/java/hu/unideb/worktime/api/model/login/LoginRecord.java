@@ -15,15 +15,15 @@ public class LoginRecord implements Serializable {
     }
 
     public int getWorkerId() {
-        return workerId;
+        return this.workerId;
     }
 
     public String getRoleName() {
-        return roleName;
+        return this.roleName;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     @Override
@@ -54,6 +54,7 @@ public class LoginRecord implements Serializable {
 
     @Override
     public String toString() {
-        return "LoginRecord{" + "workerId=" + workerId + ", roleName=" + roleName + ", password=" + password + '}';
+        return "LoginRecord{" + "workerId=" + this.workerId + ", roleName=" + 
+                this.roleName + ", password=" + this.password + '}';
     }
 }

@@ -28,31 +28,31 @@ public class SqlCallWorklog {
     
     public Integer saveWorklog( SaveWorklogRequest key ){
         Integer result = null;
-        logger.info("Call save_worklog SP with given parameters: {}", key);
+        this.logger.info("Call save_worklog SP with given parameters: {}", key);
         try {
-            result = spSaveWorklog.execute(key);
+            result = this.spSaveWorklog.execute(key);
             if(result == null){
-                logger.debug("There is an erro in saving the worklog data in database! Key: {}", key);
+                this.logger.debug("There is an erro in saving the worklog data in database! Key: {}", key);
             }
         } catch (Exception ex) {
-            logger.error("There is an exception during save_worklog SP call: {}", ex);
+            this.logger.error("There is an exception during save_worklog SP call: {}", ex);
         }
-        logger.info("Result of save_worklog SP: {}", result);
+        this.logger.info("Result of save_worklog SP: {}", result);
         return result;
     }
     
     public List<GetWorklogResponse> getWorklog( Integer key ){
         List<GetWorklogResponse> result = null;
-        logger.info("Call get_all_worklog_by_worker SP with given parameters: {}", key);
+        this.logger.info("Call get_all_worklog_by_worker SP with given parameters: {}", key);
         try {
-            result = spGetWorklog.execute(key);
+            result = this.spGetWorklog.execute(key);
             if(result == null ||result.isEmpty() ){
-                logger.debug("There is no suche worklog data in database! Key: {}", key);
+                this.logger.debug("There is no suche worklog data in database! Key: {}", key);
             }
         } catch (Exception ex) {
-            logger.error("There is an exception during get_all_worklog_by_worker SP call: {}", ex);
+            this.logger.error("There is an exception during get_all_worklog_by_worker SP call: {}", ex);
         }
-        logger.info("Result of get_all_worklog_by_worker SP: {}", result);
+        this.logger.info("Result of get_all_worklog_by_worker SP: {}", result);
         return result;
     }
 }

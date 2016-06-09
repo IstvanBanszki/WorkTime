@@ -130,47 +130,47 @@ public class ProfileRecord {
     }
 
     public LocalDateTime getDateOfRegistration() {
-        return dateOfRegistration;
+        return this.dateOfRegistration;
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public Gender getGender() {
-        return gender;
+        return this.gender;
     }
 
     public LocalDateTime getDateOfBirth() {
-        return dateOfBirth;
+        return this.dateOfBirth;
     }
 
     public String getNationality() {
-        return nationality;
+        return this.nationality;
     }
 
     public String getPosition() {
-        return position;
+        return this.position;
     }
 
     public String getEmailAddress() {
-        return emailAddress;
+        return this.emailAddress;
     }
 
     public int getDailyWorkHourTotal() {
-        return dailyWorkHourTotal;
+        return this.dailyWorkHourTotal;
     }
 
     public String getDepartmentName() {
-        return departmentName;
+        return this.departmentName;
     }
 
     public String getOfficeName() {
-        return officeName;
+        return this.officeName;
     }
 
     @Override
@@ -219,6 +219,11 @@ public class ProfileRecord {
 
     @Override
     public String toString() {
-        return "ProfileRecord{" + "dateOfRegistration=" + dateOfRegistration + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", nationality=" + nationality + ", position=" + position + ", emailAddress=" + emailAddress + ", dailyWorkHourTotal=" + dailyWorkHourTotal + ", departmentName=" + departmentName + ", officeName=" + officeName + '}';
+        return "ProfileRecord{" + "dateOfRegistration=" + this.dateOfRegistration + 
+                ", firstName=" + this.firstName + ", lastName=" + this.lastName +
+                ", gender=" + this.gender + ", dateOfBirth=" + this.dateOfBirth + 
+                ", nationality=" + this.nationality + ", position=" + this.position + 
+                ", emailAddress=" + this.emailAddress + ", dailyWorkHourTotal=" + this.dailyWorkHourTotal + 
+                ", departmentName=" + this.departmentName + ", officeName=" + this.officeName + '}';
     }
 }

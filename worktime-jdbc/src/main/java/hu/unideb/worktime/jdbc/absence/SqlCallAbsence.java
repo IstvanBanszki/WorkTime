@@ -1,6 +1,7 @@
 package hu.unideb.worktime.jdbc.absence;
 
 import hu.unideb.worktime.api.model.absence.GetAbsenceResponse;
+import hu.unideb.worktime.api.model.absence.SaveAbsenceRequest;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Component;
 public class SqlCallAbsence {
     @Autowired
     private SpGetAbsence spGetAbsence;
+    @Autowired
+    private SpSaveAbsence spSaveAbsence;
     private Logger logger;
 
     public SqlCallAbsence() {
@@ -20,20 +23,34 @@ public class SqlCallAbsence {
     public SqlCallAbsence(Logger logger) {
         this.logger = logger;
     }
-    
+        
+    public Integer saveAbsence( SaveAbsenceRequest key ){
+        Integer result = null;
+        this.logger.info("Call save_absence SP with given parameters: {}", key);
+        try {
+            result = this.spSaveAbsence.execute(key);
+            if(result == null){
+                this.logger.debug("There is an erro in saving the worklog data in database! Key: {}", key);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during save_absence SP call: {}", ex);
+        }
+        this.logger.info("Result of save_absence SP: {}", result);
+        return result;
+    }
     
     public List<GetAbsenceResponse> getAbsence( Integer key ){
         List<GetAbsenceResponse> result = null;
-        logger.info("Call get_all_absence_by_worker SP with given parameters: {}", key);
+        this.logger.info("Call get_all_absence_by_worker SP with given parameters: {}", key);
         try {
-            result = spGetAbsence.execute(key);
+            result = this.spGetAbsence.execute(key);
             if(result == null ||result.isEmpty() ){
-                logger.debug("There is no suche worklog data in database! Key: {}", key);
+                this.logger.debug("There is no suche worklog data in database! Key: {}", key);
             }
         } catch (Exception ex) {
-            logger.error("There is an exception during get_all_absence_by_worker SP call: {}", ex);
+            this.logger.error("There is an exception during get_all_absence_by_worker SP call: {}", ex);
         }
-        logger.info("Result of get_all_absence_by_worker SP: {}", result);
+        this.logger.info("Result of get_all_absence_by_worker SP: {}", result);
         return result;
     }
 }

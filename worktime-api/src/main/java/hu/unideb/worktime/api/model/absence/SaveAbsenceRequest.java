@@ -1,27 +1,31 @@
-package hu.unideb.worktime.api.model.worklog;
+package hu.unideb.worktime.api.model.absence;
 
+import hu.unideb.worktime.api.model.AbsenceType;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class SaveWorklogRequest implements Serializable{
+public class SaveAbsenceRequest implements Serializable{
     
     private final String description;
     private final LocalDateTime begin;
     private final LocalDateTime end;
     private final int workerId;
+    private final AbsenceType absenceType;
 
-    public SaveWorklogRequest() {
+    public SaveAbsenceRequest() {
         this.description = "";
         this.begin = null;
         this.end = null;
         this.workerId = 0;
+        this.absenceType = AbsenceType.NOT_SET;
     }
 
-    public SaveWorklogRequest(String description, LocalDateTime begin, LocalDateTime end, int workerId) {
+    public SaveAbsenceRequest(String description, LocalDateTime begin, LocalDateTime end, int workerId, AbsenceType absenceType) {
         this.description = description;
         this.begin = begin;
         this.end = end;
         this.workerId = workerId;
+        this.absenceType = absenceType;
     }
 
     public String getDescription() {
@@ -40,6 +44,10 @@ public class SaveWorklogRequest implements Serializable{
         return this.workerId;
     }
 
+    public AbsenceType getAbsenceType() {
+        return this.absenceType;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -47,6 +55,7 @@ public class SaveWorklogRequest implements Serializable{
         hash = 29 * hash + (this.begin != null ? this.begin.hashCode() : 0);
         hash = 29 * hash + (this.end != null ? this.end.hashCode() : 0);
         hash = 29 * hash + this.workerId;
+        hash = 29 * hash + (this.absenceType != null ? this.absenceType.hashCode() : 0);
         return hash;
     }
 
@@ -61,15 +70,18 @@ public class SaveWorklogRequest implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final SaveWorklogRequest other = (SaveWorklogRequest) obj;
+        final SaveAbsenceRequest other = (SaveAbsenceRequest) obj;
         return this.workerId != other.workerId &&
               (this.description != null ? this.description.equals(other.description) : other.description == null) &&
               (this.begin != null ? this.begin.equals(other.begin) : other.begin == null) &&
-              (this.end != null ? this.end.equals(other.end) : other.end == null);
+              (this.end != null ? this.end.equals(other.end) : other.end == null) &&
+              (this.absenceType != null ? this.absenceType.equals(other.absenceType) : other.absenceType == null);
     }
 
     @Override
     public String toString() {
-        return "SaveWorklogRequest{" + "description=" + this.description + ", begin=" + this.begin + ", end=" + this.end + ", workerId=" + this.workerId + '}';
+        return "SaveAbsenceRequest{" + "description=" + this.description + ", begin=" 
+                + this.begin + ", end=" + this.end + ", workerId=" + this.workerId
+                + ", absenceType=" + this.absenceType + '}';
     }
 }

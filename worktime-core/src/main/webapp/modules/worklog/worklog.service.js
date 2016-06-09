@@ -7,7 +7,7 @@ angular.module("Worklog")
 		var deferred = $q.defer();
 		return $http({
 			method : "POST",
-			url : "/rest/worklog/v1/saveworklog",
+			url : "/rest/worklog/v1/save",
 			headers : {
 				'Content-Type': 'application/json'
 			},
@@ -32,7 +32,7 @@ angular.module("Worklog")
 		var deferred = $q.defer();
 		return $http({
 			method : "POST",
-			url : "/rest/worklog/v1/getworklog/"+workerId,
+			url : "/rest/worklog/v1/get/"+workerId,
 			headers : {
 				'Content-Type': 'application/json'
 			}

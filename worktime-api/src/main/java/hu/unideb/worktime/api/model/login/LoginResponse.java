@@ -13,11 +13,11 @@ public class LoginResponse {
     }
 
     public int getWorkerId() {
-        return workerId;
+        return this.workerId;
     }
 
     public String getRoleName() {
-        return roleName;
+        return this.roleName;
     }
 
     @Override
@@ -46,6 +46,6 @@ public class LoginResponse {
 
     @Override
     public String toString() {
-        return "LoginResponse{" + "workerId=" + workerId + ", roleName=" + roleName + '}';
+        return "LoginResponse{" + "workerId=" + this.workerId + ", roleName=" + this.roleName + '}';
     }    
 }

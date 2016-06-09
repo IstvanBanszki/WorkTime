@@ -18,11 +18,11 @@ public class LoginRequest implements Serializable {
     }
 
     public String getLoginName() {
-        return loginName;
+        return this.loginName;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     @Override
@@ -58,6 +58,6 @@ public class LoginRequest implements Serializable {
 
     @Override
     public String toString() {
-        return "LoginRequest{" + "loginName=" + loginName + ", password=" + password + '}';
+        return "LoginRequest{" + "loginName=" + this.loginName + ", password=" + this.password + '}';
     }
 }
