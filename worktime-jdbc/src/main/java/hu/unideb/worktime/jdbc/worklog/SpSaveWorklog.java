@@ -1,5 +1,6 @@
 package hu.unideb.worktime.jdbc.worklog;
 
+import hu.unideb.worktime.api.model.absence.SaveAbsenceRequest;
 import hu.unideb.worktime.api.model.worklog.SaveWorklogRequest;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
@@ -14,15 +15,16 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer>{
-    
+public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer> {
+
     private static final String SP_NAME = "save_worklog";
     private static final String SP_PARAMETER_1 = "description";
     private static final String SP_PARAMETER_2 = "begin";
     private static final String SP_PARAMETER_3 = "end";
     private static final String SP_PARAMETER_4 = "worker_id";
+    private static final String SP_PARAMETER_5 = "absence_type_id";
     private static final String SP_RESULT = "result";
-    
+
     @Autowired
     public SpSaveWorklog(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
@@ -30,6 +32,7 @@ public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer>
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.TIMESTAMP));
         declareParameter(new SqlParameter(SP_PARAMETER_3, Types.TIMESTAMP));
         declareParameter(new SqlParameter(SP_PARAMETER_4, Types.INTEGER));
+        declareParameter(new SqlParameter(SP_PARAMETER_5, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();
@@ -37,8 +40,18 @@ public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer>
 
     public Integer execute(SaveWorklogRequest key) {
         Integer result = null;
+        List<Integer> spResult = (List<Integer>) super.execute(key.getDescription(),
+                key.getBegin(), key.getEnd(), key.getWorkerId(), 1).get(SP_RESULT);
+        if (spResult != null) {
+            result = spResult.get(0);
+        }
+        return result;
+    }
+
+    public Integer execute(SaveAbsenceRequest key) {
+        Integer result = null;
         List<Integer> spResult = (List<Integer>) super.execute(key.getDescription(), 
-                key.getBegin(), key.getEnd(), key.getWorkerId()).get(SP_RESULT);
+                key.getBegin(), key.getEnd(), key.getWorkerId(), key.getAbsenceType().getId()).get(SP_RESULT);
         if(spResult != null){
             result = spResult.get(0);
         }

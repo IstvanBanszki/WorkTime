@@ -20,7 +20,7 @@ public enum AbsenceType {
         return this.id;
     }
     
-    public static AbsenceType valueOf(int id){
+    public static AbsenceType valueOf(int id) {
         return Arrays.stream(AbsenceType.values()).filter(status -> status.getId() == id).findFirst().orElse(NOT_SET);
     }
 }
