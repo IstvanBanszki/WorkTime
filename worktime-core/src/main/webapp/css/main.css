@@ -2,17 +2,8 @@ body {
     margin: 0;
     padding: 0;
 }
-.menu {
-	position: fixed;
-	margin-left:15%;
-	width: 11%;
-	display: block;
-}
 .page-element {
-    position: absolute;
-	width: 59.5%;
-	margin-left:25.5%;
-	margin-right:15%;
+    margin-left:250px;
 }
 .active {
     color: Aqua;
@@ -22,4 +13,15 @@ body {
 }
 .search-field {
 	background-color: #e7e7e7;
+}
+.w3-sidenav a {
+	padding:16px;
+	font-weight:bold;
+}
+.w3-sidenav {
+	z-index:3;
+	width:250px;
+}
+.header {
+	padding-left:32px;
 }
