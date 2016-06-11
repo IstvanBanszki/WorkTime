@@ -19,7 +19,7 @@ angular.module('Worklog')
 		}
 
 		$scope.worklogs = [];
-		$scope.sortType = "description";
+		$scope.sortType = "Description";
 		$scope.sortReverse = false;
 		$scope.searchQuery = "";
 		$scope.showDownCaret = function(tableHeader) {

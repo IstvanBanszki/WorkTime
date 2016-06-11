@@ -2,18 +2,25 @@
 
 angular.module("Absence")
 .factory('AbsenceService', ['$http', '$rootScope', '$q', function AbsenceServiceFactory($http, $rootScope, $q){
-	var service = {};	
-	service.Profile = function( workerId ){
+	var service = {};
+	service.AddAbsence = function(description, begin, end, workerId, absenceType) {
 		var deferred = $q.defer();
 		return $http({
 			method : "POST",
-			url : "/rest/profile/v1/getprofile/"+workerId,
+			url : "/rest/absence/v1/save",
 			headers : {
 				'Content-Type': 'application/json'
+			},
+			data: { 
+				'description': description,
+				'begin': begin, 
+				'end': end, 
+				'workerId': workerId,
+				'absenceType': absenceType
 			}
 		}).then(function successCallback(response) {
-
-				deferred.resolve(response.data);
+			
+				deferred.resolve(response.data.status);
 				return deferred.promise;
 				
 			}, function errorCallback(response) {
@@ -22,21 +29,24 @@ angular.module("Absence")
 				return deferred.promise;
 			});
 	}
-	service.SetProfileData = function( parameter ){
-		$rootScope.profileData = {
-			firstName: parameter.firstName,
-			lastName : parameter.lastName,
-			gender : parameter.gender,
-			dateOfBirth : parameter.dateOfBirth,
-			nationality : parameter.nationality,
-			position : parameter.position,
-			dailyWorkHourTotal : parameter.dailyWorkHourTotal,
-			departmentName : parameter.departmentName,
-			officeName : parameter.officeName
-		};
-	}
-	service.RemoveProfileData = function(){
-		$rootScope.profileData= {};
+	service.GetAbsence = function(workerId) {
+		var deferred = $q.defer();
+		return $http({
+			method : "POST",
+			url : "/rest/absence/v1/get/"+workerId,
+			headers : {
+				'Content-Type': 'application/json'
+			}
+		}).then(function successCallback(response) {
+			
+				deferred.resolve(response.data);
+				return deferred.promise;
+				
+			}, function errorCallback(response) {
+
+				deferred.reject(response);
+				return deferred.promise;
+			});
 	}
 	return service;
 }])
