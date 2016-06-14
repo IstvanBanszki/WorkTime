@@ -37,26 +37,19 @@ angular.module('Absence')
 		}
 
 		$scope.description = "";
-		$scope.absenceType = 0;
+		$scope.absenceType = "0";
 		$scope.begin = "";
 		$scope.end = "";
 
-		$scope.type = {
-			payed: 	   1,
-			unpayed:   2,
-			sickpayed: 3,
-			verified:  4
-		}
 		$scope.addAbsence = function() {
-			$scope.absenceType = 4;
-			/*AbsenceService.AddAbsence($scope.description, $scope.begin, $scope.end, $rootScope.userData.workerId, $scope.absenceType).then(
+			AbsenceService.AddAbsence($scope.description, $scope.begin, $scope.end, $rootScope.userData.workerId, $scope.absenceType).then(
 				function( result ){
 					
 				},
 				function( error ){
 					
 				}
-			)*/
+			)
 		}
 		$scope.initAbsence = function(){
 			if( typeof $scope.absences || $scope.absences.length === 0 ){

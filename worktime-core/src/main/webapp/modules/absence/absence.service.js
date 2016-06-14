@@ -13,8 +13,8 @@ angular.module("Absence")
 			},
 			data: { 
 				'description': description,
-				'begin': begin, 
-				'end': end, 
+				'begin': moment(begin).format('YYYY-MM-DD'), 
+				'end': moment(end).format('YYYY-MM-DD'), 
 				'workerId': workerId,
 				'absenceType': absenceType
 			}

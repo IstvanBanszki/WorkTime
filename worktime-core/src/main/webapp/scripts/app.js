@@ -5,8 +5,8 @@ angular.module('Home', [])
 angular.module('Profile', [])
 angular.module('Worklog', [])
 angular.module('Absence', [])
-angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'ngRoute', 'ngCookies'])
-	.config(['$routeProvider', function ($routeProvider, $httpProvider) {
+angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'ngRoute', 'ngCookies', "ngAnimate", "ngAria", 'ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
+	.config(['$routeProvider', '$mdDateLocaleProvider', function ($routeProvider, $mdDateLocaleProvider) {
 		$routeProvider
 			.when('/login', {
 				controller : 'LoginController',
@@ -34,6 +34,13 @@ angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'ngRo
 				title	   : 'WorkTime - Absence'
 			})
 			.otherwise('/login');
+		$mdDateLocaleProvider.formatDate = function(date) {
+			return date ? moment(date).format('YYYY-MM-DD') : '';
+		};
+		$mdDateLocaleProvider.parseDate = function(dateString) {
+			var m = moment(dateString, 'YYYY-MM-DD', true);
+			return m.isValid() ? m.toDate() : new Date(NaN);
+		};
 	}])
 	.run(['$rootScope', '$cookies', '$location', '$http', function ($rootScope, $cookies, $location, $http) {
         $rootScope.userData = $cookies.getObject('data');

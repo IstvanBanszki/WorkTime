@@ -2,7 +2,7 @@
 <div class="page-element">
 	<div ng-include="'modules/home/home.header.html'"></div>
 
-	<div ng-controller="AbsenceController" ng-init="initAbsence()">
+	<div ng-controller="AbsenceController" ng-init="initAbsence()" layout="column" >
 		<ul class="w3-navbar w3-teal w3-border w3-large">
 			<li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}"><a ng-click="onClickTab(tab)">{{tab.title}}</a></li>
 		</ul>

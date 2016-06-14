@@ -2,13 +2,13 @@ package hu.unideb.worktime.api.model.absence;
 
 import hu.unideb.worktime.api.model.AbsenceType;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class SaveAbsenceRequest implements Serializable{
     
     private final String description;
-    private final LocalDateTime begin;
-    private final LocalDateTime end;
+    private final Date begin;
+    private final Date end;
     private final int workerId;
     private final AbsenceType absenceType;
 
@@ -20,7 +20,7 @@ public class SaveAbsenceRequest implements Serializable{
         this.absenceType = AbsenceType.NOT_SET;
     }
 
-    public SaveAbsenceRequest(String description, LocalDateTime begin, LocalDateTime end, int workerId, AbsenceType absenceType) {
+    public SaveAbsenceRequest(String description, Date begin, Date end, int workerId, AbsenceType absenceType) {
         this.description = description;
         this.begin = begin;
         this.end = end;
@@ -32,11 +32,11 @@ public class SaveAbsenceRequest implements Serializable{
         return this.description;
     }
 
-    public LocalDateTime getBegin() {
+    public Date getBegin() {
         return this.begin;
     }
     
-    public LocalDateTime getEnd() {
+    public Date getEnd() {
         return this.end;
     }
 

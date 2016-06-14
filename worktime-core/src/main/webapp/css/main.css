@@ -27,3 +27,6 @@ body {
 .header {
 	padding-left: 32px;
 }
+.md-datepicker-calendar {
+	width: 20%;
+}
