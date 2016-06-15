@@ -43,7 +43,7 @@ public class WorklogController {
         Integer result = null;
 
         this.logger.info("Calling /rest/worklog/v1/save webservice with the following key: {}", request);
-        result = this.sqlCallSaveWorklog.saveWorklog(request);
+        //result = this.sqlCallSaveWorklog.saveWorklog(request);
         this.logger.info("Result of /rest/worklog/v1/save webservice: {}", result);
 
         return result;
