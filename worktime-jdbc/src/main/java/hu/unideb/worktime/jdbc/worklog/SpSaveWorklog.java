@@ -18,21 +18,19 @@ import org.springframework.stereotype.Repository;
 public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer> {
 
     private static final String SP_NAME = "save_worklog";
-    private static final String SP_PARAMETER_1 = "description";
-    private static final String SP_PARAMETER_2 = "begin";
-    private static final String SP_PARAMETER_3 = "end";
-    private static final String SP_PARAMETER_4 = "worker_id";
-    private static final String SP_PARAMETER_5 = "absence_type_id";
+    private static final String SP_PARAMETER_1 = "begin";
+    private static final String SP_PARAMETER_2 = "end";
+    private static final String SP_PARAMETER_3 = "worker_id";
+    private static final String SP_PARAMETER_4 = "absence_type_id";
     private static final String SP_RESULT = "result";
 
     @Autowired
     public SpSaveWorklog(WTConnection wtConnection) {
-        super(wtConnection.getDataSource(), SP_NAME);
-        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
+        super(wtConnection.getDataSource(), SP_NAME);;
+        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.TIMESTAMP));
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.TIMESTAMP));
-        declareParameter(new SqlParameter(SP_PARAMETER_3, Types.TIMESTAMP));
+        declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));
         declareParameter(new SqlParameter(SP_PARAMETER_4, Types.INTEGER));
-        declareParameter(new SqlParameter(SP_PARAMETER_5, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();
@@ -40,8 +38,8 @@ public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer>
 
     public Integer execute(SaveWorklogRequest key) {
         Integer result = null;
-        List<Integer> spResult = (List<Integer>) super.execute(key.getDescription(),
-                key.getBegin(), key.getEnd(), key.getWorkerId(), 1).get(SP_RESULT);
+        List<Integer> spResult = (List<Integer>) super.execute(key.getBegin(), 
+                key.getEnd(), key.getWorkerId(), 1).get(SP_RESULT);
         if (spResult != null) {
             result = spResult.get(0);
         }
@@ -50,8 +48,8 @@ public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer>
 
     public Integer execute(SaveAbsenceRequest key) {
         Integer result = null;
-        List<Integer> spResult = (List<Integer>) super.execute(key.getDescription(), 
-                key.getBegin(), key.getEnd(), key.getWorkerId(), key.getAbsenceType().getId()).get(SP_RESULT);
+        List<Integer> spResult = (List<Integer>) super.execute(key.getBegin(), 
+                key.getEnd(), key.getWorkerId(), key.getAbsenceType().getId()).get(SP_RESULT);
         if(spResult != null){
             result = spResult.get(0);
         }

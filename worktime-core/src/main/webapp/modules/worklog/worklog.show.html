@@ -6,11 +6,6 @@
 	
 	<table class="w3-table-all w3-hoverable">
 		<tr>
-			<th ng-click="setSearchTypeOrReverse('Description')">
-				Description
-				<span ng-show="showDownCaret('Description')" class="fa fa-caret-down"></span>
-				<span ng-show="showUpCaret('Description')" class="fa fa-caret-up"></span>
-			</th>
 			<th ng-click="setSearchTypeOrReverse('Status')">
 				Status	
 				<span ng-show="showDownCaret('Status')" class="fa fa-caret-down"></span>
@@ -28,7 +23,6 @@
 			</th>
 		</tr>
 		<tr ng-repeat="worklog in worklogs | filter:searchQuery | orderBy:sortType:sortReverse" class="w3-hover-light-green">
-			<td>{{worklog.description}}</td>
 			<td>{{worklog.status}}</td>
 			<td>{{worklog.begin}}</td>
 			<td>{{worklog.end}}</td>

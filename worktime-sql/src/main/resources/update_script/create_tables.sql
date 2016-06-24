@@ -116,7 +116,6 @@ CREATE TABLE `worker_holiday_number` (
 DROP TABLE IF EXISTS `worklog`;
 CREATE TABLE `worklog` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `description` tinytext NOT NULL,
   `status` int(1) NOT NULL,
   `begin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',

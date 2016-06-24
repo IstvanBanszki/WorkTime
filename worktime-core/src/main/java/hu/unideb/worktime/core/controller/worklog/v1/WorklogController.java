@@ -31,7 +31,6 @@ public class WorklogController {
     Example JSON content
     --------------------
     {
-        "description": "test description",
         "begin": "2016-05-20T08:30:00.000",
         "end": "2016-05-20T16:30:00.000",
         "workerId": 1

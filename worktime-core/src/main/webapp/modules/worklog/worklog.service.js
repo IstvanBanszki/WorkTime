@@ -3,7 +3,7 @@
 angular.module("Worklog")
 .factory('WorklogService', ['$http', '$rootScope', '$q', function WorklogServiceFactory($http, $rootScope, $q){
 	var service = {};
-	service.AddWorklog = function(description, begin, end, workerId) {
+	service.AddWorklog = function(begin, end, workerId) {
 		var deferred = $q.defer();
 		return $http({
 			method : "POST",
@@ -12,7 +12,6 @@ angular.module("Worklog")
 				'Content-Type': 'application/json'
 			},
 			data: { 
-				'description': description,
 				'begin': begin, 
 				'end': end, 
 				'workerId': workerId

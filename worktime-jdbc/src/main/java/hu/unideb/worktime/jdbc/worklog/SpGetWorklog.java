@@ -42,8 +42,7 @@ public class SpGetWorklog extends StoredProcedure implements RowMapper<GetWorklo
 
     @Override
     public GetWorklogResponse mapRow(ResultSet rs, int i) throws SQLException {
-        return new GetWorklogResponseBuilder().setDescription(rs.getString("description"))
-                                              .setBegin(rs.getTimestamp("begin").toLocalDateTime())
+        return new GetWorklogResponseBuilder().setBegin(rs.getTimestamp("begin").toLocalDateTime())
                                               .setEnd(rs.getTimestamp("end").toLocalDateTime())
                                               .setStatus(Status.valueOf(rs.getInt("status")))
                                               .build();
