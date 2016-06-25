@@ -64,6 +64,7 @@ angular.module('Worklog')
 				WorklogService.GetWorklog($rootScope.userData.workerId).then(
 					function( result ){
 						$scope.worklogs = result;
+						$scope.dateFormatter();
 					},
 					function( error ){
 						
@@ -82,5 +83,11 @@ angular.module('Worklog')
 		};
 		$scope.range = function(count){
 			return new Array(count);
+		};
+		$scope.dateFormatter = function(){
+			$scope.worklogs.forEach(function(worklog) {
+				worklog.begin = moment(worklog.begin).format('YYYY.MM.DD HH:mm:ss');
+				worklog.end = moment(worklog.end).format('YYYY.MM.DD HH:mm:ss');
+			});
 		};
     }]);

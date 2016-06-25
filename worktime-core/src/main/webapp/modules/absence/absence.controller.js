@@ -56,6 +56,7 @@ angular.module('Absence')
 				AbsenceService.GetAbsence($rootScope.userData.workerId).then(
 					function( result ){
 						$scope.absences = result;
+						$scope.dateFormatter();
 					},
 					function( error ){
 						
@@ -63,4 +64,10 @@ angular.module('Absence')
 				)
 			}
 		}
+		$scope.dateFormatter = function(){
+			$scope.absences.forEach(function(absence) {
+				absence.begin = moment(absence.begin).format('YYYY.MM.DD HH:mm:ss');
+				absence.end = moment(absence.end).format('YYYY.MM.DD HH:mm:ss');
+			});
+		};
     }]);

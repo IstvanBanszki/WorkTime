@@ -6,11 +6,6 @@
 	
 	<table class="w3-table-all w3-hoverable">
 		<tr>
-			<th ng-click="setSearchTypeOrReverse('Status')">
-				Status	
-				<span ng-show="showDownCaret('Status')" class="fa fa-caret-down"></span>
-				<span ng-show="showUpCaret('Status')" class="fa fa-caret-up"></span>
-			</th>
 			<th ng-click="setSearchTypeOrReverse('Begin')">
 				Begin				
 				<span ng-show="showDownCaret('Begin')" class="fa fa-caret-down"></span>
@@ -21,11 +16,16 @@
 				<span ng-show="showDownCaret('End')" class="fa fa-caret-down"></span>
 				<span ng-show="showUpCaret('End')" class="fa fa-caret-up"></span>
 			</th>
+			<th ng-click="setSearchTypeOrReverse('Status')">
+				Status	
+				<span ng-show="showDownCaret('Status')" class="fa fa-caret-down"></span>
+				<span ng-show="showUpCaret('Status')" class="fa fa-caret-up"></span>
+			</th>
 		</tr>
 		<tr ng-repeat="worklog in worklogs | filter:searchQuery | orderBy:sortType:sortReverse" class="w3-hover-light-green">
-			<td>{{worklog.status}}</td>
 			<td>{{worklog.begin}}</td>
 			<td>{{worklog.end}}</td>
+			<td>{{worklog.status}}</td>
 		</tr>
 	</table>
 </div>

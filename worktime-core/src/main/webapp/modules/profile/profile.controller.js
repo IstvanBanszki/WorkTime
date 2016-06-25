@@ -26,14 +26,14 @@ angular.module('Profile')
 				function( result ){
 					ProfileService.SetProfileData( result );
 					// Account Tab - initial value
-					$scope.loginName = $rootScope.userData.loginName;
-					$scope.dateOfRegistration = result.dateOfRegistration;
+					$scope.loginName = $rootScope.userData.loginName;					
+					$scope.dateOfRegistration = moment(result.dateOfRegistration).format('YYYY.MM.DD HH:mm:ss');
 					$scope.role = $rootScope.userData.roleName;
 					// Personal Tab - initial value
 					$scope.firstName = result.firstName;
 					$scope.lastName = result.lastName;
 					$scope.gender = result.gender;
-					$scope.dateOfBirth = result.dateOfBirth;
+					$scope.dateOfBirth = moment(result.dateOfBirth).format('YYYY.MM.DD HH:mm:ss');
 					$scope.nationality = result.nationality ;
 					// Work Tab - initial value
 					$scope.position = result.position;
