@@ -7,14 +7,12 @@ import java.time.LocalDateTime;
 
 public class GetAbsenceResponse implements Serializable {
 
-    private final String description;
     private final LocalDateTime begin;
     private final LocalDateTime end;
     private final Status status;
     private final AbsenceType absenceType;
 
-    public GetAbsenceResponse(String description, LocalDateTime begin, LocalDateTime end, Status status, AbsenceType absenceType) {
-        this.description = description;
+    public GetAbsenceResponse(LocalDateTime begin, LocalDateTime end, Status status, AbsenceType absenceType) {
         this.begin = begin;
         this.end = end;
         this.status = status;
@@ -23,22 +21,15 @@ public class GetAbsenceResponse implements Serializable {
 
     public static class GetAbsenceResponseBuilder {
 
-        private String description;
         private LocalDateTime begin;
         private LocalDateTime end;
         private Status status;
         private AbsenceType absenceType;
 
         public GetAbsenceResponseBuilder() {
-            this.description = "";
             this.begin = null;
             this.end = null;
             this.status = Status.NOT_SET;
-        }
-
-        public GetAbsenceResponseBuilder setDescription(String description) {
-            this.description = description;
-            return this;
         }
 
         public GetAbsenceResponseBuilder setBegin(LocalDateTime begin) {
@@ -62,13 +53,9 @@ public class GetAbsenceResponse implements Serializable {
         }
 
         public GetAbsenceResponse build() {
-            return new GetAbsenceResponse(this.description, this.begin, this.end, this.status, this.absenceType);
+            return new GetAbsenceResponse(this.begin, this.end, this.status, this.absenceType);
         }
     }    
-
-    public String getDescription() {
-        return this.description;
-    }
 
     public LocalDateTime getBegin() {
         return this.begin;
@@ -89,7 +76,6 @@ public class GetAbsenceResponse implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 67 * hash + (this.description != null ? this.description.hashCode() : 0);
         hash = 67 * hash + (this.begin != null ? this.begin.hashCode() : 0);
         hash = 67 * hash + (this.end != null ? this.end.hashCode() : 0);
         hash = 67 * hash + (this.status != null ? this.status.hashCode() : 0);
@@ -109,8 +95,7 @@ public class GetAbsenceResponse implements Serializable {
             return false;
         }
         final GetAbsenceResponse other = (GetAbsenceResponse) obj;
-        return (this.description != null ? this.description.equals(other.description) : other.description == null) &&
-               (this.begin != null ? this.begin.equals(other.begin) : other.begin == null) &&
+        return (this.begin != null ? this.begin.equals(other.begin) : other.begin == null) &&
                (this.end != null ? this.end.equals(other.end) : other.end == null) &&
                (this.status == other.status) &&
                (this.absenceType == other.absenceType);
@@ -118,8 +103,8 @@ public class GetAbsenceResponse implements Serializable {
 
     @Override
     public String toString() {
-        return "GetAbsenceResponse{" + "description=" + this.description + ", begin=" + 
-                this.begin + ", end=" + this.end + ", status=" + this.status + 
-                ", absenceType=" + this.absenceType + '}';
+        return "GetAbsenceResponse{begin=" + this.begin + ", end=" 
+                + this.end + ", status=" + this.status + ", absenceType=" 
+                + this.absenceType + '}';
     }
 }

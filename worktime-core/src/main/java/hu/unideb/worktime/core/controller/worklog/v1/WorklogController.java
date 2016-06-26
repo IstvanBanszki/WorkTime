@@ -32,7 +32,7 @@ public class WorklogController {
     --------------------
     {
         "begin": "2016-05-20T08:30:00.000",
-        "end": "2016-05-20T16:30:00.000",
+        "workHour": 8,
         "workerId": 1
     }
      */

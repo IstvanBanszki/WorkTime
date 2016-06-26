@@ -2,7 +2,6 @@ package hu.unideb.worktime.jdbc.absence;
 
 import hu.unideb.worktime.api.model.absence.GetAbsenceResponse;
 import hu.unideb.worktime.api.model.absence.SaveAbsenceRequest;
-import hu.unideb.worktime.jdbc.worklog.SpSaveWorklog;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,7 @@ public class SqlCallAbsence {
     @Autowired
     private SpGetAbsence spGetAbsence;
     @Autowired
-    private SpSaveWorklog spSaveWorklog;
+    private SpSaveAbsence spSaveAbsence;
     private Logger logger;
 
     public SqlCallAbsence() {
@@ -29,7 +28,7 @@ public class SqlCallAbsence {
         Integer result = null;
         this.logger.info("Call save_absence SP with given parameters: {}", key);
         try {
-            result = this.spSaveWorklog.execute(key);
+            result = this.spSaveAbsence.execute(key);
             if(result == null){
                 this.logger.debug("There is an erro in saving the worklog data in database! Key: {}", key);
             }

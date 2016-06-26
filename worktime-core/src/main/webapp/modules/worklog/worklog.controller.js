@@ -41,16 +41,11 @@ angular.module('Worklog')
 			hour: 0,
 			min: 0
 		};
-		$scope.end = {
-			hour: 0,
-			min: 0
-		};
+		$scope.workHour = 0;
 		$scope.addWorklog = function() {
 			var alma = $scope.dateBuilder($scope.beginDate, $scope.begin.hour, $scope.begin.min);
-			var korte = $scope.dateBuilder($scope.beginDate, $scope.end.hour, $scope.end.min);
 			var almaFormatted = moment(alma).format('YYYY-MM-DD hh:mm:ss');
-			var korteFormatted = moment(korte).format('YYYY-MM-DD hh:mm:ss');
-			/*WorklogService.AddWorklog($scope.begin.date, $scope.end.date, $rootScope.userData.workerId).then(
+			/*WorklogService.AddWorklog($scope.begin.date, $scope.workHour, $rootScope.userData.workerId).then(
 				function( result ){
 					
 				},
@@ -87,7 +82,6 @@ angular.module('Worklog')
 		$scope.dateFormatter = function(){
 			$scope.worklogs.forEach(function(worklog) {
 				worklog.begin = moment(worklog.begin).format('YYYY.MM.DD HH:mm:ss');
-				worklog.end = moment(worklog.end).format('YYYY.MM.DD HH:mm:ss');
 			});
 		};
     }]);

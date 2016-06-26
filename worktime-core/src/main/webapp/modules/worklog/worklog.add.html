@@ -15,20 +15,13 @@
 					<md-option ng-repeat="min in range(60) track by $index" value="{{timeValue($index)}}">{{timeValue($index)}}</md-option>
 				</md-select>
 			</md-input-container></p>
-			<p><label class="w3-label">End Time</label></p>		
+			<p><label class="w3-label">Work Hour</label></p>		
 			<md-input-container>
 				<label>Hour</label>
-				<md-select ng-model="end.hour">
-					<md-option ng-repeat="hour in range(24) track by $index" value="{{timeValue($index)}}">{{timeValue($index)}}</md-option>
+				<md-select ng-model="workHour">
+					<md-option ng-repeat="hour in range(24) track by $index" value="{{$index+1}}">{{$index+1}}</md-option>
 				</md-select>
 			</md-input-container>
-			<md-input-container>
-				<label>Min</label>
-				<md-select ng-model="end.min">
-					<md-option ng-repeat="min in range(60) track by $index" value="{{timeValue($index)}}">{{timeValue($index)}}</md-option>
-				</md-select>
-			</md-input-container></p>
-		</md-content>
 		<div class="w3-padding-8">
 			<input class="w3-btn w3-green w3-left-align" type="submit" value="Add"></input>
 		</div>

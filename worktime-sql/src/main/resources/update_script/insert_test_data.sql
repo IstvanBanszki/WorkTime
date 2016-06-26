@@ -56,22 +56,22 @@ INSERT INTO `worktime`.`worker_holiday_number` (`year`, `worker_holiday_number_t
 INSERT INTO `worktime`.`worker_holiday_number` (`year`, `worker_holiday_number_total`, `worker_id`) VALUES (2016, 28, 7);
 
 -- worklog table test data
-INSERT INTO `worktime`.`worklog` (`status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES (1, '2016.05.27 08:00', '2016.05.27 16:00', 1, 1);
-INSERT INTO `worktime`.`worklog` (`status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES (1, '2016.05.28 08:00', '2016.05.28 16:00', 1, 1);
-INSERT INTO `worktime`.`worklog` (`status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES (1, '2016.05.29 08:00', '2016.05.29 16:00', 1, 1);
-INSERT INTO `worktime`.`worklog` (`status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES (1, '2016.05.25 08:00', '2016.05.25 16:00', 1, 2);
-INSERT INTO `worktime`.`worklog` (`status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES (1, '2016.05.26 08:00', '2016.05.26 16:00', 1, 2);
-INSERT INTO `worktime`.`worklog` (`status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES (1, '2016.05.21 08:00', '2016.05.21 16:00', 1, 3);
-INSERT INTO `worktime`.`worklog` (`status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES (1, '2016.05.22 08:00', '2016.05.22 16:00', 1, 3);
-INSERT INTO `worktime`.`worklog` (`status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES (1, '2016.05.20 08:00', '2016.05.20 16:00', 1, 4);
-INSERT INTO `worktime`.`worklog` (`status`, `begin`, `end`, `absence_type_id`, `worker_id`)
-VALUES (1, '2016.05.22 08:00', '2016.05.22 16:00', 1, 4);
+INSERT INTO `worktime`.`worklog` (`begin`, `work_hour`, `worker_id`) VALUES ('2016.05.27 08:00', 8, 1);
+INSERT INTO `worktime`.`worklog` (`begin`, `work_hour`, `worker_id`) VALUES ('2016.05.24 08:00', 8, 1);
+INSERT INTO `worktime`.`worklog` (`begin`, `work_hour`, `worker_id`) VALUES ('2016.05.22 08:00', 8, 1);
+INSERT INTO `worktime`.`worklog` (`begin`, `work_hour`, `worker_id`) VALUES ('2016.05.25 08:00', 8, 2);
+INSERT INTO `worktime`.`worklog` (`begin`, `work_hour`, `worker_id`) VALUES ('2016.05.26 08:00', 8, 2);
+INSERT INTO `worktime`.`worklog` (`begin`, `work_hour`, `worker_id`) VALUES ('2016.05.20 08:00', 8, 3);
+INSERT INTO `worktime`.`worklog` (`begin`, `work_hour`, `worker_id`) VALUES ('2016.05.19 08:00', 8, 3);
+INSERT INTO `worktime`.`worklog` (`begin`, `work_hour`, `worker_id`) VALUES ('2016.05.20 08:00', 8, 4);
+INSERT INTO `worktime`.`worklog` (`begin`, `work_hour`, `worker_id`) VALUES ('2016.05.18 08:00', 8, 4);
+
+-- absence table test data
+INSERT INTO `worktime`.`absence` (`begin`, `end`, `status`, `absence_type_id`, `worker_id`) 
+VALUES ( '2016.05.20 00:00', '2016.05.20 00:00', 2, 2, 1);
+INSERT INTO `worktime`.`absence` (`begin`, `end`, `status`, `absence_type_id`, `worker_id`) 
+VALUES ( '2016.05.13 00:00', '2016.05.13 00:00', 3, 4, 1);
+INSERT INTO `worktime`.`absence` (`begin`, `end`, `status`, `absence_type_id`, `worker_id`) 
+VALUES ( '2016.05.10 00:00', '2016.05.10 00:00', 3, 4, 1);
+
 

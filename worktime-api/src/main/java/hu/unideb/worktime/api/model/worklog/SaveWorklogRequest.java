@@ -6,18 +6,18 @@ import java.time.LocalDateTime;
 public class SaveWorklogRequest implements Serializable{
     
     private final LocalDateTime begin;
-    private final LocalDateTime end;
+    private final int workHour;
     private final int workerId;
 
     public SaveWorklogRequest() {
         this.begin = null;
-        this.end = null;
+        this.workHour = 0;
         this.workerId = 0;
     }
 
-    public SaveWorklogRequest(LocalDateTime begin, LocalDateTime end, int workerId) {
+    public SaveWorklogRequest(LocalDateTime begin, int workHour, int workerId) {
         this.begin = begin;
-        this.end = end;
+        this.workHour = workHour;
         this.workerId = workerId;
     }
 
@@ -25,8 +25,8 @@ public class SaveWorklogRequest implements Serializable{
         return this.begin;
     }
     
-    public LocalDateTime getEnd() {
-        return this.end;
+    public int getWorkHour() {
+        return this.workHour;
     }
 
     public int getWorkerId() {
@@ -37,7 +37,7 @@ public class SaveWorklogRequest implements Serializable{
     public int hashCode() {
         int hash = 7;
         hash = 29 * hash + (this.begin != null ? this.begin.hashCode() : 0);
-        hash = 29 * hash + (this.end != null ? this.end.hashCode() : 0);
+        hash = 29 * hash + this.workHour;
         hash = 29 * hash + this.workerId;
         return hash;
     }
@@ -55,13 +55,13 @@ public class SaveWorklogRequest implements Serializable{
         }
         final SaveWorklogRequest other = (SaveWorklogRequest) obj;
         return this.workerId != other.workerId &&
-              (this.begin != null ? this.begin.equals(other.begin) : other.begin == null) &&
-              (this.end != null ? this.end.equals(other.end) : other.end == null);
+               this.workHour != other.workHour &&
+              (this.begin != null ? this.begin.equals(other.begin) : other.begin == null);
     }
 
     @Override
     public String toString() {
-        return "SaveWorklogRequest{begin=" + this.begin + ", end=" + this.end +
+        return "SaveWorklogRequest{begin=" + this.begin + ", workHour=" + this.workHour +
                 ", workerId=" + this.workerId + '}';
     }
 }

@@ -1,8 +1,6 @@
 package hu.unideb.worktime.jdbc.worklog;
 
-import hu.unideb.worktime.api.model.Status;
 import hu.unideb.worktime.api.model.worklog.GetWorklogResponse;
-import hu.unideb.worktime.api.model.worklog.GetWorklogResponse.GetWorklogResponseBuilder;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,9 +40,6 @@ public class SpGetWorklog extends StoredProcedure implements RowMapper<GetWorklo
 
     @Override
     public GetWorklogResponse mapRow(ResultSet rs, int i) throws SQLException {
-        return new GetWorklogResponseBuilder().setBegin(rs.getTimestamp("begin").toLocalDateTime())
-                                              .setEnd(rs.getTimestamp("end").toLocalDateTime())
-                                              .setStatus(Status.valueOf(rs.getInt("status")))
-                                              .build();
+        return new GetWorklogResponse(rs.getTimestamp("begin").toLocalDateTime(), rs.getInt("work_hour"));
     }    
 }

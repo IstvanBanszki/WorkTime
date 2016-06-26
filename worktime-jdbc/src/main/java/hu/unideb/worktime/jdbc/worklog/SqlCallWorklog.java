@@ -1,7 +1,6 @@
 package hu.unideb.worktime.jdbc.worklog;
 
 import hu.unideb.worktime.api.model.worklog.GetWorklogResponse;
-import hu.unideb.worktime.jdbc.worklog.SpSaveWorklog;
 import hu.unideb.worktime.api.model.worklog.SaveWorklogRequest;
 import java.util.List;
 import org.slf4j.Logger;

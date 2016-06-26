@@ -22,7 +22,7 @@ apply plugin: 'nebula.provided-base'
 
 jar {
     baseName = 'worktime-core'
-    version = '0.1.1-SNAPSHOT'
+    version = '0.2.0-SNAPSHOT'
 }
 
 repositories {

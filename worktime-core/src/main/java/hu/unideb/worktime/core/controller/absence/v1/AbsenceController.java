@@ -33,7 +33,6 @@ public class AbsenceController {
     Example JSON content
     --------------------
     {
-        "description": "test description",
         "begin": "2016-05-11T08:00:00.000",
         "end": "2016-05-11T16:00:00.000",
         "workerId": 1,

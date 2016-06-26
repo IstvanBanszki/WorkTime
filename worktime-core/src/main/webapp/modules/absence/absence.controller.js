@@ -19,7 +19,7 @@ angular.module('Absence')
 		}
 
 		$scope.absences = [];
-		$scope.sortType = "Description";
+		$scope.sortType = "Begin";
 		$scope.sortReverse = false;
 		$scope.searchQuery = "";
 		$scope.showDownCaret = function(tableHeader) {
@@ -36,13 +36,12 @@ angular.module('Absence')
 			}
 		}
 
-		$scope.description = "";
 		$scope.absenceType = "0";
 		$scope.begin = "";
 		$scope.end = "";
 
 		$scope.addAbsence = function() {
-			AbsenceService.AddAbsence($scope.description, $scope.begin, $scope.end, $rootScope.userData.workerId, $scope.absenceType).then(
+			AbsenceService.AddAbsence($scope.begin, $scope.end, $rootScope.userData.workerId, $scope.absenceType).then(
 				function( result ){
 					
 				},
