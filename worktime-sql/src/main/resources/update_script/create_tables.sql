@@ -94,14 +94,14 @@ CREATE TABLE `worker` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /* ***************************************************
-			worker_holiday_number table creation
+			holiday_number table creation
    *************************************************** */
 
-DROP TABLE IF EXISTS `worker_holiday_number`;
-CREATE TABLE `worker_holiday_number` (
+DROP TABLE IF EXISTS `holiday_number`;
+CREATE TABLE `holiday_number` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `year` int(4) NOT NULL,
-  `worker_holiday_number_total` int(2) NOT NULL,
+  `holiday_number_total` int(2) NOT NULL,
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `worker_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
