@@ -43,7 +43,7 @@ angular.module('Absence')
 		$scope.addAbsence = function() {
 			AbsenceService.AddAbsence($scope.begin, $scope.end, $rootScope.userData.workerId, $scope.absenceType).then(
 				function( result ){
-					
+					$scope.GetAbsences();
 				},
 				function( error ){
 					
@@ -52,7 +52,11 @@ angular.module('Absence')
 		}
 		$scope.initAbsence = function(){
 			if( typeof $scope.absences || $scope.absences.length === 0 ){
-				AbsenceService.GetAbsence($rootScope.userData.workerId).then(
+				$scope.GetAbsences();
+			}
+		}
+		$scope.GetAbsences = function(){
+			AbsenceService.GetAbsence($rootScope.userData.workerId).then(
 					function( result ){
 						$scope.absences = result;
 						$scope.dateFormatter();
@@ -61,12 +65,11 @@ angular.module('Absence')
 						
 					}
 				)
-			}
 		}
 		$scope.dateFormatter = function(){
 			$scope.absences.forEach(function(absence) {
-				absence.begin = moment(absence.begin).format('YYYY.MM.DD HH:mm:ss');
-				absence.end = moment(absence.end).format('YYYY.MM.DD HH:mm:ss');
+				absence.begin = moment(absence.begin).format('YYYY.MM.DD');
+				absence.end = moment(absence.end).format('YYYY.MM.DD');
 			});
 		};
     }]);

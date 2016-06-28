@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('WorklogAdministration')
-.controller('WorklogAdministrationController', ['$scope', '$rootScope', 'WorklogAdministrationService',
-    function ($scope, $rootScope, WorklogAdministrationService) {
+angular.module('Administration')
+.controller('AdministrationController', ['$scope', '$rootScope', 'AdministrationService',
+    function ($scope, $rootScope, AdministrationService) {
 		$scope.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
 		$scope.selectedDateFilterString = "All";
 		$scope.selectedDateFilter = "All";
@@ -13,7 +13,7 @@ angular.module('WorklogAdministration')
 		$scope.employeeWorklogs = [];
 		
 		$scope.init = function () {
-			WorklogAdministrationService.GetEmployees($rootScope.userData.workerId).then(
+			AdministrationService.GetEmployees($rootScope.userData.workerId).then(
 					function( result ){
 						$scope.employeesRaw = result;
 						$scope.employeesRaw.forEach(function(employee) {
@@ -27,7 +27,7 @@ angular.module('WorklogAdministration')
 		};
 		$scope.filter = function () {
 			var splitted = $scope.selectedEmployee.split(" ")
-			WorklogAdministrationService.GetWorklogsByEmployee(splitted[0], splitted[1]).then(
+			AdministrationService.GetWorklogsByEmployee(splitted[0], splitted[1]).then(
 					function( result ){
 						$scope.employeeWorklogs = result;
 					},

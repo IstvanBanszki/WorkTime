@@ -13,8 +13,7 @@ angular.module('Home')
 			title: 'Absence', url: '#absence'
 		}];
 		if( $rootScope.userData.roleName === 'COMPANY-ADMIN-ROLE' ){
-			$scope.links.push({ title: 'Worklog Administration', url: '#worklogadministration' });
-			$scope.links.push({ title: 'Absence Administration', url: '#absenceadministration' });
+			$scope.links.push({ title: 'Administration', url: '#administration' });
 		}
 
 		$scope.currentLink = '#home';

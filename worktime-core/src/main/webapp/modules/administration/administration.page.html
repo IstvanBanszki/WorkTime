@@ -1,17 +1,17 @@
 <div ng-controller="HomeController" ng-include="'modules/home/home.menu.html'"></div>
 <div class="page-element">
 	<div ng-include="'modules/home/home.header.html'"></div>
-	<div ng-controller="WorklogAdministrationController" ng-init="init()">
+	<div ng-controller="AdministrationController" ng-init="init()">
 
 	<div class="tab">
 		<form class="w3-border w3-round w3-padding-medium" ng-submit="filter()">
-			<md-input-container>
+			<md-input-container style="margin-right: 10px">
 				<label>Employee</label>
 				<md-select ng-model="selectedEmployee">
 				  <md-option ng-repeat="employee in employees" value="{{employee}}">{{employee}}</md-option>
 				</md-select>
 			</md-input-container>		
-			<md-input-container>
+			<md-input-container style="width: 140px">
 				<label>Date Filter</label>
 				<md-select ng-model="selectedDateFilterString">
 				  <md-option ng-repeat="datefilter in dateFilters" value="{{datefilter}}">{{datefilter}}</md-option>

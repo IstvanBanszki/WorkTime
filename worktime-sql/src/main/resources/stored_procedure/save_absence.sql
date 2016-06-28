@@ -7,7 +7,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `save_absence`(
 BEGIN
 
 	INSERT INTO `worktime`.`absence` (`begin`, `end`, `status`, `absence_type_id`, `worker_id`) 
-	VALUES (begin, hour, 1, absence_type_id, worker_id);
+	VALUES (begin, end, 1, absence_type_id, worker_id);
     
     SELECT ROW_COUNT() AS status;
 END

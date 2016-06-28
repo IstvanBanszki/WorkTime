@@ -5,8 +5,8 @@ angular.module('Home', [])
 angular.module('Profile', [])
 angular.module('Worklog', [])
 angular.module('Absence', [])
-angular.module('WorklogAdministration', [])
-angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'WorklogAdministration', 'ngRoute', 'ngCookies', "ngAnimate", "ngAria", 'ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
+angular.module('Administration', [])
+angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'Administration', 'ngRoute', 'ngCookies', "ngAnimate", "ngAria", 'ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
 	.config(['$routeProvider', '$mdDateLocaleProvider', function ($routeProvider, $mdDateLocaleProvider) {
 		$routeProvider
 			.when('/login', {
@@ -34,10 +34,10 @@ angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'Work
 				templateUrl: 'modules/absence/absence.page.html',
 				title	   : 'WorkTime - Absence'
 			})
-			.when('/worklogadministration', {
-				controller : 'WorklogAdministrationController',
-				templateUrl: 'modules/worklog_administration/worklog.administration.page.html',
-				title	   : 'WorkTime - Worklog Administration'
+			.when('/administration', {
+				controller : 'AdministrationController',
+				templateUrl: 'modules/administration/administration.page.html',
+				title	   : 'WorkTime - Administration'
 			})
 			.otherwise('/login');
 		$mdDateLocaleProvider.formatDate = function(date) {

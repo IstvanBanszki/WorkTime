@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module("WorklogAdministration")
-.factory('WorklogAdministrationService', ['$http', '$rootScope', '$q', function WorklogAdministrationServiceFactory($http, $rootScope, $q) {
+angular.module("Administration")
+.factory('AdministrationService', ['$http', '$rootScope', '$q', function AdministrationServiceFactory($http, $rootScope, $q) {
 	var service = {};	
 	service.GetWorklogsByEmployee = function(firstName, lastName) {
 		var deferred = $q.defer();

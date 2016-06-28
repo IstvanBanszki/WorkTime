@@ -2,8 +2,6 @@ package hu.unideb.worktime.core.controller.profile.v1;
 
 import hu.unideb.worktime.api.model.profile.ProfileRecord;
 import hu.unideb.worktime.jdbc.profile.SqlCallProfile;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,21 +16,10 @@ public class ProfileController {
 
     @Autowired
     private SqlCallProfile sqlCallProfile;
-    private Logger logger;
-
-    public ProfileController() {
-        this.logger = LoggerFactory.getLogger(ProfileController.class);
-    }
 
     @Async
     @RequestMapping(value = "/get/{workerId}", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody ProfileRecord getProfile(@PathVariable Integer workerId) {
-        ProfileRecord result = null;
-
-        this.logger.info("Calling /rest/profile/v1/get webservice with the following key: {}", workerId);
-        result = this.sqlCallProfile.getProfileData(workerId);
-        this.logger.info("Result of /rest/profile/v1/get webservice: {}", result);
-
-        return result;
+        return this.sqlCallProfile.getProfileData(workerId);
     }
 }

@@ -1,11 +1,11 @@
 package hu.unideb.worktime.api.model.worklog;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class SaveWorklogRequest implements Serializable{
     
-    private final LocalDateTime begin;
+    private final Date begin;
     private final int workHour;
     private final int workerId;
 
@@ -15,13 +15,13 @@ public class SaveWorklogRequest implements Serializable{
         this.workerId = 0;
     }
 
-    public SaveWorklogRequest(LocalDateTime begin, int workHour, int workerId) {
+    public SaveWorklogRequest(Date begin, int workHour, int workerId) {
         this.begin = begin;
         this.workHour = workHour;
         this.workerId = workerId;
     }
 
-    public LocalDateTime getBegin() {
+    public Date getBegin() {
         return this.begin;
     }
     

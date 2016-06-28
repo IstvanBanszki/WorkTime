@@ -4,8 +4,6 @@ import hu.unideb.worktime.api.model.worklog.GetWorklogResponse;
 import hu.unideb.worktime.api.model.worklog.SaveWorklogRequest;
 import hu.unideb.worktime.jdbc.worklog.SqlCallWorklog;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,11 +19,6 @@ public class WorklogController {
     
     @Autowired
     private SqlCallWorklog sqlCallSaveWorklog;
-    private Logger logger;
-
-    public WorklogController() {
-        this.logger = LoggerFactory.getLogger(WorklogController.class);
-    }
     /*
     --------------------
     Example JSON content
@@ -39,24 +32,12 @@ public class WorklogController {
     @Async
     @RequestMapping(value = "/save", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public @ResponseBody Integer saveWorklog(@RequestBody SaveWorklogRequest request) {
-        Integer result = null;
-
-        this.logger.info("Calling /rest/worklog/v1/save webservice with the following key: {}", request);
-        //result = this.sqlCallSaveWorklog.saveWorklog(request);
-        this.logger.info("Result of /rest/worklog/v1/save webservice: {}", result);
-
-        return result;
+        return this.sqlCallSaveWorklog.saveWorklog(request);
     }
 
     @Async
     @RequestMapping(value = "/get/{workerId}", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody List<GetWorklogResponse> getWorklog(@PathVariable Integer workerId) {
-        List<GetWorklogResponse> result = null;
-
-        this.logger.info("Calling /rest/worklog/v1/get webservice with the following key: {}", workerId);
-        result = this.sqlCallSaveWorklog.getWorklog(workerId);
-        this.logger.info("Result of /rest/worklog/v1/get webservice: {}", result);
-
-        return result;
+        return this.sqlCallSaveWorklog.getWorklog(workerId);
     }
 }

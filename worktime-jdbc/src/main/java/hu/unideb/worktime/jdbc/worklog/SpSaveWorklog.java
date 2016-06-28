@@ -36,7 +36,7 @@ public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer>
     public Integer execute(SaveWorklogRequest key) {
         Integer result = null;
         List<Integer> spResult = (List<Integer>) super.execute(key.getBegin(), 
-                key.getWorkHour(), key.getWorkerId(), 1).get(SP_RESULT);
+                key.getWorkHour(), key.getWorkerId()).get(SP_RESULT);
         if (spResult != null) {
             result = spResult.get(0);
         }
