@@ -25,13 +25,13 @@ public class SqlCallWorklog {
         this.logger = logger;
     }
     
-    public Integer saveWorklog( SaveWorklogRequest key ){
+    public Integer saveWorklog(Integer workerId, SaveWorklogRequest values ){
         Integer result = null;
-        this.logger.info("Call save_worklog SP with given parameters: {}", key);
+        this.logger.info("Call save_worklog SP with given parameters: Key - {}, values - {}", workerId, values);
         try {
-            result = this.spSaveWorklog.execute(key);
+            result = this.spSaveWorklog.execute(workerId, values);
             if(result == null){
-                this.logger.debug("There is an erro in saving the worklog data in database! Key: {}", key);
+                this.logger.debug("There is an erro in saving the worklog data in database! Key - {}, values - {}", workerId, values);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during save_worklog SP call: {}", ex);

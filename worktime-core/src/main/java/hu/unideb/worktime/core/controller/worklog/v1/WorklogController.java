@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/rest/worklog/v1")
+@RequestMapping(value = "/api/worklog/v1")
 public class WorklogController {
     
     @Autowired
@@ -30,14 +30,14 @@ public class WorklogController {
     }
      */
     @Async
-    @RequestMapping(value = "/save", method = RequestMethod.POST, headers = "Content-Type=application/json")
-    public @ResponseBody Integer saveWorklog(@RequestBody SaveWorklogRequest request) {
-        return this.sqlCallSaveWorklog.saveWorklog(request);
+    @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
+    public @ResponseBody Integer saveWorklog(@PathVariable("workerId") Integer workerId, @RequestBody SaveWorklogRequest request) {
+        return this.sqlCallSaveWorklog.saveWorklog(workerId, request);
     }
 
     @Async
-    @RequestMapping(value = "/get/{workerId}", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody List<GetWorklogResponse> getWorklog(@PathVariable Integer workerId) {
+    @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<GetWorklogResponse> getWorklog(@PathVariable("workerId") Integer workerId) {
         return this.sqlCallSaveWorklog.getWorklog(workerId);
     }
 }

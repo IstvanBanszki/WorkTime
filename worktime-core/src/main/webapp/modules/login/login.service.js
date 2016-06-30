@@ -7,12 +7,11 @@ angular.module("Login")
 		var deferred = $q.defer();
 		return $http({
 			method : "POST",
-			url : "/rest/login/v1/get",
+			url : "/api/login/v1/loginName/"+loginName,
 			headers : {
 				'Content-Type': 'application/json'
 			},
-			data: { 
-				'loginName': loginName, 
+			data: {
 				'password': password
 			}
 		}).then(function successCallback(response) {

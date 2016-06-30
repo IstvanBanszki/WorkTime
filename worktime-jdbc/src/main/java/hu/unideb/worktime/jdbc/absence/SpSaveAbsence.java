@@ -36,10 +36,10 @@ public class SpSaveAbsence extends StoredProcedure implements RowMapper<Integer>
         compile();
     }
 
-    public Integer execute(SaveAbsenceRequest key) {
+    public Integer execute(Integer workerId, SaveAbsenceRequest values) {
         Integer result = null;
-        List<Integer> spResult = (List<Integer>) super.execute(key.getBegin(), 
-                key.getEnd(), key.getWorkerId(), key.getAbsenceType().getId()).get(SP_RESULT);
+        List<Integer> spResult = (List<Integer>) super.execute(values.getBegin(), 
+                values.getEnd(), workerId, values.getAbsenceType().getId()).get(SP_RESULT);
         if (spResult != null) {
             result = spResult.get(0);
         }

@@ -6,14 +6,10 @@ angular.module("Administration")
 	service.GetWorklogsByEmployee = function(firstName, lastName) {
 		var deferred = $q.defer();
 		return $http({
-			method : "POST",
-			url : "/rest/worklogadministration/v1/employees/",
+			method : "GET",
+			url : "/api/administration/v1/firstName/"+firstName+"/lastName/"+firstName,
 			headers : {
 				'Content-Type': 'application/json'
-			},
-			data: {
-				'firstName': firstName, 
-				'lastName': lastName
 			}
 		}).then(function successCallback(response) {
 
@@ -29,8 +25,8 @@ angular.module("Administration")
 	service.GetEmployees = function( workerId ){
 		var deferred = $q.defer();
 		return $http({
-			method : "POST",
-			url : "/rest/worklogadministration/v1/workerId/"+workerId+"/employees",
+			method : "GET",
+			url : "/api/administration/v1/workerId/"+workerId,
 			headers : {
 				'Content-Type': 'application/json'
 			}

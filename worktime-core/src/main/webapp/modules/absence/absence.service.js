@@ -6,8 +6,8 @@ angular.module("Absence")
 	service.AddAbsence = function(begin, end, workerId, absenceType) {
 		var deferred = $q.defer();
 		return $http({
-			method : "POST",
-			url : "/rest/absence/v1/save",
+			method : "PUT",
+			url : "/api/absence/v1/workerId/"+workerId,
 			headers : {
 				'Content-Type': 'application/json'
 			},
@@ -31,8 +31,8 @@ angular.module("Absence")
 	service.GetAbsence = function(workerId) {
 		var deferred = $q.defer();
 		return $http({
-			method : "POST",
-			url : "/rest/absence/v1/get/"+workerId,
+			method : "GET",
+			url : "/api/absence/v1/workerId/"+workerId,
 			headers : {
 				'Content-Type': 'application/json'
 			}

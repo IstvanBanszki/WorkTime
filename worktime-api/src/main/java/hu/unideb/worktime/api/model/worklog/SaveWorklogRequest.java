@@ -7,18 +7,15 @@ public class SaveWorklogRequest implements Serializable{
     
     private final Date begin;
     private final int workHour;
-    private final int workerId;
 
     public SaveWorklogRequest() {
         this.begin = null;
         this.workHour = 0;
-        this.workerId = 0;
     }
 
     public SaveWorklogRequest(Date begin, int workHour, int workerId) {
         this.begin = begin;
         this.workHour = workHour;
-        this.workerId = workerId;
     }
 
     public Date getBegin() {
@@ -29,16 +26,11 @@ public class SaveWorklogRequest implements Serializable{
         return this.workHour;
     }
 
-    public int getWorkerId() {
-        return this.workerId;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 29 * hash + (this.begin != null ? this.begin.hashCode() : 0);
         hash = 29 * hash + this.workHour;
-        hash = 29 * hash + this.workerId;
         return hash;
     }
 
@@ -54,14 +46,12 @@ public class SaveWorklogRequest implements Serializable{
             return false;
         }
         final SaveWorklogRequest other = (SaveWorklogRequest) obj;
-        return this.workerId != other.workerId &&
-               this.workHour != other.workHour &&
+        return this.workHour != other.workHour &&
               (this.begin != null ? this.begin.equals(other.begin) : other.begin == null);
     }
 
     @Override
     public String toString() {
-        return "SaveWorklogRequest{begin=" + this.begin + ", workHour=" + this.workHour +
-                ", workerId=" + this.workerId + '}';
+        return "SaveWorklogRequest{begin=" + this.begin + ", workHour=" + this.workHour + '}';
     }
 }

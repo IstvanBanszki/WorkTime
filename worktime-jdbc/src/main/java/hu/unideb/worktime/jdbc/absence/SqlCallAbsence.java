@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SqlCallAbsence {
+
     @Autowired
     private SpGetAbsence spGetAbsence;
     @Autowired
@@ -23,14 +24,14 @@ public class SqlCallAbsence {
     public SqlCallAbsence(Logger logger) {
         this.logger = logger;
     }
-        
-    public Integer saveAbsence( SaveAbsenceRequest key ){
+
+    public Integer saveAbsence(Integer workerId, SaveAbsenceRequest values) {
         Integer result = null;
-        this.logger.info("Call save_absence SP with given parameters: {}", key);
+        this.logger.info("Call save_absence SP with given parameters: Key - {}, Values - {}", workerId, values);
         try {
-            result = this.spSaveAbsence.execute(key);
-            if(result == null){
-                this.logger.debug("There is an erro in saving the worklog data in database! Key: {}", key);
+            result = this.spSaveAbsence.execute(workerId, values);
+            if (result == null) {
+                this.logger.debug("There is an erro in saving the worklog data in database! Key: {}, Values - {}", workerId, values);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during save_absence SP call: {}", ex);
@@ -38,13 +39,13 @@ public class SqlCallAbsence {
         this.logger.info("Result of save_absence SP: {}", result);
         return result;
     }
-    
-    public List<GetAbsenceResponse> getAbsence( Integer key ){
+
+    public List<GetAbsenceResponse> getAbsence(Integer key) {
         List<GetAbsenceResponse> result = null;
         this.logger.info("Call get_all_absence_by_worker SP with given parameters: {}", key);
         try {
             result = this.spGetAbsence.execute(key);
-            if(result == null ||result.isEmpty() ){
+            if (result == null || result.isEmpty()) {
                 this.logger.debug("There is no suche worklog data in database! Key: {}", key);
             }
         } catch (Exception ex) {

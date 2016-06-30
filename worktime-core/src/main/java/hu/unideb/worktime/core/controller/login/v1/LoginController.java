@@ -1,6 +1,5 @@
 package hu.unideb.worktime.core.controller.login.v1;
 
-import hu.unideb.worktime.api.model.login.LoginRequest;
 import hu.unideb.worktime.api.model.login.LoginRecord;
 import hu.unideb.worktime.api.model.login.LoginResponse;
 import hu.unideb.worktime.jdbc.login.SqlCallLogin;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/rest/login/v1")
+@RequestMapping(value = "/api/login/v1")
 public class LoginController {
 
     @Autowired
@@ -43,24 +42,17 @@ public class LoginController {
     }
      */
     @Async
-    @RequestMapping(value = "/get", method = RequestMethod.POST, headers = "Content-Type=application/json")
-    public @ResponseBody LoginResponse getLogin(@RequestBody LoginRequest request) {
+    @RequestMapping(value = "/loginName/{loginName}", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    public @ResponseBody LoginResponse getLogin(@PathVariable("loginName") String loginName, @RequestBody String password) {
         LoginResponse result = null;
 
-        this.logger.info("Calling /rest/login/v1/get webservice with the following key: {}", request);
-        LoginRecord record = this.sqlCallLogin.authenticate(request.getLoginName());
-        this.logger.info("Result of /rest/login/v1/get webservice: {}", record);
+        this.logger.info("Calling /api/login/v1/get webservice with the following key: {}, {}", loginName, password);
+        LoginRecord record = this.sqlCallLogin.authenticate(loginName);
+        this.logger.info("Result of /api/login/v1/get webservice: {}", record);
 
-        if (record != null && this.wtEncryption.checkPassword(request.getPassword(), record.getPassword())) {
+        if (record != null && this.wtEncryption.checkPassword(password, record.getPassword())) {
             result = new LoginResponse(record.getWorkerId(), record.getRoleName());
         }
         return result;
-    }
-
-    //TODO Dummy service for test purposes, after the app is finished, it should be deleted
-    @RequestMapping(value = "/{user}", method = RequestMethod.GET)
-    public String example(@PathVariable(value = "user") int userId) {
-        System.out.println("Hello World" + userId);
-        return "Hello World" + userId;
     }
 }

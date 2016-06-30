@@ -6,15 +6,14 @@ angular.module("Worklog")
 	service.AddWorklog = function(begin, workHour, workerId) {
 		var deferred = $q.defer();
 		return $http({
-			method : "POST",
-			url : "/rest/worklog/v1/save",
+			method : "PUT",
+			url : "/api/worklog/v1/workerId/"+workerId,
 			headers : {
 				'Content-Type': 'application/json'
 			},
-			data: { 
-				'begin': begin, 
-				'workHour': workHour, 
-				'workerId': workerId
+			data: {
+				'begin': begin,
+				'workHour': workHour
 			}
 		}).then(function successCallback(response) {
 			
@@ -30,8 +29,8 @@ angular.module("Worklog")
 	service.GetWorklog = function(workerId) {
 		var deferred = $q.defer();
 		return $http({
-			method : "POST",
-			url : "/rest/worklog/v1/get/"+workerId,
+			method : "GET",
+			url : "/api/worklog/v1/workerId/"+workerId,
 			headers : {
 				'Content-Type': 'application/json'
 			}

@@ -6,8 +6,8 @@ angular.module("Profile")
 	service.Profile = function( workerId ){
 		var deferred = $q.defer();
 		return $http({
-			method : "POST",
-			url : "/rest/profile/v1/get/"+workerId,
+			method : "GET",
+			url : "/api/profile/v1/workerId/"+workerId,
 			headers : {
 				'Content-Type': 'application/json'
 			}
