@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/absence/v1")
+@RequestMapping(value = "/api/absence/v1", produces = "application/json")
 public class AbsenceController {
 
     @Autowired
@@ -32,13 +32,13 @@ public class AbsenceController {
     }
      */
     @Async
-    @RequestMapping(value = "/workerId/{workerId}/", method = RequestMethod.PUT, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.PUT)
     public @ResponseBody Integer saveWorklog(@PathVariable("workerId") Integer workerId, @RequestBody SaveAbsenceRequest request) {
         return this.sqlCallAbsence.saveAbsence(workerId, request);
     }
     
     @Async
-    @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.GET)
     public @ResponseBody List<GetAbsenceResponse> getWorklog(@PathVariable Integer workerId) {
         return this.sqlCallAbsence.getAbsence(workerId);
     }

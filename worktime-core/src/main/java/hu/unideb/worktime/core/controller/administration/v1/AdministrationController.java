@@ -13,19 +13,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/administration/v1")
+@RequestMapping(value = "/api/administration/v1", produces = "application/json")
 public class AdministrationController {
     
     @Autowired
     private SqlCallAdministration sqlCallWorklogAdministration;
         
     @Async
-    @RequestMapping(value = "/firstName/{firstName}/lastName/{lastName}", method = RequestMethod.GET, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/firstName/{firstName}/lastName/{lastName}", method = RequestMethod.GET)
     public @ResponseBody List<GetWorklogResponse> getEmployee(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
         return this.sqlCallWorklogAdministration.getEmloyeeWorklog(firstName, lastName);
     }
     @Async
-    @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.GET)
     public @ResponseBody List<Employee> getEmployee(@PathVariable("workerId") Integer workerId ) {
         return this.sqlCallWorklogAdministration.getEmloyees(workerId);
     }

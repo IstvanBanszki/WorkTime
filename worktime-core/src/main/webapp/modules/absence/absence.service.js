@@ -13,8 +13,7 @@ angular.module("Absence")
 			},
 			data: {
 				'begin': moment(begin).format('YYYY-MM-DD'), 
-				'end': moment(end).format('YYYY-MM-DD'), 
-				'workerId': workerId,
+				'end': moment(end).format('YYYY-MM-DD'),
 				'absenceType': absenceType
 			}
 		}).then(function successCallback(response) {

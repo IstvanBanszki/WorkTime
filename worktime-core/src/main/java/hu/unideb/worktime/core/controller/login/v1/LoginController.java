@@ -2,6 +2,7 @@ package hu.unideb.worktime.core.controller.login.v1;
 
 import hu.unideb.worktime.api.model.login.LoginRecord;
 import hu.unideb.worktime.api.model.login.LoginResponse;
+import hu.unideb.worktime.api.model.login.Password;
 import hu.unideb.worktime.jdbc.login.SqlCallLogin;
 import hu.unideb.worktime.core.security.WTEncryption;
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/login/v1")
+@RequestMapping(value = "/api/login/v1", consumes = "application/json", produces = "application/json")
 public class LoginController {
 
     @Autowired
@@ -42,16 +43,18 @@ public class LoginController {
     }
      */
     @Async
-    @RequestMapping(value = "/loginName/{loginName}", method = RequestMethod.POST, headers = "Content-Type=application/json")
-    public @ResponseBody LoginResponse getLogin(@PathVariable("loginName") String loginName, @RequestBody String password) {
+    @RequestMapping(value = "/loginName/{loginName}", method = RequestMethod.POST)
+    public @ResponseBody LoginResponse getLogin(@PathVariable("loginName") String loginName, @RequestBody Password password) {
         LoginResponse result = null;
 
-        this.logger.info("Calling /api/login/v1/get webservice with the following key: {}, {}", loginName, password);
+    
+        this.logger.info("Calling /api/login/v1/loginName/{} webservice with the following password: {}", loginName, password.getPassword());
         LoginRecord record = this.sqlCallLogin.authenticate(loginName);
-        this.logger.info("Result of /api/login/v1/get webservice: {}", record);
+        this.logger.info("Result of /api/login/v1/loginName/{} webservice: {}", record);
 
-        if (record != null && this.wtEncryption.checkPassword(password, record.getPassword())) {
+        if (record != null && this.wtEncryption.checkPassword(password.getPassword(), record.getPassword())) {
             result = new LoginResponse(record.getWorkerId(), record.getRoleName());
+            this.logger.info("Result: " + result);
         }
         return result;
     }

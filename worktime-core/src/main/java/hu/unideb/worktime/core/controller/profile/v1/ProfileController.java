@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/profile/v1")
+@RequestMapping(value = "/api/profile/v1", produces = "application/json")
 public class ProfileController {
 
     @Autowired
     private SqlCallProfile sqlCallProfile;
 
     @Async
-    @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.GET, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.GET)
     public @ResponseBody ProfileRecord getProfile(@PathVariable("workerId") Integer workerId) {
         return this.sqlCallProfile.getProfileData(workerId);
     }
