@@ -1,7 +1,7 @@
 
 package hu.unideb.worktime.jdbc.absence;
 
-import hu.unideb.worktime.api.model.absence.SaveAbsenceRequest;
+import hu.unideb.worktime.api.model.absence.AbsenceRequest;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,7 +36,7 @@ public class SpSaveAbsence extends StoredProcedure implements RowMapper<Integer>
         compile();
     }
 
-    public Integer execute(Integer workerId, SaveAbsenceRequest values) {
+    public Integer execute(Integer workerId, AbsenceRequest values) {
         Integer result = null;
         List<Integer> spResult = (List<Integer>) super.execute(values.getBegin(), 
                 values.getEnd(), workerId, values.getAbsenceType().getId()).get(SP_RESULT);

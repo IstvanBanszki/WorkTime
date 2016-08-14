@@ -1,7 +1,7 @@
 package hu.unideb.worktime.core.controller.worklog.v1;
 
-import hu.unideb.worktime.api.model.worklog.GetWorklogResponse;
-import hu.unideb.worktime.api.model.worklog.SaveWorklogRequest;
+import hu.unideb.worktime.api.model.worklog.WorklogResponse;
+import hu.unideb.worktime.api.model.worklog.WorklogRequest;
 import hu.unideb.worktime.jdbc.worklog.SqlCallWorklog;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +31,13 @@ public class WorklogController {
      */
     @Async
     @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.PUT)
-    public @ResponseBody Integer saveWorklog(@PathVariable("workerId") Integer workerId, @RequestBody SaveWorklogRequest request) {
+    public @ResponseBody Integer saveWorklog(@PathVariable("workerId") Integer workerId, @RequestBody WorklogRequest request) {
         return this.sqlCallSaveWorklog.saveWorklog(workerId, request);
     }
 
     @Async
     @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.GET)
-    public @ResponseBody List<GetWorklogResponse> getWorklog(@PathVariable("workerId") Integer workerId) {
+    public @ResponseBody List<WorklogResponse> getWorklog(@PathVariable("workerId") Integer workerId) {
         return this.sqlCallSaveWorklog.getWorklog(workerId);
     }
 }

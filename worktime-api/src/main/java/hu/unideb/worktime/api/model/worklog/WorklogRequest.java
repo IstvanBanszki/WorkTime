@@ -3,17 +3,17 @@ package hu.unideb.worktime.api.model.worklog;
 import java.io.Serializable;
 import java.util.Date;
 
-public class SaveWorklogRequest implements Serializable{
+public class WorklogRequest implements Serializable{
     
     private final Date begin;
     private final int workHour;
 
-    public SaveWorklogRequest() {
+    public WorklogRequest() {
         this.begin = null;
         this.workHour = 0;
     }
 
-    public SaveWorklogRequest(Date begin, int workHour, int workerId) {
+    public WorklogRequest(Date begin, int workHour, int workerId) {
         this.begin = begin;
         this.workHour = workHour;
     }
@@ -45,7 +45,7 @@ public class SaveWorklogRequest implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final SaveWorklogRequest other = (SaveWorklogRequest) obj;
+        final WorklogRequest other = (WorklogRequest) obj;
         return this.workHour != other.workHour &&
               (this.begin != null ? this.begin.equals(other.begin) : other.begin == null);
     }

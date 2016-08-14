@@ -4,19 +4,19 @@ import hu.unideb.worktime.api.model.AbsenceType;
 import java.io.Serializable;
 import java.util.Date;
 
-public class SaveAbsenceRequest implements Serializable{
+public class AbsenceRequest implements Serializable{
     
     private final Date begin;
     private final Date end;
     private final AbsenceType absenceType;
 
-    public SaveAbsenceRequest() {
+    public AbsenceRequest() {
         this.begin = null;
         this.end = null;
         this.absenceType = AbsenceType.NOT_SET;
     }
 
-    public SaveAbsenceRequest(Date begin, Date end, int workerId, AbsenceType absenceType) {
+    public AbsenceRequest(Date begin, Date end, int workerId, AbsenceType absenceType) {
         this.begin = begin;
         this.end = end;
         this.absenceType = absenceType;
@@ -54,7 +54,7 @@ public class SaveAbsenceRequest implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final SaveAbsenceRequest other = (SaveAbsenceRequest) obj;
+        final AbsenceRequest other = (AbsenceRequest) obj;
         return (this.begin != null ? this.begin.equals(other.begin) : other.begin == null) &&
                (this.end != null ? this.end.equals(other.end) : other.end == null) &&
                (this.absenceType != null ? this.absenceType.equals(other.absenceType) : other.absenceType == null);

@@ -1,6 +1,6 @@
 package hu.unideb.worktime.jdbc.administration;
 
-import hu.unideb.worktime.api.model.worklog.GetWorklogResponse;
+import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +15,7 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapper<GetWorklogResponse> {
+public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapper<WorklogResponse> {
 
     private static final String SP_NAME = "get_employee_worklog_list";
     private static final String SP_PARAMETER_1 = "first_name";
@@ -32,9 +32,9 @@ public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapp
         compile();
     }
 
-    public List<GetWorklogResponse> execute(String firstName, String lastName) {
+    public List<WorklogResponse> execute(String firstName, String lastName) {
 
-        List<GetWorklogResponse> spResult = (List<GetWorklogResponse>) super.execute(firstName, lastName).get(SP_RESULT);
+        List<WorklogResponse> spResult = (List<WorklogResponse>) super.execute(firstName, lastName).get(SP_RESULT);
         if(spResult != null){
             return spResult;
         }
@@ -42,8 +42,8 @@ public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapp
     }
 
     @Override
-    public GetWorklogResponse mapRow(ResultSet rs, int i) throws SQLException {
-        return new GetWorklogResponse(rs.getTimestamp("begin").toLocalDateTime(), rs.getInt("work_hour"));
+    public WorklogResponse mapRow(ResultSet rs, int i) throws SQLException {
+        return new WorklogResponse(rs.getTimestamp("begin").toLocalDateTime(), rs.getInt("work_hour"));
     }
     
 }

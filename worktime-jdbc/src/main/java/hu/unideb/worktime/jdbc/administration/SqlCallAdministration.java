@@ -1,6 +1,6 @@
 package hu.unideb.worktime.jdbc.administration;
 
-import hu.unideb.worktime.api.model.worklog.GetWorklogResponse;
+import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.api.model.worklogadministration.Employee;
 import java.util.List;
 import org.slf4j.Logger;
@@ -25,8 +25,8 @@ public class SqlCallAdministration {
         this.logger = logger;
     }
     
-    public List<GetWorklogResponse> getEmloyeeWorklog(String firstName, String lastName){
-        List<GetWorklogResponse> result = null;
+    public List<WorklogResponse> getEmloyeeWorklog(String firstName, String lastName){
+        List<WorklogResponse> result = null;
         this.logger.info("Call get_employee_worklog_list SP with given parameters: FirstName - {}, LastName - {}", firstName, lastName);
         try {
             result = this.spGetEmployeeWorklogList.execute(firstName, lastName);

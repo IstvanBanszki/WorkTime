@@ -2,8 +2,8 @@ package hu.unideb.worktime.jdbc.absence;
 
 import hu.unideb.worktime.api.model.AbsenceType;
 import hu.unideb.worktime.api.model.Status;
-import hu.unideb.worktime.api.model.absence.GetAbsenceResponse;
-import hu.unideb.worktime.api.model.absence.GetAbsenceResponse.GetAbsenceResponseBuilder;
+import hu.unideb.worktime.api.model.absence.AbsenceResponse;
+import hu.unideb.worktime.api.model.absence.AbsenceResponse.AbsenceResponseBuilder;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +18,7 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpGetAbsence extends StoredProcedure implements RowMapper<GetAbsenceResponse>{
+public class SpGetAbsence extends StoredProcedure implements RowMapper<AbsenceResponse>{
     
     private static final String SP_NAME = "get_all_absence_by_worker";
     private static final String SP_PARAMETER_1 = "worker_id";
@@ -33,20 +33,20 @@ public class SpGetAbsence extends StoredProcedure implements RowMapper<GetAbsenc
         compile();
     }
 
-    public List<GetAbsenceResponse> execute(Integer key) {
-        List<GetAbsenceResponse> spResult = (List<GetAbsenceResponse>) super.execute(key).get(SP_RESULT);
+    public List<AbsenceResponse> execute(Integer key) {
+        List<AbsenceResponse> spResult = (List<AbsenceResponse>) super.execute(key).get(SP_RESULT);
         if(spResult != null){
             return spResult;
         }
         return new ArrayList();
-    }    
+    }
 
     @Override
-    public GetAbsenceResponse mapRow(ResultSet rs, int i) throws SQLException {
-        return new GetAbsenceResponseBuilder().setBegin(rs.getTimestamp("begin").toLocalDateTime())
+    public AbsenceResponse mapRow(ResultSet rs, int i) throws SQLException {
+        return new AbsenceResponseBuilder().setBegin(rs.getTimestamp("begin").toLocalDateTime())
                                               .setEnd(rs.getTimestamp("end").toLocalDateTime())
                                               .setStatus(Status.valueOf(rs.getInt("status")))
                                               .setAbsenceType(AbsenceType.valueOf(rs.getInt("absence_type_id")))
                                               .build();
-    }   
+    }
 }

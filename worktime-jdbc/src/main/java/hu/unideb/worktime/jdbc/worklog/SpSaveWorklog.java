@@ -1,6 +1,6 @@
 package hu.unideb.worktime.jdbc.worklog;
 
-import hu.unideb.worktime.api.model.worklog.SaveWorklogRequest;
+import hu.unideb.worktime.api.model.worklog.WorklogRequest;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +33,7 @@ public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer>
         compile();
     }
 
-    public Integer execute(Integer workerId, SaveWorklogRequest values) {
+    public Integer execute(Integer workerId, WorklogRequest values) {
         Integer result = null;
         List<Integer> spResult = (List<Integer>) super.execute(values.getBegin(), 
                 values.getWorkHour(), workerId).get(SP_RESULT);

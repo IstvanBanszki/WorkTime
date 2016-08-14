@@ -1,3 +1,26 @@
 <div class="tab">
-	
+	<table class="w3-table-all w3-hoverable">
+		<tr>
+			<th ng-click="setSearchTypeOrReverse('Year')">
+				Year				
+				<span ng-show="showDownCaret('Year')" class="fa fa-caret-down"></span>
+				<span ng-show="showUpCaret('Year')" class="fa fa-caret-up"></span>
+			</th>
+			<th ng-click="setSearchTypeOrReverse('HolidayNumber')">
+				HolidayNumber
+				<span ng-show="showDownCaret('HolidayNumber')" class="fa fa-caret-down"></span>
+				<span ng-show="showUpCaret('HolidayNumber')" class="fa fa-caret-up"></span>
+			</th>
+			<th ng-click="setSearchTypeOrReverse('AbsenceNumber')">
+				AbsenceNumber
+				<span ng-show="showDownCaret('AbsenceNumber')" class="fa fa-caret-down"></span>
+				<span ng-show="showUpCaret('AbsenceNumber')" class="fa fa-caret-up"></span>
+			</th>
+		</tr>
+		<tr ng-repeat="absenceData in absenceDatas | orderBy:sortType:sortReverse" class="w3-hover-light-green">
+			<td>{{absenceData.year}}</td>
+			<td>{{absenceData.holidayNumber}}</td>
+			<td>{{absenceData.absenceNumber}}</td>
+		</tr>
+	</table>
 </div>

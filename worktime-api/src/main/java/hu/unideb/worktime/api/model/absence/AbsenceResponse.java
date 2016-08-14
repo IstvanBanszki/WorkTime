@@ -5,55 +5,55 @@ import hu.unideb.worktime.api.model.AbsenceType;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class GetAbsenceResponse implements Serializable {
+public class AbsenceResponse implements Serializable {
 
     private final LocalDateTime begin;
     private final LocalDateTime end;
     private final Status status;
     private final AbsenceType absenceType;
 
-    public GetAbsenceResponse(LocalDateTime begin, LocalDateTime end, Status status, AbsenceType absenceType) {
+    public AbsenceResponse(LocalDateTime begin, LocalDateTime end, Status status, AbsenceType absenceType) {
         this.begin = begin;
         this.end = end;
         this.status = status;
         this.absenceType = absenceType;
     }
 
-    public static class GetAbsenceResponseBuilder {
+    public static class AbsenceResponseBuilder {
 
         private LocalDateTime begin;
         private LocalDateTime end;
         private Status status;
         private AbsenceType absenceType;
 
-        public GetAbsenceResponseBuilder() {
+        public AbsenceResponseBuilder() {
             this.begin = null;
             this.end = null;
             this.status = Status.NOT_SET;
         }
 
-        public GetAbsenceResponseBuilder setBegin(LocalDateTime begin) {
+        public AbsenceResponseBuilder setBegin(LocalDateTime begin) {
             this.begin = begin;
             return this;
         }
 
-        public GetAbsenceResponseBuilder setEnd(LocalDateTime end) {
+        public AbsenceResponseBuilder setEnd(LocalDateTime end) {
             this.end = end;
             return this;
         }
 
-        public GetAbsenceResponseBuilder setStatus(Status status) {
+        public AbsenceResponseBuilder setStatus(Status status) {
             this.status = status;
             return this;
         }
 
-        public GetAbsenceResponseBuilder setAbsenceType(AbsenceType absenceType) {
+        public AbsenceResponseBuilder setAbsenceType(AbsenceType absenceType) {
             this.absenceType = absenceType;
             return this;
         }
 
-        public GetAbsenceResponse build() {
-            return new GetAbsenceResponse(this.begin, this.end, this.status, this.absenceType);
+        public AbsenceResponse build() {
+            return new AbsenceResponse(this.begin, this.end, this.status, this.absenceType);
         }
     }    
 
@@ -94,7 +94,7 @@ public class GetAbsenceResponse implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final GetAbsenceResponse other = (GetAbsenceResponse) obj;
+        final AbsenceResponse other = (AbsenceResponse) obj;
         return (this.begin != null ? this.begin.equals(other.begin) : other.begin == null) &&
                (this.end != null ? this.end.equals(other.end) : other.end == null) &&
                (this.status == other.status) &&

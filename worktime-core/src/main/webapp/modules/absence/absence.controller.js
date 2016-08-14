@@ -9,6 +9,9 @@ angular.module('Absence')
         }, {
             title: 'Show',
             url: 'modules/absence/absence.show.html'
+        }, {
+            title: 'Data',
+            url: 'modules/absence/absence.data.html'
         }];
 		$scope.currentTab = 'modules/absence/absence.add.html';
 		$scope.isActiveTab = function(tabUrl) {
@@ -19,6 +22,7 @@ angular.module('Absence')
 		}
 
 		$scope.absences = [];
+		$scope.absenceDatas = [];
 		$scope.sortType = "Begin";
 		$scope.sortReverse = false;
 		$scope.searchQuery = "";
@@ -45,28 +49,37 @@ angular.module('Absence')
 				function( result ){
 					$scope.GetAbsences();
 				},
-				function( error ){
-					
+				function( error ){					
 				}
 			)
 		}
-		$scope.initAbsence = function(){
-			if( typeof $scope.absences || $scope.absences.length === 0 ){
+		$scope.initAbsence = function() {
+			if( (typeof $scope.absences || $scope.absences.length === 0) && 
+				(typeof $scope.absenceDatas || $scope.absenceDatas.length === 0) ){
 				$scope.GetAbsences();
+				$scope.GetAbsenceDatas();
 			}
 		}
-		$scope.GetAbsences = function(){
+		$scope.GetAbsences = function() {
 			AbsenceService.GetAbsence($rootScope.userData.workerId).then(
 					function( result ){
 						$scope.absences = result;
 						$scope.dateFormatter();
 					},
-					function( error ){
-						
+					function( error ){						
 					}
 				)
 		}
-		$scope.dateFormatter = function(){
+		$scope.GetAbsenceDatas = function() {
+			AbsenceService.GetAbsenceData($rootScope.userData.workerId).then(
+					function( result ){
+						$scope.absenceDatas = result;
+					},
+					function( error ){						
+					}
+				)
+		}
+		$scope.dateFormatter = function() {
 			$scope.absences.forEach(function(absence) {
 				absence.begin = moment(absence.begin).format('YYYY.MM.DD');
 				absence.end = moment(absence.end).format('YYYY.MM.DD');

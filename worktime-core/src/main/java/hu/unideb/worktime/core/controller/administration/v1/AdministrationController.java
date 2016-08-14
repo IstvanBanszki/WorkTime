@@ -1,6 +1,6 @@
 package hu.unideb.worktime.core.controller.administration.v1;
 
-import hu.unideb.worktime.api.model.worklog.GetWorklogResponse;
+import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.api.model.worklogadministration.Employee;
 import hu.unideb.worktime.jdbc.administration.SqlCallAdministration;
 import java.util.List;
@@ -21,7 +21,7 @@ public class AdministrationController {
         
     @Async
     @RequestMapping(value = "/firstName/{firstName}/lastName/{lastName}", method = RequestMethod.GET)
-    public @ResponseBody List<GetWorklogResponse> getEmployee(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
+    public @ResponseBody List<WorklogResponse> getEmployee(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
         return this.sqlCallWorklogAdministration.getEmloyeeWorklog(firstName, lastName);
     }
     @Async

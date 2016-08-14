@@ -3,12 +3,12 @@ package hu.unideb.worktime.api.model.worklog;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class GetWorklogResponse implements Serializable {
+public class WorklogResponse implements Serializable {
 
     private final LocalDateTime begin;
     private final int workHour;
 
-    public GetWorklogResponse(LocalDateTime begin, int workHour) {
+    public WorklogResponse(LocalDateTime begin, int workHour) {
         this.begin = begin;
         this.workHour = workHour;
     }
@@ -40,7 +40,7 @@ public class GetWorklogResponse implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final GetWorklogResponse other = (GetWorklogResponse) obj;
+        final WorklogResponse other = (WorklogResponse) obj;
         return (this.begin != null ? this.begin.equals(other.begin) : other.begin == null) &&
                (this.workHour == other.workHour);
     }

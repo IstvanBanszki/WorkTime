@@ -1,6 +1,7 @@
-package hu.unideb.worktime.jdbc.worklog;
+package hu.unideb.worktime.jdbc.absence;
 
-import hu.unideb.worktime.api.model.worklog.WorklogResponse;
+import hu.unideb.worktime.api.model.absence.AbsenceDataResponse;
+import hu.unideb.worktime.api.model.absence.AbsenceResponse;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,14 +16,14 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpGetWorklog extends StoredProcedure implements RowMapper<WorklogResponse> {
-
-    private static final String SP_NAME = "get_all_worklog_by_worker";
+public class SpGetAbsenceData extends StoredProcedure implements RowMapper<AbsenceDataResponse> {
+    
+    private static final String SP_NAME = "get_absence_data";
     private static final String SP_PARAMETER_1 = "worker_id";
     private static final String SP_RESULT = "result";
 
     @Autowired
-    public SpGetWorklog(WTConnection wtConnection) {
+    public SpGetAbsenceData(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
@@ -30,16 +31,18 @@ public class SpGetWorklog extends StoredProcedure implements RowMapper<WorklogRe
         compile();
     }
 
-    public List<WorklogResponse> execute(Integer key) {
-        List<WorklogResponse> spResult = (List<WorklogResponse>) super.execute(key).get(SP_RESULT);
+    public List<AbsenceDataResponse> execute(Integer key) {
+        List<AbsenceDataResponse> spResult = (List<AbsenceDataResponse>) super.execute(key).get(SP_RESULT);
         if (spResult != null) {
             return spResult;
         }
         return new ArrayList();
     }
-
     @Override
-    public WorklogResponse mapRow(ResultSet rs, int i) throws SQLException {
-        return new WorklogResponse(rs.getTimestamp("begin").toLocalDateTime(), rs.getInt("work_hour"));
+    public AbsenceDataResponse mapRow(ResultSet rs, int i) throws SQLException {
+        return new AbsenceDataResponse(rs.getInt("year"), 
+                                       rs.getInt("holiday_number_total"), 
+                                       rs.getInt("absence_number"));
     }
+    
 }

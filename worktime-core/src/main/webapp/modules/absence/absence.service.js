@@ -46,5 +46,24 @@ angular.module("Absence")
 				return deferred.promise;
 			});
 	}
+	service.GetAbsenceData = function(workerId) {
+		var deferred = $q.defer();
+		return $http({
+			method : "GET",
+			url : "/api/absencedata/v1/workerId/"+workerId,
+			headers : {
+				'Content-Type': 'application/json'
+			}
+		}).then(function successCallback(response) {
+			
+				deferred.resolve(response.data);
+				return deferred.promise;
+				
+			}, function errorCallback(response) {
+
+				deferred.reject(response);
+				return deferred.promise;
+			});
+	}
 	return service;
 }])

@@ -1,7 +1,8 @@
 package hu.unideb.worktime.jdbc.absence;
 
-import hu.unideb.worktime.api.model.absence.GetAbsenceResponse;
-import hu.unideb.worktime.api.model.absence.SaveAbsenceRequest;
+import hu.unideb.worktime.api.model.absence.AbsenceDataResponse;
+import hu.unideb.worktime.api.model.absence.AbsenceResponse;
+import hu.unideb.worktime.api.model.absence.AbsenceRequest;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,8 @@ public class SqlCallAbsence {
     private SpGetAbsence spGetAbsence;
     @Autowired
     private SpSaveAbsence spSaveAbsence;
+    @Autowired
+    private SpGetAbsenceData spGetAbsenceData;
     private Logger logger;
 
     public SqlCallAbsence() {
@@ -25,7 +28,7 @@ public class SqlCallAbsence {
         this.logger = logger;
     }
 
-    public Integer saveAbsence(Integer workerId, SaveAbsenceRequest values) {
+    public Integer saveAbsence(Integer workerId, AbsenceRequest values) {
         Integer result = null;
         this.logger.info("Call save_absence SP with given parameters: Key - {}, Values - {}", workerId, values);
         try {
@@ -40,8 +43,8 @@ public class SqlCallAbsence {
         return result;
     }
 
-    public List<GetAbsenceResponse> getAbsence(Integer key) {
-        List<GetAbsenceResponse> result = null;
+    public List<AbsenceResponse> getAbsence(Integer key) {
+        List<AbsenceResponse> result = null;
         this.logger.info("Call get_all_absence_by_worker SP with given parameters: {}", key);
         try {
             result = this.spGetAbsence.execute(key);
@@ -52,6 +55,21 @@ public class SqlCallAbsence {
             this.logger.error("There is an exception during get_all_absence_by_worker SP call: {}", ex);
         }
         this.logger.info("Result of get_all_absence_by_worker SP: {}", result);
+        return result;
+    }
+
+    public List<AbsenceDataResponse> getAbsenceData(Integer key) {
+        List<AbsenceDataResponse> result = null;
+        this.logger.info("Call get_absence_data SP with given parameters: {}", key);
+        try {
+            result = this.spGetAbsenceData.execute(key);
+            if (result == null || result.isEmpty()) {
+                this.logger.debug("There is no suche worklog data in database! Key: {}", key);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during get_absence_data SP call: {}", ex);
+        }
+        this.logger.info("Result of get_absence_data SP: {}", result);
         return result;
     }
 }

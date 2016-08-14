@@ -1,7 +1,7 @@
 package hu.unideb.worktime.jdbc.worklog;
 
-import hu.unideb.worktime.api.model.worklog.GetWorklogResponse;
-import hu.unideb.worktime.api.model.worklog.SaveWorklogRequest;
+import hu.unideb.worktime.api.model.worklog.WorklogResponse;
+import hu.unideb.worktime.api.model.worklog.WorklogRequest;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class SqlCallWorklog {
         this.logger = logger;
     }
     
-    public Integer saveWorklog(Integer workerId, SaveWorklogRequest values ){
+    public Integer saveWorklog(Integer workerId, WorklogRequest values ){
         Integer result = null;
         this.logger.info("Call save_worklog SP with given parameters: Key - {}, values - {}", workerId, values);
         try {
@@ -40,8 +40,8 @@ public class SqlCallWorklog {
         return result;
     }
     
-    public List<GetWorklogResponse> getWorklog( Integer key ){
-        List<GetWorklogResponse> result = null;
+    public List<WorklogResponse> getWorklog( Integer key ){
+        List<WorklogResponse> result = null;
         this.logger.info("Call get_all_worklog_by_worker SP with given parameters: {}", key);
         try {
             result = this.spGetWorklog.execute(key);
