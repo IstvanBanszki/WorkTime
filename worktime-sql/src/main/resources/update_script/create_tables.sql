@@ -94,20 +94,23 @@ CREATE TABLE `worker` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /* ***************************************************
-			holiday_number table creation
+			worker_holiday_number table creation
    *************************************************** */
-
-DROP TABLE IF EXISTS `holiday_number`;
-CREATE TABLE `holiday_number` (
+CREATE TABLE `worker_holiday_number` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `year` int(4) NOT NULL,
   `holiday_number_total` int(2) NOT NULL,
+  `not_set_absence_number` int(2) NOT NULL,
+  `payed_absence_number` int(2) NOT NULL,
+  `unpayed_absence_number` int(2) NOT NULL,
+  `sickpayed_absence_number` int(2) NOT NULL,
+  `verified_absence_number` int(2) NOT NULL,
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `worker_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_whn_worker_id_idx` (`worker_id`),
   CONSTRAINT `FK_whn_worker_id` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /* ***************************************************
 				worklog table creation

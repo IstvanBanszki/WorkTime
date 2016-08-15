@@ -46,14 +46,15 @@ VALUES ('Villam', 'Teszt', 1, '1985.06.07', 'Hungarian', 'Office Manager', 'vill
 INSERT INTO `worktime`.`worker` (`first_name`, `last_name`, `gender`, `date_of_birth`, `nationality`, `position`, `email_address`, `daily_work_hour_total`, `superior_work_id`, `department_id`, `user_id`)
 VALUES ('Miklos', 'Teszt', 1, '1988.01.04', 'Hungarian', 'Programmer', 'miklos.teszt@example.com', 8, 0, 1, 7);
 
--- holiday_number table test data
-INSERT INTO `worktime`.`holiday_number` (`year`, `holiday_number_total`, `worker_id`) VALUES (2016, 25, 1);
-INSERT INTO `worktime`.`holiday_number` (`year`, `holiday_number_total`, `worker_id`) VALUES (2016, 28, 2);
-INSERT INTO `worktime`.`holiday_number` (`year`, `holiday_number_total`, `worker_id`) VALUES (2016, 24, 3);
-INSERT INTO `worktime`.`holiday_number` (`year`, `holiday_number_total`, `worker_id`) VALUES (2016, 24, 4);
-INSERT INTO `worktime`.`holiday_number` (`year`, `holiday_number_total`, `worker_id`) VALUES (2016, 27, 5);
-INSERT INTO `worktime`.`holiday_number` (`year`, `holiday_number_total`, `worker_id`) VALUES (2016, 28, 6);
-INSERT INTO `worktime`.`holiday_number` (`year`, `holiday_number_total`, `worker_id`) VALUES (2016, 28, 7);
+-- worker_holiday_number table test data
+INSERT INTO `worktime`.`worker_holiday_number` (`year`,`holiday_number_total`,`not_set_absence_number`,`payed_absence_number`,`unpayed_absence_number`,`sickpayed_absence_number`,`verified_absence_number`,`date_of_registration`,`worker_id`) VALUES (2016,25,1,0,0,0,0,0);
+INSERT INTO `worktime`.`worker_holiday_number` (`year`,`holiday_number_total`,`not_set_absence_number`,`payed_absence_number`,`unpayed_absence_number`,`sickpayed_absence_number`,`verified_absence_number`,`date_of_registration`,`worker_id`) VALUES (2016,28,2,0,0,0,0,0);
+INSERT INTO `worktime`.`worker_holiday_number` (`year`,`holiday_number_total`,`not_set_absence_number`,`payed_absence_number`,`unpayed_absence_number`,`sickpayed_absence_number`,`verified_absence_number`,`date_of_registration`,`worker_id`) VALUES (2016,24,3,0,0,0,0,0);
+INSERT INTO `worktime`.`worker_holiday_number` (`year`,`holiday_number_total`,`not_set_absence_number`,`payed_absence_number`,`unpayed_absence_number`,`sickpayed_absence_number`,`verified_absence_number`,`date_of_registration`,`worker_id`) VALUES (2016,24,4,0,0,0,0,0);
+INSERT INTO `worktime`.`worker_holiday_number` (`year`,`holiday_number_total`,`not_set_absence_number`,`payed_absence_number`,`unpayed_absence_number`,`sickpayed_absence_number`,`verified_absence_number`,`date_of_registration`,`worker_id`) VALUES (2016,27,5,0,0,0,0,0);
+INSERT INTO `worktime`.`worker_holiday_number` (`year`,`holiday_number_total`,`not_set_absence_number`,`payed_absence_number`,`unpayed_absence_number`,`sickpayed_absence_number`,`verified_absence_number`,`date_of_registration`,`worker_id`) VALUES (2016,28,6,0,0,0,0,0);
+INSERT INTO `worktime`.`worker_holiday_number` (`year`,`holiday_number_total`,`not_set_absence_number`,`payed_absence_number`,`unpayed_absence_number`,`sickpayed_absence_number`,`verified_absence_number`,`date_of_registration`,`worker_id`) VALUES (2016,28,7,0,0,0,0,0);
+
 
 -- worklog table test data
 INSERT INTO `worktime`.`worklog` (`begin`, `work_hour`, `worker_id`) VALUES ('2016.05.27 08:00', 8, 1);
