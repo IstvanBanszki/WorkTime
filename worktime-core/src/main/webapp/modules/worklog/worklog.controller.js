@@ -10,7 +10,7 @@ angular.module('Worklog')
             title: 'Show',
             url: 'modules/worklog/worklog.show.html'
         }];
-		$scope.currentTab = 'modules/worklog/worklog.add.html';
+		$scope.currentTab = $scope.tabs[0].url;
 		$scope.isActiveTab = function(tabUrl) {
 			return tabUrl == $scope.currentTab;
 		};
@@ -35,19 +35,23 @@ angular.module('Worklog')
 				$scope.sortType = tableHeader;
 			}
 		};
-
 		$scope.begin = "";
 		$scope.workHour = 0;
 
 		$scope.addWorklog = function() {
 			WorklogService.AddWorklog($scope.begin, $scope.workHour, $rootScope.userData.workerId).then(
 				function( result ){
-					$scope.GetWorklogs();
+					$scope.worklogs.push({
+						begin: $scope.begin,
+						workHour: $scope.workHour
+					});
 				},
 				function( error ){
 					
 				}
 			)
+			$scope.begin = "";
+			$scope.workHour = 0;
 		};
 		$scope.initWorklog = function(){
 			if( typeof $scope.worklogs || $scope.worklogs.length === 0 ){

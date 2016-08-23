@@ -8,7 +8,7 @@ angular.module('Home')
 		}, {
 			title: 'Personal', url: '#profile'
 		}, {
-			title: 'Worlog', url: '#worklog'
+			title: 'Worklog', url: '#worklog'
 		}, {
 			title: 'Absence', url: '#absence'
 		}];

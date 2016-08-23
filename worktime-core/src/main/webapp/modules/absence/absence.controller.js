@@ -47,6 +47,10 @@ angular.module('Absence')
 		$scope.addAbsence = function() {
 			AbsenceService.AddAbsence($scope.begin, $scope.end, $rootScope.userData.workerId, $scope.absenceType).then(
 				function( result ){
+					$scope.absenceType = "0";
+					$scope.begin = "";
+					$scope.end = "";
+					$scope.absences = [];
 					$scope.GetAbsences();
 				},
 				function( error ){					
