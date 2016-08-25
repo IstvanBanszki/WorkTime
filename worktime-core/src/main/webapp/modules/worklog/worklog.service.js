@@ -17,7 +17,7 @@ angular.module("Worklog")
 			}
 		}).then(function successCallback(response) {
 			
-				deferred.resolve(response.data.status);
+				deferred.resolve(response.data);
 				return deferred.promise;
 				
 			}, function errorCallback(response) {

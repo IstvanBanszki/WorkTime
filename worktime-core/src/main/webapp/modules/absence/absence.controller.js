@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('Absence')
-.controller('AbsenceController', ['$scope', '$rootScope', 'AbsenceService',
-    function ($scope, $rootScope, AbsenceService) {
+.controller('AbsenceController', ['$scope', '$rootScope', '$mdDialog', 'AbsenceService',
+    function ($scope, $rootScope, $mdDialog, AbsenceService) {
 		$scope.tabs = [{
             title: 'Add',
             url: 'modules/absence/absence.add.html'
@@ -33,7 +33,7 @@ angular.module('Absence')
 			return ($scope.sortType == tableHeader && $scope.sortReverse);
 		}
 		$scope.setSearchTypeOrReverse = function(tableHeader) {
-			if($scope.sortType == tableHeader){
+			if($scope.sortType == tableHeader) {
 				$scope.sortReverse = !$scope.sortReverse;
 			} else {
 				$scope.sortType = tableHeader;
@@ -44,16 +44,29 @@ angular.module('Absence')
 		$scope.begin = "";
 		$scope.end = "";
 
+		$scope.showStatus = function(result) {
+			alert = $mdDialog.alert({
+				title: 'Absence Adding',
+				textContent: (result === 1 ? 'The saving is succesfull!' : 'There is an error during saving!'),
+				clickOutsideToClose: true,
+				ok: 'Close'
+			});
+		    $mdDialog.show(alert)
+					 .finally(function() {
+						alert = undefined;
+					 }
+					);
+		};	
 		$scope.addAbsence = function() {
 			AbsenceService.AddAbsence($scope.begin, $scope.end, $rootScope.userData.workerId, $scope.absenceType).then(
-				function( result ){
+				function(result) {
 					$scope.absenceType = "0";
 					$scope.begin = "";
 					$scope.end = "";
-					$scope.absences = [];
+					$scope.showStatus(result);
 					$scope.GetAbsences();
 				},
-				function( error ){					
+				function(error) {					
 				}
 			)
 		}
@@ -66,20 +79,20 @@ angular.module('Absence')
 		}
 		$scope.GetAbsences = function() {
 			AbsenceService.GetAbsence($rootScope.userData.workerId).then(
-					function( result ){
+					function(result) {
 						$scope.absences = result;
 						$scope.dateFormatter();
 					},
-					function( error ){						
+					function(error) {						
 					}
 				)
 		}
 		$scope.GetAbsenceDatas = function() {
 			AbsenceService.GetAbsenceData($rootScope.userData.workerId).then(
-					function( result ){
+					function(result) {
 						$scope.absenceDatas = result;
 					},
-					function( error ){						
+					function(error) {						
 					}
 				)
 		}

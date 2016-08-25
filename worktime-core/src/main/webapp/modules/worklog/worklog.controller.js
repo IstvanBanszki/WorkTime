@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('Worklog')
-.controller('WorklogController', ['$scope', '$rootScope', 'WorklogService',
-    function ($scope, $rootScope, WorklogService) {
+.controller('WorklogController', ['$scope', '$rootScope', '$mdDialog', 'WorklogService',
+    function ($scope, $rootScope, $mdDialog, WorklogService) {
 		$scope.tabs = [{
             title: 'Add',
             url: 'modules/worklog/worklog.add.html'
@@ -38,20 +38,34 @@ angular.module('Worklog')
 		$scope.begin = "";
 		$scope.workHour = 0;
 
+		$scope.showStatus = function(result) {
+			alert = $mdDialog.alert({
+				title: 'Worklog Adding',
+				textContent: (result === 1 ? 'The saving is succesfull!' : 'There is an error during saving!'),
+				clickOutsideToClose: true,
+				ok: 'Close'
+			});
+		    $mdDialog.show(alert)
+					 .finally(function() {
+						alert = undefined;
+					 }
+					);
+		};	
 		$scope.addWorklog = function() {
 			WorklogService.AddWorklog($scope.begin, $scope.workHour, $rootScope.userData.workerId).then(
-				function( result ){
+				function(result){
+					$scope.begin = "";
+					$scope.workHour = 0;
 					$scope.worklogs.push({
 						begin: $scope.begin,
 						workHour: $scope.workHour
 					});
+					$scope.showStatus(result);
 				},
 				function( error ){
 					
 				}
 			)
-			$scope.begin = "";
-			$scope.workHour = 0;
 		};
 		$scope.initWorklog = function(){
 			if( typeof $scope.worklogs || $scope.worklogs.length === 0 ){
