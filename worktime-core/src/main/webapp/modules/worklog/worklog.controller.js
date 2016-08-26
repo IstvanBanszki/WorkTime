@@ -41,7 +41,7 @@ angular.module('Worklog')
 		$scope.showStatus = function(result) {
 			alert = $mdDialog.alert({
 				title: 'Worklog Adding',
-				textContent: (result === 1 ? 'The saving is succesfull!' : 'There is an error during saving!'),
+				textContent: (result === 1 ? 'The saving is succesfull!' : (result === -1 ? 'There is an already saved worklog at the selected date!' : 'There is an error during saving!')),
 				clickOutsideToClose: true,
 				ok: 'Close'
 			});

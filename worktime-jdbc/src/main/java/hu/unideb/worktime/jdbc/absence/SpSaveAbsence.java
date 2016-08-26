@@ -18,8 +18,8 @@ import org.springframework.stereotype.Repository;
 public class SpSaveAbsence extends StoredProcedure implements RowMapper<Integer> {
     
     private static final String SP_NAME = "save_absence";
-    private static final String SP_PARAMETER_1 = "begin";
-    private static final String SP_PARAMETER_2 = "end";
+    private static final String SP_PARAMETER_1 = "begin_date";
+    private static final String SP_PARAMETER_2 = "end_date";
     private static final String SP_PARAMETER_3 = "worker_id";
     private static final String SP_PARAMETER_4 = "absence_type_id";
     private static final String SP_RESULT = "result";

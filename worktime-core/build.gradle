@@ -12,8 +12,8 @@ buildscript {
     }
     dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-		classpath "io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE"
-		classpath 'com.netflix.nebula:gradle-extra-configurations-plugin:3.0.3'
+		classpath "io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE"
+		classpath 'com.netflix.nebula:gradle-extra-configurations-plugin:3.1.0'
     }
 }
 
@@ -22,7 +22,7 @@ apply plugin: 'nebula.provided-base'
 
 jar {
     baseName = 'worktime-core'
-    version = '0.4.1-SNAPSHOT'
+    version = '0.4.2-SNAPSHOT'
 }
 
 repositories {
@@ -39,8 +39,6 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
     //compile "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
-	
-	//Google Guava Libraries
 	
 	//FasterXml for Java 8 time representation in JSON object
 	compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${fasterXmlVersion}"

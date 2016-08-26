@@ -40,14 +40,24 @@ angular.module('Absence')
 			}
 		}
 
-		$scope.absenceType = "0";
+		$scope.absenceType = "1";
 		$scope.begin = "";
 		$scope.end = "";
 
 		$scope.showStatus = function(result) {
+			var textContent = '';
+			if (result === -1) {
+				textContent = 'The saving is unsuccesfull, with the begin date you are already have absence!';
+			} else if (result === -2) {
+				textContent = 'The saving is unsuccesfull, with the end date you are already have absence!';			
+			} else if (result === -3) {
+				textContent = 'The saving is unsuccesfull, the begin or end date is in the range of an already exist absence!';
+			} else {
+				textContent = 'The saving is succesfull!';			
+			}
 			alert = $mdDialog.alert({
 				title: 'Absence Adding',
-				textContent: (result === 1 ? 'The saving is succesfull!' : 'There is an error during saving!'),
+				textContent: textContent,
 				clickOutsideToClose: true,
 				ok: 'Close'
 			});
@@ -60,7 +70,7 @@ angular.module('Absence')
 		$scope.addAbsence = function() {
 			AbsenceService.AddAbsence($scope.begin, $scope.end, $rootScope.userData.workerId, $scope.absenceType).then(
 				function(result) {
-					$scope.absenceType = "0";
+					$scope.absenceType = "1";
 					$scope.begin = "";
 					$scope.end = "";
 					$scope.showStatus(result);

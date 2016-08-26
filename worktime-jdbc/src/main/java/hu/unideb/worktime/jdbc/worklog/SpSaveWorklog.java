@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer> {
 
     private static final String SP_NAME = "save_worklog";
-    private static final String SP_PARAMETER_1 = "begin";
+    private static final String SP_PARAMETER_1 = "begin_date";
     private static final String SP_PARAMETER_2 = "work_hour";
     private static final String SP_PARAMETER_3 = "worker_id";
     private static final String SP_RESULT = "result";
