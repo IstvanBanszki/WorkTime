@@ -16,14 +16,14 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpProfile extends StoredProcedure implements RowMapper<ProfileRecord>{
+public class SpGetProfile extends StoredProcedure implements RowMapper<ProfileRecord>{
 
     private static final String SP_NAME = "get_profile_data";
     private static final String SP_PARAMETER_1 = "worker_id";
     private static final String SP_RESULT = "result";
     
     @Autowired
-    public SpProfile(WTConnection wtConnection) {
+    public SpGetProfile(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));

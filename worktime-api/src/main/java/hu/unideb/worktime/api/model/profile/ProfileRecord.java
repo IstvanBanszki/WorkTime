@@ -1,9 +1,10 @@
 package hu.unideb.worktime.api.model.profile;
 
 import hu.unideb.worktime.api.model.Gender;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class ProfileRecord {
+public class ProfileRecord implements Serializable {
     
     private final LocalDateTime dateOfRegistration;
     private final String firstName;

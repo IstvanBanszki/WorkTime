@@ -21,11 +21,7 @@ public class SqlCallAbsence {
     private Logger logger;
 
     public SqlCallAbsence() {
-        this(LoggerFactory.getLogger(SqlCallAbsence.class));
-    }
-
-    public SqlCallAbsence(Logger logger) {
-        this.logger = logger;
+        this.logger = LoggerFactory.getLogger(SqlCallAbsence.class);
     }
 
     public Integer saveAbsence(Integer workerId, AbsenceRequest values) {

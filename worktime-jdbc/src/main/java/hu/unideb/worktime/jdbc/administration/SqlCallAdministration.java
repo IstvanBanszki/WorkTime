@@ -18,11 +18,7 @@ public class SqlCallAdministration {
     private Logger logger;
 
     public SqlCallAdministration() {
-        this(LoggerFactory.getLogger(SqlCallAdministration.class));
-    }
-
-    public SqlCallAdministration(Logger logger) {
-        this.logger = logger;
+        this.logger = LoggerFactory.getLogger(SqlCallAdministration.class);
     }
     
     public List<WorklogResponse> getEmloyeeWorklog(String firstName, String lastName){

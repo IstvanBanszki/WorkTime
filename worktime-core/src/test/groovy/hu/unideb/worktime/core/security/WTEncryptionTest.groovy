@@ -15,17 +15,21 @@ class WTEncryptionTest extends Specification {
             inputPassword << ["root", "hard"]
     }
     
-    def "test password check"(){
+    def "test password check "(){
         
         setup: "create new Encryption object"
             def encrytor = new WTEncryption()        
         and: "create password"
             def storedPassword = encrytor.encryptPassword(inputPassword)        
         expect: "not generate the same result"
-            encrytor.checkPassword(inputPassword, storedPassword) == true
+            encrytor.checkPassword(inputPassword, storedPassword) == expected
         
         where:
-            inputPassword << ["lost", "save"]
+            inputPassword | testPassword || expected
+            "lost"        | "lost"       || true
+            "save"        | "save"       || true
+            "save"        | "lost"       || false
+            "lost"        | "save"       || false
     }
     
     def "test base64 functionality"(){

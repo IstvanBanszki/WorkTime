@@ -18,11 +18,7 @@ public class SqlCallWorklog {
     private Logger logger;
 
     public SqlCallWorklog() {
-        this(LoggerFactory.getLogger(SqlCallWorklog.class));
-    }
-
-    public SqlCallWorklog(Logger logger) {
-        this.logger = logger;
+        this.logger = LoggerFactory.getLogger(SqlCallWorklog.class);
     }
     
     public Integer saveWorklog(Integer workerId, WorklogRequest values ){
