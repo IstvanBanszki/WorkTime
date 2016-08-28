@@ -1,0 +1,9 @@
+<div>
+	<div class="tab">
+		Position: {{position}}<br/>
+		Email Address: {{emailAddress}}<br/>
+		Daily Work Hour: {{dailyWorkHourTotal}}<br/>
+		Department: {{departmentName}}<br/>
+		Office: {{officeName}}<br/>
+	</div>
+</div>

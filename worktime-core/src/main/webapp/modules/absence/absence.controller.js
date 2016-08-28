@@ -64,8 +64,7 @@ angular.module('Absence')
 		    $mdDialog.show(alert)
 					 .finally(function() {
 						alert = undefined;
-					 }
-					);
+					 });
 		};	
 		$scope.addAbsence = function() {
 			AbsenceService.AddAbsence($scope.begin, $scope.end, $rootScope.userData.workerId, $scope.absenceType).then(

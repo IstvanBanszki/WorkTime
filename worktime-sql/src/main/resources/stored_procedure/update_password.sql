@@ -11,9 +11,7 @@ BEGIN
 		WHERE u.login_name = login_name;
         
 		SELECT ROW_COUNT() AS status;
-	ELSEIF ((SELECT COUNT(*) FROM user u WHERE u.login_name = login_name) = 0) THEN
-		SELECT -1 AS status;
 	ELSE
-	    SELECT -2 AS status;
+	    SELECT -1 AS status;
 	END IF;
 END

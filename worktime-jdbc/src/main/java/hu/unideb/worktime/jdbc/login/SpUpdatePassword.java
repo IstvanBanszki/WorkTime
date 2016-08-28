@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SpUpdatePassword extends StoredProcedure implements RowMapper<Integer>{
 
-    private static final String SP_NAME = "change_password";
+    private static final String SP_NAME = "update_password";
     private static final String SP_PARAMETER_1 = "login_name";
     private static final String SP_PARAMETER_2 = "old_password";
     private static final String SP_PARAMETER_3 = "new_password";

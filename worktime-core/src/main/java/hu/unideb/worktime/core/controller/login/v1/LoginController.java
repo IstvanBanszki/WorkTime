@@ -77,6 +77,7 @@ public class LoginController {
                 UpdatePasswordRecord record = new UpdatePasswordRecord(loginName, loginRecord.getPassword(), this.wtEncryption.encryptPassword(updatePasswordRequest.getNewPassword()));
                 result = this.sqlCallLogin.updatePassword(record);
             } else {
+                result = 2;
                 this.logger.info("The password was not matching!");
             }
         }
