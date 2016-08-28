@@ -41,7 +41,7 @@ angular.module('Profile')
 				$scope.showStatus(-2);
 				$scope.clearPasswords();
 			}
-		};	
+		};
 		$scope.showStatus = function(result) {
 			var textContent = '';
 			if (result === -2) {
@@ -74,7 +74,7 @@ angular.module('Profile')
 				function(result) {
 					ProfileService.SetProfileData(result);
 					// Account Tab - initial value
-					$scope.loginName = $rootScope.userData.loginName;					
+					$scope.loginName = $rootScope.userData.loginName;
 					$scope.dateOfRegistration = moment(result.dateOfRegistration).format('YYYY.MM.DD HH:mm:ss');
 					$scope.role = $rootScope.userData.roleName;
 					// Personal Tab - initial value

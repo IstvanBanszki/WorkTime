@@ -49,11 +49,11 @@ angular.module('Absence')
 			if (result === -1) {
 				textContent = 'The saving is unsuccesfull, with the begin date you are already have absence!';
 			} else if (result === -2) {
-				textContent = 'The saving is unsuccesfull, with the end date you are already have absence!';			
+				textContent = 'The saving is unsuccesfull, with the end date you are already have absence!';
 			} else if (result === -3) {
 				textContent = 'The saving is unsuccesfull, the begin or end date is in the range of an already exist absence!';
 			} else {
-				textContent = 'The saving is succesfull!';			
+				textContent = 'The saving is succesfull!';
 			}
 			alert = $mdDialog.alert({
 				title: 'Absence Adding',
@@ -75,13 +75,13 @@ angular.module('Absence')
 					$scope.showStatus(result);
 					$scope.GetAbsences();
 				},
-				function(error) {					
+				function(error) {
 				}
 			)
 		}
 		$scope.initAbsence = function() {
-			if( (typeof $scope.absences || $scope.absences.length === 0) && 
-				(typeof $scope.absenceDatas || $scope.absenceDatas.length === 0) ){
+			if((typeof $scope.absences || $scope.absences.length === 0) && 
+			   (typeof $scope.absenceDatas || $scope.absenceDatas.length === 0)) {
 				$scope.GetAbsences();
 				$scope.GetAbsenceDatas();
 			}
@@ -92,7 +92,7 @@ angular.module('Absence')
 						$scope.absences = result;
 						$scope.dateFormatter();
 					},
-					function(error) {						
+					function(error) {
 					}
 				)
 		}
@@ -101,14 +101,16 @@ angular.module('Absence')
 					function(result) {
 						$scope.absenceDatas = result;
 					},
-					function(error) {						
+					function(error) {
 					}
 				)
 		}
 		$scope.dateFormatter = function() {
-			$scope.absences.forEach(function(absence) {
-				absence.begin = moment(absence.begin).format('YYYY.MM.DD');
-				absence.end = moment(absence.end).format('YYYY.MM.DD');
-			});
+			if (!(typeof $scope.absences) || $scope.absences.length !== 0) {
+				$scope.absences.forEach(function(absence) {
+					absence.begin = moment(absence.begin).format('YYYY.MM.DD');
+					absence.end = moment(absence.end).format('YYYY.MM.DD');
+				});	
+			}
 		};
     }]);

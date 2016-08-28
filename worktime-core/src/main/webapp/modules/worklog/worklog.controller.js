@@ -53,7 +53,7 @@ angular.module('Worklog')
 		};	
 		$scope.addWorklog = function() {
 			WorklogService.AddWorklog($scope.begin, $scope.workHour, $rootScope.userData.workerId).then(
-				function(result){
+				function(result) {
 					$scope.begin = "";
 					$scope.workHour = 0;
 					$scope.worklogs.push({
@@ -62,35 +62,36 @@ angular.module('Worklog')
 					});
 					$scope.showStatus(result);
 				},
-				function( error ){
-					
+				function(error) {					
 				}
 			)
 		};
-		$scope.initWorklog = function(){
-			if( typeof $scope.worklogs || $scope.worklogs.length === 0 ){
+		$scope.initWorklog = function() {
+			if (typeof $scope.worklogs || $scope.worklogs.length === 0) {
 				$scope.GetWorklogs();
 			}
 		};
-		$scope.GetWorklogs = function(){
+		$scope.GetWorklogs = function() {
 			WorklogService.GetWorklog($rootScope.userData.workerId).then(
-				function( result ){
+				function(result) {
 					$scope.worklogs = result;
 					$scope.dateFormatter();
 				},
-				function( error ){
+				function(error) {
 				}
 			)
 		}
-		$scope.timeValue = function(value){
+		$scope.timeValue = function(value) {
 			return value < 10 ? '0'+value : value+'';
 		};
-		$scope.range = function(count){
+		$scope.range = function(count) {
 			return new Array(count);
 		};
-		$scope.dateFormatter = function(){
-			$scope.worklogs.forEach(function(worklog) {
-				worklog.begin = moment(worklog.begin).format('YYYY.MM.DD');
-			});
+		$scope.dateFormatter = function() {
+			if (!(typeof $scope.worklogs) || $scope.worklogs.length !== 0) {
+				$scope.worklogs.forEach(function(worklog) {
+					worklog.begin = moment(worklog.begin).format('YYYY.MM.DD');
+				});
+			}
 		};
     }]);
