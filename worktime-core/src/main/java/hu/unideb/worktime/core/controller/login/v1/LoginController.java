@@ -68,9 +68,9 @@ public class LoginController {
     public @ResponseBody Integer updateLogin(@PathVariable("loginName") String loginName, @RequestBody UpdatePasswordRequest updatePasswordRequest) {
         Integer result = 0;
         
-        this.logger.info("Calling /api/login/v1/loginName/{} PUT webservice with the following old password: {}", loginName, updatePasswordRequest.getOldPassword());
+        this.logger.info("Calling /api/login/v1/loginName/{} PUT webservice with the following loginName: {}, passwords: {}", loginName, updatePasswordRequest);
         LoginRecord loginRecord = this.sqlCallLogin.getLoginRecord(loginName);
-        this.logger.info("Result of /api/login/v1/loginName/{} PUT webservice: {}", loginRecord);
+        this.logger.info("Result of /api/login/v1/loginName/{} PUT webservice record: {}", loginRecord);
         
         if (loginRecord != null) {
             if (this.wtEncryption.checkPassword(updatePasswordRequest.getOldPassword(), loginRecord.getPassword())) {
