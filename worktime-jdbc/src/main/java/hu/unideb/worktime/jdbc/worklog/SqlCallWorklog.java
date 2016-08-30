@@ -15,6 +15,8 @@ public class SqlCallWorklog {
     private SpSaveWorklog spSaveWorklog;
     @Autowired
     private SpGetWorklog spGetWorklog;
+    @Autowired
+    private SpDeleteWorklog spDeleteWorklog;
     private Logger logger;
 
     public SqlCallWorklog() {
@@ -27,7 +29,7 @@ public class SqlCallWorklog {
         try {
             result = this.spSaveWorklog.execute(workerId, values);
             if(result == null){
-                this.logger.debug("There is an erro in saving the worklog data in database! Key - {}, values - {}", workerId, values);
+                this.logger.debug("There is an error in saving the worklog data in database! Key - {}, values - {}", workerId, values);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during save_worklog SP call: {}", ex);
@@ -48,6 +50,21 @@ public class SqlCallWorklog {
             this.logger.error("There is an exception during get_all_worklog_by_worker SP call: {}", ex);
         }
         this.logger.info("Result of get_all_worklog_by_worker SP: {}", result);
+        return result;
+    }
+    
+    public Integer deleteWorklog(Integer key ){
+        Integer result = null;
+        this.logger.info("Call delete_worklog SP with given parameters: Key - {}", key);
+        try {
+            result = this.spDeleteWorklog.execute(key);
+            if(result == null){
+                this.logger.debug("There is an error in saving the worklog data in database! Key - {}", key);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during delete_worklog SP call: {}", ex);
+        }
+        this.logger.info("Result of save_worklog SP: {}", result);
         return result;
     }
 }

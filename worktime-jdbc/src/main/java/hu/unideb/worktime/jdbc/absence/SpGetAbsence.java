@@ -43,7 +43,8 @@ public class SpGetAbsence extends StoredProcedure implements RowMapper<AbsenceRe
 
     @Override
     public AbsenceResponse mapRow(ResultSet rs, int i) throws SQLException {
-        return new AbsenceResponseBuilder().setBegin(rs.getTimestamp("begin").toLocalDateTime())
+        return new AbsenceResponseBuilder().setId(rs.getInt("id"))
+                                              .setBegin(rs.getTimestamp("begin").toLocalDateTime())
                                               .setEnd(rs.getTimestamp("end").toLocalDateTime())
                                               .setStatus(Status.valueOf(rs.getInt("status")))
                                               .setAbsenceType(AbsenceType.valueOf(rs.getInt("absence_type_id")))

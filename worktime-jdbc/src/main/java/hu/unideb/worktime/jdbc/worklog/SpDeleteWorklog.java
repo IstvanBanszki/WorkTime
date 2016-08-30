@@ -1,11 +1,9 @@
 package hu.unideb.worktime.jdbc.worklog;
 
-import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -15,14 +13,14 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpGetWorklog extends StoredProcedure implements RowMapper<WorklogResponse> {
-
-    private static final String SP_NAME = "get_all_worklog_by_worker";
-    private static final String SP_PARAMETER_1 = "worker_id";
+public class SpDeleteWorklog extends StoredProcedure implements RowMapper<Integer> {
+    
+    private static final String SP_NAME = "delete_worklog";
+    private static final String SP_PARAMETER_1 = "worklog_id";
     private static final String SP_RESULT = "result";
-
+    
     @Autowired
-    public SpGetWorklog(WTConnection wtConnection) {
+    public SpDeleteWorklog(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
@@ -30,16 +28,17 @@ public class SpGetWorklog extends StoredProcedure implements RowMapper<WorklogRe
         compile();
     }
 
-    public List<WorklogResponse> execute(Integer key) {
-        List<WorklogResponse> spResult = (List<WorklogResponse>) super.execute(key).get(SP_RESULT);
+    public Integer execute(Integer key) {
+        Integer result = null;
+        List<Integer> spResult = (List<Integer>) super.execute(key).get(SP_RESULT);
         if (spResult != null) {
-            return spResult;
+            result = spResult.get(0);
         }
-        return new ArrayList();
+        return result;
     }
 
     @Override
-    public WorklogResponse mapRow(ResultSet rs, int i) throws SQLException {
-        return new WorklogResponse(rs.getInt("id"), rs.getTimestamp("begin_date").toLocalDateTime(), rs.getInt("work_hour"));
+    public Integer mapRow(ResultSet rs, int i) throws SQLException {
+        return rs.getInt("status");
     }
 }

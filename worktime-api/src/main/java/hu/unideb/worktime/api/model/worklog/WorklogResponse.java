@@ -5,12 +5,18 @@ import java.time.LocalDateTime;
 
 public class WorklogResponse implements Serializable {
 
+    private final int id;
     private final LocalDateTime begin;
     private final int workHour;
 
-    public WorklogResponse(LocalDateTime begin, int workHour) {
+    public WorklogResponse(int id, LocalDateTime begin, int workHour) {
+        this.id = id;
         this.begin = begin;
         this.workHour = workHour;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public LocalDateTime getBegin() {
@@ -24,6 +30,7 @@ public class WorklogResponse implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
+        hash = 67 * hash + this.id;
         hash = 67 * hash + (this.begin != null ? this.begin.hashCode() : 0);
         hash = 67 * hash + this.workHour;
         return hash;
@@ -42,11 +49,13 @@ public class WorklogResponse implements Serializable {
         }
         final WorklogResponse other = (WorklogResponse) obj;
         return (this.begin != null ? this.begin.equals(other.begin) : other.begin == null) &&
-               (this.workHour == other.workHour);
+               (this.workHour == other.workHour) &&
+               (this.id == other.id);
     }
 
     @Override
     public String toString() {
-        return "GetWorklogResponse{begin=" + this.begin + ", workHour=" + this.workHour + '}';
+        return "WorklogResponse{id=" + id + ", begin=" + begin + ", workHour=" + workHour + '}';
     }
+
 }

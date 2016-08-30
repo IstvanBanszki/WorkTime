@@ -6,16 +6,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `save_absence`(
 )
 BEGIN
 
-	IF ((SELECT COUNT(*) FROM `worktime`.`absence` WHERE `begin` = begin_date) != 0) THEN
+	IF ((SELECT COUNT(*) FROM `worktime`.`absence` WHERE `begin_date` = begin_date) != 0) THEN
 		SELECT -1 AS status;
-    ELSEIF ((SELECT COUNT(*) FROM `worktime`.`absence` WHERE `end` = end_date) != 0) THEN
+    ELSEIF ((SELECT COUNT(*) FROM `worktime`.`absence` WHERE `end_date` = end_date) != 0) THEN
 		SELECT -2 AS status;
-    ELSEIF (((SELECT COUNT(*) FROM `worktime`.`absence` WHERE `begin` BETWEEN begin_date AND end_date) != 0) OR
-			 ((SELECT COUNT(*) FROM `worktime`.`absence` WHERE `end`   BETWEEN begin_date AND end_date) != 0)) THEN
+    ELSEIF (((SELECT COUNT(*) FROM `worktime`.`absence` WHERE `begin_date` BETWEEN begin_date AND end_date) != 0) OR
+			 ((SELECT COUNT(*) FROM `worktime`.`absence` WHERE `end_date`   BETWEEN begin_date AND end_date) != 0)) THEN
 		SELECT -3 AS status;
     ELSE
-		INSERT INTO `worktime`.`absence` (`begin`, `end`, `status`, `absence_type_id`, `worker_id`) 
-		VALUES (begin, end, 1, absence_type_id, worker_id);
+		INSERT INTO `worktime`.`absence` (`begin_date`, `end_date`, `status`, `absence_type_id`, `worker_id`) 
+		VALUES (begin_date, end, 1, absence_type_id, worker_id);
 		
 		SELECT ROW_COUNT() AS status;
 		

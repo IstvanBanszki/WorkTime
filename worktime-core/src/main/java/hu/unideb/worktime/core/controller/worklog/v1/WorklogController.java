@@ -40,4 +40,10 @@ public class WorklogController {
     public @ResponseBody List<WorklogResponse> getWorklog(@PathVariable("workerId") Integer workerId) {
         return this.sqlCallSaveWorklog.getWorklog(workerId);
     }
+
+    @Async
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody Integer deleteWorklog(@PathVariable("id") Integer id) {
+        return this.sqlCallSaveWorklog.deleteWorklog(id);
+    }
 }

@@ -65,7 +65,13 @@ angular.module('Absence')
 					 .finally(function() {
 						alert = undefined;
 					 });
-		};	
+		};
+		$scope.DeleteAbsence = function(id) {
+			
+		};
+		$scope.EditAbsence = function(id) {
+			
+		};
 		$scope.addAbsence = function() {
 			AbsenceService.AddAbsence($scope.begin, $scope.end, $rootScope.userData.workerId, $scope.absenceType).then(
 				function(result) {

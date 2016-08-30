@@ -5,10 +5,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `save_worklog`(
 )
 BEGIN
 
-	IF ((SELECT COUNT(*) FROM `worktime`.`worklog` WHERE `begin` = begin_date) = 0) THEN
+	IF ((SELECT COUNT(*) FROM `worktime`.`worklog` WHERE `begin_date` = begin_date) = 0) THEN
 
-		INSERT INTO `worktime`.`worklog` (`begin`, `work_hour`, `worker_id`)
-		VALUES (begin, work_hour, worker_id);
+		INSERT INTO `worktime`.`worklog` (`begin_date`, `work_hour`, `worker_id`)
+		VALUES (begin_date, work_hour, worker_id);
         
 		SELECT ROW_COUNT() AS status;
     ELSE

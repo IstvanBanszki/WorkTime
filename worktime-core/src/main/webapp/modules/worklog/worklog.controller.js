@@ -62,7 +62,7 @@ angular.module('Worklog')
 					});
 					$scope.showStatus(result);
 				},
-				function(error) {					
+				function(error) {
 				}
 			)
 		};
@@ -80,7 +80,33 @@ angular.module('Worklog')
 				function(error) {
 				}
 			)
-		}
+		};
+		$scope.DeleteWorklog = function(ev, worklog) {
+			var confirm = $mdDialog.confirm()
+								   .title('Worklog Delete')
+								   .textContent('Are you sure about delete the below worklog? Begin: '+worklog.begin+', Hour: '+worklog.workHour)
+								   .targetEvent(ev)
+								   .ok('Yes')
+								   .cancel('No');
+			$mdDialog.show(confirm).then(function() { // Yes
+				WorklogService.DeleteWorklog(worklog.id).then(
+					function(result) {
+					},
+					function(error) {
+					}
+				)
+				for(var i = 0; i < $scope.worklogs.length; i++) {
+					if($scope.worklogs[i].id === worklog.id) {
+						$scope.worklogs.splice(i, 1);
+						break;
+					} 
+				}
+			}, function() { // No
+			});
+		};
+		$scope.EditWorklog = function(ev, worklog) {
+			
+		};
 		$scope.timeValue = function(value) {
 			return value < 10 ? '0'+value : value+'';
 		};
