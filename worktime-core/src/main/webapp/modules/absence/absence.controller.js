@@ -79,7 +79,6 @@ angular.module('Absence')
 					$scope.begin = "";
 					$scope.end = "";
 					$scope.showStatus(result);
-					$scope.GetAbsences();
 				},
 				function(error) {
 				}

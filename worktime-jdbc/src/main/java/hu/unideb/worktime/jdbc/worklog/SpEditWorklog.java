@@ -16,37 +16,37 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer> {
-
-    private static final String SP_NAME = "save_worklog";
-    private static final String SP_PARAMETER_1 = "begin_date";
-    private static final String SP_PARAMETER_2 = "work_hour";
-    private static final String SP_PARAMETER_3 = "worker_id";
+public class SpEditWorklog extends StoredProcedure implements RowMapper<Integer> {
+    
+    private static final String SP_NAME = "edit_worklog";
+    private static final String SP_PARAMETER_1 = "worker_id";
+    private static final String SP_PARAMETER_2 = "begin_date";
+    private static final String SP_PARAMETER_3 = "work_hour";
     private static final String SP_RESULT = "result";
 
     private Logger logger;
     @Autowired
-    public SpSaveWorklog(WTConnection wtConnection) {
+    public SpEditWorklog(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
-        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.TIMESTAMP));
-        declareParameter(new SqlParameter(SP_PARAMETER_2, Types.INTEGER));
+        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
+        declareParameter(new SqlParameter(SP_PARAMETER_2, Types.TIMESTAMP));
         declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
-        this.logger = LoggerFactory.getLogger(SpSaveWorklog.class);
+        this.logger = LoggerFactory.getLogger(SpEditWorklog.class);
         compile();
     }
 
-    public Integer execute(Integer workerId, WorklogRequest values) {
+    public Integer execute(Integer id, WorklogRequest values) {
         Integer result = null;
-        List<Integer> spResult = (List<Integer>) super.execute(values.getBegin(), 
-                values.getWorkHour(), workerId).get(SP_RESULT);
+        List<Integer> spResult = (List<Integer>) super.execute(id, values.getBegin(), 
+                values.getWorkHour()).get(SP_RESULT);
         if (spResult != null) {
             result = spResult.get(0);
         }
         return result;
     }
-
+    
     @Override
     public Integer mapRow(ResultSet rs, int i) throws SQLException {
         logger.info("timestamp: {}", rs.getTimestamp("begin_date"));

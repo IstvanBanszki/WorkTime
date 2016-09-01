@@ -21,7 +21,7 @@
 		<tr ng-repeat="worklog in worklogs | filter:searchQuery | orderBy:sortType:sortReverse" class="w3-hover-light-green">
 			<td>{{worklog.begin}}</td>
 			<td>{{worklog.workHour}}</td>
-			<td><span class="fa fa-trash w3-xlarge" ng-click="DeleteWorklog($event, worklog)"> <span class="fa fa-edit w3-xlarge" ng-click="EditWorklog($event, worklog)"></span></td>
+			<td><span class="fa fa-trash w3-xlarge" ng-click="DeleteWorklog($event, worklog)"></span> <span class="fa fa-edit w3-xlarge" ng-click="EditWorklog($event, worklog)"></span></td>
 		</tr>
 	</table>
 </div>

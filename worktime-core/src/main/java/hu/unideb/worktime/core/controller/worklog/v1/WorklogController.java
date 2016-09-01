@@ -46,4 +46,10 @@ public class WorklogController {
     public @ResponseBody Integer deleteWorklog(@PathVariable("id") Integer id) {
         return this.sqlCallSaveWorklog.deleteWorklog(id);
     }
+
+    @Async
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.PUT)
+    public @ResponseBody Integer editWorklog(@PathVariable("id") Integer id, @RequestBody WorklogRequest request) {
+        return this.sqlCallSaveWorklog.editWorklog(id, request);
+    }
 }

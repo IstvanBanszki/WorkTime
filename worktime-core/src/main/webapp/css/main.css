@@ -30,6 +30,13 @@ body {
 .md-datepicker-calendar {
 	width: 20%;
 }
+.editDialog {
+    margin: 0;
+	padding: 20px 20px 20px 20px;
+}
+.editDialog form {
+	width: 300px;
+}
 #textInput {
 	width: 30%;	
 }

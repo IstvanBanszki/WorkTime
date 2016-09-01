@@ -12,8 +12,27 @@ angular.module("Worklog")
 				'Content-Type': 'application/json'
 			},
 			data: {
-				'begin': begin,
+				'begin': moment(begin).format('YYYY-MM-DD'),
 				'workHour': workHour
+			}
+		}).then(function successCallback(response) {
+			
+				deferred.resolve(response.data);
+				return deferred.promise;
+				
+			}, function errorCallback(response) {
+
+				deferred.reject(response);
+				return deferred.promise;
+			});
+	}
+	service.GetWorklog = function(workerId) {
+		var deferred = $q.defer();
+		return $http({
+			method : "GET",
+			url : "/api/worklog/v1/workerId/"+workerId,
+			headers : {
+				'Content-Type': 'application/json'
 			}
 		}).then(function successCallback(response) {
 			
@@ -45,13 +64,17 @@ angular.module("Worklog")
 				return deferred.promise;
 			});
 	}
-	service.GetWorklog = function(workerId) {
+	service.EditWorklog = function(id, begin, workHour) {
 		var deferred = $q.defer();
 		return $http({
-			method : "GET",
-			url : "/api/worklog/v1/workerId/"+workerId,
+			method : "PUT",
+			url : "/api/worklog/v1/id/"+id,
 			headers : {
 				'Content-Type': 'application/json'
+			},
+			data: {
+				'begin': begin,
+				'workHour': workHour
 			}
 		}).then(function successCallback(response) {
 			

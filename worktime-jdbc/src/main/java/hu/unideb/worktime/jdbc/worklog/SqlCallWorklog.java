@@ -17,6 +17,8 @@ public class SqlCallWorklog {
     private SpGetWorklog spGetWorklog;
     @Autowired
     private SpDeleteWorklog spDeleteWorklog;
+    @Autowired
+    private SpEditWorklog spEditWorklog;
     private Logger logger;
 
     public SqlCallWorklog() {
@@ -64,7 +66,22 @@ public class SqlCallWorklog {
         } catch (Exception ex) {
             this.logger.error("There is an exception during delete_worklog SP call: {}", ex);
         }
-        this.logger.info("Result of save_worklog SP: {}", result);
+        this.logger.info("Result of delete_worklog SP: {}", result);
+        return result;
+    }
+    
+    public Integer editWorklog(Integer id, WorklogRequest values ){
+        Integer result = null;
+        this.logger.info("Call edit_worklog SP with given parameters: Key - {}, values - {}", id, values);
+        try {
+            result = this.spEditWorklog.execute(id, values);
+            if(result == null){
+                this.logger.debug("There is an error in saving the worklog data in database! Key - {}, values - {}", id, values);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during edit_worklog SP call: {}", ex);
+        }
+        this.logger.info("Result of edit_worklog SP: {}", result);
         return result;
     }
 }

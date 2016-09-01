@@ -50,7 +50,7 @@ angular.module('Worklog')
 						alert = undefined;
 					 }
 					);
-		};	
+		};
 		$scope.addWorklog = function() {
 			WorklogService.AddWorklog($scope.begin, $scope.workHour, $rootScope.userData.workerId).then(
 				function(result) {
@@ -82,12 +82,12 @@ angular.module('Worklog')
 			)
 		};
 		$scope.DeleteWorklog = function(ev, worklog) {
-			var confirm = $mdDialog.confirm()
-								   .title('Worklog Delete')
-								   .textContent('Are you sure about delete the below worklog? Begin: '+worklog.begin+', Hour: '+worklog.workHour)
-								   .targetEvent(ev)
-								   .ok('Yes')
-								   .cancel('No');
+			var confirm = $mdDialog.confirm().title('Worklog Delete')
+											 .clickOutsideToClose(true)
+										     .htmlContent('<div><p>Are you sure about delete the below worklog?<br>Begin: '+worklog.begin+', Hour: '+worklog.workHour+'</p></div>')
+										     .targetEvent(ev)
+										     .ok('Yes')
+										     .cancel('No');
 			$mdDialog.show(confirm).then(function() { // Yes
 				WorklogService.DeleteWorklog(worklog.id).then(
 					function(result) {
@@ -105,6 +105,22 @@ angular.module('Worklog')
 			});
 		};
 		$scope.EditWorklog = function(ev, worklog) {
+			$mdDialog.show({
+				locals: {worklogData: worklog},
+				templateUrl: 'modules/worklog/worklog.edit.html',
+				clickOutsideToClose: true,
+				controller: 'WorklogEditController',
+				parent: angular.element(document.body),
+				targetEvent: ev
+			}).then(function() { 
+				for(var i = 0; i < $scope.worklogs.length; i++) {
+					if($scope.worklogs[i].id === worklog.id) {
+						//$scope.worklogs.[i];
+						break;
+					}
+				}
+			}, function() { // No
+			});
 			
 		};
 		$scope.timeValue = function(value) {

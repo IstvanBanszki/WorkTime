@@ -6,7 +6,7 @@ angular.module('Profile', [])
 angular.module('Worklog', [])
 angular.module('Absence', [])
 angular.module('Administration', [])
-angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'Administration', 'ngRoute', 'ngCookies', "ngAnimate", "ngAria", 'ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
+angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'Administration', 'ngRoute', 'ngCookies', "ngAnimate", "ngAria", 'ngMaterial', 'ngMessages', 'ngSanitize', 'material.svgAssetsCache'])
 	.config(['$routeProvider', '$mdDateLocaleProvider', function ($routeProvider, $mdDateLocaleProvider) {
 		$routeProvider
 			.when('/login', {
