@@ -24,7 +24,7 @@ public class SpGetWorklog extends StoredProcedure implements RowMapper<WorklogRe
     @Autowired
     public SpGetWorklog(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
-        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
+        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();

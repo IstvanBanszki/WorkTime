@@ -27,7 +27,7 @@ public class SpGetAbsence extends StoredProcedure implements RowMapper<AbsenceRe
     @Autowired
     public SpGetAbsence(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
-        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
+        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();

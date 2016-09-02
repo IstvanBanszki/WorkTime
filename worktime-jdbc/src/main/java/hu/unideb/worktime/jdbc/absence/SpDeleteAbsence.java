@@ -1,4 +1,4 @@
-package hu.unideb.worktime.jdbc.worklog;
+package hu.unideb.worktime.jdbc.absence;
 
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
@@ -13,14 +13,14 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpDeleteWorklog extends StoredProcedure implements RowMapper<Integer> {
-    
-    private static final String SP_NAME = "delete_worklog";
-    private static final String SP_PARAMETER_1 = "worklog_id";
+public class SpDeleteAbsence extends StoredProcedure implements RowMapper<Integer>{
+  
+    private static final String SP_NAME = "delete_absence";
+    private static final String SP_PARAMETER_1 = "absence_id";
     private static final String SP_RESULT = "result";
     
     @Autowired
-    public SpDeleteWorklog(WTConnection wtConnection) {
+    public SpDeleteAbsence(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));

@@ -1,7 +1,6 @@
 package hu.unideb.worktime.jdbc.absence;
 
 import hu.unideb.worktime.api.model.absence.AbsenceDataResponse;
-import hu.unideb.worktime.api.model.absence.AbsenceResponse;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

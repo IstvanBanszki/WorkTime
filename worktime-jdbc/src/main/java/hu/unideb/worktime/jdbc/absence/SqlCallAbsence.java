@@ -18,6 +18,10 @@ public class SqlCallAbsence {
     private SpSaveAbsence spSaveAbsence;
     @Autowired
     private SpGetAbsenceData spGetAbsenceData;
+    @Autowired
+    private SpDeleteAbsence spDeleteAbsence;
+    @Autowired
+    private SpEditAbsence spEditAbsence;
     private Logger logger;
 
     public SqlCallAbsence() {
@@ -30,7 +34,7 @@ public class SqlCallAbsence {
         try {
             result = this.spSaveAbsence.execute(workerId, values);
             if (result == null) {
-                this.logger.debug("There is an erro in saving the worklog data in database! Key: {}, Values - {}", workerId, values);
+                this.logger.debug("There is an erro in saving the absence data in database! Key: {}, Values - {}", workerId, values);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during save_absence SP call: {}", ex);
@@ -45,7 +49,7 @@ public class SqlCallAbsence {
         try {
             result = this.spGetAbsence.execute(key);
             if (result == null || result.isEmpty()) {
-                this.logger.debug("There is no suche worklog data in database! Key: {}", key);
+                this.logger.debug("There is no such absences in database! Key: {}", key);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during get_all_absence_by_worker SP call: {}", ex);
@@ -60,12 +64,42 @@ public class SqlCallAbsence {
         try {
             result = this.spGetAbsenceData.execute(key);
             if (result == null || result.isEmpty()) {
-                this.logger.debug("There is no suche worklog data in database! Key: {}", key);
+                this.logger.debug("There is no such absence data in database! Key: {}", key);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during get_absence_data SP call: {}", ex);
         }
         this.logger.info("Result of get_absence_data SP: {}", result);
+        return result;
+    }
+    
+    public Integer deleteAbsence(Integer key ){
+        Integer result = null;
+        this.logger.info("Call delete_absence SP with given parameters: Key - {}", key);
+        try {
+            result = this.spDeleteAbsence.execute(key);
+            if(result == null){
+                this.logger.debug("There is an error in delete the absence data in database! Key - {}", key);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during delete_absence SP call: {}", ex);
+        }
+        this.logger.info("Result of delete_absence SP: {}", result);
+        return result;
+    }
+    
+    public Integer editAbsence(Integer id, AbsenceRequest values ){
+        Integer result = null;
+        this.logger.info("Call edit_absence SP with given parameters: Key - {}, values - {}", id, values);
+        try {
+            result = this.spEditAbsence.execute(id, values);
+            if(result == null){
+                this.logger.debug("There is an error in edit the absence data in database! Key - {}, values - {}", id, values);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during edit_absence SP call: {}", ex);
+        }
+        this.logger.info("Result of edit_absence SP: {}", result);
         return result;
     }
 }

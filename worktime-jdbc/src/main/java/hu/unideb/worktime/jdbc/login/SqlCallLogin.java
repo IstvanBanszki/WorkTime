@@ -41,7 +41,7 @@ public class SqlCallLogin {
         try {
             result = this.spUpdatePassword.execute(key);
             if (result == -1) {
-                this.logger.debug("There is no such login user in database! Key: {}", key);
+                this.logger.debug("There is an error during update password! Key: {}", key);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during change_password SP call: {}", ex);

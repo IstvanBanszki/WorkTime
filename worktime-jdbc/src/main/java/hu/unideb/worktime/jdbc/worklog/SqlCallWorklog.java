@@ -46,7 +46,7 @@ public class SqlCallWorklog {
         try {
             result = this.spGetWorklog.execute(key);
             if(result == null ||result.isEmpty() ){
-                this.logger.debug("There is no suche worklog data in database! Key: {}", key);
+                this.logger.debug("There is no such worklogs in database! Key: {}", key);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during get_all_worklog_by_worker SP call: {}", ex);
@@ -61,7 +61,7 @@ public class SqlCallWorklog {
         try {
             result = this.spDeleteWorklog.execute(key);
             if(result == null){
-                this.logger.debug("There is an error in saving the worklog data in database! Key - {}", key);
+                this.logger.debug("There is an error in delete the worklog data in database! Key - {}", key);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during delete_worklog SP call: {}", ex);
@@ -76,7 +76,7 @@ public class SqlCallWorklog {
         try {
             result = this.spEditWorklog.execute(id, values);
             if(result == null){
-                this.logger.debug("There is an error in saving the worklog data in database! Key - {}, values - {}", id, values);
+                this.logger.debug("There is an error in edit the worklog data in database! Key - {}, values - {}", id, values);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during edit_worklog SP call: {}", ex);

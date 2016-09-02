@@ -27,7 +27,7 @@ public class SqlCallAdministration {
         try {
             result = this.spGetEmployeeWorklogList.execute(firstName, lastName);
             if(result == null ||result.isEmpty() ){
-                this.logger.debug("There is no suche worklog data in database! Key: FirstName - {}, LastName - {}", firstName, lastName);
+                this.logger.debug("There is no such worklogs data in database! Key: FirstName - {}, LastName - {}", firstName, lastName);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during get_employee_worklog_list SP call: {}", ex);
@@ -42,7 +42,7 @@ public class SqlCallAdministration {
         try {
             result = this.spGetEmployeeList.execute(workerId);
             if(result == null ||result.isEmpty() ){
-                this.logger.debug("There is no suche worklog data in database! Key: {}", workerId);
+                this.logger.debug("There is no such employees in database! Key: {}", workerId);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during get_employee_list SP call: {}", ex);

@@ -49,4 +49,16 @@ public class AbsenceController {
     public @ResponseBody List<AbsenceDataResponse> getAbsenceData(@PathVariable Integer workerId) {
         return this.sqlCallAbsence.getAbsenceData(workerId);
     }
+    
+    @Async
+    @RequestMapping(value = "/absence/v1/id/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody Integer deleteAbsence(@PathVariable Integer id) {
+        return this.sqlCallAbsence.deleteAbsence(id);
+    }
+    
+    @Async
+    @RequestMapping(value = "/absence/v1/id/{id}", method = RequestMethod.PUT)
+    public @ResponseBody Integer editAbsence(@PathVariable Integer id, @RequestBody AbsenceRequest request) {
+        return this.sqlCallAbsence.editAbsence(id, request);
+    }
 }

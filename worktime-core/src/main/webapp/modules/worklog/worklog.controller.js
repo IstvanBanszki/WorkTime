@@ -119,7 +119,7 @@ angular.module('Worklog')
 						break;
 					}
 				}
-			}, function() { // No
+			}, function() {
 			});
 		};
 		$scope.timeValue = function(value) {
