@@ -36,6 +36,7 @@ body {
 }
 .editDialog form {
 	width: 300px;
+	height: 470px;
 }
 #textInput {
 	width: 30%;	

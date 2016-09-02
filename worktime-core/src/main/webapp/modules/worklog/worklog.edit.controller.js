@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('WorklogEdit')
-.controller('WorklogEditController', ['$scope', '$rootScope', '$mdDialog', 'WorklogService', 'worklogData',
+angular.module('Worklog')
+.controller('WorklogEditController', ['$scope', '$rootScope', '$mdDialog', 'WorklogService',
     function ($scope, $rootScope, $mdDialog, WorklogService, worklogData) {
 		$scope.newBeginDate = new Date(worklogData.beginDate.substring(0,4)+'-'+worklogData.beginDate.substring(5,7)+'-'+worklogData.beginDate.substring(8,10))
 		$scope.newWorkHour = worklogData.workHour;

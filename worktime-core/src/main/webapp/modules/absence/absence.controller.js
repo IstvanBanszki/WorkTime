@@ -43,6 +43,7 @@ angular.module('Absence')
 		$scope.absenceType = "1";
 		$scope.beginDate = "";
 		$scope.endDate = "";
+		$scope.selectedAbsence = {};
 
 		$scope.showStatus = function(result) {
 			var textContent = '';
@@ -66,33 +67,7 @@ angular.module('Absence')
 						alert = undefined;
 					 });
 		};
-		$scope.DeleteAbsence = function(ev, absence) {
-			var confirm = $mdDialog.confirm().title('Absence Delete')
-											 .clickOutsideToClose(true)
-										     .htmlContent('<div><p>Are you sure about delete the below Absence?<br>Begin Date: '+absence.beginDate+'<br>End Date: '+absence.endDate+'<br>Absence Type: '+absence.absenceType+'</p></div>')
-										     .targetEvent(ev)
-										     .ok('Yes')
-										     .cancel('No');
-			$mdDialog.show(confirm).then(function() { // Yes
-				AbsenceService.DeleteAbsence(absence.id).then(
-					function(result) {
-					},
-					function(error) {
-					}
-				)
-				for(var i = 0; i < $scope.absences.length; i++) {
-					if($scope.absences[i].id === absence.id) {
-						$scope.absences.splice(i, 1);
-						break;
-					} 
-				}
-			}, function() { // No
-			});			
-		};
-		$scope.EditAbsence = function(ev, absence) {
-			
-		};
-		$scope.addAbsence = function() {
+		$scope.AddAbsence = function() {
 			AbsenceService.AddAbsence($scope.beginDate, $scope.endDate, $rootScope.userData.workerId, $scope.absenceType).then(
 				function(result) {
 					$scope.absenceType = "1";
@@ -129,6 +104,49 @@ angular.module('Absence')
 				function(error) {
 				}
 			);
+		};
+		$scope.DeleteAbsence = function(ev, absence) {
+			var confirm = $mdDialog.confirm().title('Absence Delete')
+											 .clickOutsideToClose(true)
+										     .htmlContent('<div><p>Are you sure about delete the below Absence?<br>Begin Date: '+absence.beginDate+'<br>End Date: '+absence.endDate+'<br>Absence Type: '+absence.absenceType+'</p></div>')
+										     .targetEvent(ev)
+										     .ok('Yes')
+										     .cancel('No');
+			$mdDialog.show(confirm).then(function() { // Yes
+				AbsenceService.DeleteAbsence(absence.id).then(
+					function(result) {
+					},
+					function(error) {
+					}
+				)
+				for(var i = 0; i < $scope.absences.length; i++) {
+					if($scope.absences[i].id === absence.id) {
+						$scope.absences.splice(i, 1);
+						break;
+					} 
+				}
+			}, function() { // No
+			});			
+		};
+		$scope.EditAbsence = function(ev, absence) {
+			$rootScope.selectedAbsence = absence;
+			$mdDialog.show({
+				locals: { absenceData: absence },
+				templateUrl: 'modules/absence/absence.edit.html',
+				clickOutsideToClose: true,
+				bindToController: true,
+				controller: 'AbsenceEditController',
+				parent: angular.element(document.body),
+				targetEvent: ev
+			}).then(function() {
+				for(var i = 0; i < $scope.absences.length; i++) {
+					if($scope.absences[i].id === absence.id) {
+						//$scope.absences.[i];
+						break;
+					}
+				}
+			}, function() {
+			});
 		};
 		$scope.dateFormatter = function() {
 			if (!(typeof $scope.absences) || $scope.absences.length !== 0) {
