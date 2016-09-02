@@ -6,12 +6,12 @@ import java.time.LocalDateTime;
 public class WorklogResponse implements Serializable {
 
     private final int id;
-    private final LocalDateTime begin;
+    private final LocalDateTime beginDate;
     private final int workHour;
 
-    public WorklogResponse(int id, LocalDateTime begin, int workHour) {
+    public WorklogResponse(int id, LocalDateTime beginDate, int workHour) {
         this.id = id;
-        this.begin = begin;
+        this.beginDate = beginDate;
         this.workHour = workHour;
     }
 
@@ -19,8 +19,8 @@ public class WorklogResponse implements Serializable {
         return id;
     }
 
-    public LocalDateTime getBegin() {
-        return this.begin;
+    public LocalDateTime getBeginDate() {
+        return this.beginDate;
     }
 
     public int getWorkHour() {
@@ -31,7 +31,7 @@ public class WorklogResponse implements Serializable {
     public int hashCode() {
         int hash = 3;
         hash = 67 * hash + this.id;
-        hash = 67 * hash + (this.begin != null ? this.begin.hashCode() : 0);
+        hash = 67 * hash + (this.beginDate != null ? this.beginDate.hashCode() : 0);
         hash = 67 * hash + this.workHour;
         return hash;
     }
@@ -48,14 +48,14 @@ public class WorklogResponse implements Serializable {
             return false;
         }
         final WorklogResponse other = (WorklogResponse) obj;
-        return (this.begin != null ? this.begin.equals(other.begin) : other.begin == null) &&
+        return (this.beginDate != null ? this.beginDate.equals(other.beginDate) : other.beginDate == null) &&
                (this.workHour == other.workHour) &&
                (this.id == other.id);
     }
 
     @Override
     public String toString() {
-        return "WorklogResponse{id=" + id + ", begin=" + begin + ", workHour=" + workHour + '}';
+        return "WorklogResponse{id=" + id + ", beginDate=" + beginDate + ", workHour=" + workHour + '}';
     }
 
 }

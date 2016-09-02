@@ -19,7 +19,7 @@ angular.module('Worklog')
 		};
 
 		$scope.worklogs = [];
-		$scope.sortType = "Begin";
+		$scope.sortType = "BeginDate";
 		$scope.sortReverse = false;
 		$scope.searchQuery = "";
 		$scope.showDownCaret = function(tableHeader) {
@@ -35,7 +35,7 @@ angular.module('Worklog')
 				$scope.sortType = tableHeader;
 			}
 		};
-		$scope.begin = "";
+		$scope.beginDate = "";
 		$scope.workHour = 0;
 
 		$scope.showStatus = function(result) {
@@ -52,12 +52,12 @@ angular.module('Worklog')
 					);
 		};
 		$scope.addWorklog = function() {
-			WorklogService.AddWorklog($scope.begin, $scope.workHour, $rootScope.userData.workerId).then(
+			WorklogService.AddWorklog($scope.beginDate, $scope.workHour, $rootScope.userData.workerId).then(
 				function(result) {
-					$scope.begin = "";
+					$scope.beginDate = "";
 					$scope.workHour = 0;
 					$scope.worklogs.push({
-						begin: $scope.begin,
+						beginDate: $scope.beginDate,
 						workHour: $scope.workHour
 					});
 					$scope.showStatus(result);
@@ -84,7 +84,7 @@ angular.module('Worklog')
 		$scope.DeleteWorklog = function(ev, worklog) {
 			var confirm = $mdDialog.confirm().title('Worklog Delete')
 											 .clickOutsideToClose(true)
-										     .htmlContent('<div><p>Are you sure about delete the below worklog?<br>Begin: '+worklog.begin+', Hour: '+worklog.workHour+'</p></div>')
+										     .htmlContent('<div><p>Are you sure about delete the below worklog?<br>Begin Date: '+worklog.beginDate+', Hour: '+worklog.workHour+'</p></div>')
 										     .targetEvent(ev)
 										     .ok('Yes')
 										     .cancel('No');
@@ -106,13 +106,13 @@ angular.module('Worklog')
 		};
 		$scope.EditWorklog = function(ev, worklog) {
 			$mdDialog.show({
-				locals: {worklogData: worklog},
+				locals: { worklogData: worklog },
 				templateUrl: 'modules/worklog/worklog.edit.html',
 				clickOutsideToClose: true,
 				controller: 'WorklogEditController',
 				parent: angular.element(document.body),
 				targetEvent: ev
-			}).then(function() { 
+			}).then(function() {
 				for(var i = 0; i < $scope.worklogs.length; i++) {
 					if($scope.worklogs[i].id === worklog.id) {
 						//$scope.worklogs.[i];
@@ -121,7 +121,6 @@ angular.module('Worklog')
 				}
 			}, function() { // No
 			});
-			
 		};
 		$scope.timeValue = function(value) {
 			return value < 10 ? '0'+value : value+'';
@@ -132,7 +131,7 @@ angular.module('Worklog')
 		$scope.dateFormatter = function() {
 			if (!(typeof $scope.worklogs) || $scope.worklogs.length !== 0) {
 				$scope.worklogs.forEach(function(worklog) {
-					worklog.begin = moment(worklog.begin).format('YYYY.MM.DD');
+					worklog.beginDate = moment(worklog.beginDate).format('YYYY.MM.DD');
 				});
 			}
 		};

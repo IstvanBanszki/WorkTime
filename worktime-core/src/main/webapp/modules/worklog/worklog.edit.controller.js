@@ -1,22 +1,21 @@
 'use strict';
 
-angular.module('Worklog')
-.controller('WorklogEditController', ['$scope', '$rootScope', '$mdDialog', 'worklogData', 'WorklogService',
-    function ($scope, $rootScope, $mdDialog, worklogData, WorklogService) {
-		$scope.newBegin = new Date(worklogData.begin.substring(0,4)+'-'+worklogData.begin.substring(5,7)+'-'+worklogData.begin.substring(8,10))
+angular.module('WorklogEdit')
+.controller('WorklogEditController', ['$scope', '$rootScope', '$mdDialog', 'WorklogService', 'worklogData',
+    function ($scope, $rootScope, $mdDialog, WorklogService, worklogData) {
+		$scope.newBeginDate = new Date(worklogData.beginDate.substring(0,4)+'-'+worklogData.beginDate.substring(5,7)+'-'+worklogData.beginDate.substring(8,10))
 		$scope.newWorkHour = worklogData.workHour;
 		$scope.id = worklogData.id;
-		
+
 		$scope.editWorklog = function() {
-			
+
 			WorklogService.EditWorklog($scope.id, $scope.newBegin, $scope.newWorkHour).then(
 				function(result) {
-					var editedWorklog = {
-						begin: new Date(worklogData.begin.substring(0,4), worklogData.begin.substring(5,7), worklogData.begin.substring(8,10)),
-						workHour: worklogData.workHour,
-						id: worklogData.id
-					};
-					$scope.answer(editedWorklog);
+					$scope.answer({
+						beginDate: $scope.newBeginDate,
+						workHour: $scope.newWorkHour,
+						id: $scope.id
+					});
 				},
 				function(error) {
 					$scope.cancel();

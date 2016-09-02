@@ -3,7 +3,7 @@
 angular.module("Worklog")
 .factory('WorklogService', ['$http', '$rootScope', '$q', function WorklogServiceFactory($http, $rootScope, $q){
 	var service = {};
-	service.AddWorklog = function(begin, workHour, workerId) {
+	service.AddWorklog = function(beginDate, workHour, workerId) {
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
@@ -12,7 +12,7 @@ angular.module("Worklog")
 				'Content-Type': 'application/json'
 			},
 			data: {
-				'begin': moment(begin).format('YYYY-MM-DD'),
+				'beginDate': moment(beginDate).format('YYYY-MM-DD'),
 				'workHour': workHour
 			}
 		}).then(function successCallback(response) {
@@ -64,7 +64,7 @@ angular.module("Worklog")
 				return deferred.promise;
 			});
 	}
-	service.EditWorklog = function(id, begin, workHour) {
+	service.EditWorklog = function(id, beginDate, workHour) {
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
@@ -73,7 +73,7 @@ angular.module("Worklog")
 				'Content-Type': 'application/json'
 			},
 			data: {
-				'begin': begin,
+				'beginDate': beginDate,
 				'workHour': workHour
 			}
 		}).then(function successCallback(response) {

@@ -3,7 +3,7 @@
 angular.module("Absence")
 .factory('AbsenceService', ['$http', '$rootScope', '$q', function AbsenceServiceFactory($http, $rootScope, $q){
 	var service = {};
-	service.AddAbsence = function(begin, end, workerId, absenceType) {
+	service.AddAbsence = function(beginDate, endDate, workerId, absenceType) {
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
@@ -12,8 +12,8 @@ angular.module("Absence")
 				'Content-Type': 'application/json'
 			},
 			data: {
-				'begin': moment(begin).format('YYYY-MM-DD'), 
-				'end': moment(end).format('YYYY-MM-DD'),
+				'beginDate': moment(beginDate).format('YYYY-MM-DD'), 
+				'endDate': moment(endDate).format('YYYY-MM-DD'),
 				'absenceType': absenceType
 			}
 		}).then(function successCallback(response) {

@@ -23,7 +23,7 @@ angular.module('Absence')
 
 		$scope.absences = [];
 		$scope.absenceDatas = [];
-		$scope.sortType = "Begin";
+		$scope.sortType = "BeginDate";
 		$scope.sortReverse = false;
 		$scope.searchQuery = "";
 		$scope.showDownCaret = function(tableHeader) {
@@ -41,17 +41,17 @@ angular.module('Absence')
 		}
 
 		$scope.absenceType = "1";
-		$scope.begin = "";
-		$scope.end = "";
+		$scope.beginDate = "";
+		$scope.endDate = "";
 
 		$scope.showStatus = function(result) {
 			var textContent = '';
 			if (result === -1) {
-				textContent = 'The saving is unsuccesfull, with the begin date you are already have absence!';
+				textContent = 'The saving is unsuccesfull, with the Begin Date you are already have absence!';
 			} else if (result === -2) {
-				textContent = 'The saving is unsuccesfull, with the end date you are already have absence!';
+				textContent = 'The saving is unsuccesfull, with the End Date you are already have absence!';
 			} else if (result === -3) {
-				textContent = 'The saving is unsuccesfull, the begin or end date is in the range of an already exist absence!';
+				textContent = 'The saving is unsuccesfull, the Begin or End Date is in the range of an already exist absence!';
 			} else {
 				textContent = 'The saving is succesfull!';
 			}
@@ -73,11 +73,11 @@ angular.module('Absence')
 			
 		};
 		$scope.addAbsence = function() {
-			AbsenceService.AddAbsence($scope.begin, $scope.end, $rootScope.userData.workerId, $scope.absenceType).then(
+			AbsenceService.AddAbsence($scope.beginDate, $scope.endDate, $rootScope.userData.workerId, $scope.absenceType).then(
 				function(result) {
 					$scope.absenceType = "1";
-					$scope.begin = "";
-					$scope.end = "";
+					$scope.beginDate = "";
+					$scope.endDate = "";
 					$scope.showStatus(result);
 				},
 				function(error) {
@@ -113,8 +113,8 @@ angular.module('Absence')
 		$scope.dateFormatter = function() {
 			if (!(typeof $scope.absences) || $scope.absences.length !== 0) {
 				$scope.absences.forEach(function(absence) {
-					absence.begin = moment(absence.begin).format('YYYY.MM.DD');
-					absence.end = moment(absence.end).format('YYYY.MM.DD');
+					absence.beginDate = moment(absence.beginDate).format('YYYY.MM.DD');
+					absence.endDate = moment(absence.endDate).format('YYYY.MM.DD');
 				});	
 			}
 		};

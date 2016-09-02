@@ -6,28 +6,28 @@ import java.util.Date;
 
 public class AbsenceRequest implements Serializable{
     
-    private final Date begin;
-    private final Date end;
+    private final Date beginDate;
+    private final Date endDate;
     private final AbsenceType absenceType;
 
     public AbsenceRequest() {
-        this.begin = null;
-        this.end = null;
+        this.beginDate = null;
+        this.endDate = null;
         this.absenceType = AbsenceType.NOT_SET;
     }
 
-    public AbsenceRequest(Date begin, Date end, int workerId, AbsenceType absenceType) {
-        this.begin = begin;
-        this.end = end;
+    public AbsenceRequest(Date beginDate, Date endDate, int workerId, AbsenceType absenceType) {
+        this.beginDate = beginDate;
+        this.endDate = endDate;
         this.absenceType = absenceType;
     }
 
-    public Date getBegin() {
-        return this.begin;
+    public Date getBeginDate() {
+        return this.beginDate;
     }
     
-    public Date getEnd() {
-        return this.end;
+    public Date getEndDate() {
+        return this.endDate;
     }
 
     public AbsenceType getAbsenceType() {
@@ -37,8 +37,8 @@ public class AbsenceRequest implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + (this.begin != null ? this.begin.hashCode() : 0);
-        hash = 29 * hash + (this.end != null ? this.end.hashCode() : 0);
+        hash = 29 * hash + (this.beginDate != null ? this.beginDate.hashCode() : 0);
+        hash = 29 * hash + (this.endDate != null ? this.endDate.hashCode() : 0);
         hash = 29 * hash + (this.absenceType != null ? this.absenceType.hashCode() : 0);
         return hash;
     }
@@ -55,14 +55,14 @@ public class AbsenceRequest implements Serializable{
             return false;
         }
         final AbsenceRequest other = (AbsenceRequest) obj;
-        return (this.begin != null ? this.begin.equals(other.begin) : other.begin == null) &&
-               (this.end != null ? this.end.equals(other.end) : other.end == null) &&
+        return (this.beginDate != null ? this.beginDate.equals(other.beginDate) : other.beginDate == null) &&
+               (this.endDate != null ? this.endDate.equals(other.endDate) : other.endDate == null) &&
                (this.absenceType != null ? this.absenceType.equals(other.absenceType) : other.absenceType == null);
     }
 
     @Override
     public String toString() {
-        return "SaveAbsenceRequest{begin=" + this.begin + ", end=" + this.end +
+        return "SaveAbsenceRequest{beginDate=" + this.beginDate + ", endDate=" + this.endDate +
                 ", absenceType=" + this.absenceType + '}';
     }
 }

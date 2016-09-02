@@ -5,21 +5,21 @@ import java.util.Date;
 
 public class WorklogRequest implements Serializable{
     
-    private final Date begin;
+    private final Date beginDate;
     private final int workHour;
 
     public WorklogRequest() {
-        this.begin = null;
+        this.beginDate = null;
         this.workHour = 0;
     }
 
-    public WorklogRequest(Date begin, int workHour, int workerId) {
-        this.begin = begin;
+    public WorklogRequest(Date beginDate, int workHour, int workerId) {
+        this.beginDate = beginDate;
         this.workHour = workHour;
     }
 
-    public Date getBegin() {
-        return this.begin;
+    public Date getBeginDate() {
+        return this.beginDate;
     }
     
     public int getWorkHour() {
@@ -29,7 +29,7 @@ public class WorklogRequest implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + (this.begin != null ? this.begin.hashCode() : 0);
+        hash = 29 * hash + (this.beginDate != null ? this.beginDate.hashCode() : 0);
         hash = 29 * hash + this.workHour;
         return hash;
     }
@@ -47,11 +47,11 @@ public class WorklogRequest implements Serializable{
         }
         final WorklogRequest other = (WorklogRequest) obj;
         return this.workHour != other.workHour &&
-              (this.begin != null ? this.begin.equals(other.begin) : other.begin == null);
+              (this.beginDate != null ? this.beginDate.equals(other.beginDate) : other.beginDate == null);
     }
 
     @Override
     public String toString() {
-        return "SaveWorklogRequest{begin=" + this.begin + ", workHour=" + this.workHour + '}';
+        return "SaveWorklogRequest{beginDate=" + this.beginDate + ", workHour=" + this.workHour + '}';
     }
 }

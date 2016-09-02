@@ -39,7 +39,7 @@ public class SpEditWorklog extends StoredProcedure implements RowMapper<Integer>
 
     public Integer execute(Integer id, WorklogRequest values) {
         Integer result = null;
-        List<Integer> spResult = (List<Integer>) super.execute(id, values.getBegin(), 
+        List<Integer> spResult = (List<Integer>) super.execute(id, values.getBeginDate(), 
                 values.getWorkHour()).get(SP_RESULT);
         if (spResult != null) {
             result = spResult.get(0);
