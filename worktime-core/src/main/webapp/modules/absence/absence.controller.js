@@ -40,10 +40,9 @@ angular.module('Absence')
 			}
 		};
 
-		$scope.absenceType = "1";
+		$scope.absenceType = "2";
 		$scope.beginDate = "";
 		$scope.endDate = "";
-		$scope.selectedAbsence = {};
 
 		$scope.showStatus = function(result) {
 			var textContent = '';
@@ -70,7 +69,7 @@ angular.module('Absence')
 		$scope.AddAbsence = function() {
 			AbsenceService.AddAbsence($scope.beginDate, $scope.endDate, $rootScope.userData.workerId, $scope.absenceType).then(
 				function(result) {
-					$scope.absenceType = "1";
+					$scope.absenceType = "2";
 					$scope.beginDate = "";
 					$scope.endDate = "";
 					$scope.showStatus(result);

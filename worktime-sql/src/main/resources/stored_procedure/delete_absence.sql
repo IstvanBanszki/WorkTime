@@ -3,8 +3,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_absence`(
 )
 BEGIN
 	DECLARE absence_type_id BIGINT;
+	DECLARE worker_id 		BIGINT;
 
-	SELECT absence_type_id = `absence_type_id` 
+	SELECT absence_type_id = `absence_type_id`,
+		   worker_id = `worker_id`
 	  FROM `worktime`.`absence` 
 	 WHERE `id` = absence_id;
 
@@ -32,6 +34,9 @@ BEGIN
 		UPDATE `worktime`.`worker_holiday_number`
 		SET `verified_absence_number` = `verified_absence_number` - 1
 		WHERE worker_id = worker_id;
+    ELSE
+		BEGIN
+        END;
 	END CASE;
 	
 	SELECT ROW_COUNT() AS status;

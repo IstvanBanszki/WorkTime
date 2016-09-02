@@ -26,9 +26,9 @@ public class SpEditAbsence extends StoredProcedure implements RowMapper<Integer>
     @Autowired
     public SpEditAbsence(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
-        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.TIMESTAMP));
+        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.TIMESTAMP));
-        declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));
+        declareParameter(new SqlParameter(SP_PARAMETER_3, Types.TIMESTAMP));
         declareParameter(new SqlParameter(SP_PARAMETER_4, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
@@ -39,7 +39,7 @@ public class SpEditAbsence extends StoredProcedure implements RowMapper<Integer>
         Integer result = null;
         List<Integer> spResult = (List<Integer>) super.execute(id, values.getBeginDate(), 
                 values.getEndDate(), values.getAbsenceType().getId()).get(SP_RESULT);
-        if (spResult != null) {
+        if(spResult != null) {
             result = spResult.get(0);
         }
         return result;

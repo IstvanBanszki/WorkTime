@@ -9,13 +9,24 @@ angular.module('Absence')
 
 		$scope.determineType = function(typeStr) {
 			if(typeStr === 'UNPAYED') {
-				return 2;
-			}else if(typeStr === 'SICK_PAY') {
 				return 3;
-			}else if(typeStr === 'VERIFIED') {
+			}else if(typeStr === 'SICK_PAY') {
 				return 4;
+			}else if(typeStr === 'VERIFIED') {
+				return 5;
 			}else {
-				return 1;
+				return 2;
+			}
+		};
+		$scope.convertEnum = function(type) {
+			if(type === 3) {
+				return 'UNPAYED';
+			} else if(type === 4) {
+				return 'SICK_PAY';
+			} else if(type === 5) {
+				return 'VERIFIED';
+			} else {
+				return 'PAYED';
 			}
 		};
 
@@ -24,8 +35,8 @@ angular.module('Absence')
 		$scope.newAbsenceType = $scope.determineType($rootScope.selectedAbsence.absenceType);
 		$scope.id = $rootScope.selectedAbsence.id;
 
-		$scope.editWorklog = function() {
-			WorklogService.EditWorklog($scope.id, $scope.newBegin, $scope.newEndDate, $scope.newAbsenceType).then(
+		$scope.editAbsence = function() {
+			AbsenceService.EditAbsence($scope.id, $scope.newBeginDate, $scope.newEndDate, $scope.convertEnum($scope.newAbsenceType)).then(
 				function(result) {
 					$scope.answer({
 						beginDate: $scope.newBeginDate,

@@ -34,7 +34,7 @@ public class SqlCallAbsence {
         try {
             result = this.spSaveAbsence.execute(workerId, values);
             if (result == null) {
-                this.logger.debug("There is an erro in saving the absence data in database! Key: {}, Values - {}", workerId, values);
+                this.logger.debug("There is an error while saving the absence data in database! Key: {}, Values - {}", workerId, values);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during save_absence SP call: {}", ex);
@@ -79,7 +79,7 @@ public class SqlCallAbsence {
         try {
             result = this.spDeleteAbsence.execute(key);
             if(result == null){
-                this.logger.debug("There is an error in delete the absence data in database! Key - {}", key);
+                this.logger.debug("There is an error while delete the absence data in database! Key - {}", key);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during delete_absence SP call: {}", ex);
@@ -94,7 +94,7 @@ public class SqlCallAbsence {
         try {
             result = this.spEditAbsence.execute(id, values);
             if(result == null){
-                this.logger.debug("There is an error in edit the absence data in database! Key - {}, values - {}", id, values);
+                this.logger.debug("There is an error while edit the absence data in database! Key - {}, values - {}", id, values);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during edit_absence SP call: {}", ex);
