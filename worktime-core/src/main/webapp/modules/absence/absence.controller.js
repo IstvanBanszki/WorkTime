@@ -16,10 +16,10 @@ angular.module('Absence')
 		$scope.currentTab = 'modules/absence/absence.add.html';
 		$scope.isActiveTab = function(tabUrl) {
 			return tabUrl == $scope.currentTab;
-		}
+		};
 		$scope.onClickTab = function(tab) {
 			$scope.currentTab = tab.url;
-		}
+		};
 
 		$scope.absences = [];
 		$scope.absenceDatas = [];
@@ -28,17 +28,17 @@ angular.module('Absence')
 		$scope.searchQuery = "";
 		$scope.showDownCaret = function(tableHeader) {
 			return ($scope.sortType == tableHeader && !$scope.sortReverse);
-		}
+		};
 		$scope.showUpCaret = function(tableHeader) {
 			return ($scope.sortType == tableHeader && $scope.sortReverse);
-		}
+		};
 		$scope.setSearchTypeOrReverse = function(tableHeader) {
 			if($scope.sortType == tableHeader) {
 				$scope.sortReverse = !$scope.sortReverse;
 			} else {
 				$scope.sortType = tableHeader;
 			}
-		}
+		};
 
 		$scope.absenceType = "1";
 		$scope.beginDate = "";
@@ -66,10 +66,30 @@ angular.module('Absence')
 						alert = undefined;
 					 });
 		};
-		$scope.DeleteAbsence = function(id) {
-			
+		$scope.DeleteAbsence = function(ev, absence) {
+			var confirm = $mdDialog.confirm().title('Absence Delete')
+											 .clickOutsideToClose(true)
+										     .htmlContent('<div><p>Are you sure about delete the below Absence?<br>Begin Date: '+absence.beginDate+'<br>End Date: '+absence.endDate+'<br>Absence Type: '+absence.absenceType+'</p></div>')
+										     .targetEvent(ev)
+										     .ok('Yes')
+										     .cancel('No');
+			$mdDialog.show(confirm).then(function() { // Yes
+				AbsenceService.DeleteAbsence(absence.id).then(
+					function(result) {
+					},
+					function(error) {
+					}
+				)
+				for(var i = 0; i < $scope.absences.length; i++) {
+					if($scope.absences[i].id === absence.id) {
+						$scope.absences.splice(i, 1);
+						break;
+					} 
+				}
+			}, function() { // No
+			});			
 		};
-		$scope.EditAbsence = function(id) {
+		$scope.EditAbsence = function(ev, absence) {
 			
 		};
 		$scope.addAbsence = function() {
@@ -82,34 +102,34 @@ angular.module('Absence')
 				},
 				function(error) {
 				}
-			)
-		}
+			);
+		};
 		$scope.initAbsence = function() {
 			if((typeof $scope.absences || $scope.absences.length === 0) && 
 			   (typeof $scope.absenceDatas || $scope.absenceDatas.length === 0)) {
 				$scope.GetAbsences();
 				$scope.GetAbsenceDatas();
 			}
-		}
+		};
 		$scope.GetAbsences = function() {
 			AbsenceService.GetAbsence($rootScope.userData.workerId).then(
-					function(result) {
-						$scope.absences = result;
-						$scope.dateFormatter();
-					},
-					function(error) {
-					}
-				)
-		}
+				function(result) {
+					$scope.absences = result;
+					$scope.dateFormatter();
+				},
+				function(error) {
+				}
+			);
+		};
 		$scope.GetAbsenceDatas = function() {
 			AbsenceService.GetAbsenceData($rootScope.userData.workerId).then(
-					function(result) {
-						$scope.absenceDatas = result;
-					},
-					function(error) {
-					}
-				)
-		}
+				function(result) {
+					$scope.absenceDatas = result;
+				},
+				function(error) {
+				}
+			);
+		};
 		$scope.dateFormatter = function() {
 			if (!(typeof $scope.absences) || $scope.absences.length !== 0) {
 				$scope.absences.forEach(function(absence) {

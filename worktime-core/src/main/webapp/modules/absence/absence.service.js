@@ -65,5 +65,48 @@ angular.module("Absence")
 				return deferred.promise;
 			});
 	}
+	service.DeleteAbsence = function(id) {
+		var deferred = $q.defer();
+		return $http({
+			method : "DELETE",
+			url : "/api/absence/v1/id/"+id,
+			headers : {
+				'Content-Type': 'application/json'
+			}
+		}).then(function successCallback(response) {
+			
+				deferred.resolve(response.data);
+				return deferred.promise;
+				
+			}, function errorCallback(response) {
+
+				deferred.reject(response);
+				return deferred.promise;
+			});
+	}
+	service.EditAbsence = function(id, beginDate, endDate, absenceType) {
+		var deferred = $q.defer();
+		return $http({
+			method : "PUT",
+			url : "/api/absence/v1/id/"+id,
+			headers : {
+				'Content-Type': 'application/json'
+			},
+			data: {
+				'beginDate': moment(beginDate).format('YYYY-MM-DD'), 
+				'endDate': moment(endDate).format('YYYY-MM-DD'),
+				'absenceType': absenceType
+			}
+		}).then(function successCallback(response) {
+			
+				deferred.resolve(response.data);
+				return deferred.promise;
+				
+			}, function errorCallback(response) {
+
+				deferred.reject(response);
+				return deferred.promise;
+			});
+	}
 	return service;
 }])

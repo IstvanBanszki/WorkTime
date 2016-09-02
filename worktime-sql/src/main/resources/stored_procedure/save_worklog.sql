@@ -12,7 +12,7 @@ BEGIN
         
 		SELECT ROW_COUNT() AS status;
     ELSE
-		SELECT -1 AS status;
+		SELECT 2 AS status;
     END IF;
   
 END
