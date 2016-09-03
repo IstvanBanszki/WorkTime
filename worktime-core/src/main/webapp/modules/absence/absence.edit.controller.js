@@ -21,8 +21,7 @@ angular.module('Absence')
 						$scope.answer({
 							beginDate: $scope.newBeginDate,
 							endDate: $scope.newEndDate,
-							absenceType: $scope.newAbsenceType,
-							id: $scope.id
+							absenceType: $scope.newAbsenceType
 						});
 					}else {
 						$scope.error = true;

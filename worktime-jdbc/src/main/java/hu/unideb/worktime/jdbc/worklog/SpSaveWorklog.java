@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SqlParameter;
@@ -24,7 +22,6 @@ public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer>
     private static final String SP_PARAMETER_3 = "worker_id";
     private static final String SP_RESULT = "result";
 
-    private Logger logger;
     @Autowired
     public SpSaveWorklog(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
@@ -33,7 +30,6 @@ public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer>
         declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
-        this.logger = LoggerFactory.getLogger(SpSaveWorklog.class);
         compile();
     }
 
@@ -49,7 +45,6 @@ public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer>
 
     @Override
     public Integer mapRow(ResultSet rs, int i) throws SQLException {
-        logger.info("timestamp: {}", rs.getTimestamp("begin_date"));
         return rs.getInt("status");
     }
 }

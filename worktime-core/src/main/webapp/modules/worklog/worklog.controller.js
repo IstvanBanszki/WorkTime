@@ -105,6 +105,7 @@ angular.module('Worklog')
 			});
 		};
 		$scope.EditWorklog = function(ev, worklog) {
+			$rootScope.selectedWorklog = worklog;
 			$mdDialog.show({
 				locals: { worklogData: worklog },
 				templateUrl: 'modules/worklog/worklog.edit.html',
@@ -112,10 +113,11 @@ angular.module('Worklog')
 				controller: 'WorklogEditController',
 				parent: angular.element(document.body),
 				targetEvent: ev
-			}).then(function() {
+			}).then(function(answer) {
 				for(var i = 0; i < $scope.worklogs.length; i++) {
 					if($scope.worklogs[i].id === worklog.id) {
-						//$scope.worklogs.[i];
+						$scope.worklogs[i].beginDate = moment(answer.beginDate).format('YYYY.MM.DD');
+						$scope.worklogs[i].workHour = answer.workHour;
 						break;
 					}
 				}
