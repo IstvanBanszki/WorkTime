@@ -46,11 +46,7 @@ angular.module('Absence')
 
 		$scope.showStatus = function(result) {
 			var textContent = '';
-			if (result === -1) {
-				textContent = 'The saving is unsuccesfull, with the Begin Date you are already have absence!';
-			} else if (result === -2) {
-				textContent = 'The saving is unsuccesfull, with the End Date you are already have absence!';
-			} else if (result === -3) {
+			if(result === -2) {
 				textContent = 'The saving is unsuccesfull, the Begin or End Date is in the range of an already exist absence!';
 			} else {
 				textContent = 'The saving is succesfull!';
