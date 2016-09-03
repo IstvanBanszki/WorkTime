@@ -10,18 +10,22 @@
 
 		<p><label class="w3-label">Absence Type</label></p>
 
-		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="2"/>
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="PAYED"/>
 		<label class="w3-validate">Payed</label></p>
 
-		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="3"/>
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="UNPAYED"/>
 		<label class="w3-validate">Unpayed</label></p>
 
-		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="4"/>
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="SICK_PAY"/>
 		<label class="w3-validate">Sick Pay</label></p>
 
-		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="5"/>
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="VERIFIED"/>
 		<label class="w3-validate">Verified</label></p>
 
+		<div class="w3-container w3-red w3-center" ng-show="error">
+			<p>Error occured!</p>
+		</div>
+		
 		<div class="w3-padding-8">
 			<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
 		</div>

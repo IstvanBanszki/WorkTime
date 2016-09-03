@@ -40,7 +40,7 @@ angular.module('Absence')
 			}
 		};
 
-		$scope.absenceType = "2";
+		$scope.absenceType = "PAYED";
 		$scope.beginDate = "";
 		$scope.endDate = "";
 
@@ -69,7 +69,7 @@ angular.module('Absence')
 		$scope.AddAbsence = function() {
 			AbsenceService.AddAbsence($scope.beginDate, $scope.endDate, $rootScope.userData.workerId, $scope.absenceType).then(
 				function(result) {
-					$scope.absenceType = "2";
+					$scope.absenceType = "PAYED";
 					$scope.beginDate = "";
 					$scope.endDate = "";
 					$scope.showStatus(result);
@@ -137,10 +137,12 @@ angular.module('Absence')
 				controller: 'AbsenceEditController',
 				parent: angular.element(document.body),
 				targetEvent: ev
-			}).then(function() {
+			}).then(function(answer) {
 				for(var i = 0; i < $scope.absences.length; i++) {
 					if($scope.absences[i].id === absence.id) {
-						//$scope.absences.[i];
+						$scope.absences[i].beginDate = moment(answer.beginDate).format('YYYY.MM.DD');
+						$scope.absences[i].endDate = moment(answer.endDate).format('YYYY.MM.DD');
+						$scope.absences[i].absenceType = answer.absenceType;
 						break;
 					}
 				}
