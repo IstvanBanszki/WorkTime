@@ -11,17 +11,23 @@ angular.module('Administration')
 		$scope.employeesRaw = [];
 		$scope.selectedEmployee = "";
 		$scope.employeeWorklogs = [];
+		$scope.emptyEmployeeList = false;
+		$scope.emptyWorklogList = false;
 		
 		$scope.init = function () {
 			AdministrationService.GetEmployees($rootScope.userData.workerId).then(
 					function( result ){
 						$scope.employeesRaw = result;
-						$scope.employeesRaw.forEach(function(employee) {
-							$scope.employees.push(employee.firstName + ' ' + employee.lastName); 
-						});
+						if($scope.employeesRaw.length > 0) {
+							$scope.employeesRaw.forEach(function(employee) {
+								$scope.employees.push(employee.firstName + ' ' + employee.lastName); 
+							});
+							$scope.emptyEmployeeList = false;
+						} else {
+							$scope.emptyEmployeeList = true;
+						}
 					},
 					function( error ){
-						
 					}
 				);
 		};
@@ -30,9 +36,13 @@ angular.module('Administration')
 			AdministrationService.GetWorklogsByEmployee(splitted[0], splitted[1]).then(
 					function( result ){
 						$scope.employeeWorklogs = result;
+						if($scope.employeeWorklogs.length > 0) {
+							$scope.emptyWorklogList = false;
+						} else {
+							$scope.emptyWorklogList = true;
+						}
 					},
 					function( error ){
-						
 					}
 				);
 		};
@@ -40,5 +50,22 @@ angular.module('Administration')
 			if( selectedDateFilterString == "This Week" ){
 				moment.localeData('en-us').firstDayOfWeek();
 			}
-		}
+		};
+
+		$scope.sortType = "BeginDate";
+		$scope.sortReverse = false;
+		$scope.searchQuery = "";
+		$scope.showDownCaret = function(tableHeader) {
+			return ($scope.sortType == tableHeader && !$scope.sortReverse);
+		};
+		$scope.showUpCaret = function(tableHeader) {
+			return ($scope.sortType == tableHeader && $scope.sortReverse);
+		};
+		$scope.setSearchTypeOrReverse = function(tableHeader) {
+			if($scope.sortType == tableHeader){
+				$scope.sortReverse = !$scope.sortReverse;
+			} else {
+				$scope.sortType = tableHeader;
+			}
+		};
     }]);
