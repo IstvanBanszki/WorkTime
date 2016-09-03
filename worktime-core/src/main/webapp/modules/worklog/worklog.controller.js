@@ -46,12 +46,16 @@ angular.module('Worklog')
 				ok: 'Close'
 			});
 		    $mdDialog.show(alert)
-					 .finally(function() {
+					.finally(function() {
 						alert = undefined;
-					 }
-					);
+					});
 		};
-		$scope.addWorklog = function() {
+		$scope.AddWorklog = function() {
+			//for(var i = 0; i < $scope.worklogs.length; i++) {
+				//if(moment($scope.beginDate).isSame($scope.worklogs[i].beginDate, 'year')) {
+				//	$scope.showStatus(-1);
+				//}
+			//}
 			WorklogService.AddWorklog($scope.beginDate, $scope.workHour, $rootScope.userData.workerId).then(
 				function(result) {
 					$scope.beginDate = "";
@@ -97,8 +101,8 @@ angular.module('Worklog')
 				)
 				for(var i = 0; i < $scope.worklogs.length; i++) {
 					if($scope.worklogs[i].id === worklog.id) {
-						$scope.worklogs.splice(i, 1);
-						break;
+					   $scope.worklogs.splice(i, 1);
+					   break;
 					} 
 				}
 			}, function() { // No
@@ -116,9 +120,9 @@ angular.module('Worklog')
 			}).then(function(answer) {
 				for(var i = 0; i < $scope.worklogs.length; i++) {
 					if($scope.worklogs[i].id === worklog.id) {
-						$scope.worklogs[i].beginDate = moment(answer.beginDate).format('YYYY.MM.DD');
-						$scope.worklogs[i].workHour = answer.workHour;
-						break;
+					   $scope.worklogs[i].beginDate = moment(answer.beginDate).format('YYYY.MM.DD');
+					   $scope.worklogs[i].workHour = answer.workHour;
+					   break;
 					}
 				}
 			}, function() {

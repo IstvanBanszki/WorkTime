@@ -63,6 +63,12 @@ angular.module('Absence')
 					 });
 		};
 		$scope.AddAbsence = function() {
+			//for(var i = 0; i < $scope.worklogs.length; i++) {
+				//if(moment($scope.worklogs[i].beginDate).isBetween($scope.beginDate, $scope.endDate) ||
+				//	 moment($scope.worklogs[i].endDate).isBetween($scope.beginDate, $scope.endDate)) {
+				//	$scope.showStatus(-1);
+				//}
+			//}
 			AbsenceService.AddAbsence($scope.beginDate, $scope.endDate, $rootScope.userData.workerId, $scope.absenceType).then(
 				function(result) {
 					$scope.absenceType = "PAYED";

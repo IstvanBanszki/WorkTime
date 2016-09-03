@@ -115,13 +115,14 @@ CREATE TABLE `worker_holiday_number` (
 /* ***************************************************
 				worklog table creation
    *************************************************** */
-
+   
 CREATE TABLE `worklog` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `begin_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `work_hour` tinyint(4) NOT NULL,
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `date_of_modification` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `note` tinytext NOT NULL DEFAULT '',
   `worker_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_wl_worker_idx` (`worker_id`),
@@ -139,6 +140,7 @@ CREATE TABLE `absence` (
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `date_of_modification` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `status` tinyint(4) NOT NULL,
+  `note` tinytext NOT NULL DEFAULT '',
   `absence_type_id` bigint(20) NOT NULL,
   `worker_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
@@ -146,4 +148,4 @@ CREATE TABLE `absence` (
   KEY `FK_a_absence_type_id_idx` (`absence_type_id`),
   CONSTRAINT `FK_a_absence_type_id` FOREIGN KEY (`absence_type_id`) REFERENCES `absence_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_a_worker_id` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
