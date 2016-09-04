@@ -14,7 +14,7 @@ public class AdministrationWorklogResponse extends WorklogResponse implements Se
     }
 
     public String getNote() {
-        return note;
+        return this.note;
     }
 
     @Override
@@ -45,6 +45,7 @@ public class AdministrationWorklogResponse extends WorklogResponse implements Se
 
     @Override
     public String toString() {
-        return "AdministrationWorklogResponse{note=" + note + '}';
+        return "AdministrationWorklogResponse{id=" + this.getId() + ", beginDate=" + this.getBeginDate() + 
+                ", workHour=" + this.getWorkHour() + "note=" + this.note + '}';
     }
 }

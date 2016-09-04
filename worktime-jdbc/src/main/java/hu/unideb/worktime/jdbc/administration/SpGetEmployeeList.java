@@ -1,6 +1,6 @@
 package hu.unideb.worktime.jdbc.administration;
 
-import hu.unideb.worktime.api.model.worklogadministration.Employee;
+import hu.unideb.worktime.api.model.administration.Employee;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

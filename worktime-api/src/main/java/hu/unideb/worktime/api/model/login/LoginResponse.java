@@ -1,8 +1,9 @@
 package hu.unideb.worktime.api.model.login;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class LoginResponse {
+public class LoginResponse implements Serializable {
 
     private final int workerId;
     private final String roleName;

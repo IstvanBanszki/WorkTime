@@ -2,12 +2,12 @@
 
 angular.module("Administration")
 .factory('AdministrationService', ['$http', '$rootScope', '$q', function AdministrationServiceFactory($http, $rootScope, $q) {
-	var service = {};	
+	var service = {};
 	service.GetWorklogsByEmployee = function(firstName, lastName, dateFilter) {
 		var deferred = $q.defer();
 		return $http({
 			method : "POST",
-			url : "/api/administration/v1/firstName/"+firstName+"/lastName/"+lastName,
+			url : "/api/administration/v1/firstName/"+firstName+"/lastName/"+lastName+'/worklog',
 			headers : {
 				'Content-Type': 'application/json'
 			},
@@ -18,7 +18,29 @@ angular.module("Administration")
 
 				deferred.resolve(response.data);
 				return deferred.promise;
-				
+
+			}, function errorCallback(response) {
+
+				deferred.reject(response);
+				return deferred.promise;
+			});
+	}
+	service.GetAbsencesByEmployee = function(firstName, lastName, dateFilter) {
+		var deferred = $q.defer();
+		return $http({
+			method : "POST",
+			url : "/api/administration/v1/firstName/"+firstName+"/lastName/"+lastName+'/absence',
+			headers : {
+				'Content-Type': 'application/json'
+			},
+			data: {
+				'dateFilter': dateFilter
+			}
+		}).then(function successCallback(response) {
+
+				deferred.resolve(response.data);
+				return deferred.promise;
+
 			}, function errorCallback(response) {
 
 				deferred.reject(response);
@@ -37,7 +59,7 @@ angular.module("Administration")
 
 				deferred.resolve(response.data);
 				return deferred.promise;
-				
+
 			}, function errorCallback(response) {
 
 				deferred.reject(response);

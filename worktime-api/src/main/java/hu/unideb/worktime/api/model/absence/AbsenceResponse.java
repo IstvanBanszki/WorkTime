@@ -63,10 +63,10 @@ public class AbsenceResponse implements Serializable {
         public AbsenceResponse build() {
             return new AbsenceResponse(this.id, this.beginDate, this.endDate, this.status, this.absenceType);
         }
-    }    
+    }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public LocalDateTime getBeginDate() {
@@ -117,7 +117,7 @@ public class AbsenceResponse implements Serializable {
 
     @Override
     public String toString() {
-        return "AbsenceResponse{id=" + id + ", beginDate=" + beginDate + ", endDate=" + endDate +
-                ", status=" + status + ", absenceType=" + absenceType + '}';
+        return "AbsenceResponse{id=" + this.id + ", beginDate=" + this.beginDate + ", endDate=" + this.endDate +
+                ", status=" + this.status + ", absenceType=" + this.absenceType + '}';
     }
 }

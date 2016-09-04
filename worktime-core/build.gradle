@@ -8,7 +8,7 @@ buildscript {
     ext {
 		springBootVersion = '1.4.0.RELEASE'
 		jasyptVersion = '1.9.2'
-		fasterXmlVersion = '2.8.1'
+		fasterXmlVersion = '2.8.2'
     }
     dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
@@ -22,7 +22,7 @@ apply plugin: 'nebula.provided-base'
 
 jar {
     baseName = 'worktime-core'
-    version = '0.5.4-SNAPSHOT'
+    version = '0.6.0-SNAPSHOT'
 }
 
 repositories {

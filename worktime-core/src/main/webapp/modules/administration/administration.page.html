@@ -3,56 +3,56 @@
 	<div ng-include="'modules/home/home.header.html'"></div>
 	<div ng-controller="AdministrationController" ng-init="init()">
 
-	<div class="tab">
-		<form class="w3-border w3-round w3-padding-medium" ng-submit="filter()">
-			<md-input-container style="margin-right: 10px">
-				<label>Employee</label>
-				<md-select ng-model="selectedEmployee">
-				  <md-option ng-repeat="employee in employees" value="{{employee}}">{{employee}}</md-option>
-				</md-select>
-			</md-input-container>		
-			<md-input-container style="width: 140px">
-				<label>Date Filter</label>
-				<md-select ng-model="selectedDateFilterString">
-				  <md-option ng-repeat="datefilter in dateFilters" value="{{datefilter}}">{{datefilter}}</md-option>
-				</md-select>
-			</md-input-container>
-			<div class="w3-padding-8">
-				<input class="w3-btn w3-green w3-left-align" type="submit" value="Filter"></input>
-			</div>
+		<div class="tab">
+			<form class="w3-border w3-round w3-padding-medium" ng-submit="filter()">
+				<md-input-container style="margin-right: 10px">
+					<label>Employee</label>
+					<md-select ng-model="selectedEmployee">
+					  <md-option ng-repeat="employee in employees" value="{{employee}}">{{employee}}</md-option>
+					</md-select>
+				</md-input-container>		
+				<md-input-container style="width: 140px">
+					<label>Date Filter</label>
+					<md-select ng-model="selectedDateFilterString">
+					  <md-option ng-repeat="datefilter in dateFilters" value="{{datefilter}}">{{datefilter}}</md-option>
+					</md-select>
+				</md-input-container>
+				<div class="w3-padding-8">
+					<input class="w3-btn w3-green w3-left-align" type="submit" value="Filter"></input>
+				</div>
 
-			<div class="w3-center" ng-show="emptyEmployeeList">
-				<p><b>The returned employee list is empty!</b></p>
-			</div>
-			<div class="w3-center" ng-show="emptyWorklogList">
-				<p><b>The returned worklog list is empty!</b></p>
-			</div>
-		</form>
-		
-		<table class="w3-table-all w3-hoverable">
-			<tr>
-				<th ng-click="setSearchTypeOrReverse('BeginDate')">
-					Begin Date				
-					<span ng-show="showDownCaret('BeginDate')" class="fa fa-caret-down"></span>
-					<span ng-show="showUpCaret('BeginDate')" class="fa fa-caret-up"></span>
-				</th>
-				<th ng-click="setSearchTypeOrReverse('Hour')">
-					Hour				
-					<span ng-show="showDownCaret('Hour')" class="fa fa-caret-down"></span>
-					<span ng-show="showUpCaret('Hour')" class="fa fa-caret-up"></span>
-				</th>
-				<th ng-click="setSearchTypeOrReverse('Note')">
-					Note				
-					<span ng-show="showDownCaret('Note')" class="fa fa-caret-down"></span>
-					<span ng-show="showUpCaret('Note')" class="fa fa-caret-up"></span>
-				</th>
-			</tr>
-			<tr ng-repeat="worklog in employeeWorklogs | filter:searchQuery | orderBy:sortType:sortReverse" class="w3-hover-light-green">
-				<td>{{worklog.beginDate}}</td>
-				<td>{{worklog.workHour}}</td>
-				<td>{{worklog.note}}</td>
-			</tr>
-		</table>
-	</div>
+				<div class="w3-center" ng-show="emptyEmployeeList">
+					<p><b>The returned employee list is empty!</b></p>
+				</div>
+				<div class="w3-center" ng-show="emptyWorklogList">
+					<p><b>The returned worklog list is empty!</b></p>
+				</div>
+			</form>
+
+			<table class="w3-table-all w3-hoverable">
+				<tr>
+					<th ng-click="setSearchTypeOrReverse('BeginDate')">
+						Begin Date				
+						<span ng-show="showDownCaret('BeginDate')" class="fa fa-caret-down"></span>
+						<span ng-show="showUpCaret('BeginDate')" class="fa fa-caret-up"></span>
+					</th>
+					<th ng-click="setSearchTypeOrReverse('Hour')">
+						Hour				
+						<span ng-show="showDownCaret('Hour')" class="fa fa-caret-down"></span>
+						<span ng-show="showUpCaret('Hour')" class="fa fa-caret-up"></span>
+					</th>
+					<th ng-click="setSearchTypeOrReverse('Note')">
+						Note				
+						<span ng-show="showDownCaret('Note')" class="fa fa-caret-down"></span>
+						<span ng-show="showUpCaret('Note')" class="fa fa-caret-up"></span>
+					</th>
+				</tr>
+				<tr ng-repeat="worklog in employeeWorklogs | filter:searchQuery | orderBy:sortType:sortReverse" class="w3-hover-light-green">
+					<td>{{worklog.beginDate}}</td>
+					<td>{{worklog.workHour}}</td>
+					<td>{{worklog.note}}</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </div>

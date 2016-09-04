@@ -1,4 +1,4 @@
-package hu.unideb.worktime.api.model.worklogadministration;
+package hu.unideb.worktime.api.model.administration;
 
 import java.io.Serializable;
 
@@ -18,11 +18,11 @@ public class Employee implements Serializable {
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     @Override
@@ -51,6 +51,6 @@ public class Employee implements Serializable {
 
     @Override
     public String toString() {
-        return "Employee{firstName=" + firstName + ", lastName=" + lastName + '}';
+        return "Employee{firstName=" + this.firstName + ", lastName=" + this.lastName + '}';
     }
 }

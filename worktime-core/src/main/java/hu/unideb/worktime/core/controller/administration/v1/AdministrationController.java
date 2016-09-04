@@ -1,8 +1,9 @@
 package hu.unideb.worktime.core.controller.administration.v1;
 
+import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
 import hu.unideb.worktime.api.model.administration.AdministrationRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
-import hu.unideb.worktime.api.model.worklogadministration.Employee;
+import hu.unideb.worktime.api.model.administration.Employee;
 import hu.unideb.worktime.jdbc.administration.SqlCallAdministration;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,17 @@ public class AdministrationController {
     private SqlCallAdministration sqlCallWorklogAdministration;
 
     @Async
-    @RequestMapping(value = "/firstName/{firstName}/lastName/{lastName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/firstName/{firstName}/lastName/{lastName}/worklog", method = RequestMethod.POST)
     public @ResponseBody List<AdministrationWorklogResponse> getEmployeeWorklogList(@PathVariable("firstName") String firstName, 
            @PathVariable("lastName") String lastName, @RequestBody AdministrationRequest request) {
         return this.sqlCallWorklogAdministration.getEmloyeeWorklog(firstName, lastName, request);
+    }
+
+    @Async
+    @RequestMapping(value = "/firstName/{firstName}/lastName/{lastName}/absence", method = RequestMethod.POST)
+    public @ResponseBody List<AdministrationAbsenceResponse> getEmployeeAbsenceList(@PathVariable("firstName") String firstName, 
+           @PathVariable("lastName") String lastName, @RequestBody AdministrationRequest request) {
+        return this.sqlCallWorklogAdministration.getEmloyeeAbsence(firstName, lastName, request);
     }
 
     @Async

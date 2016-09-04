@@ -1,6 +1,8 @@
 package hu.unideb.worktime.api.model.absence;
 
-public class AbsenceDataResponse {
+import java.io.Serializable;
+
+public class AbsenceDataResponse implements Serializable {
     
     private final int year;
     private final int holidayNumber;
@@ -83,35 +85,35 @@ public class AbsenceDataResponse {
     }
 
     public int getYear() {
-        return year;
+        return this.year;
     }
 
     public int getHolidayNumber() {
-        return holidayNumber;
+        return this.holidayNumber;
     }
 
     public int getAbsenceNumber() {
-        return absenceNumber;
+        return this.absenceNumber;
     }
 
     public int getNotSetAbsenceNumber() {
-        return notSetAbsenceNumber;
+        return this.notSetAbsenceNumber;
     }
 
     public int getPayedAbsenceNumber() {
-        return payedAbsenceNumber;
+        return this.payedAbsenceNumber;
     }
 
     public int getUnPayedAbsenceNumber() {
-        return unPayedAbsenceNumber;
+        return this.unPayedAbsenceNumber;
     }
 
     public int getSickPayedAbsenceNumber() {
-        return sickPayedAbsenceNumber;
+        return this.sickPayedAbsenceNumber;
     }
 
     public int getVerifiedAbsenceNumber() {
-        return verifiedAbsenceNumber;
+        return this.verifiedAbsenceNumber;
     }
 
     @Override
@@ -152,10 +154,10 @@ public class AbsenceDataResponse {
 
     @Override
     public String toString() {
-        return "AbsenceDataResponse{year=" + year + ", holidayNumber=" + holidayNumber + 
-               ", absenceNumber=" + absenceNumber + ", notSetAbsenceNumber=" + notSetAbsenceNumber + 
-               ", payedAbsenceNumber=" + payedAbsenceNumber + ", unPayedAbsenceNumber=" + unPayedAbsenceNumber + 
-               ", sickPayedAbsenceNumber=" + sickPayedAbsenceNumber + ", verifiedAbsenceNumber=" + verifiedAbsenceNumber + '}';
+        return "AbsenceDataResponse{year=" + this.year + ", holidayNumber=" + this.holidayNumber + 
+               ", absenceNumber=" + this.absenceNumber + ", notSetAbsenceNumber=" + this.notSetAbsenceNumber + 
+               ", payedAbsenceNumber=" + this.payedAbsenceNumber + ", unPayedAbsenceNumber=" + this.unPayedAbsenceNumber + 
+               ", sickPayedAbsenceNumber=" + this.sickPayedAbsenceNumber + ", verifiedAbsenceNumber=" + this.verifiedAbsenceNumber + '}';
     }
     
 }

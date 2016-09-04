@@ -11,10 +11,10 @@ public class UpdatePasswordRequest implements Serializable {
     }
 
     public String getOldPassword() {
-        return oldPassword;
+        return this.oldPassword;
     }
 
     public String getNewPassword() {
-        return newPassword;
+        return this.newPassword;
     }
 }

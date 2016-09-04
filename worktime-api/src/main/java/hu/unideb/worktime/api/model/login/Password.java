@@ -1,6 +1,8 @@
 package hu.unideb.worktime.api.model.login;
 
-public class Password {
+import java.io.Serializable;
+
+public class Password implements Serializable {
     
     private String password;
 
@@ -8,6 +10,6 @@ public class Password {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 }

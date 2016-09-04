@@ -15,7 +15,7 @@ public class AdministrationRequest implements Serializable{
     }
 
     public String getDateFilter() {
-        return dateFilter;
+        return this.dateFilter;
     }
 
     @Override
@@ -42,6 +42,6 @@ public class AdministrationRequest implements Serializable{
 
     @Override
     public String toString() {
-        return "AdministrationRequest{dateFilter=" + dateFilter + '}';
+        return "AdministrationRequest{dateFilter=" + this.dateFilter + '}';
     }
 }

@@ -15,15 +15,15 @@ public class UpdatePasswordRecord implements Serializable {
     }
 
     public String getLoginName() {
-        return loginName;
+        return this.loginName;
     }
 
     public String getOldPassword() {
-        return oldPassword;
+        return this.oldPassword;
     }
 
     public String getNewPassword() {
-        return newPassword;
+        return this.newPassword;
     }
 
 
@@ -55,6 +55,7 @@ public class UpdatePasswordRecord implements Serializable {
 
     @Override
     public String toString() {
-        return "UpdatePasswordRecord{loginName=" + loginName + ", oldPassword=" + oldPassword + ", newPassword=" + newPassword + '}';
+        return "UpdatePasswordRecord{loginName=" + this.loginName + 
+                ", oldPassword=" + this.oldPassword + ", newPassword=" + this.newPassword + '}';
     }
 }

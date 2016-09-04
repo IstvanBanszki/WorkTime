@@ -16,7 +16,7 @@ public class WorklogResponse implements Serializable {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public LocalDateTime getBeginDate() {
@@ -55,7 +55,7 @@ public class WorklogResponse implements Serializable {
 
     @Override
     public String toString() {
-        return "WorklogResponse{id=" + id + ", beginDate=" + beginDate + ", workHour=" + workHour + '}';
+        return "WorklogResponse{id=" + this.id + ", beginDate=" + this.beginDate + ", workHour=" + this.workHour + '}';
     }
 
 }
