@@ -1,7 +1,7 @@
 package hu.unideb.worktime.jdbc.administration;
 
 import hu.unideb.worktime.api.model.administration.AdministrationRequest;
-import hu.unideb.worktime.api.model.worklog.WorklogResponse;
+import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +16,7 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapper<WorklogResponse> {
+public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapper<AdministrationWorklogResponse> {
 
     private static final String SP_NAME = "get_employee_worklog_list";
     private static final String SP_PARAMETER_1 = "first_name";
@@ -35,9 +35,9 @@ public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapp
         compile();
     }
 
-    public List<WorklogResponse> execute(String firstName, String lastName, AdministrationRequest request) {
+    public List<AdministrationWorklogResponse> execute(String firstName, String lastName, AdministrationRequest request) {
 
-        List<WorklogResponse> spResult = (List<WorklogResponse>) super.execute(firstName, lastName, request.getDateFilter()).get(SP_RESULT);
+        List<AdministrationWorklogResponse> spResult = (List<AdministrationWorklogResponse>) super.execute(firstName, lastName, request.getDateFilter()).get(SP_RESULT);
         if(spResult != null){
             return spResult;
         }
@@ -45,8 +45,9 @@ public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapp
     }
 
     @Override
-    public WorklogResponse mapRow(ResultSet rs, int i) throws SQLException {
-        return new WorklogResponse(rs.getInt("id"), rs.getTimestamp("begin_date").toLocalDateTime(), rs.getInt("work_hour"));
+    public AdministrationWorklogResponse mapRow(ResultSet rs, int i) throws SQLException {
+        return new AdministrationWorklogResponse(rs.getString("note"), rs.getInt("id"), 
+                rs.getTimestamp("begin_date").toLocalDateTime(), rs.getInt("work_hour"));
     }
     
 }

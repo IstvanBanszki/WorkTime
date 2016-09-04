@@ -7,7 +7,7 @@ BEGIN
 
     IF(date_filter = 'This Year') THEN
 
-		SELECT wg.id, wg.begin_date, wg.work_hour
+		SELECT wg.id, wg.begin_date, wg.work_hour, wg.note
 		  FROM worklog wg
 	INNER JOIN worker w ON w.id = wg.worker_id
 					   AND w.first_name = first_name
@@ -16,7 +16,7 @@ BEGIN
 
     ELSEIF(date_filter = 'This Month') THEN
 		
-		SELECT wg.id, wg.begin_date, wg.work_hour
+		SELECT wg.id, wg.begin_date, wg.work_hour, wg.note
 		  FROM worklog wg
 	INNER JOIN worker w ON w.id = wg.worker_id
 					   AND w.first_name = first_name
@@ -25,7 +25,7 @@ BEGIN
 
     ELSEIF(date_filter = 'Last Week') THEN
 
-		SELECT wg.id, wg.begin_date, wg.work_hour
+		SELECT wg.id, wg.begin_date, wg.work_hour, wg.note
 		  FROM worklog wg
 	INNER JOIN worker w ON w.id = wg.worker_id
 					   AND w.first_name = first_name
@@ -35,7 +35,7 @@ BEGIN
 
     ELSEIF(date_filter = 'This Week') THEN
 		
-		SELECT wg.id, wg.begin_date, wg.work_hour
+		SELECT wg.id, wg.begin_date, wg.work_hour, wg.note
 		  FROM worklog wg
 	INNER JOIN worker w ON w.id = wg.worker_id
 					   AND w.first_name = first_name
@@ -43,7 +43,7 @@ BEGIN
 		 WHERE (`begin_date` BETWEEN  DATE_FORMAT(DATE_ADD(NOW(), INTERVAL(-WEEKDAY(NOW())) DAY),'%Y-%m-%d') AND NOW());
 
 	ELSE
-		SELECT wg.id, wg.begin_date, wg.work_hour
+		SELECT wg.id, wg.begin_date, wg.work_hour, wg.note
 		  FROM worklog wg
 	INNER JOIN worker w ON w.id = wg.worker_id
 					   AND w.first_name = first_name
