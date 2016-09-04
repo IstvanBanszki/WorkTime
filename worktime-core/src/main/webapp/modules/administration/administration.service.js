@@ -3,13 +3,16 @@
 angular.module("Administration")
 .factory('AdministrationService', ['$http', '$rootScope', '$q', function AdministrationServiceFactory($http, $rootScope, $q) {
 	var service = {};	
-	service.GetWorklogsByEmployee = function(firstName, lastName) {
+	service.GetWorklogsByEmployee = function(firstName, lastName, dateFilter) {
 		var deferred = $q.defer();
 		return $http({
-			method : "GET",
-			url : "/api/administration/v1/firstName/"+firstName+"/lastName/"+firstName,
+			method : "POST",
+			url : "/api/administration/v1/firstName/"+firstName+"/lastName/"+lastName,
 			headers : {
 				'Content-Type': 'application/json'
+			},
+			data: {
+				'dateFilter': dateFilter
 			}
 		}).then(function successCallback(response) {
 
@@ -22,7 +25,7 @@ angular.module("Administration")
 				return deferred.promise;
 			});
 	}
-	service.GetEmployees = function( workerId ){
+	service.GetEmployees = function(workerId){
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",

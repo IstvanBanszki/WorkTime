@@ -11,14 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class SqlCallWorklog {
     
-    @Autowired
-    private SpSaveWorklog spSaveWorklog;
-    @Autowired
-    private SpGetWorklog spGetWorklog;
-    @Autowired
-    private SpDeleteWorklog spDeleteWorklog;
-    @Autowired
-    private SpEditWorklog spEditWorklog;
+    @Autowired private SpSaveWorklog spSaveWorklog;
+    @Autowired private SpGetWorklog spGetWorklog;
+    @Autowired private SpDeleteWorklog spDeleteWorklog;
+    @Autowired private SpEditWorklog spEditWorklog;
     private Logger logger;
 
     public SqlCallWorklog() {
@@ -31,7 +27,7 @@ public class SqlCallWorklog {
         try {
             result = this.spSaveWorklog.execute(workerId, values);
             if(result == null){
-                this.logger.debug("There is an error in saving the worklog data in database! Key - {}, values - {}", workerId, values);
+                this.logger.debug("There is an error while saving the worklog in database! Key - {}, values - {}", workerId, values);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during save_worklog SP call: {}", ex);
@@ -61,7 +57,7 @@ public class SqlCallWorklog {
         try {
             result = this.spDeleteWorklog.execute(key);
             if(result == null){
-                this.logger.debug("There is an error in delete the worklog data in database! Key - {}", key);
+                this.logger.debug("There is an error while delete the worklog in database! Key - {}", key);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during delete_worklog SP call: {}", ex);
@@ -76,7 +72,7 @@ public class SqlCallWorklog {
         try {
             result = this.spEditWorklog.execute(id, values);
             if(result == null){
-                this.logger.debug("There is an error in edit the worklog data in database! Key - {}, values - {}", id, values);
+                this.logger.debug("There is an error while edit the worklog in database! Key - {}, values - {}", id, values);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during edit_worklog SP call: {}", ex);

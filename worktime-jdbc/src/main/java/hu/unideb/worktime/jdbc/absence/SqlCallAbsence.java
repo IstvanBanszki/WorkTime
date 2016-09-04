@@ -12,16 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class SqlCallAbsence {
 
-    @Autowired
-    private SpGetAbsence spGetAbsence;
-    @Autowired
-    private SpSaveAbsence spSaveAbsence;
-    @Autowired
-    private SpGetAbsenceData spGetAbsenceData;
-    @Autowired
-    private SpDeleteAbsence spDeleteAbsence;
-    @Autowired
-    private SpEditAbsence spEditAbsence;
+    @Autowired private SpGetAbsence spGetAbsence;
+    @Autowired private SpSaveAbsence spSaveAbsence;
+    @Autowired private SpGetAbsenceData spGetAbsenceData;
+    @Autowired private SpDeleteAbsence spDeleteAbsence;
+    @Autowired private SpEditAbsence spEditAbsence;
     private Logger logger;
 
     public SqlCallAbsence() {
@@ -34,7 +29,7 @@ public class SqlCallAbsence {
         try {
             result = this.spSaveAbsence.execute(workerId, values);
             if (result == null) {
-                this.logger.debug("There is an error while saving the absence data in database! Key: {}, Values - {}", workerId, values);
+                this.logger.debug("There is an error while saving the absence in database! Key: {}, Values - {}", workerId, values);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during save_absence SP call: {}", ex);
@@ -64,7 +59,7 @@ public class SqlCallAbsence {
         try {
             result = this.spGetAbsenceData.execute(key);
             if (result == null || result.isEmpty()) {
-                this.logger.debug("There is no such absence data in database! Key: {}", key);
+                this.logger.debug("There is no such absence in database! Key: {}", key);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during get_absence_data SP call: {}", ex);
@@ -79,7 +74,7 @@ public class SqlCallAbsence {
         try {
             result = this.spDeleteAbsence.execute(key);
             if(result == null){
-                this.logger.debug("There is an error while delete the absence data in database! Key - {}", key);
+                this.logger.debug("There is an error while delete the absence in database! Key - {}", key);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during delete_absence SP call: {}", ex);
@@ -94,7 +89,7 @@ public class SqlCallAbsence {
         try {
             result = this.spEditAbsence.execute(id, values);
             if(result == null){
-                this.logger.debug("There is an error while edit the absence data in database! Key - {}, values - {}", id, values);
+                this.logger.debug("There is an error while edit the absence in database! Key - {}, values - {}", id, values);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during edit_absence SP call: {}", ex);

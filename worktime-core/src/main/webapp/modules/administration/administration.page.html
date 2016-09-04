@@ -43,7 +43,7 @@
 				</th>
 			</tr>
 			<tr ng-repeat="worklog in employeeWorklogs | filter:searchQuery | orderBy:sortType:sortReverse" class="w3-hover-light-green">
-				<td>{{worklog.begin}}</td>
+				<td>{{worklog.beginDate}}</td>
 				<td>{{worklog.workHour}}</td>
 			</tr>
 		</table>

@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SqlCallProfile {
     
-    @Autowired
-    private SpGetProfile spProfile;
+    @Autowired private SpGetProfile spProfile;
     private Logger logger;
 
     public SqlCallProfile() {
@@ -23,7 +22,7 @@ public class SqlCallProfile {
         try {
             result = this.spProfile.execute(workerId);
             if(result == null){
-                this.logger.debug("There is no such profile data in database! Key: {}", workerId);
+                this.logger.debug("There is no such profile in database! Key: {}", workerId);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during get_profile_data SP call: {}", ex);

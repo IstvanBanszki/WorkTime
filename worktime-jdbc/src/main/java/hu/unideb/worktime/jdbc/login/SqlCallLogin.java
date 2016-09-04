@@ -10,10 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class SqlCallLogin {
 
-    @Autowired
-    private SpGetLogin spGetLogin;
-    @Autowired
-    private SpUpdatePassword spUpdatePassword;
+    @Autowired private SpGetLogin spGetLogin;
+    @Autowired private SpUpdatePassword spUpdatePassword;
     private Logger logger;
 
     public SqlCallLogin() {
