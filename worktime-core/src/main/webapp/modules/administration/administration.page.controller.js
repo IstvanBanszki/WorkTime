@@ -15,6 +15,9 @@ angular.module('Administration')
 				$scope.currentTab = $scope.tabs[1];
 			}
 		};
+		$scope.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
+		$scope.selectedDateFilterAbsence = "All";
+		$scope.selectedDateFilterWorklog = "All";
 
 		$scope.employees = [];
 		$scope.selectedEmployee = "";
@@ -22,6 +25,8 @@ angular.module('Administration')
 		
 		$scope.employeeWorklogs = [];
 		$scope.emptyWorklogList = false;
+		$scope.employeeAbsences = [];
+		$scope.emptyAbsenceList = false;
 
 		$scope.init = function() {
 			AdministrationService.GetEmployees($rootScope.userData.workerId).then(
@@ -42,9 +47,9 @@ angular.module('Administration')
 		};
 		
 		$scope.filterWorklog = function() {
-			if($scope.selectedEmployee) {
+			if($scope.selectedEmployee !== "") {
 				var splitted = $scope.selectedEmployee.split(" ");
-				AdministrationService.GetWorklogsByEmployee(splitted[0], splitted[1], $scope.selectedDateFilterString).then(
+				AdministrationService.GetWorklogsByEmployee(splitted[0], splitted[1], $scope.selectedDateFilterWorklog).then(
 						function(result) {
 							$scope.employeeWorklogs = [];
 							$scope.employeeWorklogs = result;
@@ -63,7 +68,7 @@ angular.module('Administration')
 		$scope.filterAbsence = function() {
 			if($scope.selectedEmployee !== "") {
 				var splitted = $scope.selectedEmployee.split(" ");
-				AdministrationService.GetWorklogsByEmployee(splitted[0], splitted[1], $scope.selectedDateFilterString).then(
+				AdministrationService.GetWorklogsByEmployee(splitted[0], splitted[1], $scope.selectedDateFilterAbsence).then(
 						function(result) {
 							$scope.employeeAbsences = [];
 							$scope.employeeAbsences = result;

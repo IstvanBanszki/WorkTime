@@ -3,12 +3,126 @@
 	<div ng-include="'modules/home/home.header.html'"></div>
 	<div ng-controller="AdministrationPageController" ng-init="init()">
 
-			<ul class="w3-navbar w3-teal w3-border w3-large">
-				<li ng-class="{active:isActiveTab('Worklog')}"><a ng-click="onClickTab('Worklog')">Worklog</a></li>
-				<li ng-class="{active:isActiveTab('Absence')}"><a ng-click="onClickTab('Absence')">Absence</a></li>
-			</ul>
-			<div id="tabView">
-				<div ng-include="currentTab"></div>
-			</div>
+		<md-content>
+			<md-tabs md-dynamic-height="" md-border-bottom="">
+				<md-tab label="Worklog">	
+					<md-content class="md-padding">
+					<div >
+						<form class="w3-border w3-round w3-padding-medium" ng-submit="filterWorklog()">
+							<md-input-container style="margin-right: 10px">
+								<label>Employee</label>
+								<md-select ng-model="selectedEmployee">
+								  <md-option ng-repeat="employee in employees" value="{{employee}}">{{employee}}</md-option>
+								</md-select>
+							</md-input-container>
+							<md-input-container style="width: 140px">
+								<label>Date Filter</label>
+								<md-select ng-model="selectedDateFilterWorklog">
+								  <md-option ng-repeat="datefilter in dateFilters" value="{{datefilter}}">{{datefilter}}</md-option>
+								</md-select>
+							</md-input-container>
+							<div class="w3-padding-8">
+								<input class="w3-btn w3-green w3-left-align" type="submit" value="Filter"></input>
+							</div>
+
+							<div class="w3-center" ng-show="emptyEmployeeList">
+								<p><b>The returned employee list is empty!</b></p>
+							</div>
+							<div class="w3-center" ng-show="emptyWorklogList">
+								<p><b>The returned worklog list is empty!</b></p>
+							</div>
+						</form>
+
+						<table class="w3-table-all w3-hoverable">
+							<tr>
+								<th ng-click="setSearchTypeOrReverse('BeginDate')">
+									Begin Date
+									<span ng-show="showDownCaret('BeginDate')" class="fa fa-caret-down"></span>
+									<span ng-show="showUpCaret('BeginDate')" class="fa fa-caret-up"></span>
+								</th>
+								<th ng-click="setSearchTypeOrReverse('Hour')">
+									Hour
+									<span ng-show="showDownCaret('Hour')" class="fa fa-caret-down"></span>
+									<span ng-show="showUpCaret('Hour')" class="fa fa-caret-up"></span>
+								</th>
+								<th ng-click="setSearchTypeOrReverse('Note')">
+									Note
+									<span ng-show="showDownCaret('Note')" class="fa fa-caret-down"></span>
+									<span ng-show="showUpCaret('Note')" class="fa fa-caret-up"></span>
+								</th>
+							</tr>
+							<tr ng-repeat="worklog in employeeWorklogs | filter:searchQuery | orderBy:sortType:sortReverse" class="w3-hover-light-green">
+								<td>{{worklog.beginDate}}</td>
+								<td>{{worklog.workHour}}</td>
+								<td>{{worklog.note}}</td>
+							</tr>
+						</table>
+					</div>
+					</md-content>
+				</md-tab>
+				<md-tab label="Absence">
+					<md-content class="md-padding">
+					<div>
+						<form class="w3-border w3-round w3-padding-medium" ng-submit="filterAbsence()">
+							<md-input-container style="margin-right: 10px">
+								<label>Employee</label>
+								<md-select ng-model="selectedEmployee">
+								  <md-option ng-repeat="employee in employees" value="{{employee}}">{{employee}}</md-option>
+								</md-select>
+							</md-input-container>		
+							<md-input-container style="width: 140px">
+								<label>Date Filter</label>
+								<md-select ng-model="selectedDateFilterAbsence">
+								  <md-option ng-repeat="datefilter in dateFilters" value="{{datefilter}}">{{datefilter}}</md-option>
+								</md-select>
+							</md-input-container>
+							<div class="w3-padding-8">
+								<input class="w3-btn w3-green w3-left-align" type="submit" value="Filter"></input>
+							</div>
+
+							<div class="w3-center" ng-show="emptyEmployeeList">
+								<p><b>The returned employee list is empty!</b></p>
+							</div>
+							<div class="w3-center" ng-show="emptyAbsenceList">
+								<p><b>The returned absence list is empty!</b></p>
+							</div>
+						</form>
+
+						<table class="w3-table-all w3-hoverable">
+							<tr>
+								<th ng-click="setSearchTypeOrReverse('BeginDate')">
+									Begin Date
+									<span ng-show="showDownCaret('BeginDate')" class="fa fa-caret-down"></span>
+									<span ng-show="showUpCaret('BeginDate')" class="fa fa-caret-up"></span>
+								</th>
+								<th ng-click="setSearchTypeOrReverse('EndDate')">
+									End Date
+									<span ng-show="showDownCaret('EndDate')" class="fa fa-caret-down"></span>
+									<span ng-show="showUpCaret('EndDate')" class="fa fa-caret-up"></span>
+								</th>
+								<th ng-click="setSearchTypeOrReverse('AbsenceType')">
+									AbsenceType
+									<span ng-show="showDownCaret('AbsenceType')" class="fa fa-caret-down"></span>
+									<span ng-show="showUpCaret('AbsenceType')" class="fa fa-caret-up"></span>
+								</th>
+								<th ng-click="setSearchTypeOrReverse('Status')">
+									Status
+									<span ng-show="showDownCaret('Status')" class="fa fa-caret-down"></span>
+									<span ng-show="showUpCaret('Status')" class="fa fa-caret-up"></span>
+								</th>
+							</tr>
+							<tr ng-repeat="absence in employeeAbsences | filter:searchQuery | orderBy:sortType:sortReverse" class="w3-hover-light-green">
+								<td>{{absence.beginDate}}</td>
+								<td>{{absence.endDate}}</td>
+								<td>{{absence.absenceType}}</td>
+								<td>{{absence.status}}</td>
+							</tr>
+						</table>
+					</div>
+					</md-content>
+				</md-tab>
+    
+			</md-tabs>
+		</md-content>
 	</div>
 </div>
