@@ -2,7 +2,7 @@ package hu.unideb.worktime.jdbc.profile;
 
 import hu.unideb.worktime.api.model.Gender;
 import hu.unideb.worktime.api.model.profile.ProfileRecord;
-import hu.unideb.worktime.api.model.profile.ProfileRecord.ProfileRecordBuilder;
+import hu.unideb.worktime.api.model.profile.ProfileRecord.Builder;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,7 +42,7 @@ public class SpGetProfile extends StoredProcedure implements RowMapper<ProfileRe
 
     @Override
     public ProfileRecord mapRow(ResultSet rs, int i) throws SQLException {
-        return new ProfileRecordBuilder().setDateOfRegistration(rs.getTimestamp("date_of_registration").toLocalDateTime())
+        return new Builder().setDateOfRegistration(rs.getTimestamp("date_of_registration").toLocalDateTime())
                                          .setFirstName(rs.getString("first_name"))
                                          .setLastName(rs.getString("last_name"))
                                          .setGender(Gender.valueOf(rs.getInt("gender")))

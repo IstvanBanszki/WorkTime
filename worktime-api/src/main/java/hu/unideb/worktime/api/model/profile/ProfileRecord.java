@@ -32,7 +32,7 @@ public class ProfileRecord implements Serializable {
         this.officeName = officeName;
     }
 
-    public static class ProfileRecordBuilder {
+    public static class Builder {
         
         private LocalDateTime dateOfRegistration;
         private String firstName;
@@ -46,7 +46,7 @@ public class ProfileRecord implements Serializable {
         private String departmentName;
         private String officeName;
 
-        public ProfileRecordBuilder() {
+        public Builder() {
             this.dateOfRegistration = null;
             this.firstName = "";
             this.lastName = "";
@@ -60,57 +60,57 @@ public class ProfileRecord implements Serializable {
             this.officeName = "";
         }
 
-        public ProfileRecordBuilder setDateOfRegistration(LocalDateTime dateOfRegistration) {
+        public Builder setDateOfRegistration(LocalDateTime dateOfRegistration) {
             this.dateOfRegistration = dateOfRegistration;
             return this;
         }
 
-        public ProfileRecordBuilder setFirstName(String firstName) {
+        public Builder setFirstName(String firstName) {
             this.firstName = firstName;
             return this;
         }
 
-        public ProfileRecordBuilder setLastName(String lastName) {
+        public Builder setLastName(String lastName) {
             this.lastName = lastName;
             return this;
         }
 
-        public ProfileRecordBuilder setGender(Gender gender) {
+        public Builder setGender(Gender gender) {
             this.gender = gender;
             return this;
         }
 
-        public ProfileRecordBuilder setDateOfBirth(LocalDateTime dateOfBirth) {
+        public Builder setDateOfBirth(LocalDateTime dateOfBirth) {
             this.dateOfBirth = dateOfBirth;
             return this;
         }
 
-        public ProfileRecordBuilder setNationality(String nationality) {
+        public Builder setNationality(String nationality) {
             this.nationality = nationality;
             return this;
         }
 
-        public ProfileRecordBuilder setPosition(String position) {
+        public Builder setPosition(String position) {
             this.position = position;
             return this;
         }
 
-        public ProfileRecordBuilder setEmailAddress(String emailAddress) {
+        public Builder setEmailAddress(String emailAddress) {
             this.emailAddress = emailAddress;
             return this;
         }
 
-        public ProfileRecordBuilder setDailyWorkHourTotal(int dailyWorkHourTotal) {
+        public Builder setDailyWorkHourTotal(int dailyWorkHourTotal) {
             this.dailyWorkHourTotal = dailyWorkHourTotal;
             return this;
         }
 
-        public ProfileRecordBuilder setDepartmentName(String departmentName) {
+        public Builder setDepartmentName(String departmentName) {
             this.departmentName = departmentName;
             return this;
         }
 
-        public ProfileRecordBuilder setOfficeName(String officeName) {
+        public Builder setOfficeName(String officeName) {
             this.officeName = officeName;
             return this;
         }

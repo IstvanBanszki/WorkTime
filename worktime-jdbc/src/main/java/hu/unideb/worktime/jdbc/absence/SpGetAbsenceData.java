@@ -39,7 +39,7 @@ public class SpGetAbsenceData extends StoredProcedure implements RowMapper<Absen
     }
     @Override
     public AbsenceDataResponse mapRow(ResultSet rs, int i) throws SQLException {
-        return new AbsenceDataResponse.AbsenceDataResponseBuilder().setYear(rs.getInt("year"))
+        return new AbsenceDataResponse.Builder().setYear(rs.getInt("year"))
                                                                    .setHolidayNumber(rs.getInt("holiday_number_total"))
                                                                    .setAbsenceNumber(rs.getInt("absence_number"))
                                                                    .setNotSetAbsenceNumber(rs.getInt("not_set_absence_number"))

@@ -3,7 +3,7 @@ package hu.unideb.worktime.jdbc.absence;
 import hu.unideb.worktime.api.model.AbsenceType;
 import hu.unideb.worktime.api.model.Status;
 import hu.unideb.worktime.api.model.absence.AbsenceResponse;
-import hu.unideb.worktime.api.model.absence.AbsenceResponse.AbsenceResponseBuilder;
+import hu.unideb.worktime.api.model.absence.AbsenceResponse.Builder;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,7 +43,7 @@ public class SpGetAbsence extends StoredProcedure implements RowMapper<AbsenceRe
 
     @Override
     public AbsenceResponse mapRow(ResultSet rs, int i) throws SQLException {
-        return new AbsenceResponseBuilder().setId(rs.getInt("id"))
+        return new Builder().setId(rs.getInt("id"))
                                               .setBeginDate(rs.getTimestamp("begin_date").toLocalDateTime())
                                               .setEndDate(rs.getTimestamp("end_date").toLocalDateTime())
                                               .setStatus(Status.valueOf(rs.getInt("status")))

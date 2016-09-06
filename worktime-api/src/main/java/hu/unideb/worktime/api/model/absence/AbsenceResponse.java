@@ -21,7 +21,7 @@ public class AbsenceResponse implements Serializable {
         this.absenceType = absenceType;
     }
 
-    public static class AbsenceResponseBuilder {
+    public static class Builder {
 
         private int id;
         private LocalDateTime beginDate;
@@ -29,33 +29,33 @@ public class AbsenceResponse implements Serializable {
         private Status status;
         private AbsenceType absenceType;
 
-        public AbsenceResponseBuilder() {
+        public Builder() {
             this.beginDate = null;
             this.endDate = null;
             this.status = Status.NOT_SET;
         }
 
-        public AbsenceResponseBuilder setId(int id) {
+        public Builder setId(int id) {
             this.id = id;
             return this;
         }
 
-        public AbsenceResponseBuilder setBeginDate(LocalDateTime begin) {
+        public Builder setBeginDate(LocalDateTime begin) {
             this.beginDate = begin;
             return this;
         }
 
-        public AbsenceResponseBuilder setEndDate(LocalDateTime end) {
+        public Builder setEndDate(LocalDateTime end) {
             this.endDate = end;
             return this;
         }
 
-        public AbsenceResponseBuilder setStatus(Status status) {
+        public Builder setStatus(Status status) {
             this.status = status;
             return this;
         }
 
-        public AbsenceResponseBuilder setAbsenceType(AbsenceType absenceType) {
+        public Builder setAbsenceType(AbsenceType absenceType) {
             this.absenceType = absenceType;
             return this;
         }

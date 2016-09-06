@@ -26,7 +26,7 @@ public class AbsenceDataResponse implements Serializable {
         this.verifiedAbsenceNumber = verifiedAbsenceNumber;
     }
 
-    public static class AbsenceDataResponseBuilder {
+    public static class Builder {
 
         private int year;
         private int holidayNumber;
@@ -37,42 +37,42 @@ public class AbsenceDataResponse implements Serializable {
         private int sickPayedAbsenceNumber;
         private int verifiedAbsenceNumber;
 
-        public AbsenceDataResponseBuilder setYear(int year) {
+        public Builder setYear(int year) {
             this.year = year;
             return this;
         }
 
-        public AbsenceDataResponseBuilder setHolidayNumber(int holidayNumber) {
+        public Builder setHolidayNumber(int holidayNumber) {
             this.holidayNumber = holidayNumber;
             return this;
         }
 
-        public AbsenceDataResponseBuilder setAbsenceNumber(int absenceNumber) {
+        public Builder setAbsenceNumber(int absenceNumber) {
             this.absenceNumber = absenceNumber;
             return this;
         }
 
-        public AbsenceDataResponseBuilder setNotSetAbsenceNumber(int notSetAbsenceNumber) {
+        public Builder setNotSetAbsenceNumber(int notSetAbsenceNumber) {
             this.notSetAbsenceNumber = notSetAbsenceNumber;
             return this;
         }
 
-        public AbsenceDataResponseBuilder setPayedAbsenceNumber(int payedAbsenceNumber) {
+        public Builder setPayedAbsenceNumber(int payedAbsenceNumber) {
             this.payedAbsenceNumber = payedAbsenceNumber;
             return this;
         }
 
-        public AbsenceDataResponseBuilder setUnPayedAbsenceNumber(int unPayedAbsenceNumber) {
+        public Builder setUnPayedAbsenceNumber(int unPayedAbsenceNumber) {
             this.unPayedAbsenceNumber = unPayedAbsenceNumber;
             return this;
         }
 
-        public AbsenceDataResponseBuilder setSickPayedAbsenceNumber(int sickPayedAbsenceNumber) {
+        public Builder setSickPayedAbsenceNumber(int sickPayedAbsenceNumber) {
             this.sickPayedAbsenceNumber = sickPayedAbsenceNumber;
             return this;
         }
 
-        public AbsenceDataResponseBuilder setVerifiedAbsenceNumber(int verifiedAbsenceNumber) {
+        public Builder setVerifiedAbsenceNumber(int verifiedAbsenceNumber) {
             this.verifiedAbsenceNumber = verifiedAbsenceNumber;
             return this;
         }
