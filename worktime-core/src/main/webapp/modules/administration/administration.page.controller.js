@@ -20,7 +20,8 @@ angular.module('Administration')
 		$scope.selectedDateFilterWorklog = "All";
 
 		$scope.employees = [];
-		$scope.selectedEmployee = "";
+		$scope.selectedEmployeeAbsence = "";
+		$scope.selectedEmployeeWorklog = "";
 		$scope.emptyEmployeeList = false;
 		
 		$scope.employeeWorklogs = [];
@@ -47,15 +48,15 @@ angular.module('Administration')
 		};
 		
 		$scope.filterWorklog = function() {
-			if($scope.selectedEmployee !== "") {
-				var splitted = $scope.selectedEmployee.split(" ");
+			if($scope.selectedEmployeeWorklog !== "") {
+				var splitted = $scope.selectedEmployeeWorklog.split(" ");
 				AdministrationService.GetWorklogsByEmployee(splitted[0], splitted[1], $scope.selectedDateFilterWorklog).then(
 						function(result) {
 							$scope.employeeWorklogs = [];
 							$scope.employeeWorklogs = result;
 							if($scope.employeeWorklogs.length > 0) {
 								$scope.emptyWorklogList = false;
-								$scope.dateFormatter();
+								$scope.dateFormatterWorklog();
 							} else {
 								$scope.emptyWorklogList = true;
 							}
@@ -66,15 +67,15 @@ angular.module('Administration')
 			}
 		};
 		$scope.filterAbsence = function() {
-			if($scope.selectedEmployee !== "") {
-				var splitted = $scope.selectedEmployee.split(" ");
-				AdministrationService.GetWorklogsByEmployee(splitted[0], splitted[1], $scope.selectedDateFilterAbsence).then(
+			if($scope.selectedEmployeeAbsence !== "") {
+				var splitted = $scope.selectedEmployeeAbsence.split(" ");
+				AdministrationService.GetAbsencesByEmployee(splitted[0], splitted[1], $scope.selectedDateFilterAbsence).then(
 						function(result) {
 							$scope.employeeAbsences = [];
 							$scope.employeeAbsences = result;
 							if($scope.employeeAbsences.length > 0) {
 								$scope.emptyAbsenceList = false;
-								$scope.dateFormatter();
+								$scope.dateFormatterAbsences();
 							} else {
 								$scope.emptyAbsenceList = true;
 							}
@@ -82,6 +83,21 @@ angular.module('Administration')
 						function(error) {
 						}
 					);				
+			}
+		};
+		$scope.dateFormatterWorklog = function() {
+			if (!(typeof $scope.employeeWorklogs) || $scope.employeeWorklogs.length !== 0) {
+				$scope.employeeWorklogs.forEach(function(employeeWorklog) {
+					employeeWorklog.beginDate = moment(employeeWorklog.beginDate).format('YYYY.MM.DD');
+				});
+			}
+		};
+		$scope.dateFormatterAbsences = function() {
+			if (!(typeof $scope.employeeAbsences) || $scope.employeeAbsences.length !== 0) {
+				$scope.employeeAbsences.forEach(function(employeeAbsence) {
+					employeeAbsence.beginDate = moment(employeeAbsence.beginDate).format('YYYY.MM.DD');
+					employeeAbsence.endDate   = moment(employeeAbsence.endDate).format('YYYY.MM.DD');
+				});
 			}
 		};
 
