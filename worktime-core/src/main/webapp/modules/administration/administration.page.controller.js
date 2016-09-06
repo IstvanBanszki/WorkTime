@@ -29,6 +29,8 @@ angular.module('Administration')
 		$scope.employeeAbsences = [];
 		$scope.emptyAbsenceList = false;
 
+		$scope.listDailyWorkHour = false;
+
 		$scope.init = function() {
 			AdministrationService.GetEmployees($rootScope.userData.workerId).then(
 					function(result) {

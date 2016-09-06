@@ -2,15 +2,15 @@ package hu.unideb.worktime.api.model.administration;
 
 import java.io.Serializable;
 
-public class AdministrationRequest implements Serializable{
+public class AdministrationAbsenceRequest implements Serializable{
 
-    private final String dateFilter;
+    private final String dateFilter; 
     
-    public AdministrationRequest() {
+    public AdministrationAbsenceRequest() {
         this.dateFilter = "";
     }
 
-    public AdministrationRequest(String dateFilter, int workerId) {
+    public AdministrationAbsenceRequest(String dateFilter) {
         this.dateFilter = dateFilter;
     }
 
@@ -36,12 +36,13 @@ public class AdministrationRequest implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final AdministrationRequest other = (AdministrationRequest) obj;
+        final AdministrationAbsenceRequest other = (AdministrationAbsenceRequest) obj;
         return (this.dateFilter != null ? this.dateFilter.equals(other.dateFilter) : other.dateFilter == null);
     }
 
     @Override
     public String toString() {
-        return "AdministrationRequest{dateFilter=" + this.dateFilter + '}';
+        return "AdministrationAbsenceRequest{dateFilter=" + dateFilter + '}';
     }
+
 }

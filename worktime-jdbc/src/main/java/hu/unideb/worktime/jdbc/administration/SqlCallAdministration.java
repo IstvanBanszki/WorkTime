@@ -1,7 +1,8 @@
 package hu.unideb.worktime.jdbc.administration;
 
+import hu.unideb.worktime.api.model.administration.AdministrationAbsenceRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
-import hu.unideb.worktime.api.model.administration.AdministrationRequest;
+import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
 import hu.unideb.worktime.api.model.administration.Employee;
 import java.util.List;
@@ -37,7 +38,7 @@ public class SqlCallAdministration {
         return result;
     }
     
-    public List<AdministrationWorklogResponse> getEmloyeeWorklog(String firstName, String lastName, AdministrationRequest request) {
+    public List<AdministrationWorklogResponse> getEmloyeeWorklog(String firstName, String lastName, AdministrationWorklogRequest request) {
         List<AdministrationWorklogResponse> result = null;
         this.logger.info("Call get_employee_worklog_list SP with given parameters: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
         try {
@@ -52,7 +53,7 @@ public class SqlCallAdministration {
         return result;
     }
     
-    public List<AdministrationAbsenceResponse> getEmloyeeAbsence(String firstName, String lastName, AdministrationRequest request) {
+    public List<AdministrationAbsenceResponse> getEmloyeeAbsence(String firstName, String lastName, AdministrationAbsenceRequest request) {
         List<AdministrationAbsenceResponse> result = null;
         this.logger.info("Call get_employee_absence_list SP with given parameters: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
         try {
