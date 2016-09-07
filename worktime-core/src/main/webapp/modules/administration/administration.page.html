@@ -80,6 +80,10 @@
 								  <md-option ng-repeat="datefilter in dateFilters" value="{{datefilter}}">{{datefilter}}</md-option>
 								</md-select>
 							</md-input-container>
+							<br>
+							<md-checkbox ng-model="listNotAccepted" aria-label="Show not accepted absences only!">
+								Show not accepted absences only!
+							</md-checkbox>
 							<div class="w3-padding-8">
 								<input class="w3-btn w3-green w3-left-align" type="submit" value="Filter"></input>
 							</div>

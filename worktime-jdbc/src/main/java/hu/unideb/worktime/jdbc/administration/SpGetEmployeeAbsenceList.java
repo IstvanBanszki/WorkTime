@@ -25,6 +25,7 @@ public class SpGetEmployeeAbsenceList extends StoredProcedure implements RowMapp
     private static final String SP_PARAMETER_1 = "first_name";
     private static final String SP_PARAMETER_2 = "last_name";
     private static final String SP_PARAMETER_3 = "date_filter";
+    private static final String SP_PARAMETER_4 = "not_accepted";
     private static final String SP_RESULT = "result";
 
     @Autowired
@@ -33,14 +34,17 @@ public class SpGetEmployeeAbsenceList extends StoredProcedure implements RowMapp
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.VARCHAR));
         declareParameter(new SqlParameter(SP_PARAMETER_3, Types.VARCHAR));
+        declareParameter(new SqlParameter(SP_PARAMETER_4, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();
     }
 
-    public List<AdministrationAbsenceResponse> execute(String firstName, String lastName, AdministrationAbsenceRequest request) {
+    public List<AdministrationAbsenceResponse> execute(String firstName, String lastName, 
+            AdministrationAbsenceRequest request) {
 
-        List<AdministrationAbsenceResponse> spResult = (List<AdministrationAbsenceResponse>) super.execute(firstName, lastName, request.getDateFilter()).get(SP_RESULT);
+        List<AdministrationAbsenceResponse> spResult = (List<AdministrationAbsenceResponse>) 
+                super.execute(firstName, lastName, request.getDateFilter(), request.isNotAccepted()).get(SP_RESULT);
         if(spResult != null) {
             return spResult;
         }
@@ -50,11 +54,11 @@ public class SpGetEmployeeAbsenceList extends StoredProcedure implements RowMapp
     @Override
     public AdministrationAbsenceResponse mapRow(ResultSet rs, int i) throws SQLException {
         return new Builder().setId(rs.getInt("id"))
-                                                         .setNote(rs.getString("note"))
-                                                         .setBeginDate(rs.getTimestamp("begin_date").toLocalDateTime())
-                                                         .setEndDate(rs.getTimestamp("end_date").toLocalDateTime())
-                                                         .setStatus(Status.valueOf(rs.getInt("status")))
-                                                         .setAbsenceType(AbsenceType.valueOf(rs.getInt("absence_type_id")))
-                                                         .build();
+                                     .setNote(rs.getString("note"))
+                                     .setBeginDate(rs.getTimestamp("begin_date").toLocalDateTime())
+                                     .setEndDate(rs.getTimestamp("end_date").toLocalDateTime())
+                                     .setStatus(Status.valueOf(rs.getInt("status")))
+                                     .setAbsenceType(AbsenceType.valueOf(rs.getInt("absence_type_id")))
+                                     .build();
     }
 }

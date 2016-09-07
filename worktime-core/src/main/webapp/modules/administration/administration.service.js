@@ -26,7 +26,7 @@ angular.module("Administration")
 				return deferred.promise;
 			});
 	}
-	service.GetAbsencesByEmployee = function(firstName, lastName, dateFilter) {
+	service.GetAbsencesByEmployee = function(firstName, lastName, dateFilter, listNotAccepted) {
 		var deferred = $q.defer();
 		return $http({
 			method : "POST",
@@ -35,7 +35,8 @@ angular.module("Administration")
 				'Content-Type': 'application/json'
 			},
 			data: {
-				'dateFilter': dateFilter
+				'dateFilter': dateFilter,
+				'notAccepted': listNotAccepted
 			}
 		}).then(function successCallback(response) {
 

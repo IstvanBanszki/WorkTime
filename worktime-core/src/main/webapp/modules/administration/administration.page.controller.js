@@ -30,6 +30,7 @@ angular.module('Administration')
 		$scope.emptyAbsenceList = false;
 
 		$scope.listDailyWorkHour = false;
+		$scope.listNotAccepted 	 = false;
 
 		$scope.init = function() {
 			AdministrationService.GetEmployees($rootScope.userData.workerId).then(
@@ -71,7 +72,7 @@ angular.module('Administration')
 		$scope.filterAbsence = function() {
 			if($scope.selectedEmployeeAbsence !== "") {
 				var splitted = $scope.selectedEmployeeAbsence.split(" ");
-				AdministrationService.GetAbsencesByEmployee(splitted[0], splitted[1], $scope.selectedDateFilterAbsence).then(
+				AdministrationService.GetAbsencesByEmployee(splitted[0], splitted[1], $scope.selectedDateFilterAbsence, $scope.listNotAccepted).then(
 						function(result) {
 							$scope.employeeAbsences = [];
 							$scope.employeeAbsences = result;

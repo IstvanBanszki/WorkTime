@@ -10,7 +10,8 @@ public class AdministrationAbsenceResponse extends AbsenceResponse implements Se
     
     private final String note;
 
-    public AdministrationAbsenceResponse(String note, int id, LocalDateTime beginDate, LocalDateTime endDate, Status status, AbsenceType absenceType) {
+    public AdministrationAbsenceResponse(String note, int id, LocalDateTime beginDate, 
+            LocalDateTime endDate, Status status, AbsenceType absenceType) {
         super(id, beginDate, endDate, status, absenceType);
         this.note = note;
     }
@@ -61,7 +62,8 @@ public class AdministrationAbsenceResponse extends AbsenceResponse implements Se
         }
 
         public AdministrationAbsenceResponse build() {
-            return new AdministrationAbsenceResponse(this.note, this.id, this.beginDate, this.endDate, this.status, this.absenceType);
+            return new AdministrationAbsenceResponse(this.note, this.id, this.beginDate, 
+                    this.endDate, this.status, this.absenceType);
         }
     }    
 
@@ -100,5 +102,4 @@ public class AdministrationAbsenceResponse extends AbsenceResponse implements Se
                 ", endDate=" + this.getEndDate() + ", status=" + this.getStatus() + 
                 ", absenceType=" + this.getAbsenceType() + ", note=" + this.note + '}';
     }
-    
 }
