@@ -3,21 +3,6 @@
 angular.module('Worklog')
 .controller('WorklogController', ['$scope', '$rootScope', '$mdDialog', 'WorklogService',
     function ($scope, $rootScope, $mdDialog, WorklogService) {
-		$scope.tabs = [{
-            title: 'Add',
-            url: 'modules/worklog/worklog.add.html'
-        }, {
-            title: 'Show',
-            url: 'modules/worklog/worklog.show.html'
-        }];
-		$scope.currentTab = $scope.tabs[0].url;
-		$scope.isActiveTab = function(tabUrl) {
-			return tabUrl == $scope.currentTab;
-		};
-		$scope.onClickTab = function(tab) {
-			$scope.currentTab = tab.url;
-		};
-
 		$scope.worklogs = [];
 		$scope.sortType = "BeginDate";
 		$scope.sortReverse = false;
@@ -58,12 +43,12 @@ angular.module('Worklog')
 			//}
 			WorklogService.AddWorklog($scope.beginDate, $scope.workHour, $rootScope.userData.workerId).then(
 				function(result) {
-					$scope.beginDate = "";
-					$scope.workHour = 0;
 					$scope.worklogs.push({
-						beginDate: $scope.beginDate,
+						beginDate: moment($scope.beginDate).format('YYYY.MM.DD'),
 						workHour: $scope.workHour
 					});
+					$scope.beginDate = "";
+					$scope.workHour = 0;
 					$scope.showStatus(result);
 				},
 				function(error) {
