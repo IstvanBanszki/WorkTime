@@ -3,23 +3,6 @@
 angular.module('Absence')
 .controller('AbsenceController', ['$scope', '$rootScope', '$mdDialog', 'AbsenceService',
     function ($scope, $rootScope, $mdDialog, AbsenceService) {
-		$scope.tabs = [{
-            title: 'Add',
-            url: 'modules/absence/absence.add.html'
-        }, {
-            title: 'Show',
-            url: 'modules/absence/absence.show.html'
-        }, {
-            title: 'Data',
-            url: 'modules/absence/absence.data.html'
-        }];
-		$scope.currentTab = 'modules/absence/absence.add.html';
-		$scope.isActiveTab = function(tabUrl) {
-			return tabUrl == $scope.currentTab;
-		};
-		$scope.onClickTab = function(tab) {
-			$scope.currentTab = tab.url;
-		};
 
 		$scope.absences = [];
 		$scope.absenceDatas = [];
