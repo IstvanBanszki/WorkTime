@@ -1,8 +1,8 @@
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_employee_worklog_list`(
-	IN first_name  TINYTEXT,
-	IN last_name   TINYTEXT,
-	IN date_filter TINYTEXT,
-	IN listDailyWorkHour TINYINT
+	IN first_name  			TINYTEXT,
+	IN last_name   			TINYTEXT,
+	IN date_filter 			TINYTEXT,
+	IN list_daily_work_hour TINYINT
 )
 BEGIN
 
@@ -31,7 +31,7 @@ BEGIN
 
     END IF;
 
-	IF(listDailyWorkHour = 1) THEN
+	IF(list_daily_work_hour = 1) THEN
 
 		SET @dinQuery = CONCAT(@dinQuery,
 							IF(date_filter = 'ALL', ' WHERE ', ' AND '),

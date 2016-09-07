@@ -3,7 +3,7 @@
 angular.module("Administration")
 .factory('AdministrationService', ['$http', '$rootScope', '$q', function AdministrationServiceFactory($http, $rootScope, $q) {
 	var service = {};
-	service.GetWorklogsByEmployee = function(firstName, lastName, dateFilter) {
+	service.GetWorklogsByEmployee = function(firstName, lastName, dateFilter, showDailyWorkhours) {
 		var deferred = $q.defer();
 		return $http({
 			method : "POST",
@@ -12,7 +12,8 @@ angular.module("Administration")
 				'Content-Type': 'application/json'
 			},
 			data: {
-				'dateFilter': dateFilter
+				'dateFilter': dateFilter,
+				'showDailyWorkhours': showDailyWorkhours
 			}
 		}).then(function successCallback(response) {
 

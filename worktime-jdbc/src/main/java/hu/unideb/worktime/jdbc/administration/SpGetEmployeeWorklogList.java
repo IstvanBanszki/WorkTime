@@ -22,6 +22,7 @@ public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapp
     private static final String SP_PARAMETER_1 = "first_name";
     private static final String SP_PARAMETER_2 = "last_name";
     private static final String SP_PARAMETER_3 = "date_filter";
+    private static final String SP_PARAMETER_4 = "list_daily_work_hour";
     private static final String SP_RESULT = "result";
 
     @Autowired
@@ -30,6 +31,7 @@ public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapp
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.VARCHAR));
         declareParameter(new SqlParameter(SP_PARAMETER_3, Types.VARCHAR));
+        declareParameter(new SqlParameter(SP_PARAMETER_4, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();
@@ -37,7 +39,8 @@ public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapp
 
     public List<AdministrationWorklogResponse> execute(String firstName, String lastName, AdministrationWorklogRequest request) {
 
-        List<AdministrationWorklogResponse> spResult = (List<AdministrationWorklogResponse>) super.execute(firstName, lastName, request.getDateFilter()).get(SP_RESULT);
+        List<AdministrationWorklogResponse> spResult = (List<AdministrationWorklogResponse>) 
+                super.execute(firstName, lastName, request.getDateFilter(), request.isShowDailyWorkhours()).get(SP_RESULT);
         if(spResult != null) {
             return spResult;
         }

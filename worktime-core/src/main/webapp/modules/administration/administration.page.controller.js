@@ -52,7 +52,7 @@ angular.module('Administration')
 		$scope.filterWorklog = function() {
 			if($scope.selectedEmployeeWorklog !== "") {
 				var splitted = $scope.selectedEmployeeWorklog.split(" ");
-				AdministrationService.GetWorklogsByEmployee(splitted[0], splitted[1], $scope.selectedDateFilterWorklog).then(
+				AdministrationService.GetWorklogsByEmployee(splitted[0], splitted[1], $scope.selectedDateFilterWorklog, $scope.listDailyWorkHour).then(
 						function(result) {
 							$scope.employeeWorklogs = [];
 							$scope.employeeWorklogs = result;
