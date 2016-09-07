@@ -17,6 +17,7 @@ public class SqlCallAdministration {
     @Autowired private SpGetEmployeeList spGetEmployeeList;
     @Autowired private SpGetEmployeeWorklogList spGetEmployeeWorklogList;
     @Autowired private SpGetEmployeeAbsenceList spGetEmployeeAbsenceList;
+    @Autowired private SpApproveEmployeeAbsence spAcceptAbsenceStatus;
     private Logger logger;
 
     public SqlCallAdministration() {
@@ -65,6 +66,21 @@ public class SqlCallAdministration {
             this.logger.error("There is an exception during get_employee_absence_list SP call: {}", ex);
         }
         this.logger.info("Result of get_employee_absence_list SP: {}", result);
+        return result;
+    }
+    
+    public Integer acceptEmployeeAbsence(Integer id ){
+        Integer result = null;
+        this.logger.info("Call accept_absence SP with given parameters: Key - {}", id);
+        try {
+            result = this.spAcceptAbsenceStatus.execute(id);
+            if(result == null){
+                this.logger.debug("There is an error while accept the absence in database! Key - {}", id);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during accept_absence SP call: {}", ex);
+        }
+        this.logger.info("Result of accept_absence SP: {}", result);
         return result;
     }
 }

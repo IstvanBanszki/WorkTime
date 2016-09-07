@@ -5,31 +5,31 @@ import java.io.Serializable;
 public class AdministrationAbsenceRequest implements Serializable{
 
     private final String dateFilter; 
-    private final Boolean notAccepted;
+    private final Boolean notApprove;
     
     public AdministrationAbsenceRequest() {
         this.dateFilter = "";
-        this.notAccepted = Boolean.FALSE;
+        this.notApprove = Boolean.FALSE;
     }
 
     public AdministrationAbsenceRequest(String dateFilter, Boolean notAccepted) {
         this.dateFilter = dateFilter;
-        this.notAccepted = notAccepted;
+        this.notApprove = notAccepted;
     }
 
     public String getDateFilter() {
         return this.dateFilter;
     }
 
-    public Boolean isNotAccepted() {
-        return notAccepted;
+    public Boolean isNotApprove() {
+        return notApprove;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 29 * hash + (this.dateFilter != null ? this.dateFilter.hashCode() : 0);
-        hash = 29 * hash + (this.notAccepted != null ? this.notAccepted.hashCode() : 0);
+        hash = 29 * hash + (this.notApprove != null ? this.notApprove.hashCode() : 0);
         return hash;
     }
 
@@ -46,12 +46,12 @@ public class AdministrationAbsenceRequest implements Serializable{
         }
         final AdministrationAbsenceRequest other = (AdministrationAbsenceRequest) obj;
         return (this.dateFilter != null ? this.dateFilter.equals(other.dateFilter) : other.dateFilter == null) &&
-               (this.notAccepted != null ? this.notAccepted.equals(other.notAccepted) : other.notAccepted == null);
+               (this.notApprove != null ? this.notApprove.equals(other.notApprove) : other.notApprove == null);
     }
 
     @Override
     public String toString() {
-        return "AdministrationAbsenceRequest{dateFilter=" + dateFilter + ", notAccepted=" + notAccepted + '}';
+        return "AdministrationAbsenceRequest{dateFilter=" + dateFilter + ", notAccepted=" + notApprove + '}';
     }
     
 }

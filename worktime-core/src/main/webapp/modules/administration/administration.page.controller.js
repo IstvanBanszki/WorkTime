@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('Administration')
-.controller('AdministrationPageController', ['$scope', '$rootScope', 'AdministrationService',
-    function($scope, $rootScope, AdministrationService) {
+.controller('AdministrationPageController', ['$scope', '$rootScope', '$mdDialog', 'AdministrationService',
+    function($scope, $rootScope, $mdDialog, AdministrationService) {
 		$scope.tabs = ['modules/administration/administration.worklog.html', 'modules/administration/administration.absence.html'];
 		$scope.currentTab = $scope.tabs[0];
 		$scope.isActiveTab = function(tabUrl) {
@@ -49,7 +49,7 @@ angular.module('Administration')
 					}
 				);
 		};
-		
+
 		$scope.filterWorklog = function() {
 			if($scope.selectedEmployeeWorklog !== "") {
 				var splitted = $scope.selectedEmployeeWorklog.split(" ");
@@ -85,8 +85,32 @@ angular.module('Administration')
 						},
 						function(error) {
 						}
-					);				
+					);
 			}
+		};
+		$scope.acceptEmployeeAbsence = function(ev, absence) {
+
+			var confirm = $mdDialog.confirm().title('Approve Selected Absence')
+											 .clickOutsideToClose(true)
+										     .htmlContent('<div><p>Are you sure about approve the below Absence?<br>Begin Date: '+absence.beginDate+'<br>End Date: '+absence.endDate+'<br>Absence Type: '+absence.absenceType+'</p></div>')
+										     .targetEvent(ev)
+										     .ok('Yes')
+										     .cancel('No');
+			$mdDialog.show(confirm).then(function() { // Yes
+				AdministrationService.AcceptEmployeeAbsence(absence.id).then(
+					function(result) {
+					},
+					function(error) {
+					}
+				)
+				for(var i = 0; i < $scope.employeeAbsences.length; i++) {
+					if($scope.employeeAbsences[i].id === absence.id) {
+						$scope.employeeAbsences[i].status = 'APPROVE';
+						break;
+					}
+				}
+			}, function() { // No
+			});	
 		};
 		$scope.dateFormatterWorklog = function() {
 			if (!(typeof $scope.employeeWorklogs) || $scope.employeeWorklogs.length !== 0) {

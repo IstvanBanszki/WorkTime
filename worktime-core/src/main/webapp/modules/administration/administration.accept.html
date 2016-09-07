@@ -1,0 +1,33 @@
+<div class="editEDialog" ng-controller="AdministrationAcceptController">
+	<h2>Accept Employee Absence</h2>
+	<form ng-submit="acceptEmployeeAbsence()">
+		<md-content>
+			<p><label class="w3-label">Begin Date</label></p>
+			<p><md-datepicker ng-model="newBeginDate" md-placeholder="Enter date"></md-datepicker></p>
+			<p><label class="w3-label">End Date</label></p>
+			<p><md-datepicker ng-model="newEndDate" md-placeholder="Enter date"></md-datepicker></p>
+		</md-content>
+
+		<p><label class="w3-label">Absence Type</label></p>
+
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="PAYED"/>
+		<label class="w3-validate">Payed</label></p>
+
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="UNPAYED"/>
+		<label class="w3-validate">Unpayed</label></p>
+
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="SICK_PAY"/>
+		<label class="w3-validate">Sick Pay</label></p>
+
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="VERIFIED"/>
+		<label class="w3-validate">Verified</label></p>
+
+		<div class="w3-container w3-red w3-center" ng-show="error">
+			<p>Error occured!</p>
+		</div>
+		
+		<div class="w3-padding-8">
+			<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
+		</div>
+	</form>
+</div>

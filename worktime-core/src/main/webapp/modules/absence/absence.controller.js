@@ -110,7 +110,7 @@ angular.module('Absence')
 					} 
 				}
 			}, function() { // No
-			});			
+			});
 		};
 		$scope.EditAbsence = function(ev, absence) {
 			$rootScope.selectedAbsence = absence;

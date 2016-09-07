@@ -25,7 +25,7 @@ public class SpGetEmployeeAbsenceList extends StoredProcedure implements RowMapp
     private static final String SP_PARAMETER_1 = "first_name";
     private static final String SP_PARAMETER_2 = "last_name";
     private static final String SP_PARAMETER_3 = "date_filter";
-    private static final String SP_PARAMETER_4 = "not_accepted";
+    private static final String SP_PARAMETER_4 = "show_not_approved";
     private static final String SP_RESULT = "result";
 
     @Autowired
@@ -44,7 +44,7 @@ public class SpGetEmployeeAbsenceList extends StoredProcedure implements RowMapp
             AdministrationAbsenceRequest request) {
 
         List<AdministrationAbsenceResponse> spResult = (List<AdministrationAbsenceResponse>) 
-                super.execute(firstName, lastName, request.getDateFilter(), request.isNotAccepted()).get(SP_RESULT);
+                super.execute(firstName, lastName, request.getDateFilter(), request.isNotApprove()).get(SP_RESULT);
         if(spResult != null) {
             return spResult;
         }

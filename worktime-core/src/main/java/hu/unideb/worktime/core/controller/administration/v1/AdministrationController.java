@@ -42,4 +42,10 @@ public class AdministrationController {
     public @ResponseBody List<Employee> getEmployee(@PathVariable("workerId") Integer workerId ) {
         return this.sqlCallWorklogAdministration.getEmloyees(workerId);
     }
+    
+    @Async
+    @RequestMapping(value = "/approveEmpolyeeAbsence/{id}", method = RequestMethod.POST)
+    public @ResponseBody Integer acceptEmployeeAbsence(@PathVariable Integer id) {
+        return this.sqlCallWorklogAdministration.acceptEmployeeAbsence(id);
+    }
 }

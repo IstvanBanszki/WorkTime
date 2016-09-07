@@ -1,8 +1,8 @@
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_employee_absence_list`(
-	IN first_name  	TINYTEXT,
-	IN last_name   	TINYTEXT,
-	IN date_filter 	TINYTEXT,
-	IN not_accepted TINYINT
+	IN first_name  		 TINYTEXT,
+	IN last_name   		 TINYTEXT,
+	IN date_filter 		 TINYTEXT,
+	IN show_not_approved TINYINT
 )
 BEGIN
 
@@ -32,7 +32,7 @@ BEGIN
 
     END IF;
 
-	IF(not_accepted = 1) THEN
+	IF(show_not_approved = 1) THEN
 
 		SET @dinQuery = CONCAT(@dinQuery,
 							IF(date_filter = 'ALL', ' WHERE ', ' AND '),
