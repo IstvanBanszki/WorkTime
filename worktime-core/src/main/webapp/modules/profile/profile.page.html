@@ -2,11 +2,59 @@
 <div class="page-element">
 	<div ng-include="'modules/home/home.header.html'"></div>
 	<div ng-controller="ProfileController" ng-init="init()">
-		<ul class="w3-navbar w3-teal w3-border w3-large">
-			<li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}"><a ng-click="onClickTab(tab)">{{tab.title}}</a></li>
-		</ul>
-		<div id="tabView">
-			<div ng-include="currentTab"></div>
-		</div>
+		
+		<md-content>
+			<md-tabs md-dynamic-height="" md-border-bottom="">
+				<md-tab label="Account Informations">	
+					<md-content class="md-padding">
+						<div>
+							Login Name: {{loginName}}<br/>
+							Date Of Registration: {{dateOfRegistration}}<br/>
+							Role: {{role}}<br/>
+						</div>
+					</md-content>
+				</md-tab>
+				<md-tab label="Personal Informations">
+					<md-content class="md-padding">
+						<div>
+							First Name: {{firstName}}<br/>
+							Last Name: {{lastName}}<br/>
+							Gender: {{gender | lowercase}}<br/>
+							Date Of Birth: {{dateOfBirth}}<br/>
+							Nationality: {{nationality}}<br/>
+						</div>
+					</md-content>
+				</md-tab>
+				<md-tab label="Work Informations">
+					<md-content class="md-padding">
+						<div>
+							Position: {{position}}<br/>
+							Email Address: {{emailAddress}}<br/>
+							Daily Work Hour: {{dailyWorkHourTotal}}<br/>
+							Department: {{departmentName}}<br/>
+							Office: {{officeName}}<br/>
+						</div>
+					</md-content>
+				</md-tab>
+				<md-tab label="Change Passwords">
+					<md-content class="md-padding">
+						<form class="w3-form w3-card-4 w3-margin" ng-submit="changePassword()">
+							<p><label class="w3-label">Old Password</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Old Password" type="password" ng-model="oldPassword" required>
+
+							<p><label class="w3-label">New Password</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="New Password" type="password" ng-model="newPassword" required>
+
+							<p><label class="w3-label">New Password Again</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="New Password" type="password" ng-model="newPasswordSecond" required>
+
+							<div class="w3-padding-8">
+								<input class="w3-btn w3-green w3-left-align" type="submit" value="Add"></input>
+							</div>
+						</form>
+					</md-content>
+				</md-tab>
+			</md-tabs>
+		</md-content>
 	</div>
 </div>

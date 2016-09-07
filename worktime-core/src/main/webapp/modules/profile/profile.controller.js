@@ -3,30 +3,11 @@
 angular.module('Profile')
 .controller('ProfileController', ['$scope', '$rootScope', '$mdDialog', 'ProfileService',
     function ($scope, $rootScope, $mdDialog, ProfileService) {
-		$scope.tabs = [{
-            title: 'Account',
-            url: 'modules/profile/profile.account.html'
-        }, {
-            title: 'Personal',
-            url: 'modules/profile/profile.personal.html'
-        }, {
-            title: 'Work',
-            url: 'modules/profile/profile.work.html'
-		}, {
-            title: 'Change Password',
-            url: 'modules/profile/profile.change.html'
-		}];
-		$scope.currentTab = 'modules/profile/profile.account.html';
+
 		$scope.oldPassword = "";
 		$scope.newPassword = "";
 		$scope.newPasswordSecond = "";
 
-		$scope.isActiveTab = function(tabUrl) {
-			return tabUrl == $scope.currentTab;
-		}
-		$scope.onClickTab = function(tab) {
-			$scope.currentTab = tab.url;
-		}
 		$scope.changePassword = function() {
 			if($scope.newPassword == $scope.newPasswordSecond) {
 				ProfileService.ChangePassword($scope.userData.loginName, $scope.oldPassword, $scope.newPassword).then(
