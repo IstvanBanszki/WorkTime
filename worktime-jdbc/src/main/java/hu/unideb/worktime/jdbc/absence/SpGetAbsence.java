@@ -22,19 +22,21 @@ public class SpGetAbsence extends StoredProcedure implements RowMapper<AbsenceRe
     
     private static final String SP_NAME = "get_all_absence_by_worker";
     private static final String SP_PARAMETER_1 = "worker_id";
+    private static final String SP_PARAMETER_2 = "date_filter";
     private static final String SP_RESULT = "result";
     
     @Autowired
     public SpGetAbsence(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
+        declareParameter(new SqlParameter(SP_PARAMETER_2, Types.VARCHAR));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();
     }
 
-    public List<AbsenceResponse> execute(Integer key) {
-        List<AbsenceResponse> spResult = (List<AbsenceResponse>) super.execute(key).get(SP_RESULT);
+    public List<AbsenceResponse> execute(Integer key, String request) {
+        List<AbsenceResponse> spResult = (List<AbsenceResponse>) super.execute(key, request).get(SP_RESULT);
         if(spResult != null){
             return spResult;
         }

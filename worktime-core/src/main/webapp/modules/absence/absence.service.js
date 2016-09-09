@@ -27,11 +27,11 @@ angular.module("Absence")
 				return deferred.promise;
 			});
 	}
-	service.GetAbsence = function(workerId) {
+	service.GetAbsence = function(workerId, dateFilter) {
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",
-			url : "/api/absence/v1/workerId/"+workerId,
+			url : "/api/absence/v1/workerId/"+workerId+'/dateFilter/'+dateFilter,
 			headers : {
 				'Content-Type': 'application/json'
 			}

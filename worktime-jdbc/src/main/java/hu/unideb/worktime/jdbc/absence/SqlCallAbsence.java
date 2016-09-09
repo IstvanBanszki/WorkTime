@@ -38,13 +38,13 @@ public class SqlCallAbsence {
         return result;
     }
 
-    public List<AbsenceResponse> getAbsence(Integer key) {
+    public List<AbsenceResponse> getAbsence(Integer key, String request) {
         List<AbsenceResponse> result = null;
-        this.logger.info("Call get_all_absence_by_worker SP with given parameters: {}", key);
+        this.logger.info("Call get_all_absence_by_worker SP with given parameters - Key {}, dateFilter: {}", key, request);
         try {
-            result = this.spGetAbsence.execute(key);
+            result = this.spGetAbsence.execute(key, request);
             if (result == null || result.isEmpty()) {
-                this.logger.debug("There is no such absences in database! Key: {}", key);
+                this.logger.debug("There is no such absences in database! Key: {}, dateFilter: {}", key, request);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during get_all_absence_by_worker SP call: {}", ex);
@@ -68,12 +68,12 @@ public class SqlCallAbsence {
         return result;
     }
     
-    public Integer deleteAbsence(Integer key ){
+    public Integer deleteAbsence(Integer key) {
         Integer result = null;
         this.logger.info("Call delete_absence SP with given parameters: Key - {}", key);
         try {
             result = this.spDeleteAbsence.execute(key);
-            if(result == null){
+            if (result == null) {
                 this.logger.debug("There is an error while delete the absence in database! Key - {}", key);
             }
         } catch (Exception ex) {
@@ -83,12 +83,12 @@ public class SqlCallAbsence {
         return result;
     }
     
-    public Integer editAbsence(Integer id, AbsenceRequest values ){
+    public Integer editAbsence(Integer id, AbsenceRequest values) {
         Integer result = null;
         this.logger.info("Call edit_absence SP with given parameters: Key - {}, values - {}", id, values);
         try {
             result = this.spEditAbsence.execute(id, values);
-            if(result == null){
+            if (result == null) {
                 this.logger.debug("There is an error while edit the absence in database! Key - {}, values - {}", id, values);
             }
         } catch (Exception ex) {

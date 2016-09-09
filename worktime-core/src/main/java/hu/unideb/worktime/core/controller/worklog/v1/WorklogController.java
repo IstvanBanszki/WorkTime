@@ -1,6 +1,5 @@
 package hu.unideb.worktime.core.controller.worklog.v1;
 
-import hu.unideb.worktime.api.model.DateFilterRequest;
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogRequest;
 import hu.unideb.worktime.jdbc.worklog.SqlCallWorklog;

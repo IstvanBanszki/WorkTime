@@ -39,9 +39,9 @@ public class AbsenceController {
     }
     
     @Async
-    @RequestMapping(value = "/absence/v1/workerId/{workerId}", method = RequestMethod.GET)
-    public @ResponseBody List<AbsenceResponse> getAbsence(@PathVariable Integer workerId) {
-        return this.sqlCallAbsence.getAbsence(workerId);
+    @RequestMapping(value = "/absence/v1/workerId/{workerId}/dateFilter/{dateFilter}", method = RequestMethod.GET)
+    public @ResponseBody List<AbsenceResponse> getAbsence(@PathVariable Integer workerId, @PathVariable("dateFilter") String request) {
+        return this.sqlCallAbsence.getAbsence(workerId, request);
     }
     
     @Async

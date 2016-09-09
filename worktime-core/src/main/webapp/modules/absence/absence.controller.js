@@ -22,6 +22,8 @@ angular.module('Absence')
 				$scope.sortType = tableHeader;
 			}
 		};
+		$scope.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
+		$scope.selectedDateFilter = "All";
 
 		$scope.absenceType = "PAYED";
 		$scope.beginDate = "";
@@ -71,8 +73,9 @@ angular.module('Absence')
 			}
 		};
 		$scope.GetAbsences = function() {
-			AbsenceService.GetAbsence($rootScope.userData.workerId).then(
+			AbsenceService.GetAbsence($rootScope.userData.workerId, $scope.selectedDateFilter).then(
 				function(result) {
+					$scope.absences = [];
 					$scope.absences = result;
 					$scope.dateFormatter();
 				},
