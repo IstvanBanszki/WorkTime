@@ -1,7 +1,7 @@
 CREATE DEFINER=`root`@`localhost` PROCEDURE `edit_absence`(
 	IN absence_id BIGINT,
-	IN begin_date TIMESTAMP,
-	IN end_date TIMESTAMP,
+	IN begin_date DATE,
+	IN end_date DATE,
 	IN absence_type_id BIGINT
 )
 BEGIN

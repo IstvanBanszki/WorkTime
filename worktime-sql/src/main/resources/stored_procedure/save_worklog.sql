@@ -1,5 +1,5 @@
 CREATE DEFINER=`root`@`localhost` PROCEDURE `save_worklog`(
-	IN begin_date TIMESTAMP,
+	IN begin_date DATE,
 	IN work_hour TINYINT,
 	IN worker_id BIGINT
 )

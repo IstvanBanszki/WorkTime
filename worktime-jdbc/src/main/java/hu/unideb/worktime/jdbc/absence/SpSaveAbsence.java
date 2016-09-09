@@ -27,8 +27,8 @@ public class SpSaveAbsence extends StoredProcedure implements RowMapper<Integer>
     @Autowired
     public SpSaveAbsence(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
-        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.TIMESTAMP));
-        declareParameter(new SqlParameter(SP_PARAMETER_2, Types.TIMESTAMP));
+        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.DATE));
+        declareParameter(new SqlParameter(SP_PARAMETER_2, Types.DATE));
         declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));
         declareParameter(new SqlParameter(SP_PARAMETER_4, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));

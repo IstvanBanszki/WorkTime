@@ -1,6 +1,6 @@
 CREATE DEFINER=`root`@`localhost` PROCEDURE `save_absence`(
-	IN begin_date TIMESTAMP,
-	IN end_date TIMESTAMP,
+	IN begin_date DATE,
+	IN end_date DATE,
 	IN worker_id BIGINT,
 	IN absence_type_id BIGINT
 )

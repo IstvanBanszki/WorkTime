@@ -1,6 +1,6 @@
 CREATE DEFINER=`root`@`localhost` PROCEDURE `edit_worklog`(
 	IN worklog_id BIGINT,
-	IN begin_date TIMESTAMP,
+	IN begin_date DATE,
 	IN work_hour TINYINT
 )
 BEGIN

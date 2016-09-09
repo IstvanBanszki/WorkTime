@@ -25,7 +25,7 @@ public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer>
     @Autowired
     public SpSaveWorklog(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
-        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.TIMESTAMP));
+        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.DATE));
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.INTEGER));
         declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));

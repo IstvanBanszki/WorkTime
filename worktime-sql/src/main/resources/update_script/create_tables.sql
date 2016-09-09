@@ -118,7 +118,7 @@ CREATE TABLE `worker_holiday_number` (
    
 CREATE TABLE `worklog` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `begin_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `begin_date` date NOT NULL,
   `work_hour` tinyint(4) NOT NULL,
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `date_of_modification` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -135,8 +135,8 @@ CREATE TABLE `worklog` (
    
 CREATE TABLE `absence` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `begin_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `end_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `begin_date` date NOT NULL,
+  `end_date` date NOT NULL,
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `date_of_modification` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `status` tinyint(4) NOT NULL,
