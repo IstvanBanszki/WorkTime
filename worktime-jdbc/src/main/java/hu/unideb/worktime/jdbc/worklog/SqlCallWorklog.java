@@ -21,7 +21,7 @@ public class SqlCallWorklog {
         this.logger = LoggerFactory.getLogger(SqlCallWorklog.class);
     }
     
-    public Integer saveWorklog(Integer workerId, WorklogRequest values ){
+    public Integer saveWorklog(Integer workerId, WorklogRequest values) {
         Integer result = null;
         this.logger.info("Call save_worklog SP with given parameters: Key - {}, values - {}", workerId, values);
         try {
@@ -36,13 +36,13 @@ public class SqlCallWorklog {
         return result;
     }
     
-    public List<WorklogResponse> getWorklog( Integer key ){
+    public List<WorklogResponse> getWorklog(Integer key, String request) {
         List<WorklogResponse> result = null;
-        this.logger.info("Call get_all_worklog_by_worker SP with given parameters: {}", key);
+        this.logger.info("Call get_all_worklog_by_worker SP with given parameters - Key: {}, DateFilter: {}", key, request);
         try {
-            result = this.spGetWorklog.execute(key);
-            if(result == null ||result.isEmpty() ){
-                this.logger.debug("There is no such worklogs in database! Key: {}", key);
+            result = this.spGetWorklog.execute(key, request);
+            if(result == null ||result.isEmpty()) {
+                this.logger.debug("There is no such worklogs in database! Key: {}, DateFilter: {}", key, request);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during get_all_worklog_by_worker SP call: {}", ex);
@@ -51,12 +51,12 @@ public class SqlCallWorklog {
         return result;
     }
     
-    public Integer deleteWorklog(Integer key ){
+    public Integer deleteWorklog(Integer key) {
         Integer result = null;
         this.logger.info("Call delete_worklog SP with given parameters: Key - {}", key);
         try {
             result = this.spDeleteWorklog.execute(key);
-            if(result == null){
+            if(result == null) {
                 this.logger.debug("There is an error while delete the worklog in database! Key - {}", key);
             }
         } catch (Exception ex) {
@@ -66,12 +66,12 @@ public class SqlCallWorklog {
         return result;
     }
     
-    public Integer editWorklog(Integer id, WorklogRequest values ){
+    public Integer editWorklog(Integer id, WorklogRequest values) {
         Integer result = null;
         this.logger.info("Call edit_worklog SP with given parameters: Key - {}, values - {}", id, values);
         try {
             result = this.spEditWorklog.execute(id, values);
-            if(result == null){
+            if(result == null) {
                 this.logger.debug("There is an error while edit the worklog in database! Key - {}, values - {}", id, values);
             }
         } catch (Exception ex) {

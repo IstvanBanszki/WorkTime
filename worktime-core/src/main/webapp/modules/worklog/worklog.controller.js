@@ -20,6 +20,9 @@ angular.module('Worklog')
 				$scope.sortType = tableHeader;
 			}
 		};
+		$scope.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
+		$scope.selectedDateFilter = "All";
+		
 		$scope.beginDate = "";
 		$scope.workHour = 0;
 
@@ -61,8 +64,9 @@ angular.module('Worklog')
 			}
 		};
 		$scope.GetWorklogs = function() {
-			WorklogService.GetWorklog($rootScope.userData.workerId).then(
+			WorklogService.GetWorklog($rootScope.userData.workerId, $scope.selectedDateFilter).then(
 				function(result) {
+					$scope.worklogs = [];
 					$scope.worklogs = result;
 					$scope.dateFormatter();
 				},

@@ -26,11 +26,11 @@ angular.module("Worklog")
 				return deferred.promise;
 			});
 	}
-	service.GetWorklog = function(workerId) {
+	service.GetWorklog = function(workerId, dateFilter) {
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",
-			url : "/api/worklog/v1/workerId/"+workerId,
+			url : "/api/worklog/v1/workerId/"+workerId+'/dateFilter/'+dateFilter,
 			headers : {
 				'Content-Type': 'application/json'
 			}

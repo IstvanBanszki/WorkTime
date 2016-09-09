@@ -1,5 +1,6 @@
 package hu.unideb.worktime.core.controller.worklog.v1;
 
+import hu.unideb.worktime.api.model.DateFilterRequest;
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogRequest;
 import hu.unideb.worktime.jdbc.worklog.SqlCallWorklog;
@@ -36,9 +37,9 @@ public class WorklogController {
     }
 
     @Async
-    @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.GET)
-    public @ResponseBody List<WorklogResponse> getWorklog(@PathVariable("workerId") Integer workerId) {
-        return this.sqlCallSaveWorklog.getWorklog(workerId);
+    @RequestMapping(value = "/workerId/{workerId}/dateFilter/{dateFilter}", method = RequestMethod.GET)
+    public @ResponseBody List<WorklogResponse> getWorklog(@PathVariable("workerId") Integer workerId, @PathVariable("dateFilter") String request) {
+        return this.sqlCallSaveWorklog.getWorklog(workerId, request);
     }
 
     @Async

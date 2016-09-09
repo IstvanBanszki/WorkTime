@@ -19,19 +19,21 @@ public class SpGetWorklog extends StoredProcedure implements RowMapper<WorklogRe
 
     private static final String SP_NAME = "get_all_worklog_by_worker";
     private static final String SP_PARAMETER_1 = "worker_id";
+    private static final String SP_PARAMETER_2 = "date_filter";
     private static final String SP_RESULT = "result";
 
     @Autowired
     public SpGetWorklog(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
+        declareParameter(new SqlParameter(SP_PARAMETER_2, Types.VARCHAR));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();
     }
 
-    public List<WorklogResponse> execute(Integer key) {
-        List<WorklogResponse> spResult = (List<WorklogResponse>) super.execute(key).get(SP_RESULT);
+    public List<WorklogResponse> execute(Integer key, String request) {
+        List<WorklogResponse> spResult = (List<WorklogResponse>) super.execute(key, request).get(SP_RESULT);
         if (spResult != null) {
             return spResult;
         }
