@@ -39,7 +39,8 @@
 									  <md-option ng-repeat="datefilter in dateFilters" value="{{datefilter}}">{{datefilter}}</md-option>
 									</md-select>
 							</md-input-container>
-							<input class="w3-btn w3-green w3-left-right" ng-click="ExportWorklog()" value="Export Listed Data"></input>
+							<input class="w3-btn w3-green w3-padding-tiny" ng-click="ExportWorklog(1)" value="Export In XLS"></input>
+							<input class="w3-btn w3-green w3-padding-tiny" ng-click="ExportWorklog(2)" value="Export In XLSX"></input>
 						</div>
 						<table class="w3-table-all w3-hoverable">
 							<tr>

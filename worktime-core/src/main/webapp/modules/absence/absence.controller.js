@@ -24,7 +24,6 @@ angular.module('Absence')
 		};
 		$scope.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
 		$scope.selectedDateFilter = "All";
-		$scope.excelType = 1;
 
 		$scope.absenceType = "PAYED";
 		$scope.beginDate = "";
@@ -138,12 +137,12 @@ angular.module('Absence')
 			}, function() {
 			});
 		};
-		$scope.ExportAbsence = function() {
+		$scope.ExportAbsence = function(excelType) {
 			
-			var excelTypeStr = (($scope.excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-			var excelFileName = 'ExportAbsence.xls' + (($scope.excelType === 1) ? '' : 'x');
+			var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			var excelFileName = 'ExportAbsence.xls' + ((excelType === 1) ? '' : 'x');
 
-			AbsenceService.ExportAbsence($rootScope.userData.workerId, $scope.selectedDateFilter, $scope.excelType).then(
+			AbsenceService.ExportAbsence($rootScope.userData.workerId, $scope.selectedDateFilter, excelType).then(
 				function(result) {
 					var blob = new Blob([result], {type: excelTypeStr});
 					saveAs(blob, excelFileName);

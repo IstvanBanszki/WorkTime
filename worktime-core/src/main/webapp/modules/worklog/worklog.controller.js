@@ -22,7 +22,6 @@ angular.module('Worklog')
 		};
 		$scope.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
 		$scope.selectedDateFilter = "All";
-		$scope.excelType = 1;
 		$scope.dailyWorkHour = 8;
 		
 		$scope.beginDate = "";
@@ -122,12 +121,12 @@ angular.module('Worklog')
 			}, function() {
 			});
 		};
-		$scope.ExportWorklog = function() {
+		$scope.ExportWorklog = function(excelType) {
 			
-			var excelTypeStr = (($scope.excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-			var excelFileName = 'ExportWorklog.xls' + (($scope.excelType === 1) ? '' : 'x');
+			var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			var excelFileName = 'ExportWorklog.xls' + ((excelType === 1) ? '' : 'x');
 
-			WorklogService.ExportWorklog($rootScope.userData.workerId, $scope.selectedDateFilter, $scope.excelType).then(
+			WorklogService.ExportWorklog($rootScope.userData.workerId, $scope.selectedDateFilter, excelType).then(
 				function(result) {
 					var blob = new Blob([result], {type: excelTypeStr});
 					saveAs(blob, excelFileName);
