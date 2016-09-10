@@ -124,19 +124,13 @@ angular.module('Worklog')
 		};
 		$scope.ExportWorklog = function() {
 			
-			var excelTypeStr = ($scope.excelType === 1) ? "application/vnd.ms-excel" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-			var excelFileName = "ExportWorklog.xls" + ($scope.excelType === 1) ? "" : "x";
+			var excelTypeStr = (($scope.excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			var excelFileName = 'ExportWorklog.xls' + (($scope.excelType === 1) ? '' : 'x');
 
 			WorklogService.ExportWorklog($rootScope.userData.workerId, $scope.selectedDateFilter, $scope.excelType).then(
 				function(result) {
 					var blob = new Blob([result], {type: excelTypeStr});
-					
-					var elem = window.document.createElement('a');
-					elem.href = window.URL.createObjectURL(blob);
-					elem.download = excelFileName;        
-					document.body.appendChild(elem);
-					elem.click();        
-					document.body.removeChild(elem);
+					saveAs(blob, excelFileName);
 				},
 				function(error) {
 				}
