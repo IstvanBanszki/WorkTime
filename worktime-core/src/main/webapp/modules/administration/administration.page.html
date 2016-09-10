@@ -61,8 +61,14 @@
 								<td>{{worklog.workHour}}</td>
 								<td>{{worklog.note}}</td>
 								<td>
-									<span ng-show="{{worklog.workHour != dailyWorkHour}}" class="fa fa-question w3-xlarge"></span>
-									<span ng-show="{{worklog.workHour == dailyWorkHour}}" class="fa fa-check w3-xlarge"></span>
+									<div class="tooltip" ng-show="{{worklog.workHour != dailyWorkHour}}">
+										<span class="fa fa-question w3-xlarge"></span>
+										<span class="tooltiptext">The WorkHour is equal to Daily WorkHour</span>
+									</div>
+									<div class="tooltip" ng-show="{{worklog.workHour == dailyWorkHour}}">
+										<span class="fa fa-check w3-xlarge"></span>
+										<span class="tooltiptext">The WorkHour is bigger than Daily WorkHour</span>
+									</div>
 								</td>
 							</tr>
 						</table>
@@ -130,9 +136,15 @@
 								<td>{{absence.endDate}}</td>
 								<td>{{absence.absenceType}}</td>
 								<td>{{absence.status}}</td>
-								<td> 
-									<span ng-show="{{absence.status !== 'APPROVE'}}" class="fa fa-question w3-xlarge" ng-click="acceptEmployeeAbsence($event, absence)"></span>
-									<span ng-show="{{absence.status === 'APPROVE'}}" class="fa fa-check w3-xlarge"></span> 
+								<td>
+									<div class="tooltip" ng-show="{{absence.status !== 'APPROVE'}}">
+										<span class="fa fa-question w3-xlarge" ng-click="acceptEmployeeAbsence($event, absence)"></span>
+										<span class="tooltiptext">The status is not Approved</span>
+									</div>
+									<div class="tooltip" ng-show="{{absence.status === 'APPROVE'}}">
+										<span class="fa fa-check w3-xlarge"></span>
+										<span class="tooltiptext">The status is Approved</span>
+									</div>
 								</td>
 							</tr>
 						</table>

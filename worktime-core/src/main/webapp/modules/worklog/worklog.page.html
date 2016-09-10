@@ -60,8 +60,14 @@
 								<td>{{worklog.beginDate}}</td>
 								<td>{{worklog.workHour}}</td>
 								<td>
-									<span ng-show="{{worklog.workHour != dailyWorkHour}}" class="fa fa-question w3-xlarge"></span>
-									<span ng-show="{{worklog.workHour == dailyWorkHour}}" class="fa fa-check w3-xlarge"></span>
+									<div class="tooltip" ng-show="{{worklog.workHour != dailyWorkHour}}">
+										<span class="fa fa-question w3-xlarge"></span>
+										<span class="tooltiptext">The WorkHour is equal to Daily WorkHour</span>
+									</div>
+									<div class="tooltip" ng-show="{{worklog.workHour == dailyWorkHour}}">
+										<span class="fa fa-check w3-xlarge"></span>
+										<span class="tooltiptext">The WorkHour is bigger than Daily WorkHour</span>
+									</div>
 								</td>
 								<td>
 									<span class="fa fa-trash w3-xlarge" ng-click="DeleteWorklog($event, worklog)"></span> 
