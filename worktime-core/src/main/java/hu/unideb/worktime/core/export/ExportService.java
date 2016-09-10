@@ -26,11 +26,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExportService implements IExportService {
 
-    @Autowired
-    SqlCallWorklog sqlCallWorklog;
-    @Autowired
-    SqlCallAbsence sqlCallAbsence;
-    private Logger LOGGER = LoggerFactory.getLogger(ExportService.class);
+    @Autowired SqlCallWorklog sqlCallWorklog;
+    @Autowired SqlCallAbsence sqlCallAbsence;
+    private final Logger logger = LoggerFactory.getLogger(ExportService.class);
     private static final String FILE_NAME_ABSENCE_XLS = "ExportAbsence.xls";
     private static final String FILE_NAME_ABSENCE_XLSX = "ExportAbsence.xlsx";
     private static final String FILE_NAME_WORKLOG_XLS = "ExportWorklog.xls";
@@ -42,6 +40,8 @@ public class ExportService implements IExportService {
 
     @Override
     public void exportAbsences(Integer key, String dateFilter, Integer excelType, HttpServletResponse servletResponse) {
+
+        this.logger.info("Exporting of absences with the following parameters - Key: {}, dateFilter: {}, excelType: {}", key, dateFilter, excelType);
 
         servletResponse.setContentType(((excelType == 1) ? XLS_CONTENT_TYPE : XLSX_CONTENT_TYPE));
         servletResponse.setHeader("Content-Disposition", "attachment; filename=" + ((excelType == 1) ? FILE_NAME_ABSENCE_XLS : FILE_NAME_ABSENCE_XLSX));
@@ -70,12 +70,14 @@ public class ExportService implements IExportService {
             wb.write(outputStream);
             outputStream.flush();
         } catch (Exception e) {
-            e.printStackTrace();
+            this.logger.error("There is an exception during exporting absences. Exception: {}", e);
         }
     }
 
     @Override
     public void exportWorklogs(Integer key, String dateFilter, Integer excelType, HttpServletResponse servletResponse) {
+
+        this.logger.info("Exporting of worklogs with the following parameters - Key: {}, dateFilter: {}, excelType: {}", key, dateFilter, excelType);
 
         servletResponse.setContentType(((excelType == 1) ? XLS_CONTENT_TYPE : XLSX_CONTENT_TYPE));
         servletResponse.setHeader("Content-Disposition", "attachment; filename=" + ((excelType == 1) ? FILE_NAME_WORKLOG_XLS : FILE_NAME_WORKLOG_XLSX));
@@ -102,7 +104,7 @@ public class ExportService implements IExportService {
             wb.write(outputStream);
             outputStream.flush();
         } catch (Exception e) {
-            e.printStackTrace();
+            this.logger.error("There is an exception during exporting worklogs. Exception: {}", e);
         }
     }
 

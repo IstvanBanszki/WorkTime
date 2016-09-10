@@ -4,6 +4,7 @@ import hu.unideb.worktime.api.model.administration.AdministrationAbsenceRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
+import hu.unideb.worktime.api.model.administration.EditWorkerRequest;
 import hu.unideb.worktime.api.model.administration.Employee;
 import java.util.List;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ public class SqlCallAdministration {
     @Autowired private SpGetEmployeeWorklogList spGetEmployeeWorklogList;
     @Autowired private SpGetEmployeeAbsenceList spGetEmployeeAbsenceList;
     @Autowired private SpApproveEmployeeAbsence spAcceptAbsenceStatus;
+    @Autowired private SpEditWorkerData spEditWorkerData;
     private Logger logger;
 
     public SqlCallAdministration() {
@@ -29,7 +31,7 @@ public class SqlCallAdministration {
         this.logger.info("Call get_employee_list SP with given parameters: {}", workerId);
         try {
             result = this.spGetEmployeeList.execute(workerId);
-            if(result == null ||result.isEmpty() ){
+            if (result == null ||result.isEmpty()) {
                 this.logger.debug("There is no such employees in database! Key: {}", workerId);
             }
         } catch (Exception ex) {
@@ -44,7 +46,7 @@ public class SqlCallAdministration {
         this.logger.info("Call get_employee_worklog_list SP with given parameters: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
         try {
             result = this.spGetEmployeeWorklogList.execute(firstName, lastName, request);
-            if(result == null ||result.isEmpty() ){
+            if (result == null ||result.isEmpty()) {
                 this.logger.debug("There is no such worklogs in database! Key: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
             }
         } catch (Exception ex) {
@@ -59,7 +61,7 @@ public class SqlCallAdministration {
         this.logger.info("Call get_employee_absence_list SP with given parameters: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
         try {
             result = this.spGetEmployeeAbsenceList.execute(firstName, lastName, request);
-            if(result == null ||result.isEmpty() ){
+            if (result == null || result.isEmpty()) {
                 this.logger.debug("There is no such absence in database! Key: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
             }
         } catch (Exception ex) {
@@ -74,13 +76,28 @@ public class SqlCallAdministration {
         this.logger.info("Call accept_absence SP with given parameters: Key - {}", id);
         try {
             result = this.spAcceptAbsenceStatus.execute(id);
-            if(result == null){
+            if (result == null) {
                 this.logger.debug("There is an error while accept the absence in database! Key - {}", id);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during accept_absence SP call: {}", ex);
         }
         this.logger.info("Result of accept_absence SP: {}", result);
+        return result;
+    }
+    
+    public Integer editWorkerData(Integer id, EditWorkerRequest request){
+        Integer result = null;
+        this.logger.info("Call edit_worker_data SP with given parameters: Key - {}, Request - {}", id, request);
+        try {
+            result = this.spEditWorkerData.execute(id, request);
+            if (result == null) {
+                this.logger.debug("There is an error while edit the worker data in database! Key - {}, Request - {}", id, request);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during edit_worker_data SP call: {}", ex);
+        }
+        this.logger.info("Result of edit_worker_data SP: {}", result);
         return result;
     }
 }

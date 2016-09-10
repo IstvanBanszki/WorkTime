@@ -65,7 +65,7 @@ public class AbsenceController {
     }
 
     @Async
-    @RequestMapping(value = "/absence/v1/workerId/{workerId}/dateFilter/{dateFilter}/type/{type}/export", method = RequestMethod.GET)
+        @RequestMapping(value = "/absence/v1/workerId/{workerId}/dateFilter/{dateFilter}/type/{type}/export", method = RequestMethod.GET)
     public void exportAbsences(@PathVariable("workerId") Integer workerId, @PathVariable("dateFilter") String request, 
             @PathVariable("type") Integer excelType, HttpServletResponse response) {
         this.exportService.exportAbsences(workerId, request, excelType, response);

@@ -4,5 +4,5 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_employee_list`(
 BEGIN
 	SELECT w.first_name, w.last_name
 	  FROM worker w
-	 WHERE w.superior_work_id = worker_id;
+	 WHERE w.superior_worker_id = worker_id;
 END
