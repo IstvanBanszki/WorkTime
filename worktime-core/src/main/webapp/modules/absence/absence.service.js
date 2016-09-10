@@ -108,5 +108,25 @@ angular.module("Absence")
 				return deferred.promise;
 			});
 	}
+	service.ExportAbsence = function(workerId, dateFilter, excelType) {
+		var deferred = $q.defer();
+		return $http({
+			method : "GET",
+			url : "/api/absence/v1/workerId/"+workerId+'/dateFilter/'+dateFilter+'/type/'+excelType+'/export',
+			headers : {
+				'Content-Type': 'application/json'
+			},
+			responseType: 'arraybuffer'
+		}).then(function successCallback(response) {
+
+				deferred.resolve(response.data);
+				return deferred.promise;
+
+			}, function errorCallback(response) {
+
+				deferred.reject(response);
+				return deferred.promise;
+			});
+	}
 	return service;
 }])

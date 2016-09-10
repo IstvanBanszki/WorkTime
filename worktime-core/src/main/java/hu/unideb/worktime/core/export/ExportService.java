@@ -4,7 +4,6 @@ import hu.unideb.worktime.api.model.absence.AbsenceResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.jdbc.absence.SqlCallAbsence;
 import hu.unideb.worktime.jdbc.worklog.SqlCallWorklog;
-import java.io.FileOutputStream;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -38,13 +37,14 @@ public class ExportService implements IExportService {
     private static final String FILE_NAME_WORKLOG_XLSX = "ExportWorklog.xlsx";
     private static final String SHEET_NAME_ABSENCE = "ExportAbsence";
     private static final String SHEET_NAME_WORKLOG = "ExportWorklog";
+    private static final String XLS_CONTENT_TYPE = "application/vnd.ms-excel";
+    private static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     @Override
     public void exportAbsences(Integer key, String dateFilter, Integer excelType, HttpServletResponse servletResponse) {
 
-        String fileName = ((excelType == 1) ? FILE_NAME_ABSENCE_XLS : FILE_NAME_ABSENCE_XLSX);
-        servletResponse.setContentType("application/vnd.ms-excel");
-        servletResponse.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+        servletResponse.setContentType(((excelType == 1) ? XLS_CONTENT_TYPE : XLSX_CONTENT_TYPE));
+        servletResponse.setHeader("Content-Disposition", "attachment; filename=" + ((excelType == 1) ? FILE_NAME_ABSENCE_XLS : FILE_NAME_ABSENCE_XLSX));
 
         List<AbsenceResponse> absences = this.sqlCallAbsence.getAbsence(key, dateFilter);
 
@@ -77,9 +77,8 @@ public class ExportService implements IExportService {
     @Override
     public void exportWorklogs(Integer key, String dateFilter, Integer excelType, HttpServletResponse servletResponse) {
 
-        String fileName = ((excelType == 1) ? FILE_NAME_WORKLOG_XLS : FILE_NAME_WORKLOG_XLSX);
-        servletResponse.setContentType("application/vnd.ms-excel");
-        servletResponse.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+        servletResponse.setContentType(((excelType == 1) ? XLS_CONTENT_TYPE : XLSX_CONTENT_TYPE));
+        servletResponse.setHeader("Content-Disposition", "attachment; filename=" + ((excelType == 1) ? FILE_NAME_WORKLOG_XLS : FILE_NAME_WORKLOG_XLSX));
 
         List<WorklogResponse> worklogs = this.sqlCallWorklog.getWorklog(key, dateFilter);
 

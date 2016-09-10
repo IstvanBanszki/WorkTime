@@ -22,6 +22,7 @@ angular.module('Worklog')
 		};
 		$scope.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
 		$scope.selectedDateFilter = "All";
+		$scope.excelType = 1;
 		
 		$scope.beginDate = "";
 		$scope.workHour = 0;
@@ -116,6 +117,26 @@ angular.module('Worklog')
 				}
 			}, function() {
 			});
+		};
+		$scope.ExportWorklog = function() {
+			
+			var excelTypeStr = ($scope.excelType === 1) ? "application/vnd.ms-excel" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+			var excelFileName = "ExportWorklog.xls" + ($scope.excelType === 1) ? "" : "x";
+
+			WorklogService.ExportWorklog($rootScope.userData.workerId, $scope.selectedDateFilter, $scope.excelType).then(
+				function(result) {
+					var blob = new Blob([result], {type: excelTypeStr});
+					
+					var elem = window.document.createElement('a');
+					elem.href = window.URL.createObjectURL(blob);
+					elem.download = excelFileName;        
+					document.body.appendChild(elem);
+					elem.click();        
+					document.body.removeChild(elem);
+				},
+				function(error) {
+				}
+			);
 		};
 		$scope.timeValue = function(value) {
 			return value < 10 ? '0'+value : value+'';
