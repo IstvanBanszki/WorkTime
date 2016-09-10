@@ -23,6 +23,7 @@ angular.module('Worklog')
 		$scope.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
 		$scope.selectedDateFilter = "All";
 		$scope.excelType = 1;
+		$scope.dailyWorkHour = 8;
 		
 		$scope.beginDate = "";
 		$scope.workHour = 0;
@@ -62,6 +63,9 @@ angular.module('Worklog')
 		$scope.initWorklog = function() {
 			if (typeof $scope.worklogs || $scope.worklogs.length === 0) {
 				$scope.GetWorklogs();
+			}
+			if (!(typeof $rootScope.profileData)) {
+				$scope.dailyWorkHour = $rootScope.profileData.dailyWorkHourTotal;
 			}
 		};
 		$scope.GetWorklogs = function() {
