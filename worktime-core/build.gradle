@@ -9,6 +9,7 @@ buildscript {
 		springBootVersion = '1.4.0.RELEASE'
 		jasyptVersion = '1.9.2'
 		fasterXmlVersion = '2.8.2'
+		poiVersion = '3.14'
     }
     dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
@@ -22,7 +23,7 @@ apply plugin: 'nebula.provided-base'
 
 jar {
     baseName = 'worktime-core'
-    version = '0.6.8-SNAPSHOT'
+    version = '0.7.0-SNAPSHOT'
 }
 
 repositories {
@@ -46,6 +47,10 @@ dependencies {
 	//Jasypt 
 	compile "org.jasypt:jasypt:${jasyptVersion}"
 	compile "org.jasypt:jasypt-spring31:${jasyptVersion}"
+	
+	compile "org.apache.poi:poi:${poiVersion}"
+	compile "org.apache.poi:poi-ooxml:${poiVersion}"
+	compile "org.apache.poi:poi-ooxml-schemas:${poiVersion}"
 	
 	provided "org.spockframework:spock-core:1.0-groovy-2.4"
 }

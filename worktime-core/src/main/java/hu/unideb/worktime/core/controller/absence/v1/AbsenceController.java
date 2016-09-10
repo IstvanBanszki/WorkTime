@@ -4,8 +4,10 @@ package hu.unideb.worktime.core.controller.absence.v1;
 import hu.unideb.worktime.api.model.absence.AbsenceDataResponse;
 import hu.unideb.worktime.api.model.absence.AbsenceResponse;
 import hu.unideb.worktime.api.model.absence.AbsenceRequest;
+import hu.unideb.worktime.core.export.IExportService;
 import hu.unideb.worktime.jdbc.absence.SqlCallAbsence;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api", produces = "application/json")
 public class AbsenceController {
 
-    @Autowired
-    private SqlCallAbsence sqlCallAbsence;
+    @Autowired private SqlCallAbsence sqlCallAbsence;
+    @Autowired private IExportService exportService;
     /*
     --------------------
     Example JSON content
@@ -60,5 +62,12 @@ public class AbsenceController {
     @RequestMapping(value = "/absence/v1/id/{id}", method = RequestMethod.PUT)
     public @ResponseBody Integer editAbsence(@PathVariable Integer id, @RequestBody AbsenceRequest request) {
         return this.sqlCallAbsence.editAbsence(id, request);
+    }
+
+    @Async
+    @RequestMapping(value = "/absence/v1/workerId/{workerId}/dateFilter/{dateFilter}/type/{type}/export", method = RequestMethod.GET)
+    public void exportAbsences(@PathVariable("workerId") Integer workerId, @PathVariable("dateFilter") String request, 
+            @PathVariable("type") Integer excelType, HttpServletResponse response) {
+        this.exportService.exportAbsences(workerId, request, excelType, response);
     }
 }

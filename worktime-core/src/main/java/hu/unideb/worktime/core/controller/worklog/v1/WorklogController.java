@@ -2,8 +2,11 @@ package hu.unideb.worktime.core.controller.worklog.v1;
 
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogRequest;
+import hu.unideb.worktime.core.export.IExportService;
 import hu.unideb.worktime.jdbc.worklog.SqlCallWorklog;
+import java.io.FileOutputStream;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/worklog/v1", produces = "application/json")
 public class WorklogController {
     
-    @Autowired
-    private SqlCallWorklog sqlCallSaveWorklog;
+    @Autowired private SqlCallWorklog sqlCallSaveWorklog;
+    @Autowired private IExportService exportService;
     /*
     --------------------
     Example JSON content
@@ -51,5 +54,12 @@ public class WorklogController {
     @RequestMapping(value = "/id/{id}", method = RequestMethod.PUT)
     public @ResponseBody Integer editWorklog(@PathVariable("id") Integer id, @RequestBody WorklogRequest request) {
         return this.sqlCallSaveWorklog.editWorklog(id, request);
+    }
+
+    @Async
+    @RequestMapping(value = "/workerId/{workerId}/dateFilter/{dateFilter}/type/{type}/export", method = RequestMethod.GET)
+    public void exportWorklogs(@PathVariable("workerId") Integer workerId, @PathVariable("dateFilter") String request, 
+            @PathVariable("type") Integer excelType, HttpServletResponse response) {
+        this.exportService.exportWorklogs(workerId, request, excelType, response);
     }
 }

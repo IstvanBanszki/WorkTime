@@ -4,20 +4,26 @@ import java.util.Arrays;
 
 public enum AbsenceType {
     
-    NOT_SET(1),
-    PAYED(2),
-    UNPAYED(3),
-    SICK_PAY(4),
-    VERIFIED(5);
+    NOT_SET(1, "Not Set"),
+    PAYED(2, "Payed"),
+    UNPAYED(3, "UnPayed"),
+    SICK_PAY(4, "SickPay"),
+    VERIFIED(5, "Verified");
 
-    private AbsenceType(int id) {
+    private AbsenceType(int id, String name) {
         this.id = id;
+        this.name = name;
     }
 
     private final int id;
+    private final String name;
 
     public int getId() {
         return this.id;
+    }
+
+    public String getName() {
+        return this.name;
     }
     
     public static AbsenceType valueOf(int id) {
