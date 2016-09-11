@@ -5,18 +5,16 @@ import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
-
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.SqlReturnResultSet;
 import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpGetLogin extends StoredProcedure implements RowMapper<LoginRecord> {
+public class SpGetLogin extends StoredProcedure implements ResultSetExtractor<LoginRecord> {
 
     private static final String SP_NAME = "get_login";
     private static final String SP_PARAMETER_1 = "login_name";
@@ -32,18 +30,19 @@ public class SpGetLogin extends StoredProcedure implements RowMapper<LoginRecord
     }
 
     public LoginRecord execute(String loginName) {
-        LoginRecord result = null;
-        List<LoginRecord> spResult = (List<LoginRecord>) super.execute(loginName).get(SP_RESULT);
-        if(spResult != null){
-            result = spResult.get(0);
-        }
-        return result;
+        return (LoginRecord) super.execute(loginName).get(SP_RESULT);
     }
 
     @Override
-    public LoginRecord mapRow(ResultSet rs, int i) throws SQLException {
-        return new LoginRecord(rs.getInt("worker_id"), 
+    public LoginRecord extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+        LoginRecord result = null;
+
+        if (rs.next()) {
+            result = new LoginRecord(rs.getInt("worker_id"), 
                                rs.getString("role_name"), 
                                rs.getString("password"));
+        }
+        return result;
     }
 }

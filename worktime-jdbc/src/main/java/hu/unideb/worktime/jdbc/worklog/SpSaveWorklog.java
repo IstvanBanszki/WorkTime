@@ -5,16 +5,16 @@ import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.SqlReturnResultSet;
 import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer> {
+public class SpSaveWorklog extends StoredProcedure implements ResultSetExtractor<Integer> {
 
     private static final String SP_NAME = "save_worklog";
     private static final String SP_PARAMETER_1 = "begin_date";
@@ -34,17 +34,19 @@ public class SpSaveWorklog extends StoredProcedure implements RowMapper<Integer>
     }
 
     public Integer execute(Integer workerId, WorklogRequest values) {
-        Integer result = null;
-        List<Integer> spResult = (List<Integer>) super.execute(values.getBeginDate(), 
+        return (Integer) super.execute(values.getBeginDate(), 
                 values.getWorkHour(), workerId).get(SP_RESULT);
-        if (spResult != null) {
-            result = spResult.get(0);
+    }
+
+    @Override
+    public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+        Integer result = null;
+
+        if (rs.next()) {
+            result = rs.getInt("status");
         }
         return result;
     }
 
-    @Override
-    public Integer mapRow(ResultSet rs, int i) throws SQLException {
-        return rs.getInt("status");
-    }
 }

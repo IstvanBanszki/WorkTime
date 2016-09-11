@@ -8,14 +8,15 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.SqlReturnResultSet;
 import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpSaveAbsence extends StoredProcedure implements RowMapper<Integer> {
+public class SpSaveAbsence extends StoredProcedure implements ResultSetExtractor<Integer> {
     
     private static final String SP_NAME = "save_absence";
     private static final String SP_PARAMETER_1 = "begin_date";
@@ -47,7 +48,14 @@ public class SpSaveAbsence extends StoredProcedure implements RowMapper<Integer>
     }
 
     @Override
-    public Integer mapRow(ResultSet rs, int i) throws SQLException {
-        return rs.getInt("status");
+    public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+        Integer result = null;
+
+        if (rs.next()) {
+            result = rs.getInt("status");
+        }
+        return result;
     }
+
 }

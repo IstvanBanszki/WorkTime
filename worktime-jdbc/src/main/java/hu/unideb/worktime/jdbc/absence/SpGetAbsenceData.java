@@ -34,20 +34,21 @@ public class SpGetAbsenceData extends StoredProcedure implements RowMapper<Absen
         List<AbsenceDataResponse> spResult = (List<AbsenceDataResponse>) super.execute(key).get(SP_RESULT);
         if (spResult != null) {
             return spResult;
-        }
+    }
         return new ArrayList();
     }
+
     @Override
     public AbsenceDataResponse mapRow(ResultSet rs, int i) throws SQLException {
         return new AbsenceDataResponse.Builder().setYear(rs.getInt("year"))
-                                                                   .setHolidayNumber(rs.getInt("holiday_number_total"))
-                                                                   .setAbsenceNumber(rs.getInt("absence_number"))
-                                                                   .setNotSetAbsenceNumber(rs.getInt("not_set_absence_number"))
-                                                                   .setPayedAbsenceNumber(rs.getInt("payed_absence_number"))
-                                                                   .setUnPayedAbsenceNumber(rs.getInt("unpayed_absence_number"))
-                                                                   .setSickPayedAbsenceNumber(rs.getInt("sickpayed_absence_number"))
-                                                                   .setVerifiedAbsenceNumber(rs.getInt("verified_absence_number"))
-                                                                   .build();
-    }
-    
+                  .setHolidayNumber(rs.getInt("holiday_number_total"))
+                  .setAbsenceNumber(rs.getInt("absence_number"))
+                  .setNotSetAbsenceNumber(rs.getInt("not_set_absence_number"))
+                  .setPayedAbsenceNumber(rs.getInt("payed_absence_number"))
+                  .setUnPayedAbsenceNumber(rs.getInt("unpayed_absence_number"))
+                  .setSickPayedAbsenceNumber(rs.getInt("sickpayed_absence_number"))
+                  .setVerifiedAbsenceNumber(rs.getInt("verified_absence_number"))
+                  .build();
+        }
+ 
 }

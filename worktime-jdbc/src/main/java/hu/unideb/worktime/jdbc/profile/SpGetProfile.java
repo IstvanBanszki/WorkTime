@@ -7,16 +7,16 @@ import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.SqlReturnResultSet;
 import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpGetProfile extends StoredProcedure implements RowMapper<ProfileRecord>{
+public class SpGetProfile extends StoredProcedure implements ResultSetExtractor<ProfileRecord>{
 
     private static final String SP_NAME = "get_profile_data";
     private static final String SP_PARAMETER_1 = "worker_id";
@@ -32,28 +32,28 @@ public class SpGetProfile extends StoredProcedure implements RowMapper<ProfileRe
     }
 
     public ProfileRecord execute(int workerId) {
-        ProfileRecord result = null;
-        List<ProfileRecord> spResult = (List<ProfileRecord>) super.execute(workerId).get(SP_RESULT);
-        if(spResult != null){
-            result = spResult.get(0);
-        }
-        return result;
+        return (ProfileRecord) super.execute(workerId).get(SP_RESULT);
     }
 
     @Override
-    public ProfileRecord mapRow(ResultSet rs, int i) throws SQLException {
-        return new Builder().setDateOfRegistration(rs.getTimestamp("date_of_registration").toLocalDateTime())
-                                         .setFirstName(rs.getString("first_name"))
-                                         .setLastName(rs.getString("last_name"))
-                                         .setGender(Gender.valueOf(rs.getInt("gender")))
-                                         .setDateOfBirth(rs.getTimestamp("date_of_birth").toLocalDateTime())
-                                         .setNationality(rs.getString("nationality"))
-                                         .setPosition(rs.getString("position"))
-                                         .setEmailAddress(rs.getString("email_address"))
-                                         .setDailyWorkHourTotal(rs.getInt("daily_work_hour_total"))
-                                         .setDepartmentName(rs.getString("department_name"))
-                                         .setOfficeName(rs.getString("office_name"))
-                                         .build();
+    public ProfileRecord extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+        Builder result = new Builder();
+
+        if (rs.next()) {
+            result.setDateOfRegistration(rs.getTimestamp("date_of_registration").toLocalDateTime())
+                  .setFirstName(rs.getString("first_name"))
+                  .setLastName(rs.getString("last_name"))
+                  .setGender(Gender.valueOf(rs.getInt("gender")))
+                  .setDateOfBirth(rs.getTimestamp("date_of_birth").toLocalDateTime())
+                  .setNationality(rs.getString("nationality"))
+                  .setPosition(rs.getString("position"))
+                  .setEmailAddress(rs.getString("email_address"))
+                  .setDailyWorkHourTotal(rs.getInt("daily_work_hour_total"))
+                  .setDepartmentName(rs.getString("department_name"))
+                  .setOfficeName(rs.getString("office_name"));
+        }
+        return result.build();
     }
     
 }

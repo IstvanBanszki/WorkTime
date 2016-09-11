@@ -47,6 +47,13 @@ public class SpEditWorkerData extends StoredProcedure implements ResultSetExtrac
 
     @Override
     public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
-        return rs.getInt("status");
+
+        Integer result = null;
+
+        if (rs.next()) {
+            result = rs.getInt("status");
+        }
+        return result;
     }
+
 }
