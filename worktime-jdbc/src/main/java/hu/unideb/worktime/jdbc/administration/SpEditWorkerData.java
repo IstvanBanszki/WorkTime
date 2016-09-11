@@ -1,6 +1,6 @@
 package hu.unideb.worktime.jdbc.administration;
 
-import hu.unideb.worktime.api.model.administration.EditWorkerRequest;
+import hu.unideb.worktime.api.model.administration.EditWorker;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,7 +39,7 @@ public class SpEditWorkerData extends StoredProcedure implements ResultSetExtrac
         compile();
     }
 
-    public Integer execute(Integer key, EditWorkerRequest request) {
+    public Integer execute(Integer key, EditWorker request) {
         return (Integer) super.execute(request.getFirstName(), request.getLastName(),
                 request.getPosition(), request.getEmailAddress(), request.getDailyWorkHourTotal(),
                 key).get(SP_RESULT);

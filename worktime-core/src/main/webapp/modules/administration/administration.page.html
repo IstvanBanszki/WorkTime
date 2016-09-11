@@ -151,6 +151,44 @@
 					</div>
 					</md-content>
 				</md-tab>
+				<md-tab label="Change Worker Data">
+					<md-content class="md-padding">
+					
+						<div class="w3-border w3-round w3-padding-medium">
+							<md-input-container style="margin-right: 10px">
+								<label>Employee</label>
+								<md-select ng-model="selectedEmployeeEdit" md-on-close="SelectEmployeeForEdit()">
+								  <md-option ng-repeat="employee in employees" value="{{employee}}">{{employee}}</md-option>
+								</md-select>
+							</md-input-container>
+							<br>
+							<div class="w3-center" ng-show="emptyEmployeeList">
+								<p><b>The returned employee list is empty!</b></p>
+							</div>
+						</div>
+
+						<form ng-show="selectedEmployeeEdit !== ''" class="w3-border w3-round w3-padding-medium" ng-submit="ChangeEmployeeData()">
+							<p><label class="w3-label">First Name</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="First Name" ng-model="newFirstName" required>
+
+							<p><label class="w3-label">Last Name</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Last Name" ng-model="newLastName" required>
+
+							<p><label class="w3-label">Position</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Position" ng-model="newPosition" required>
+
+							<p><label class="w3-label">Email Address</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Email Address" ng-model="newEmailAddress" required>
+
+							<p><label class="w3-label">Daily Work Hour Total</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Daily Work Hour Total" ng-model="newDailyWorkHourTotal" required>
+
+							<div class="w3-padding-8">
+								<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
+							</div>
+						</form>
+					</md-content>
+				</md-tab>
 			</md-tabs>
 		</md-content>
 	</div>

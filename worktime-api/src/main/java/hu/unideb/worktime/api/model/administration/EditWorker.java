@@ -2,7 +2,7 @@ package hu.unideb.worktime.api.model.administration;
 
 import java.io.Serializable;
 
-public class EditWorkerRequest implements Serializable {
+public class EditWorker implements Serializable {
     
     private final String firstName;
     private final String lastName;
@@ -10,7 +10,7 @@ public class EditWorkerRequest implements Serializable {
     private final String emailAddress;
     private final int dailyWorkHourTotal;
 
-    public EditWorkerRequest(String firstName, String lastName, String position, String emailAddress, int dailyWorkHourTotal) {
+    public EditWorker(String firstName, String lastName, String position, String emailAddress, int dailyWorkHourTotal) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
@@ -18,9 +18,47 @@ public class EditWorkerRequest implements Serializable {
         this.dailyWorkHourTotal = dailyWorkHourTotal;
     }
     
-    public EditWorkerRequest() {
+    public EditWorker() {
         this("","","","",0);
     }
+    
+    public static class Builder {
+        
+        private String firstName;
+        private String lastName;
+        private String position;
+        private String emailAddress;
+        private int dailyWorkHourTotal;
+
+        public Builder setFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder setLastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public Builder setPosition(String position) {
+            this.position = position;
+            return this;
+        }
+
+        public Builder setEmailAddress(String emailAddress) {
+            this.emailAddress = emailAddress;
+            return this;
+        }
+
+        public Builder setDailyWorkHourTotal(int dailyWorkHourTotal) {
+            this.dailyWorkHourTotal = dailyWorkHourTotal;
+            return this;
+        }
+        
+        public EditWorker build() {
+            return new EditWorker(this.firstName, this.lastName, this.position, this.emailAddress, this.dailyWorkHourTotal);
+        }
+    }       
 
     public String getFirstName() {
         return firstName;
@@ -64,7 +102,7 @@ public class EditWorkerRequest implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final EditWorkerRequest other = (EditWorkerRequest) obj;
+        final EditWorker other = (EditWorker) obj;
         return (this.dailyWorkHourTotal == other.dailyWorkHourTotal) && 
                 (this.firstName != null ? this.firstName.equals(other.firstName) : other.firstName == null) && 
                 (this.lastName != null ? this.lastName.equals(other.lastName) : other.lastName == null) && 

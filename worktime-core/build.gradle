@@ -23,7 +23,7 @@ apply plugin: 'nebula.provided-base'
 
 jar {
     baseName = 'worktime-core'
-    version = '0.7.2-SNAPSHOT'
+    version = '0.7.3-SNAPSHOT'
 }
 
 repositories {
@@ -40,17 +40,16 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
     //compile "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
-	
+
 	//FasterXml for Java 8 time representation in JSON object
 	compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${fasterXmlVersion}"
 
 	//Jasypt 
 	compile "org.jasypt:jasypt:${jasyptVersion}"
 	compile "org.jasypt:jasypt-spring31:${jasyptVersion}"
-	
+
 	compile "org.apache.poi:poi:${poiVersion}"
 	compile "org.apache.poi:poi-ooxml:${poiVersion}"
-	compile "org.apache.poi:poi-ooxml-schemas:${poiVersion}"
-	
+
 	provided "org.spockframework:spock-core:1.0-groovy-2.4"
 }

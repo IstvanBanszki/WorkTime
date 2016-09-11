@@ -22,8 +22,9 @@ angular.module('Administration')
 		$scope.employees = [];
 		$scope.selectedEmployeeAbsence = "";
 		$scope.selectedEmployeeWorklog = "";
+		$scope.selectedEmployeeEdit = '';
 		$scope.emptyEmployeeList = false;
-		
+
 		$scope.employeeWorklogs = [];
 		$scope.emptyWorklogList = false;
 		$scope.employeeAbsences = [];
@@ -32,6 +33,12 @@ angular.module('Administration')
 		$scope.listDailyWorkHour = false;
 		$scope.listNotAccepted 	 = false;
 
+		$scope.newFirstName = "";
+		$scope.newLastName = "";
+		$scope.newPosition = "";
+		$scope.newEmailAddress = "";
+		$scope.newDailyWorkHourTotal = "";
+		
 		$scope.init = function() {
 			AdministrationService.GetEmployees($rootScope.userData.workerId).then(
 					function(result) {
@@ -102,7 +109,7 @@ angular.module('Administration')
 					},
 					function(error) {
 					}
-				)
+				);
 				for(var i = 0; i < $scope.employeeAbsences.length; i++) {
 					if($scope.employeeAbsences[i].id === absence.id) {
 						$scope.employeeAbsences[i].status = 'APPROVE';
@@ -112,6 +119,28 @@ angular.module('Administration')
 			}, function() { // No
 			});	
 		};
+		$scope.SelectEmployeeForEdit = function() {
+			AdministrationService.GetEmployeeWorkerData($rootScope.userData.workerId).then(
+				function(result) {
+					$scope.newFirstName = result.firstName;
+					$scope.newLastName = result.lastName;
+					$scope.newPosition = result.position;
+					$scope.newEmailAddress = result.emailAddress;
+					$scope.newDailyWorkHourTotal = result.dailyWorkHourTotal;
+				},
+				function(error) {
+				}
+			);
+		};
+		$scope.ChangeEmployeeData = function() {
+			AdministrationService.EditEmployeeWorkerData($scope.newFirstName, $scope.newLastName, $scope.newPosition, $scope.newEmailAddress, $scope.newDailyWorkHourTotal).then(
+				function(result) {
+				},
+				function(error) {
+				}
+			);
+		};
+
 		$scope.dateFormatterWorklog = function() {
 			if (!(typeof $scope.employeeWorklogs) || $scope.employeeWorklogs.length !== 0) {
 				$scope.employeeWorklogs.forEach(function(employeeWorklog) {
@@ -128,7 +157,6 @@ angular.module('Administration')
 			}
 		};
 
-		
 		$scope.sortType = "BeginDate";
 		$scope.sortReverse = false;
 		$scope.searchQuery = "";

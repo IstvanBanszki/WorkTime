@@ -14,7 +14,7 @@ BEGIN
 		   w.position = position,
 		   w.email_address = email_address,
 		   w.daily_work_hour_total = daily_work_hour_total
-	 WHERE w.id = worklog_id;
+	 WHERE w.id = worker_id;
 
 	SELECT ROW_COUNT() AS status;
 

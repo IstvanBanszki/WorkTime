@@ -72,7 +72,52 @@ angular.module("Administration")
 		var deferred = $q.defer();
 		return $http({
 			method : "POST",
-			url : "/api/administration/v1/acceptAbsence/"+absenceId,
+			url : "/api/administration/v1/approve/absenceId/"+absenceId,
+			headers : {
+				'Content-Type': 'application/json'
+			}
+		}).then(function successCallback(response) {
+
+				deferred.resolve(response.data);
+				return deferred.promise;
+
+			}, function errorCallback(response) {
+
+				deferred.reject(response);
+				return deferred.promise;
+			});
+	}
+	service.EditEmployeeWorkerData = function(firstName, lastName, position, emailAddress, dailyWorkHourTotal, workerId) {
+		var deferred = $q.defer();
+		return $http({
+			method : "PUT",
+			url : '/api/administration/v1/workerData/workerId/'+workerId,
+			headers : {
+				'Content-Type': 'application/json'
+			},
+			data: {
+				'firstName': firstName,
+				'lastName': lastName,
+				'position': position,
+				'emailAddress': emailAddress,
+				'dailyWorkHourTotal': dailyWorkHourTotal
+			}
+		}).then(function successCallback(response) {
+
+				deferred.resolve(response.data);
+				return deferred.promise;
+
+			}, function errorCallback(response) {
+
+				deferred.reject(response);
+				return deferred.promise;
+			});
+	}		
+	service.GetEmployeeWorkerData = function(workerId){
+		var deferred = $q.defer();
+		return $http({
+			method : "GET",
+			url : "/api/administration/v1/workerData/workerId/"+workerId,
 			headers : {
 				'Content-Type': 'application/json'
 			}

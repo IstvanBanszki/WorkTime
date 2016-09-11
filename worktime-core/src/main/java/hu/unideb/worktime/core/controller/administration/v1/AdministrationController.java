@@ -4,7 +4,7 @@ import hu.unideb.worktime.api.model.administration.AdministrationAbsenceRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
-import hu.unideb.worktime.api.model.administration.EditWorkerRequest;
+import hu.unideb.worktime.api.model.administration.EditWorker;
 import hu.unideb.worktime.api.model.administration.Employee;
 import hu.unideb.worktime.jdbc.administration.SqlCallAdministration;
 import java.util.List;
@@ -45,14 +45,20 @@ public class AdministrationController {
     }
     
     @Async
-    @RequestMapping(value = "/approveEmpolyeeAbsence/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/approve/absenceId/{id}", method = RequestMethod.POST)
     public @ResponseBody Integer acceptEmployeeAbsence(@PathVariable Integer id) {
         return this.sqlCallAdministration.acceptEmployeeAbsence(id);
     }
     
     @Async
-    @RequestMapping(value = "/workerData/{id}", method = RequestMethod.PUT)
-    public @ResponseBody Integer editWorkerData(@PathVariable Integer id, @RequestBody EditWorkerRequest request) {
+    @RequestMapping(value = "/workerData/workerId/{id}", method = RequestMethod.PUT)
+    public @ResponseBody Integer editWorkerData(@PathVariable Integer id, @RequestBody EditWorker request) {
         return this.sqlCallAdministration.editWorkerData(id, request);
+    }
+    
+    @Async
+    @RequestMapping(value = "/workerData/workerId/{id}", method = RequestMethod.GET)
+    public @ResponseBody EditWorker editWorkerData(@PathVariable Integer id) {
+        return this.sqlCallAdministration.getWorkerData(id);
     }
 }

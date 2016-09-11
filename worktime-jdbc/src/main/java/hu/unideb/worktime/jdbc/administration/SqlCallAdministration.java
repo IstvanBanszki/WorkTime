@@ -4,7 +4,7 @@ import hu.unideb.worktime.api.model.administration.AdministrationAbsenceRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
-import hu.unideb.worktime.api.model.administration.EditWorkerRequest;
+import hu.unideb.worktime.api.model.administration.EditWorker;
 import hu.unideb.worktime.api.model.administration.Employee;
 import java.util.List;
 import org.slf4j.Logger;
@@ -20,6 +20,7 @@ public class SqlCallAdministration {
     @Autowired private SpGetEmployeeAbsenceList spGetEmployeeAbsenceList;
     @Autowired private SpApproveEmployeeAbsence spAcceptAbsenceStatus;
     @Autowired private SpEditWorkerData spEditWorkerData;
+    @Autowired private SpGetEmployeeWorkerData spGetEmployeeWorkerData;
     private Logger logger;
 
     public SqlCallAdministration() {
@@ -86,7 +87,7 @@ public class SqlCallAdministration {
         return result;
     }
     
-    public Integer editWorkerData(Integer id, EditWorkerRequest request){
+    public Integer editWorkerData(Integer id, EditWorker request){
         Integer result = null;
         this.logger.info("Call edit_worker_data SP with given parameters: Key - {}, Request - {}", id, request);
         try {
@@ -98,6 +99,21 @@ public class SqlCallAdministration {
             this.logger.error("There is an exception during edit_worker_data SP call: {}", ex);
         }
         this.logger.info("Result of edit_worker_data SP: {}", result);
+        return result;
+    }
+    
+    public EditWorker getWorkerData(Integer id){
+        EditWorker result = null;
+        this.logger.info("Call get_worker_data SP with given parameters: Key - {}", id);
+        try {
+            result = this.spGetEmployeeWorkerData.execute(id);
+            if (result == null) {
+                this.logger.debug("There is an error while get the worker data in database! Key - {}", id);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during get_worker_data SP call: {}", ex);
+        }
+        this.logger.info("Result of get_worker_data SP: {}", result);
         return result;
     }
 }
