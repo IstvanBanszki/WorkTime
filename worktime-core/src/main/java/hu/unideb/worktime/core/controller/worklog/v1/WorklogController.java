@@ -4,7 +4,6 @@ import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogRequest;
 import hu.unideb.worktime.core.export.IExportService;
 import hu.unideb.worktime.jdbc.worklog.SqlCallWorklog;
-import java.io.FileOutputStream;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package hu.unideb.worktime.jdbc.addition;
 
-import hu.unideb.worktime.api.model.Department;
+import hu.unideb.worktime.api.model.User;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,30 +14,27 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpEditDepartment extends StoredProcedure implements ResultSetExtractor<Integer> {
+public class SpSaveUser extends StoredProcedure implements ResultSetExtractor<Integer> {
     
-    private static final String SP_NAME = "edit_department";
-    private static final String SP_PARAMETER_1 = "name";
-    private static final String SP_PARAMETER_2 = "date_of_foundation";
-    private static final String SP_PARAMETER_3 = "office_id";
-    private static final String SP_PARAMETER_4 = "deparment_id";
+    private static final String SP_NAME = "save_user";
+    private static final String SP_PARAMETER_1 = "login_name";
+    private static final String SP_PARAMETER_2 = "password";
+    private static final String SP_PARAMETER_3 = "role_id";
     private static final String SP_RESULT = "result";
 
     @Autowired
-    public SpEditDepartment(WTConnection wtConnection) {
+    public SpSaveUser(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
-        declareParameter(new SqlParameter(SP_PARAMETER_2, Types.DATE));
+        declareParameter(new SqlParameter(SP_PARAMETER_2, Types.VARCHAR));
         declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));
-        declareParameter(new SqlParameter(SP_PARAMETER_4, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();
     }
 
-    public Integer execute(Integer id, Department request) {
-        return (Integer) super.execute(request.getName(), request.getDateOfFoundtation(), 
-                request.getOfficeId(), id).get(SP_RESULT);
+    public Integer execute(User request, String password) {
+        return (Integer) super.execute(request.getLoginName(), password, request.getRole().getId()).get(SP_RESULT);
     }
 
     @Override
@@ -50,5 +47,5 @@ public class SpEditDepartment extends StoredProcedure implements ResultSetExtrac
         }
         return result;
     }
-    
+
 }
