@@ -10,11 +10,7 @@ import org.springframework.stereotype.Component;
 public class SqlCallProfile {
     
     @Autowired private SpGetProfile spProfile;
-    private Logger logger;
-
-    public SqlCallProfile() {
-        this.logger = LoggerFactory.getLogger(SqlCallProfile.class);
-    }
+    private Logger logger = LoggerFactory.getLogger(SqlCallProfile.class);
     
     public ProfileRecord getProfileData( int workerId ){
         ProfileRecord result = null;

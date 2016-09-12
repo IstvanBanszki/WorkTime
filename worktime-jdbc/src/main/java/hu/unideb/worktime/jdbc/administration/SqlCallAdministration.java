@@ -21,11 +21,7 @@ public class SqlCallAdministration {
     @Autowired private SpApproveEmployeeAbsence spAcceptAbsenceStatus;
     @Autowired private SpEditWorkerData spEditWorkerData;
     @Autowired private SpGetEmployeeWorkerData spGetEmployeeWorkerData;
-    private Logger logger;
-
-    public SqlCallAdministration() {
-        this.logger = LoggerFactory.getLogger(SqlCallAdministration.class);
-    }
+    private Logger logger = LoggerFactory.getLogger(SqlCallAdministration.class);
     
     public List<Employee> getEmloyees(Integer workerId) {
         List<Employee> result = null;

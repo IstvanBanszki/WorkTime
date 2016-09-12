@@ -17,11 +17,7 @@ public class SqlCallAbsence {
     @Autowired private SpGetAbsenceData spGetAbsenceData;
     @Autowired private SpDeleteAbsence spDeleteAbsence;
     @Autowired private SpEditAbsence spEditAbsence;
-    private Logger logger;
-
-    public SqlCallAbsence() {
-        this.logger = LoggerFactory.getLogger(SqlCallAbsence.class);
-    }
+    private Logger logger = LoggerFactory.getLogger(SqlCallAbsence.class);
 
     public Integer saveAbsence(Integer workerId, AbsenceRequest values) {
         Integer result = null;

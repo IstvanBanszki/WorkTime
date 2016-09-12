@@ -1,0 +1,47 @@
+package hu.unideb.worktime.core.controller.addition.v1;
+
+import hu.unideb.worktime.api.model.Department;
+import hu.unideb.worktime.api.model.Office;
+import hu.unideb.worktime.jdbc.addition.SqlCallAddition;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+
+@RestController
+@RequestMapping(value = "/api/addition/v1", produces = "application/json")
+public class AdditionController {
+
+    @Autowired private SqlCallAddition sqlCallAddition;
+    
+    @Async
+    @RequestMapping(value = "/officeId/{officeId}", method = RequestMethod.PUT)
+    public @ResponseBody Integer editOffice(@PathVariable("officeId") Integer officeId, @RequestBody Office request) {
+        return this.sqlCallAddition.editOffice(officeId, request);
+    }
+    
+    @Async
+    @RequestMapping(value = "/offices/", method = RequestMethod.GET)
+    public @ResponseBody List<Office> getAbsence() {
+        return this.sqlCallAddition.getOffices();
+    }
+    
+    @Async
+    @RequestMapping(value = "/departmentId/{departmentId}", method = RequestMethod.PUT)
+    public @ResponseBody Integer editDepartment(@PathVariable("departmentId") Integer departmentId, @RequestBody Department request) {
+        return this.sqlCallAddition.editDepartment(departmentId, request);
+    }
+    
+    @Async
+    @RequestMapping(value = "/departments/", method = RequestMethod.GET)
+    public @ResponseBody List<Department> getDepartment() {
+        return this.sqlCallAddition.getDepartments();
+    }
+    
+}

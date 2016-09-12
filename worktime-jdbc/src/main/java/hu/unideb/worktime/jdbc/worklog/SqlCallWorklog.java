@@ -15,11 +15,7 @@ public class SqlCallWorklog {
     @Autowired private SpGetWorklog spGetWorklog;
     @Autowired private SpDeleteWorklog spDeleteWorklog;
     @Autowired private SpEditWorklog spEditWorklog;
-    private Logger logger;
-
-    public SqlCallWorklog() {
-        this.logger = LoggerFactory.getLogger(SqlCallWorklog.class);
-    }
+    private Logger logger = LoggerFactory.getLogger(SqlCallWorklog.class);
     
     public Integer saveWorklog(Integer workerId, WorklogRequest values) {
         Integer result = null;

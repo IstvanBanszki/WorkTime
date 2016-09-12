@@ -14,14 +14,14 @@ INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('ram
 INSERT INTO `worktime`.`user` (`login_name`, `password`, `role_id`) VALUES ('terminator', 'seLwFCP0j9VkEppU2i+S/41PJ7oVhC6f0vn9/A==', 4); -- zacsko
 
 -- office table test data
-INSERT INTO `worktime`.`office` (`name`, `address`) VALUES ('Example Company', '4023 Debrecen Csapo utca 23.');
-INSERT INTO `worktime`.`office` (`name`, `address`) VALUES ('Test Company', 'Budapest Vamhaz korut 9.');
+INSERT INTO `worktime`.`office` (`name`, `address`, `date_of_foundation`) VALUES ('Example Company', '4023 Debrecen Csapo utca 23.', '2004.07.16');
+INSERT INTO `worktime`.`office` (`name`, `address`, `date_of_foundation`) VALUES ('Test Company', 'Budapest Vamhaz korut 9.', '2008.02.21');
 
 -- department table test data
-INSERT INTO `worktime`.`department` (`name`, `office_id`) VALUES ('IT Operation Department', 1);
-INSERT INTO `worktime`.`department` (`name`, `office_id`) VALUES ('HR Resources Department', 1);
-INSERT INTO `worktime`.`department` (`name`, `office_id`) VALUES ('Sales Department', 2);
-INSERT INTO `worktime`.`department` (`name`, `office_id`) VALUES ('Management Department', 1);
+INSERT INTO `worktime`.`department` (`name`, `office_id`, `date_of_foundation`) VALUES ('IT Operation Department', 1, '2004.07.16');
+INSERT INTO `worktime`.`department` (`name`, `office_id`, `date_of_foundation`) VALUES ('HR Resources Department', 1, '2004.08.25');
+INSERT INTO `worktime`.`department` (`name`, `office_id`, `date_of_foundation`) VALUES ('Sales Department', 2, '2008.02.21');
+INSERT INTO `worktime`.`department` (`name`, `office_id`, `date_of_foundation`) VALUES ('Management Department', 1, '2005.01.25');
 
 -- absence_type table test data
 INSERT INTO `worktime`.`absence_type` (`name`) VALUES ('NOT-SET');

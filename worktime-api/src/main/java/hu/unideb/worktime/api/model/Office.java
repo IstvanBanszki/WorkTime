@@ -7,61 +7,13 @@ public class Office {
     private final int id;
     private final String name;
     private final String address;
-    private final LocalDateTime dateOfRegistration;
     private final LocalDateTime dateOfFoundtation;
 
-    public Office(int id, String name, String address, LocalDateTime dateOfRegistration, LocalDateTime dateOfFoundtation) {
+    public Office(int id, String name, String address, LocalDateTime dateOfFoundtation) {
         this.id = id;
         this.name = name;
         this.address = address;
-        this.dateOfRegistration = dateOfRegistration;
         this.dateOfFoundtation = dateOfFoundtation;
-    }
-
-    public static class OfficeBuilder {
-
-        private int id;
-        private String name;
-        private String address;
-        private LocalDateTime dateOfRegistration;
-        private LocalDateTime dateOfFoundtation;
-
-        public OfficeBuilder() {
-            this.id = 0;
-            this.name = "";
-            this.address = "";
-            this.dateOfRegistration = null;
-            this.dateOfFoundtation = null;
-        }
-
-        public OfficeBuilder id(int id) {
-            this.id = id;
-            return this;
-        }
-
-        public OfficeBuilder name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public OfficeBuilder address(String address) {
-            this.address = address;
-            return this;
-        }
-
-        public OfficeBuilder dateOfRegistration(LocalDateTime dateOfRegistration) {
-            this.dateOfRegistration = dateOfRegistration;
-            return this;
-        }
-
-        public OfficeBuilder dateOfFoundtation(LocalDateTime dateOfFoundtation) {
-            this.dateOfFoundtation = dateOfFoundtation;
-            return this;
-        }
-
-        public Office build() {
-            return new Office(this.id, this.name, this.address, this.dateOfRegistration, this.dateOfFoundtation);
-        }
     }
 
     public int getId() {
@@ -76,18 +28,41 @@ public class Office {
         return address;
     }
 
-    public LocalDateTime getDateOfRegistration() {
-        return dateOfRegistration;
-    }
-
     public LocalDateTime getDateOfFoundtation() {
         return dateOfFoundtation;
     }
 
     @Override
-    public String toString() {
-        return "Office{" + "id=" + id + ", name=" + name + ", address=" + address
-                + ", dateOfRegistration=" + dateOfRegistration + ", dateOfFoundtation="
-                + dateOfFoundtation + '}';
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + this.id;
+        hash = 17 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 17 * hash + (this.address != null ? this.address.hashCode() : 0);
+        hash = 17 * hash + (this.dateOfFoundtation != null ? this.dateOfFoundtation.hashCode() : 0);
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Office other = (Office) obj;
+        return (this.id != other.id) &&
+               (this.name != null ? this.name.equals(other.name) : other.name == null) &&
+               (this.address != null ? this.address.equals(other.address) : other.address == null) &&
+               (this.dateOfFoundtation!= null ? this.dateOfFoundtation.equals(other.dateOfFoundtation) : other.dateOfFoundtation == null);
+    }
+
+    @Override
+    public String toString() {
+        return "Office{id=" + id + ", name=" + name + ", address=" + address + ", dateOfFoundtation=" + dateOfFoundtation + '}';
+    }
+
 }

@@ -12,11 +12,7 @@ public class SqlCallLogin {
 
     @Autowired private SpGetLogin spGetLogin;
     @Autowired private SpUpdatePassword spUpdatePassword;
-    private Logger logger;
-
-    public SqlCallLogin() {
-        this.logger = LoggerFactory.getLogger(SqlCallLogin.class);
-    }
+    private Logger logger = LoggerFactory.getLogger(SqlCallLogin.class);
 
     public LoginRecord getLoginRecord(String loginName) {
         LoginRecord result = null;

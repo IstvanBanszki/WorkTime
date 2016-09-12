@@ -37,7 +37,7 @@ CREATE TABLE `office` (
   `name` tinytext NOT NULL,
   `address` tinytext NOT NULL,
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `date_of_foundation` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_of_foundation` date NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -50,7 +50,7 @@ CREATE TABLE `department` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` tinytext NOT NULL,
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `date_of_foundation` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_of_foundation` date NOT NULL DEFAULT '0000-00-00 00:00:00',
   `office_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_d_office_id_idx` (`office_id`),
