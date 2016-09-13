@@ -37,7 +37,7 @@ public class SpGetAllOffices extends StoredProcedure implements RowMapper<Office
     @Override
     public Office mapRow(ResultSet rs, int i) throws SQLException {
         return new Office(rs.getInt("id"), rs.getString("name"), rs.getString("address"), 
-                          rs.getTimestamp("date_of_foundation").toLocalDateTime());
+                          rs.getDate("date_of_foundation").toLocalDate());
     }
     
 }

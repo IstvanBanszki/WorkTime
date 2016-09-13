@@ -7,6 +7,7 @@ import hu.unideb.worktime.api.model.Worker;
 import hu.unideb.worktime.core.security.WTEncryption;
 import hu.unideb.worktime.jdbc.addition.SqlCallAddition;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,40 +24,46 @@ public class AdditionController {
 
     @Autowired private SqlCallAddition sqlCallAddition;
     @Autowired private WTEncryption wTEncryption;
-    
+
     @Async
     @RequestMapping(value = "/officeId/{officeId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editOffice(@PathVariable("officeId") Integer officeId, @RequestBody Office request) {
         return this.sqlCallAddition.editOffice(officeId, request);
     }
-    
+
     @Async
-    @RequestMapping(value = "/offices/", method = RequestMethod.GET)
+    @RequestMapping(value = "/offices", method = RequestMethod.GET)
     public @ResponseBody List<Office> getAbsence() {
         return this.sqlCallAddition.getOffices();
     }
-    
+
     @Async
     @RequestMapping(value = "/departmentId/{departmentId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editDepartment(@PathVariable("departmentId") Integer departmentId, @RequestBody Department request) {
         return this.sqlCallAddition.editDepartment(departmentId, request);
     }
-    
+
     @Async
-    @RequestMapping(value = "/departments/", method = RequestMethod.GET)
+    @RequestMapping(value = "/departments", method = RequestMethod.GET)
     public @ResponseBody List<Department> getDepartment() {
         return this.sqlCallAddition.getDepartments();
     }
-    
+
     @Async
-    @RequestMapping(value = "/user/", method = RequestMethod.PUT)
+    @RequestMapping(value = "/officesWithDepartments", method = RequestMethod.GET)
+    public @ResponseBody Map<Office, Department> getOfficesWIthDepartments() {
+        return this.sqlCallAddition.getOfficesWithDepartment();
+    }
+
+    @Async
+    @RequestMapping(value = "/user", method = RequestMethod.PUT)
     public @ResponseBody Integer createUser(@RequestBody User request) {
         String passwordForSave = this.wTEncryption.encryptPassword(request.getPassword());
         return this.sqlCallAddition.saveUser(request, passwordForSave);
     }
     
     @Async
-    @RequestMapping(value = "/worker/", method = RequestMethod.PUT)
+    @RequestMapping(value = "/worker", method = RequestMethod.PUT)
     public @ResponseBody Integer createWorker(@RequestBody Worker request) {
         return this.sqlCallAddition.saveWorker(request);
     }

@@ -60,11 +60,16 @@ public class SqlCallAddition {
         List<Office> offices = getOffices();
         List<Department> departments = getDepartments();
 
-        offices.stream().forEach((Office office) -> {
-            departments.stream().filter((department) -> (office.getId() == department.getOfficeId())).forEach((department) -> {
-                result.put(office, department);
+        if ((offices != null) && (departments != null)) {
+            offices.stream().forEach((Office office) -> {
+                departments.stream().forEach((department) -> {
+                    if(office.getId() == department.getOfficeId()) {
+                        result.put(office, department);
+                    }
+                });
             });
-        });
+        }
+        this.logger.info("Result of getOfficesWithDepartment: {}", result);
         return result;
     }
     

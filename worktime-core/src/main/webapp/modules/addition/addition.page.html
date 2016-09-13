@@ -1,0 +1,18 @@
+<div ng-controller="HomeController" ng-include="'modules/home/home.menu.html'"></div>
+<div class="page-element">
+	<div ng-include="'modules/home/home.header.html'"></div>
+	<div ng-controller="AdditionController" ng-init="init()">
+		<md-content>
+			<md-tabs md-dynamic-height="" md-border-bottom="">
+				<md-tab label="Office and Department Management">
+					<md-content class="md-padding">
+					</md-content>
+				</md-tab>
+				<md-tab label="User and Worker Management">	
+					<md-content class="md-padding">
+					</md-content>
+				</md-tab>
+			</md-tabs>
+		</md-content>
+	</div>
+</div>

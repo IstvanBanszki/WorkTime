@@ -6,7 +6,8 @@ angular.module('Profile', [])
 angular.module('Worklog', [])
 angular.module('Absence', [])
 angular.module('Administration', [])
-angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'Administration', 'ngRoute', 'ngCookies', "ngAnimate", "ngAria", 'ngMaterial', 'ngMessages', 'ngSanitize', 'material.svgAssetsCache'])
+angular.module('Addition', [])
+angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'Administration', 'Addition', 'ngRoute', 'ngCookies', "ngAnimate", "ngAria", 'ngMaterial', 'ngMessages', 'ngSanitize', 'material.svgAssetsCache'])
 	.config(['$routeProvider', '$mdDateLocaleProvider', function ($routeProvider, $mdDateLocaleProvider) {
 		$routeProvider
 			.when('/login', {
@@ -38,6 +39,11 @@ angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'Admi
 				controller : 'AdministrationPageController',
 				templateUrl: 'modules/administration/administration.page.html',
 				title	   : 'WorkTime - Administration'
+			})
+			.when('/addition', {
+				controller : 'AdditionController',
+				templateUrl: 'modules/addition/addition.page.html',
+				title	   : 'WorkTime - Addition'
 			})
 			.otherwise('/login');
 		$mdDateLocaleProvider.formatDate = function(date) {

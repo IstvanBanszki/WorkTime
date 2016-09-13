@@ -1,14 +1,14 @@
 package hu.unideb.worktime.api.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Department {
 
     private final String name;
-    private final LocalDateTime dateOfFoundtation;
+    private final LocalDate dateOfFoundtation;
     private final int officeId;
 
-    public Department(String name, LocalDateTime dateOfFoundtation, int officeId) {
+    public Department(String name, LocalDate dateOfFoundtation, int officeId) {
         this.name = name;
         this.dateOfFoundtation = dateOfFoundtation;
         this.officeId = officeId;
@@ -18,7 +18,7 @@ public class Department {
         return name;
     }
 
-    public LocalDateTime getDateOfFoundtation() {
+    public LocalDate getDateOfFoundtation() {
         return dateOfFoundtation;
     }
 

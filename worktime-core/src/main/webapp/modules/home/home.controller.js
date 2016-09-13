@@ -14,13 +14,14 @@ angular.module('Home')
 		}];
 		if( $rootScope.userData.roleName === 'COMPANY-ADMIN-ROLE' ){
 			$scope.links.push({ title: 'Administration', url: '#administration' });
+			$scope.links.push({ title: 'Addition', url: '#addition' });
 		}
 
 		$scope.currentLink = '#home';
 		$scope.isActiveLink = function(url) {
 			return url == $scope.currentLink;
-		}
+		};
 		$scope.onClickLink = function(link) {
 			$scope.currentLink = link.url;
-		}
+		};
     }]);

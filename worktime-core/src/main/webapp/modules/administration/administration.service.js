@@ -132,8 +132,5 @@ angular.module("Administration")
 				return deferred.promise;
 			});
 	}
-	service.RemoveProfileData = function(){
-		$rootScope.profileData= {};
-	}
 	return service;
 }])
