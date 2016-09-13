@@ -37,7 +37,7 @@ public class SpGetAllDepartments extends StoredProcedure implements RowMapper<De
     @Override
     public Department mapRow(ResultSet rs, int i) throws SQLException {
         return new Department(rs.getString("name"), rs.getDate("date_of_foundation").toLocalDate(),
-                              rs.getInt("office_id"));
+                              rs.getInt("office_id"), rs.getInt("worker_number"));
     }
 
 }

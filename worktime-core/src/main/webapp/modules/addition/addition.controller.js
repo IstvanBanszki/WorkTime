@@ -31,7 +31,12 @@ angular.module('Addition')
 				}
 			);
 		};
-
+		
+		$scope.openSelect = function() {		
+			$scope.officeWorkerNumber = 0;
+			$scope.departmentWorkerNumber = 0;
+			$scope.showODInformation = false;
+		};
 		$scope.setDepartments = function() {
 			if (!(typeof $scope.departments) || ($scope.departments.length !== 0)) {
 				$scope.departmentsForOffice = [];
@@ -46,6 +51,7 @@ angular.module('Addition')
 				if(!(typeof $scope.selectedOffice) || ($scope.selectedOffice !== "")) {
 					for (var i = 0, len = $scope.departments.length; i < len; i++) {
 						if ($scope.departments[i].officeId === $scope.selectedOffice.id) {
+							$scope.officeWorkerNumber += $scope.departments[i].workerNumber;
 							$scope.departmentsForOffice.push($scope.departments[i]);
 						}
 					}
@@ -55,9 +61,11 @@ angular.module('Addition')
 
 		$scope.officeName = "";
 		$scope.officeAddress = "";
-		$scope.officeDateOfFoundation = "";
+		$scope.officeDateOfFoundtation = "";
+		$scope.officeWorkerNumber = 0;
 		$scope.departmentName = "";
-		$scope.departmentDateOfFoundation = "";
+		$scope.departmentDateOfFoundtation = "";
+		$scope.departmentWorkerNumber = 0;
 		
 		$scope.listInformation = function() {
 			for (var i = 0, len = $scope.departments.length; i < len; i++) {
@@ -69,9 +77,10 @@ angular.module('Addition')
 			}
 			$scope.officeName = $scope.selectedOfficeName;
 			$scope.officeAddress = $scope.selectedOffice.address;
-			$scope.officeDateOfFoundation = $scope.selectedOffice.dateOfFoundation;
+			$scope.officeDateOfFoundtation = $scope.selectedOffice.dateOfFoundtation;
 			$scope.departmentName = $scope.selectedDepartmentName;
-			$scope.departmentDateOfFoundation = $scope.selectedDepartment.dateOfFoundation;
+			$scope.departmentDateOfFoundtation = $scope.selectedDepartment.dateOfFoundtation;
+			$scope.departmentWorkerNumber = $scope.selectedDepartment.workerNumber;
 		};
 
     }]);

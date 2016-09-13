@@ -9,7 +9,7 @@
 						<div class="w3-border w3-round w3-padding-medium">
 							<md-input-container style="width: 140px; padding-left: 15px">
 								<label>Offices</label>
-								<md-select ng-model="selectedOfficeName" md-on-close="setDepartments()" md-on-open="showODInformation = false">
+								<md-select ng-model="selectedOfficeName" md-on-close="setDepartments()" md-on-open="openSelect()">
 									<md-option ng-repeat="office in offices" value="{{office.name}}">{{office.name}}</md-option>
 								</md-select>
 							</md-input-container>
@@ -26,13 +26,18 @@
 									Name: {{officeName}}<br/>
 									Address: {{officeAddress}}<br/>
 									Date Of Foundation: {{officeDateOfFoundation}}<br/>
+									Number Of Worker: {{officeWorkerNumber}}
 								</div>
 								Department:<br/>
 								<div class="w3-margin-left">
 									Name: {{departmentName}}<br/>
 									Date Of Foundation: {{departmentDateOfFoundation}}<br/>
+									Number Of Worker: {{departmentWorkerNumber}}
 								</div>
 							</div>
+							<br>
+							<input class="w3-btn w3-green w3-padding-tiny" ng-click="createNewOffice()" value="Add New Office"></input>
+							<input class="w3-btn w3-green w3-padding-tiny" ng-click="createNewDepartment()" value="Add New Department"></input>
 						</div>
 					</md-content>
 				</md-tab>
