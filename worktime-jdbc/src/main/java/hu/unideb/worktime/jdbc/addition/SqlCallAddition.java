@@ -2,6 +2,8 @@ package hu.unideb.worktime.jdbc.addition;
 
 import hu.unideb.worktime.api.model.Department;
 import hu.unideb.worktime.api.model.Office;
+import hu.unideb.worktime.api.model.User;
+import hu.unideb.worktime.api.model.Worker;
 import hu.unideb.worktime.jdbc.worklog.SqlCallWorklog;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +20,8 @@ public class SqlCallAddition {
     @Autowired private SpGetAllOffices spGetAllOffices;
     @Autowired private SpEditOffice spEditOffice;
     @Autowired private SpEditDepartment spEditDepartment;
+    @Autowired private SpSaveUser spSaveUser;
+    @Autowired private SpSaveWorker spSaveWorker;
     private Logger logger = LoggerFactory.getLogger(SqlCallWorklog.class);
     
     
@@ -91,6 +95,36 @@ public class SqlCallAddition {
             this.logger.error("There is an exception during edit_office SP call: {}", ex);
         }
         this.logger.info("Result of edit_department SP: {}", result);
+        return result;
+    }
+    
+    public Integer saveUser(User user, String password) {
+        Integer result = null;
+        this.logger.info("Call save_user SP with given parameters: User - {}, passwordForSave - {}", user, password);
+        try {
+            result = this.spSaveUser.execute(user, password);
+            if (result == null) {
+                this.logger.debug("There is an error while save user in database! User - {}, passwordForSave - {}", user, password);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during save_user SP call: {}", ex);
+        }
+        this.logger.info("Result of save_user SP: {}", result);
+        return result;
+    }
+    
+    public Integer saveWorker(Worker worker) {
+        Integer result = null;
+        this.logger.info("Call save_worker SP with given parameters: Worker - {}", worker);
+        try {
+            result = this.spSaveWorker.execute(worker);
+            if (result == null) {
+                this.logger.debug("There is an error while save user in database! Worker - {}", worker);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during save_worker SP call: {}", ex);
+        }
+        this.logger.info("Result of save_worker SP: {}", result);
         return result;
     }
 

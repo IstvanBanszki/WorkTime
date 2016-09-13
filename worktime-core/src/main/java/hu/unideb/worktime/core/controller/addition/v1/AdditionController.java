@@ -2,6 +2,9 @@ package hu.unideb.worktime.core.controller.addition.v1;
 
 import hu.unideb.worktime.api.model.Department;
 import hu.unideb.worktime.api.model.Office;
+import hu.unideb.worktime.api.model.User;
+import hu.unideb.worktime.api.model.Worker;
+import hu.unideb.worktime.core.security.WTEncryption;
 import hu.unideb.worktime.jdbc.addition.SqlCallAddition;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdditionController {
 
     @Autowired private SqlCallAddition sqlCallAddition;
+    @Autowired private WTEncryption wTEncryption;
     
     @Async
     @RequestMapping(value = "/officeId/{officeId}", method = RequestMethod.PUT)
@@ -42,6 +46,19 @@ public class AdditionController {
     @RequestMapping(value = "/departments/", method = RequestMethod.GET)
     public @ResponseBody List<Department> getDepartment() {
         return this.sqlCallAddition.getDepartments();
+    }
+    
+    @Async
+    @RequestMapping(value = "/user/", method = RequestMethod.PUT)
+    public @ResponseBody Integer createUser(@RequestBody User request) {
+        String passwordForSave = this.wTEncryption.encryptPassword(request.getPassword());
+        return this.sqlCallAddition.saveUser(request, passwordForSave);
+    }
+    
+    @Async
+    @RequestMapping(value = "/worker/", method = RequestMethod.PUT)
+    public @ResponseBody Integer createWorker(@RequestBody Worker request) {
+        return this.sqlCallAddition.saveWorker(request);
     }
     
 }

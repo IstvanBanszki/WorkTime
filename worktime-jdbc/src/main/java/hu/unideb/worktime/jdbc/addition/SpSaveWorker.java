@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SpSaveWorker extends StoredProcedure implements ResultSetExtractor<Integer> {
             
-    private static final String SP_NAME = "save_user";
+    private static final String SP_NAME = "save_worker";
     private static final String SP_PARAMETER_1 = "first_name";
     private static final String SP_PARAMETER_2 = "last_name";
     private static final String SP_PARAMETER_3 = "gender";
@@ -49,7 +49,7 @@ public class SpSaveWorker extends StoredProcedure implements ResultSetExtractor<
         compile();
     }
 
-    public Integer execute(Integer key, Worker request) {
+    public Integer execute(Worker request) {
         return (Integer) super.execute(request.getFirstName(), request.getLastName(),
                 request.getGender(), request.getDateOfBirth(), request.getNationality(),
                 request.getPosition(), request.getEmailAddres(), request.getDailyWorkHourTotal(),

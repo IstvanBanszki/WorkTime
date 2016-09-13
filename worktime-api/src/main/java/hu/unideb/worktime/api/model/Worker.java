@@ -16,7 +16,7 @@ public class Worker {
     private final int departmentId;
     private final int userId;
 
-    private Worker(String firstName, String lastName, Gender gender, LocalDateTime dateOfBirth, 
+    public Worker(String firstName, String lastName, Gender gender, LocalDateTime dateOfBirth, 
             String nationality, String position, int dailyWorkHourTotal, String emailAddres, 
             int superiorId, int departmentId, int userId) {
         this.firstName = firstName;
@@ -74,6 +74,48 @@ public class Worker {
 
     public int getUserId() {
         return userId;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + (this.firstName != null ? this.firstName.hashCode() : 0);
+        hash = 59 * hash + (this.lastName != null ? this.lastName.hashCode() : 0);
+        hash = 59 * hash + (this.gender != null ? this.gender.hashCode() : 0);
+        hash = 59 * hash + (this.dateOfBirth != null ? this.dateOfBirth.hashCode() : 0);
+        hash = 59 * hash + (this.nationality != null ? this.nationality.hashCode() : 0);
+        hash = 59 * hash + (this.position != null ? this.position.hashCode() : 0);
+        hash = 59 * hash + this.dailyWorkHourTotal;
+        hash = 59 * hash + (this.emailAddres != null ? this.emailAddres.hashCode() : 0);
+        hash = 59 * hash + this.superiorId;
+        hash = 59 * hash + this.departmentId;
+        hash = 59 * hash + this.userId;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Worker other = (Worker) obj;
+        return (this.dailyWorkHourTotal != other.dailyWorkHourTotal) &&
+               (this.superiorId != other.superiorId)  &&
+               (this.departmentId != other.departmentId) &&
+               (this.userId != other.userId) &&
+               (this.firstName != null ? this.firstName.equals(other.firstName) : other.firstName == null) &&
+               (this.lastName != null ? this.lastName.equals(other.lastName) : other.lastName == null) &&
+               (this.dateOfBirth != null ? this.dateOfBirth.equals(other.dateOfBirth) : other.dateOfBirth == null) &&
+               (this.nationality != null ? this.nationality.equals(other.nationality) : other.nationality == null) &&
+               (this.position != null ? this.position.equals(other.position) : other.position == null) &&
+               (this.emailAddres != null ? this.emailAddres.equals(other.emailAddres) : other.emailAddres == null) &&
+               (this.gender != null ? this.gender.equals(other.gender) : other.gender == null);
     }
 
     @Override
