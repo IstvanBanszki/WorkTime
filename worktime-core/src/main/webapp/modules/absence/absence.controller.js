@@ -156,7 +156,7 @@ angular.module('Absence')
 				$scope.absences.forEach(function(absence) {
 					absence.beginDate = moment(absence.beginDate).format('YYYY.MM.DD');
 					absence.endDate = moment(absence.endDate).format('YYYY.MM.DD');
-				});	
+				});
 			}
 		};
     }]);

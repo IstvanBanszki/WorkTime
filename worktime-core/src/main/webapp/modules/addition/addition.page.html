@@ -6,6 +6,34 @@
 			<md-tabs md-dynamic-height="" md-border-bottom="">
 				<md-tab label="Office and Department Management">
 					<md-content class="md-padding">
+						<div class="w3-border w3-round w3-padding-medium">
+							<md-input-container style="width: 140px; padding-left: 15px">
+								<label>Offices</label>
+								<md-select ng-model="selectedOfficeName" md-on-close="setDepartments()" md-on-open="showODInformation = false">
+									<md-option ng-repeat="office in offices" value="{{office.name}}">{{office.name}}</md-option>
+								</md-select>
+							</md-input-container>
+							<md-input-container style="width: 140px; padding-left: 15px">
+								<label>Departments</label>
+								<md-select ng-model="selectedDepartmentName" md-on-close="listInformation()">
+									<md-option ng-repeat="department in departmentsForOffice" value="{{department.name}}">{{department.name}}</md-option>
+								</md-select>
+							</md-input-container>
+							<br>
+							<div ng-show="showODInformation">
+								Office:<br/>
+								<div class="w3-margin-left">
+									Name: {{officeName}}<br/>
+									Address: {{officeAddress}}<br/>
+									Date Of Foundation: {{officeDateOfFoundation}}<br/>
+								</div>
+								Department:<br/>
+								<div class="w3-margin-left">
+									Name: {{departmentName}}<br/>
+									Date Of Foundation: {{departmentDateOfFoundation}}<br/>
+								</div>
+							</div>
+						</div>
 					</md-content>
 				</md-tab>
 				<md-tab label="User and Worker Management">	
