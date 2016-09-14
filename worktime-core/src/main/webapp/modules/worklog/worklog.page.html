@@ -71,8 +71,14 @@
 									</div>
 								</td>
 								<td>
-									<span class="fa fa-trash w3-xlarge" ng-click="DeleteWorklog($event, worklog)"></span> 
-									<span class="fa fa-edit w3-xlarge" ng-click="EditWorklog($event, worklog)"></span>
+									<div class="tooltip">
+										<span class="fa fa-trash w3-xlarge" ng-click="DeleteWorklog($event, worklog)"></span> 
+										<span class="tooltiptext">Delete Worklog</span>
+									</div>
+									<div class="tooltip">
+										<span class="fa fa-edit w3-xlarge" ng-click="EditWorklog($event, worklog)"></span>
+										<span class="tooltiptext">Edit Worklog</span>
+									</div>
 								</td>
 							</tr>
 						</table>

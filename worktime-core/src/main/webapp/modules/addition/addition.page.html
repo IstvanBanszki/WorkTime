@@ -21,18 +21,24 @@
 							</md-input-container>
 							<br>
 							<div ng-show="showODInformation">
-								Office:<br/>
+								<div class="tooltip">
+									<span class="fa fa-edit w3-xlarge" ng-click="editOffice($event)"></span>
+									<span class="tooltiptext">Edit Office</span>
+								</div> Office: <br>
 								<div class="w3-margin-left">
-									Name: {{officeName}}<br/>
-									Address: {{officeAddress}}<br/>
-									Date Of Foundation: {{officeDateOfFoundation}}<br/>
-									Number Of Worker: {{officeWorkerNumber}}
+									Name: {{officeName}}<br>
+									Address: {{officeAddress}}<br>
+									Date Of Foundation: {{officeDateOfFoundtation}}<br>
+									Number Of Worker: {{officeWorkerNumber}}<br>
 								</div>
-								Department:<br/>
+								<div class="tooltip">
+									<span class="fa fa-edit w3-xlarge" ng-click="editDepartment($event)"></span>
+									<span class="tooltiptext">Edit Department</span>
+								</div> Department: <br>
 								<div class="w3-margin-left">
-									Name: {{departmentName}}<br/>
-									Date Of Foundation: {{departmentDateOfFoundation}}<br/>
-									Number Of Worker: {{departmentWorkerNumber}}
+									Name: {{departmentName}}<br>
+									Date Of Foundation: {{departmentDateOfFoundtation}}<br>
+									Number Of Worker: {{departmentWorkerNumber}}<br>
 								</div>
 							</div>
 							<br>

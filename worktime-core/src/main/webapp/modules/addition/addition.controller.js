@@ -77,9 +77,9 @@ angular.module('Addition')
 			}
 			$scope.officeName = $scope.selectedOfficeName;
 			$scope.officeAddress = $scope.selectedOffice.address;
-			$scope.officeDateOfFoundtation = $scope.selectedOffice.dateOfFoundtation;
+			$scope.officeDateOfFoundtation = moment(new Date($scope.selectedOffice.dateOfFoundtation[0],$scope.selectedOffice.dateOfFoundtation[1],$scope.selectedOffice.dateOfFoundtation[2],0,0,0,0)).format('YYYY.MM.DD');
 			$scope.departmentName = $scope.selectedDepartmentName;
-			$scope.departmentDateOfFoundtation = $scope.selectedDepartment.dateOfFoundtation;
+			$scope.departmentDateOfFoundtation = moment(new Date($scope.selectedDepartment.dateOfFoundtation[0],$scope.selectedDepartment.dateOfFoundtation[1],$scope.selectedDepartment.dateOfFoundtation[2],0,0,0,0)).format('YYYY.MM.DD');
 			$scope.departmentWorkerNumber = $scope.selectedDepartment.workerNumber;
 		};
 

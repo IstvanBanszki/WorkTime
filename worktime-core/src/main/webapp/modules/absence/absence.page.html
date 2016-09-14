@@ -90,8 +90,14 @@
 									</div>
 								</td>
 								<td>
-									<span class="fa fa-trash w3-xlarge" ng-click="DeleteAbsence($event, absence)"></span>
-									<span class="fa fa-edit w3-xlarge" ng-click="EditAbsence($event, absence)"></span>
+									<div class="tooltip">
+										<span class="fa fa-trash w3-xlarge" ng-click="DeleteAbsence($event, absence)"></span>
+										<span class="tooltiptext">Delete Absence</span>
+									</div>
+									<div class="tooltip">
+										<span class="fa fa-edit w3-xlarge" ng-click="EditAbsence($event, absence)"></span>
+										<span class="tooltiptext">Edit Absence</span>
+									</div>
 								</td>
 							</tr>
 						</table>
