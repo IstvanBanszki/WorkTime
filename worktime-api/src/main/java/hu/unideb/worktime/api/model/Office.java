@@ -16,6 +16,13 @@ public class Office {
         this.dateOfFoundtation = dateOfFoundtation;
     }
 
+    public Office() {
+        this.id = 0;
+        this.name = "";
+        this.address = "";
+        this.dateOfFoundtation = LocalDate.now();
+    }
+
     public int getId() {
         return id;
     }

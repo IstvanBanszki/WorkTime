@@ -4,7 +4,6 @@ import hu.unideb.worktime.api.model.Department;
 import hu.unideb.worktime.api.model.Office;
 import hu.unideb.worktime.api.model.User;
 import hu.unideb.worktime.api.model.Worker;
-import hu.unideb.worktime.jdbc.worklog.SqlCallWorklog;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,7 @@ public class SqlCallAddition {
     @Autowired private SpEditDepartment spEditDepartment;
     @Autowired private SpSaveUser spSaveUser;
     @Autowired private SpSaveWorker spSaveWorker;
-    private Logger logger = LoggerFactory.getLogger(SqlCallWorklog.class);
+    private Logger logger = LoggerFactory.getLogger(SqlCallAddition.class);
     
     
     public List<Office> getOffices() {

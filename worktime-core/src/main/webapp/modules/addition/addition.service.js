@@ -60,7 +60,7 @@ angular.module("Addition")
 				return deferred.promise;
 			});
 	}
-	service.EditOffice = function(officeId, name, address, dateOfFoundation) {
+	service.EditOffice = function(officeId, name, address, dateOfFoundtation) {
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
@@ -71,7 +71,7 @@ angular.module("Addition")
 			data: {
 				'name': name,
 				'address': address,
-				'dateOfFoundation': dateOfFoundation
+				'dateOfFoundtation': dateOfFoundtation
 			}
 		}).then(function successCallback(response) {
 
@@ -84,7 +84,7 @@ angular.module("Addition")
 				return deferred.promise;
 			});
 	}
-	service.EditDepartment = function(departmentId, name, dateOfFoundation, officeId) {
+	service.EditDepartment = function(departmentId, name, dateOfFoundtation, officeId) {
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
@@ -94,7 +94,7 @@ angular.module("Addition")
 			},
 			data: {
 				'name': name,
-				'dateOfFoundation': dateOfFoundation,
+				'dateOfFoundtation': dateOfFoundtation,
 				'officeId': officeId
 			}
 		}).then(function successCallback(response) {

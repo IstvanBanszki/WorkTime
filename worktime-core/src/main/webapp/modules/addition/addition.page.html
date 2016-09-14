@@ -22,7 +22,7 @@
 							<br>
 							<div ng-show="showODInformation">
 								<div class="tooltip">
-									<span class="fa fa-edit w3-xlarge" ng-click="editOffice($event)"></span>
+									<span class="fa fa-edit w3-xlarge" ng-click="showEditOfficeForm = !showEditOfficeForm"></span>
 									<span class="tooltiptext">Edit Office</span>
 								</div> Office: <br>
 								<div class="w3-margin-left">
@@ -32,7 +32,7 @@
 									Number Of Worker: {{officeWorkerNumber}}<br>
 								</div>
 								<div class="tooltip">
-									<span class="fa fa-edit w3-xlarge" ng-click="editDepartment($event)"></span>
+									<span class="fa fa-edit w3-xlarge" ng-click="showEditDepartmentForm = !showEditDepartmentForm"></span>
 									<span class="tooltiptext">Edit Department</span>
 								</div> Department: <br>
 								<div class="w3-margin-left">
@@ -45,6 +45,33 @@
 							<input class="w3-btn w3-green w3-padding-tiny" ng-click="createNewOffice()" value="Add New Office"></input>
 							<input class="w3-btn w3-green w3-padding-tiny" ng-click="createNewDepartment()" value="Add New Department"></input>
 						</div>
+						<form ng-show="showEditOfficeForm" class="w3-border w3-round w3-padding-medium" ng-submit="editOffice()">
+							<h2>Edit Office Form</h2>
+							<p><label class="w3-label">Name:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="officeName" required>
+
+							<p><label class="w3-label">Address:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Address" ng-model="officeAddress" required>
+
+							<p><label class="w3-label">Date Of Foundation:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Date Of Foundation" ng-model="officeDateOfFoundtation" required>
+
+							<div class="w3-padding-8">
+								<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
+							</div>
+						</form>
+						<form ng-show="showEditDepartmentForm" class="w3-border w3-round w3-padding-medium" ng-submit="editDepartment()">
+							<h2>Edit Department Form</h2>
+							<p><label class="w3-label">Name:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="officeName" required>
+
+							<p><label class="w3-label">Address:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Address" ng-model="officeAddress" required>
+
+							<div class="w3-padding-8">
+								<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
+							</div>
+						</form>
 					</md-content>
 				</md-tab>
 				<md-tab label="User and Worker Management">	
