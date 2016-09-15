@@ -19,6 +19,8 @@ angular.module('Addition')
 		$scope.showODInformation = false;
 		$scope.showEditOfficeForm = false;
 		$scope.showEditDepartmentForm = false;
+		$scope.showSaveOfficeForm = false;
+		$scope.showSaveDepartmentForm = false;
 
 		$scope.init = function() {
 			AdditionService.GetDepartments().then(
@@ -36,13 +38,34 @@ angular.module('Addition')
 				}
 			);
 		};
-		
-		$scope.openSelect = function() {		
+		$scope.openEditOffice = function() {
+			$scope.showSaveOfficeForm = false;
+			$scope.showSaveDepartmentForm = false;
+			$scope.showEditOfficeForm = !$scope.showEditOfficeForm;
+		};
+		$scope.openEditDepartment = function() {
+			$scope.showSaveOfficeForm = false;
+			$scope.showSaveDepartmentForm = false;
+			$scope.showEditDepartmentForm = !$scope.showEditDepartmentForm;
+		};
+		$scope.openSaveOffice = function() {
+			$scope.showEditOfficeForm = false;
+			$scope.showEditDepartmentForm = false;
+			$scope.showSaveOfficeForm = !$scope.showSaveOfficeForm;
+		};
+		$scope.openSaveDepartment = function() {
+			$scope.showEditOfficeForm = false;
+			$scope.showEditDepartmentForm = false;
+			$scope.showSaveDepartmentForm = !$scope.showSaveDepartmentForm;
+		};
+		$scope.openSelect = function() {
 			$scope.officeWorkerNumber = 0;
 			$scope.departmentWorkerNumber = 0;
 			$scope.showODInformation = false;
 			$scope.showEditOfficeForm = false;
 			$scope.showEditDepartmentForm = false;
+			$scope.showSaveOfficeForm = false;
+			$scope.showSaveDepartmentForm = false;
 		};
 		$scope.setDepartments = function() {
 			if (!(typeof $scope.departments) || ($scope.departments.length !== 0)) {
@@ -70,9 +93,11 @@ angular.module('Addition')
 		$scope.officeName = "";
 		$scope.officeAddress = "";
 		$scope.officeDateOfFoundtation = "";
+		$scope.officeDateOfFoundtationForEdit = "";
 		$scope.officeWorkerNumber = 0;
 		$scope.departmentName = "";
 		$scope.departmentDateOfFoundtation = "";
+		$scope.departmentDateOfFoundtationForEdit = "";
 		$scope.departmentWorkerNumber = 0;
 		
 		$scope.listInformation = function() {
@@ -87,26 +112,58 @@ angular.module('Addition')
 			$scope.officeName = $scope.selectedOfficeName;
 			$scope.officeAddress = $scope.selectedOffice.address;
 			$scope.officeDateOfFoundtation = $scope.selectedOffice.dateOfFoundtation;
+			$scope.officeDateOfFoundtationForEdit = moment($scope.selectedOffice.dateOfFoundtation, 'YYYY.MM.DD', false).toDate();
+
 			$scope.departmentName = $scope.selectedDepartmentName;
 			$scope.departmentDateOfFoundtation = $scope.selectedDepartment.dateOfFoundtation;
+			$scope.departmentDateOfFoundtationForEdit = moment($scope.selectedDepartment.dateOfFoundtation, 'YYYY.MM.DD', false).toDate();
 			$scope.departmentWorkerNumber = $scope.selectedDepartment.workerNumber;
 		};
 		$scope.editOffice  = function() {
-			AdditionService.EditOffice($scope.selectedOffice.id, $scope.officeName, $scope.officeAddress, $scope.officeDateOfFoundtation).then(
-				function() {
+			var newDate = moment($scope.officeDateOfFoundtationForEdit).format('YYYY.MM.DD');
+			AdditionService.EditOffice($scope.selectedOffice.id, $scope.officeName, $scope.officeAddress, newDate).then(
+				function(result) {
 					$scope.offices[$scope.indexOfSelectedOffice].name = $scope.officeName;
 					$scope.offices[$scope.indexOfSelectedOffice].address = $scope.officeAddress;
-					$scope.offices[$scope.indexOfSelectedOffice].dateOfFoundtation = $scope.officeDateOfFoundtation;
+					$scope.offices[$scope.indexOfSelectedOffice].dateOfFoundtation = newDate;
+					$scope.officeDateOfFoundtation = newDate;
 				},
 				function(error) {
 				}
 			);
 		};
 		$scope.editDepartment = function() {
-			AdditionService.EditDepartment($scope.selectedDepartment.id, $scope.departmentName, $scope.departmentDateOfFoundtation, $scope.selectedDepartment.officeId).then(
-				function() {
+			var newDate = moment($scope.departmentDateOfFoundtationForEdit).format('YYYY.MM.DD');
+			AdditionService.EditDepartment($scope.selectedDepartment.id, $scope.departmentName, newDate, $scope.selectedDepartment.officeId).then(
+				function(result) {
 					$scope.departments[$scope.indexOfSelectedDepartment].name = $scope.departmentName;
-					$scope.departments[$scope.indexOfSelectedDepartment].dateOfFoundtation = $scope.departmentDateOfFoundtation;
+					$scope.departments[$scope.indexOfSelectedDepartment].dateOfFoundtation = newDate;
+					$scope.departmentDateOfFoundtation = newDate;
+				},
+				function(error) {
+				}
+			);
+		};
+
+		$scope.officeNameForCreation = "";
+		$scope.officeAddressForCreation = "";
+		$scope.officeDateOfFoundtationForCreation = "";
+		$scope.departmentNameForCreation = "";
+		$scope.departmentDateOfFoundtationForCreation = "";
+
+		$scope.createNewOffice = function() {
+			var newDate = moment($scope.officeDateOfFoundtationForCreation).format('YYYY.MM.DD');
+			AdditionService.SaveOffice($scope.officeNameForCreation, $scope.officeAddressForCreation, newDate).then(
+				function(result) {
+				},
+				function(error) {
+				}
+			);
+		};
+		$scope.createNewDepartment = function() {
+			var newDate = moment($scope.departmentDateOfFoundtationForCreation).format('YYYY.MM.DD');
+			AdditionService.SaveDepartment($scope.departmentNameForCreation, newDate, $scope.selectedDepartment.officeId).then(
+				function(result) {
 				},
 				function(error) {
 				}
