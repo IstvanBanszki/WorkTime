@@ -150,6 +150,7 @@ angular.module('Addition')
 		$scope.officeDateOfFoundtationForCreation = "";
 		$scope.departmentNameForCreation = "";
 		$scope.departmentDateOfFoundtationForCreation = "";
+		$scope.selectedOfficeIdForCreation = -1;
 
 		$scope.createNewOffice = function() {
 			var newDate = moment($scope.officeDateOfFoundtationForCreation).format('YYYY.MM.DD');
@@ -162,7 +163,7 @@ angular.module('Addition')
 		};
 		$scope.createNewDepartment = function() {
 			var newDate = moment($scope.departmentDateOfFoundtationForCreation).format('YYYY.MM.DD');
-			AdditionService.SaveDepartment($scope.departmentNameForCreation, newDate, $scope.selectedDepartment.officeId).then(
+			AdditionService.SaveDepartment($scope.departmentNameForCreation, newDate, $scope.selectedOfficeIdForCreation).then(
 				function(result) {
 				},
 				function(error) {

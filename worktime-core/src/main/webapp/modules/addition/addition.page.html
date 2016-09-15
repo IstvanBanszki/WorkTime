@@ -95,7 +95,7 @@
 								</md-content>
 
 								<div class="w3-padding-8">
-									<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
+									<input class="w3-btn w3-green w3-left-align" type="submit" value="Create"></input>
 								</div>
 							</form>
 						</div>
@@ -110,8 +110,16 @@
 									<p><md-datepicker ng-model="departmentDateOfFoundtationForCreation" md-placeholder="Date Of Foundation"></md-datepicker>
 								</md-content>
 
+								<p><label class="w3-label">Offices:</label></p>
+								<md-input-container style="width: 140px; padding-left: 15px">
+									<label>Offices</label>
+									<md-select ng-model="selectedOfficeIdForCreation">
+										<md-option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</md-option>
+									</md-select>
+								</md-input-container>
+
 								<div class="w3-padding-8">
-									<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
+									<input class="w3-btn w3-green w3-left-align" type="submit" value="Create"></input>
 								</div>
 							</form>
 						</div>
