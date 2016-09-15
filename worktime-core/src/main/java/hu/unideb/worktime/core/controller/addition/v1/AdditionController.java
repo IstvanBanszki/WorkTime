@@ -6,8 +6,9 @@ import hu.unideb.worktime.api.model.User;
 import hu.unideb.worktime.api.model.Worker;
 import hu.unideb.worktime.core.security.WTEncryption;
 import hu.unideb.worktime.jdbc.addition.SqlCallAddition;
+import hu.unideb.worktime.jdbc.addition.SqlCallDepartmentAddition;
+import hu.unideb.worktime.jdbc.addition.SqlCallOfficeAddition;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,48 +24,44 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdditionController {
 
     @Autowired private SqlCallAddition sqlCallAddition;
+    @Autowired private SqlCallDepartmentAddition sqlCallDepartmentAddition;
+    @Autowired private SqlCallOfficeAddition sqlCallOfficeAddition;
     @Autowired private WTEncryption wTEncryption;
 
     @Async
     @RequestMapping(value = "/officeId/{officeId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editOffice(@PathVariable("officeId") Integer officeId, @RequestBody Office request) {
-        return this.sqlCallAddition.editOffice(officeId, request);
+        return this.sqlCallOfficeAddition.editOffice(officeId, request);
     }
 
     @Async
     @RequestMapping(value = "/offices", method = RequestMethod.GET)
     public @ResponseBody List<Office> getOffice() {
-        return this.sqlCallAddition.getOffices();
+        return this.sqlCallOfficeAddition.getOffices();
     }
 
     @Async
     @RequestMapping(value = "/offices", method = RequestMethod.PUT)
     public @ResponseBody Integer saveOffice(@RequestBody Office request) {
-        return this.sqlCallAddition.saveOffice(request);
+        return this.sqlCallOfficeAddition.saveOffice(request);
     }
 
     @Async
     @RequestMapping(value = "/departmentId/{departmentId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editDepartment(@PathVariable("departmentId") Integer departmentId, @RequestBody Department request) {
-        return this.sqlCallAddition.editDepartment(departmentId, request);
+        return this.sqlCallDepartmentAddition.editDepartment(departmentId, request);
     }
 
     @Async
     @RequestMapping(value = "/departments", method = RequestMethod.GET)
     public @ResponseBody List<Department> getDepartment() {
-        return this.sqlCallAddition.getDepartments();
+        return this.sqlCallDepartmentAddition.getDepartments();
     }
 
     @Async
     @RequestMapping(value = "/departments", method = RequestMethod.PUT)
     public @ResponseBody Integer saveDepartment(@RequestBody Department request) {
-        return this.sqlCallAddition.saveDepartment(request);
-    }
-
-    @Async
-    @RequestMapping(value = "/officesWithDepartments", method = RequestMethod.GET)
-    public @ResponseBody Map<Office, Department> getOfficesWIthDepartments() {
-        return this.sqlCallAddition.getOfficesWithDepartment();
+        return this.sqlCallDepartmentAddition.saveDepartment(request);
     }
 
     @Async
