@@ -21,6 +21,8 @@ public class SqlCallAddition {
     @Autowired private SpEditDepartment spEditDepartment;
     @Autowired private SpSaveUser spSaveUser;
     @Autowired private SpSaveWorker spSaveWorker;
+    @Autowired private SpSaveOffice spSaveOffice;
+    @Autowired private SpSaveDepartment spSaveDepartment;
     private Logger logger = LoggerFactory.getLogger(SqlCallAddition.class);
     
     
@@ -129,6 +131,36 @@ public class SqlCallAddition {
             this.logger.error("There is an exception during save_worker SP call: {}", ex);
         }
         this.logger.info("Result of save_worker SP: {}", result);
+        return result;
+    }
+    
+    public Integer saveOffice(Office values) {
+        Integer result = null;
+        this.logger.info("Call save_office SP with given parameters: Key - {}, values - {}", values);
+        try {
+            result = this.spSaveOffice.execute(values);
+            if (result == null) {
+                this.logger.debug("There is an error while save the office in database! Key - {}, values - {}", values);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during save_office SP call: {}", ex);
+        }
+        this.logger.info("Result of save_office SP: {}", result);
+        return result;
+    }
+    
+    public Integer saveDepartment(Department values) {
+        Integer result = null;
+        this.logger.info("Call save_department SP with given parameters: values - {}", values);
+        try {
+            result = this.spSaveDepartment.execute(values);
+            if (result == null) {
+                this.logger.debug("There is an error while save the department in database! values - {}", values);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during save_department SP call: {}", ex);
+        }
+        this.logger.info("Result of save_department SP: {}", result);
         return result;
     }
 

@@ -33,8 +33,14 @@ public class AdditionController {
 
     @Async
     @RequestMapping(value = "/offices", method = RequestMethod.GET)
-    public @ResponseBody List<Office> getAbsence() {
+    public @ResponseBody List<Office> getOffice() {
         return this.sqlCallAddition.getOffices();
+    }
+
+    @Async
+    @RequestMapping(value = "/offices", method = RequestMethod.PUT)
+    public @ResponseBody Integer saveOffice(@RequestBody Office request) {
+        return this.sqlCallAddition.saveOffice(request);
     }
 
     @Async
@@ -47,6 +53,12 @@ public class AdditionController {
     @RequestMapping(value = "/departments", method = RequestMethod.GET)
     public @ResponseBody List<Department> getDepartment() {
         return this.sqlCallAddition.getDepartments();
+    }
+
+    @Async
+    @RequestMapping(value = "/departments", method = RequestMethod.PUT)
+    public @ResponseBody Integer saveDepartment(@RequestBody Department request) {
+        return this.sqlCallAddition.saveDepartment(request);
     }
 
     @Async
