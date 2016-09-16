@@ -37,7 +37,7 @@ public class SpSaveAbsence extends StoredProcedure implements ResultSetExtractor
         compile();
     }
 
-    public Integer execute(Integer workerId, AbsenceRequest values) {
+    public Integer saveAbsence(Integer workerId, AbsenceRequest values) {
         Integer result = null;
         List<Integer> spResult = (List<Integer>) super.execute(values.getBeginDate(), 
                 values.getEndDate(), workerId, values.getAbsenceType().getId()).get(SP_RESULT);

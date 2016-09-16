@@ -32,7 +32,7 @@ public class SpGetWorklog extends StoredProcedure implements RowMapper<WorklogRe
         compile();
     }
 
-    public List<WorklogResponse> execute(Integer key, String request) {
+    public List<WorklogResponse> getWorklogs(Integer key, String request) {
         List<WorklogResponse> spResult = (List<WorklogResponse>) super.execute(key, request).get(SP_RESULT);
         if (spResult != null) {
             return spResult;

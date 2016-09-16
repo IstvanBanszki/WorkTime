@@ -33,7 +33,7 @@ public class SpSaveOffice extends StoredProcedure implements ResultSetExtractor<
         compile();
     }
 
-    public Integer execute(Office request) {
+    public Integer saveOffice(Office request) {
         return (Integer) super.execute(request.getName(), request.getAddress(), 
                 request.getDateOfFoundtation()).get(SP_RESULT);
     }

@@ -26,7 +26,7 @@ public class SpGetAllDepartments extends StoredProcedure implements RowMapper<De
         compile();
     }
 
-    public List<Department> execute() {
+    public List<Department> getDepartments() {
         List<Department> spResult = (List<Department>) super.execute().get(SP_RESULT);
         if (spResult != null) {
             return spResult;

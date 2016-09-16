@@ -19,7 +19,7 @@ public class SqlCallDepartmentAddition {
         List<Department> result = null;
         this.logger.info("Call get_all_deparments SP with given parameters.");
         try {
-            result = this.spGetAllDepartments.execute();
+            result = this.spGetAllDepartments.getDepartments();
             if (result == null || result.isEmpty()) {
                 this.logger.debug("There is no such department in database!");
             }
@@ -34,7 +34,7 @@ public class SqlCallDepartmentAddition {
         Integer result = null;
         this.logger.info("Call edit_department SP with given parameters: Key - {}, values - {}", id, values);
         try {
-            result = this.spEditDepartment.execute(id, values);
+            result = this.spEditDepartment.editDepartment(id, values);
             if (result == null) {
                 this.logger.debug("There is an error while edit the department in database! Key - {}, values - {}", id, values);
             }
@@ -49,7 +49,7 @@ public class SqlCallDepartmentAddition {
         Integer result = null;
         this.logger.info("Call save_department SP with given parameters: values - {}", values);
         try {
-            result = this.spSaveDepartment.execute(values);
+            result = this.spSaveDepartment.saveDepartment(values);
             if (result == null) {
                 this.logger.debug("There is an error while save the department in database! values - {}", values);
             }

@@ -35,7 +35,7 @@ public class SpEditOffice extends StoredProcedure implements ResultSetExtractor<
         compile();
     }
 
-    public Integer execute(Integer id, Office request) {
+    public Integer editOffice(Integer id, Office request) {
         return (Integer) super.execute(request.getName(), request.getAddress(), 
                 request.getDateOfFoundtation(), id).get(SP_RESULT);
     }

@@ -35,7 +35,7 @@ public class SpEditDepartment extends StoredProcedure implements ResultSetExtrac
         compile();
     }
 
-    public Integer execute(Integer id, Department request) {
+    public Integer editDepartment(Integer id, Department request) {
         return (Integer) super.execute(request.getName(), request.getDateOfFoundtation(), 
                 request.getOfficeId(), id).get(SP_RESULT);
     }

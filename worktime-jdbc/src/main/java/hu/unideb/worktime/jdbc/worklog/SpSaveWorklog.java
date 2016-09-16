@@ -33,7 +33,7 @@ public class SpSaveWorklog extends StoredProcedure implements ResultSetExtractor
         compile();
     }
 
-    public Integer execute(Integer workerId, WorklogRequest values) {
+    public Integer saveWorklog(Integer workerId, WorklogRequest values) {
         return (Integer) super.execute(values.getBeginDate(), 
                 values.getWorkHour(), workerId).get(SP_RESULT);
     }

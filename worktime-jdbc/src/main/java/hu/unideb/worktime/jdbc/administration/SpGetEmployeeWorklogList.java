@@ -37,7 +37,7 @@ public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapp
         compile();
     }
 
-    public List<AdministrationWorklogResponse> execute(String firstName, String lastName, AdministrationWorklogRequest request) {
+    public List<AdministrationWorklogResponse> getWorklogListForEmployee(String firstName, String lastName, AdministrationWorklogRequest request) {
 
         List<AdministrationWorklogResponse> spResult = (List<AdministrationWorklogResponse>) 
                 super.execute(firstName, lastName, request.getDateFilter(), request.isShowDailyWorkhours()).get(SP_RESULT);

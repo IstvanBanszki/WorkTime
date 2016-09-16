@@ -33,7 +33,7 @@ public class SpEditWorklog extends StoredProcedure implements ResultSetExtractor
         compile();
     }
 
-    public Integer execute(Integer id, WorklogRequest values) {
+    public Integer editWorklog(Integer id, WorklogRequest values) {
         return (Integer) super.execute(id, values.getBeginDate(), 
                 values.getWorkHour()).get(SP_RESULT);
     }

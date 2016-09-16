@@ -33,7 +33,7 @@ public class SpSaveUser extends StoredProcedure implements ResultSetExtractor<In
         compile();
     }
 
-    public Integer execute(User request, String password) {
+    public Integer saveUser(User request, String password) {
         return (Integer) super.execute(request.getLoginName(), password, request.getRole().getId()).get(SP_RESULT);
     }
 

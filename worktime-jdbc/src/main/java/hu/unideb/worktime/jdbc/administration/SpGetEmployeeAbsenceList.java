@@ -40,7 +40,7 @@ public class SpGetEmployeeAbsenceList extends StoredProcedure implements RowMapp
         compile();
     }
 
-    public List<AdministrationAbsenceResponse> execute(String firstName, String lastName, 
+    public List<AdministrationAbsenceResponse> getAbsenceListForEmployee(String firstName, String lastName, 
             AdministrationAbsenceRequest request) {
 
         List<AdministrationAbsenceResponse> spResult = (List<AdministrationAbsenceResponse>) 

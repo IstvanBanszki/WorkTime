@@ -29,7 +29,7 @@ public class SpApproveEmployeeAbsence extends StoredProcedure implements ResultS
         compile();
     }
 
-    public Integer execute(Integer key) {
+    public Integer approve(Integer key) {
         return (Integer) super.execute(key).get(SP_RESULT);
     }
 

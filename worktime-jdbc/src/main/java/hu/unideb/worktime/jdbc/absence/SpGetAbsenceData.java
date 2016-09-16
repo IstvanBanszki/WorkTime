@@ -30,7 +30,7 @@ public class SpGetAbsenceData extends StoredProcedure implements RowMapper<Absen
         compile();
     }
 
-    public List<AbsenceDataResponse> execute(Integer key) {
+    public List<AbsenceDataResponse> getAbsenceData(Integer key) {
         List<AbsenceDataResponse> spResult = (List<AbsenceDataResponse>) super.execute(key).get(SP_RESULT);
         if (spResult != null) {
             return spResult;

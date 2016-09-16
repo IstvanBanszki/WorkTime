@@ -22,7 +22,7 @@ public class SqlCallAddition {
         Integer result = null;
         this.logger.info("Call save_user SP with given parameters: User - {}, passwordForSave - {}", user, password);
         try {
-            result = this.spSaveUser.execute(user, password);
+            result = this.spSaveUser.saveUser(user, password);
             if (result == null) {
                 this.logger.debug("There is an error while save user in database! User - {}, passwordForSave - {}", user, password);
             }
@@ -37,7 +37,7 @@ public class SqlCallAddition {
         Integer result = null;
         this.logger.info("Call save_worker SP with given parameters: Worker - {}", worker);
         try {
-            result = this.spSaveWorker.execute(worker);
+            result = this.spSaveWorker.saveWorker(worker);
             if (result == null) {
                 this.logger.debug("There is an error while save user in database! Worker - {}", worker);
             }
@@ -52,7 +52,7 @@ public class SqlCallAddition {
         List<Superior> result = null;
         this.logger.info("Call get_superiors SP with given parameters.");
         try {
-            result = this.spGetAllSuperiorWorkers.execute();
+            result = this.spGetAllSuperiorWorkers.getSuperiors();
             if (result == null || result.isEmpty()) {
                 this.logger.debug("There is no such superior in database!");
             }

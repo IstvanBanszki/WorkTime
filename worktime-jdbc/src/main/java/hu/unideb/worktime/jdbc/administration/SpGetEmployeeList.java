@@ -30,7 +30,7 @@ public class SpGetEmployeeList extends StoredProcedure implements RowMapper<Empl
         compile();
     }
 
-    public List<Employee> execute(Integer key) {
+    public List<Employee> getEmployees(Integer key) {
 
         List<Employee> spResult = (List<Employee>) super.execute(key).get(SP_RESULT);
         if(spResult != null){

@@ -28,7 +28,7 @@ public class SpDeleteAbsence extends StoredProcedure implements ResultSetExtract
         compile();
     }
 
-    public Integer execute(Integer key) {
+    public Integer deleteAbsence(Integer key) {
         return (Integer) super.execute(key).get(SP_RESULT);
     }
 

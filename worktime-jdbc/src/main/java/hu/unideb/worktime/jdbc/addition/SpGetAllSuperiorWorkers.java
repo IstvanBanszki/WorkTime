@@ -26,7 +26,7 @@ public class SpGetAllSuperiorWorkers extends StoredProcedure implements RowMappe
         compile();
     }
 
-    public List<Superior> execute() {
+    public List<Superior> getSuperiors() {
         List<Superior> spResult = (List<Superior>) super.execute().get(SP_RESULT);
         if (spResult != null) {
             return spResult;

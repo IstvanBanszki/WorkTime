@@ -35,7 +35,7 @@ public class SpEditAbsence extends StoredProcedure implements ResultSetExtractor
         compile();
     }
     
-    public Integer execute(Integer id, AbsenceRequest values) {
+    public Integer editAbsence(Integer id, AbsenceRequest values) {
         return (Integer) super.execute(id, values.getBeginDate(), 
                 values.getEndDate(), values.getAbsenceType().getId()).get(SP_RESULT);
     }

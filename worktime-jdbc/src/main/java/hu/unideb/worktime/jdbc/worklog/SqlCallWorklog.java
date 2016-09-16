@@ -21,7 +21,7 @@ public class SqlCallWorklog {
         Integer result = null;
         this.logger.info("Call save_worklog SP with given parameters: Key - {}, values - {}", workerId, values);
         try {
-            result = this.spSaveWorklog.execute(workerId, values);
+            result = this.spSaveWorklog.saveWorklog(workerId, values);
             if(result == null){
                 this.logger.debug("There is an error while saving the worklog in database! Key - {}, values - {}", workerId, values);
             }
@@ -36,7 +36,7 @@ public class SqlCallWorklog {
         List<WorklogResponse> result = null;
         this.logger.info("Call get_all_worklog_by_worker SP with given parameters - Key: {}, DateFilter: {}", key, request);
         try {
-            result = this.spGetWorklog.execute(key, request);
+            result = this.spGetWorklog.getWorklogs(key, request);
             if(result == null ||result.isEmpty()) {
                 this.logger.debug("There is no such worklogs in database! Key: {}, DateFilter: {}", key, request);
             }
@@ -51,7 +51,7 @@ public class SqlCallWorklog {
         Integer result = null;
         this.logger.info("Call delete_worklog SP with given parameters: Key - {}", key);
         try {
-            result = this.spDeleteWorklog.execute(key);
+            result = this.spDeleteWorklog.deleteWorklog(key);
             if(result == null) {
                 this.logger.debug("There is an error while delete the worklog in database! Key - {}", key);
             }
@@ -66,7 +66,7 @@ public class SqlCallWorklog {
         Integer result = null;
         this.logger.info("Call edit_worklog SP with given parameters: Key - {}, values - {}", id, values);
         try {
-            result = this.spEditWorklog.execute(id, values);
+            result = this.spEditWorklog.editWorklog(id, values);
             if(result == null) {
                 this.logger.debug("There is an error while edit the worklog in database! Key - {}, values - {}", id, values);
             }

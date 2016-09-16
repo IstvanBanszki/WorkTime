@@ -26,7 +26,7 @@ public class SpGetAllOffices extends StoredProcedure implements RowMapper<Office
         compile();
     }
 
-    public List<Office> execute() {
+    public List<Office> getOffices() {
         List<Office> spResult = (List<Office>) super.execute().get(SP_RESULT);
         if (spResult != null) {
             return spResult;

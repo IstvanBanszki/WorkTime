@@ -31,7 +31,7 @@ public class SpGetProfile extends StoredProcedure implements ResultSetExtractor<
         compile();
     }
 
-    public ProfileRecord execute(int workerId) {
+    public ProfileRecord getProfileRecord(int workerId) {
         return (ProfileRecord) super.execute(workerId).get(SP_RESULT);
     }
 

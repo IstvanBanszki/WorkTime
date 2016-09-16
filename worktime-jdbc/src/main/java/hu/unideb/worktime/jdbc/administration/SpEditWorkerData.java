@@ -39,7 +39,7 @@ public class SpEditWorkerData extends StoredProcedure implements ResultSetExtrac
         compile();
     }
 
-    public Integer execute(Integer key, EditWorker request) {
+    public Integer editWorkerData(Integer key, EditWorker request) {
         return (Integer) super.execute(request.getFirstName(), request.getLastName(),
                 request.getPosition(), request.getEmailAddress(), request.getDailyWorkHourTotal(),
                 key).get(SP_RESULT);

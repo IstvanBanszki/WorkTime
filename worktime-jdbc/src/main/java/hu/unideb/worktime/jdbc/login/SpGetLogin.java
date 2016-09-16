@@ -29,7 +29,7 @@ public class SpGetLogin extends StoredProcedure implements ResultSetExtractor<Lo
         compile();
     }
 
-    public LoginRecord execute(String loginName) {
+    public LoginRecord getLoginRecord(String loginName) {
         return (LoginRecord) super.execute(loginName).get(SP_RESULT);
     }
 

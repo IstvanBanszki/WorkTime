@@ -33,7 +33,7 @@ public class SpUpdatePassword extends StoredProcedure implements ResultSetExtrac
         compile();
     }
 
-    public Integer execute(UpdatePasswordRecord key) {
+    public Integer update(UpdatePasswordRecord key) {
         return (Integer) super.execute(key.getLoginName(),
                 key.getOldPassword(), key.getNewPassword()).get(SP_RESULT);
     }

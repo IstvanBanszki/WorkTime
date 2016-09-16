@@ -49,7 +49,7 @@ public class SpSaveWorker extends StoredProcedure implements ResultSetExtractor<
         compile();
     }
 
-    public Integer execute(Worker request) {
+    public Integer saveWorker(Worker request) {
         return (Integer) super.execute(request.getFirstName(), request.getLastName(),
                 request.getGender(), request.getDateOfBirth(), request.getNationality(),
                 request.getPosition(), request.getEmailAddres(), request.getDailyWorkHourTotal(),

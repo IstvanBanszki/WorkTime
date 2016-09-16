@@ -33,7 +33,7 @@ public class SpSaveDepartment extends StoredProcedure implements ResultSetExtrac
         compile();
     }
 
-    public Integer execute(Department request) {
+    public Integer saveDepartment(Department request) {
         return (Integer) super.execute(request.getName(), request.getDateOfFoundtation(),
                                     request.getOfficeId()).get(SP_RESULT);
     }

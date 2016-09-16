@@ -20,7 +20,7 @@ public class SqlCallOfficeAddition {
         List<Office> result = null;
         this.logger.info("Call get_all_offices SP with given parameters.");
         try {
-            result = this.spGetAllOffices.execute();
+            result = this.spGetAllOffices.getOffices();
             if (result == null || result.isEmpty()) {
                 this.logger.debug("There is no such office in database!");
             }
@@ -35,7 +35,7 @@ public class SqlCallOfficeAddition {
         Integer result = null;
         this.logger.info("Call edit_office SP with given parameters: Key - {}, values - {}", id, values);
         try {
-            result = this.spEditOffice.execute(id, values);
+            result = this.spEditOffice.editOffice(id, values);
             if (result == null) {
                 this.logger.debug("There is an error while edit the office in database! Key - {}, values - {}", id, values);
             }
@@ -50,7 +50,7 @@ public class SqlCallOfficeAddition {
         Integer result = null;
         this.logger.info("Call save_office SP with given parameters: Key - {}, values - {}", values);
         try {
-            result = this.spSaveOffice.execute(values);
+            result = this.spSaveOffice.saveOffice(values);
             if (result == null) {
                 this.logger.debug("There is an error while save the office in database! Key - {}, values - {}", values);
             }

@@ -27,7 +27,7 @@ public class SqlCallAdministration {
         List<Employee> result = null;
         this.logger.info("Call get_employee_list SP with given parameters: {}", workerId);
         try {
-            result = this.spGetEmployeeList.execute(workerId);
+            result = this.spGetEmployeeList.getEmployees(workerId);
             if (result == null ||result.isEmpty()) {
                 this.logger.debug("There is no such employees in database! Key: {}", workerId);
             }
@@ -42,7 +42,7 @@ public class SqlCallAdministration {
         List<AdministrationWorklogResponse> result = null;
         this.logger.info("Call get_employee_worklog_list SP with given parameters: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
         try {
-            result = this.spGetEmployeeWorklogList.execute(firstName, lastName, request);
+            result = this.spGetEmployeeWorklogList.getWorklogListForEmployee(firstName, lastName, request);
             if (result == null ||result.isEmpty()) {
                 this.logger.debug("There is no such worklogs in database! Key: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
             }
@@ -57,7 +57,7 @@ public class SqlCallAdministration {
         List<AdministrationAbsenceResponse> result = null;
         this.logger.info("Call get_employee_absence_list SP with given parameters: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
         try {
-            result = this.spGetEmployeeAbsenceList.execute(firstName, lastName, request);
+            result = this.spGetEmployeeAbsenceList.getAbsenceListForEmployee(firstName, lastName, request);
             if (result == null || result.isEmpty()) {
                 this.logger.debug("There is no such absence in database! Key: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
             }
@@ -72,7 +72,7 @@ public class SqlCallAdministration {
         Integer result = null;
         this.logger.info("Call accept_absence SP with given parameters: Key - {}", id);
         try {
-            result = this.spAcceptAbsenceStatus.execute(id);
+            result = this.spAcceptAbsenceStatus.approve(id);
             if (result == null) {
                 this.logger.debug("There is an error while accept the absence in database! Key - {}", id);
             }
@@ -87,7 +87,7 @@ public class SqlCallAdministration {
         Integer result = null;
         this.logger.info("Call edit_worker_data SP with given parameters: Key - {}, Request - {}", id, request);
         try {
-            result = this.spEditWorkerData.execute(id, request);
+            result = this.spEditWorkerData.editWorkerData(id, request);
             if (result == null) {
                 this.logger.debug("There is an error while edit the worker data in database! Key - {}, Request - {}", id, request);
             }
@@ -102,7 +102,7 @@ public class SqlCallAdministration {
         EditWorker result = null;
         this.logger.info("Call get_worker_data SP with given parameters: Key - {}", id);
         try {
-            result = this.spGetEmployeeWorkerData.execute(id);
+            result = this.spGetEmployeeWorkerData.getWorkerData(id);
             if (result == null) {
                 this.logger.debug("There is an error while get the worker data in database! Key - {}", id);
             }

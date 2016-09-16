@@ -16,7 +16,7 @@ public class SqlCallProfile {
         ProfileRecord result = null;
         this.logger.info("Call get_profile_data SP with given parameters: {}", workerId);
         try {
-            result = this.spProfile.execute(workerId);
+            result = this.spProfile.getProfileRecord(workerId);
             if(result == null){
                 this.logger.debug("There is no such profile in database! Key: {}", workerId);
             }

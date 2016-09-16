@@ -23,7 +23,7 @@ public class SqlCallAbsence {
         Integer result = null;
         this.logger.info("Call save_absence SP with given parameters: Key - {}, Values - {}", workerId, values);
         try {
-            result = this.spSaveAbsence.execute(workerId, values);
+            result = this.spSaveAbsence.saveAbsence(workerId, values);
             if (result == null) {
                 this.logger.debug("There is an error while saving the absence in database! Key: {}, Values - {}", workerId, values);
             }
@@ -38,7 +38,7 @@ public class SqlCallAbsence {
         List<AbsenceResponse> result = null;
         this.logger.info("Call get_all_absence_by_worker SP with given parameters - Key {}, dateFilter: {}", key, request);
         try {
-            result = this.spGetAbsence.execute(key, request);
+            result = this.spGetAbsence.getAbsences(key, request);
             if (result == null || result.isEmpty()) {
                 this.logger.debug("There is no such absences in database! Key: {}, dateFilter: {}", key, request);
             }
@@ -53,7 +53,7 @@ public class SqlCallAbsence {
         List<AbsenceDataResponse> result = null;
         this.logger.info("Call get_absence_data SP with given parameters: {}", key);
         try {
-            result = this.spGetAbsenceData.execute(key);
+            result = this.spGetAbsenceData.getAbsenceData(key);
             if (result == null || result.isEmpty()) {
                 this.logger.debug("There is no such absence in database! Key: {}", key);
             }
@@ -68,7 +68,7 @@ public class SqlCallAbsence {
         Integer result = null;
         this.logger.info("Call delete_absence SP with given parameters: Key - {}", key);
         try {
-            result = this.spDeleteAbsence.execute(key);
+            result = this.spDeleteAbsence.deleteAbsence(key);
             if (result == null) {
                 this.logger.debug("There is an error while delete the absence in database! Key - {}", key);
             }
@@ -83,7 +83,7 @@ public class SqlCallAbsence {
         Integer result = null;
         this.logger.info("Call edit_absence SP with given parameters: Key - {}, values - {}", id, values);
         try {
-            result = this.spEditAbsence.execute(id, values);
+            result = this.spEditAbsence.editAbsence(id, values);
             if (result == null) {
                 this.logger.debug("There is an error while edit the absence in database! Key - {}, values - {}", id, values);
             }

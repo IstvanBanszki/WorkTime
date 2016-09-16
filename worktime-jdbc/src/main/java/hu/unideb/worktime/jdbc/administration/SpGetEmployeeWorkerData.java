@@ -30,7 +30,7 @@ public class SpGetEmployeeWorkerData extends StoredProcedure implements ResultSe
         compile();
     }
 
-    public EditWorker execute(Integer key) {
+    public EditWorker getWorkerData(Integer key) {
         return (EditWorker) super.execute(key).get(SP_RESULT);
     }
 

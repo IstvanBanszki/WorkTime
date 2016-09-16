@@ -18,7 +18,7 @@ public class SqlCallLogin {
         LoginRecord result = null;
         this.logger.info("Call get_login SP with given parameters: {}", loginName);
         try {
-            result = this.spGetLogin.execute(loginName);
+            result = this.spGetLogin.getLoginRecord(loginName);
             if (result == null) {
                 this.logger.debug("There is no such login user in database! Key: {}", loginName);
             }
@@ -33,7 +33,7 @@ public class SqlCallLogin {
         Integer result = null;
         this.logger.info("Call change_password SP with given parameters: {}", key);
         try {
-            result = this.spUpdatePassword.execute(key);
+            result = this.spUpdatePassword.update(key);
             if (result == -1) {
                 this.logger.debug("There is an error during update password! Key: {}", key);
             }
