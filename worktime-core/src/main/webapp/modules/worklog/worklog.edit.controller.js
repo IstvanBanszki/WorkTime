@@ -13,11 +13,12 @@ angular.module('Worklog')
 		$scope.error = false;
 
 		$scope.editWorklog = function() {
-			WorklogService.EditWorklog($scope.id, $scope.newBeginDate, $scope.newWorkHour).then(
+			var newDate = moment($scope.newBeginDate).format('YYYY.MM.DD');
+			WorklogService.EditWorklog($scope.id, newDate, $scope.newWorkHour).then(
 				function(result) {
 					if(result === 1) {
 						$scope.answer({
-							beginDate: $scope.newBeginDate,
+							beginDate: newDate,
 							workHour: $scope.newWorkHour
 						});
 					} else {

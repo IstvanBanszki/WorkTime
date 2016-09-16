@@ -12,7 +12,7 @@ angular.module("Worklog")
 				'Content-Type': 'application/json'
 			},
 			data: {
-				'beginDate': moment(beginDate).format('YYYY-MM-DD'),
+				'beginDate': beginDate,
 				'workHour': workHour
 			}
 		}).then(function successCallback(response) {

@@ -50,7 +50,7 @@ public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapp
     @Override
     public AdministrationWorklogResponse mapRow(ResultSet rs, int i) throws SQLException {
         return new AdministrationWorklogResponse(rs.getString("note"), rs.getInt("id"), 
-                rs.getTimestamp("begin_date").toLocalDateTime(), rs.getInt("work_hour"));
+                rs.getDate("begin_date").toLocalDate(), rs.getInt("work_hour"));
     }
     
 }

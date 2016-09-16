@@ -133,7 +133,7 @@ public class ExportService implements IExportService {
     private void createWorklogRow(Row row, CellStyle dataCellStyle, CellStyle dateCellStyle, WorklogResponse response) {
 
         Cell beginDateCell = row.createCell(0);
-        beginDateCell.setCellValue(Date.from(response.getBeginDate().atZone(ZoneId.systemDefault()).toInstant()));
+        beginDateCell.setCellValue(Date.from(response.getBeginDate().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
         beginDateCell.setCellStyle(dateCellStyle);
 
         Cell workHourCell = row.createCell(1);

@@ -45,10 +45,11 @@ angular.module('Worklog')
 				//	$scope.showStatus(-1);
 				//}
 			//}
-			WorklogService.AddWorklog($scope.beginDate, $scope.workHour, $rootScope.userData.workerId).then(
+			var newDate = moment($scope.beginDate).format('YYYY.MM.DD');
+			WorklogService.AddWorklog(newDate, $scope.workHour, $rootScope.userData.workerId).then(
 				function(result) {
 					$scope.worklogs.push({
-						beginDate: moment($scope.beginDate).format('YYYY.MM.DD'),
+						beginDate: newDate,
 						workHour: $scope.workHour
 					});
 					$scope.beginDate = "";
@@ -72,7 +73,6 @@ angular.module('Worklog')
 				function(result) {
 					$scope.worklogs = [];
 					$scope.worklogs = result;
-					$scope.dateFormatter();
 				},
 				function(error) {
 				}
@@ -113,7 +113,7 @@ angular.module('Worklog')
 			}).then(function(answer) {
 				for(var i = 0; i < $scope.worklogs.length; i++) {
 					if($scope.worklogs[i].id === worklog.id) {
-					   $scope.worklogs[i].beginDate = moment(answer.beginDate).format('YYYY.MM.DD');
+					   $scope.worklogs[i].beginDate = answer.beginDate;
 					   $scope.worklogs[i].workHour = answer.workHour;
 					   break;
 					}
@@ -140,12 +140,5 @@ angular.module('Worklog')
 		};
 		$scope.range = function(count) {
 			return new Array(count);
-		};
-		$scope.dateFormatter = function() {
-			if (!(typeof $scope.worklogs) || $scope.worklogs.length !== 0) {
-				$scope.worklogs.forEach(function(worklog) {
-					worklog.beginDate = moment(worklog.beginDate).format('YYYY.MM.DD');
-				});
-			}
 		};
     }]);

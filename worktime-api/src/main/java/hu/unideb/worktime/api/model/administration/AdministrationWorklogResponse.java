@@ -2,13 +2,13 @@ package hu.unideb.worktime.api.model.administration;
 
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class AdministrationWorklogResponse extends WorklogResponse implements Serializable {
     
     private final String note;
 
-    public AdministrationWorklogResponse(String note, int id, LocalDateTime beginDate, int workHour) {
+    public AdministrationWorklogResponse(String note, int id, LocalDate beginDate, int workHour) {
         super(id, beginDate, workHour);
         this.note = note;
     }

@@ -66,7 +66,6 @@ angular.module('Administration')
 							$scope.employeeWorklogs = result;
 							if($scope.employeeWorklogs.length > 0) {
 								$scope.emptyWorklogList = false;
-								$scope.dateFormatterWorklog();
 							} else {
 								$scope.emptyWorklogList = true;
 							}
@@ -141,13 +140,6 @@ angular.module('Administration')
 			);
 		};
 
-		$scope.dateFormatterWorklog = function() {
-			if (!(typeof $scope.employeeWorklogs) || $scope.employeeWorklogs.length !== 0) {
-				$scope.employeeWorklogs.forEach(function(employeeWorklog) {
-					employeeWorklog.beginDate = moment(employeeWorklog.beginDate).format('YYYY.MM.DD');
-				});
-			}
-		};
 		$scope.dateFormatterAbsences = function() {
 			if (!(typeof $scope.employeeAbsences) || $scope.employeeAbsences.length !== 0) {
 				$scope.employeeAbsences.forEach(function(employeeAbsence) {
@@ -171,13 +163,6 @@ angular.module('Administration')
 				$scope.sortReverse = !$scope.sortReverse;
 			} else {
 				$scope.sortType = tableHeader;
-			}
-		};
-		$scope.worklogDateFormatter = function() {
-			if (!(typeof $scope.employeeWorklogs) || $scope.employeeWorklogs.length !== 0) {
-				$scope.employeeWorklogs.forEach(function(employeeWorklog) {
-					employeeWorklog.beginDate = moment(employeeWorklog.beginDate).format('YYYY.MM.DD');
-				});
 			}
 		};
     }]);
