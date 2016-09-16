@@ -110,7 +110,7 @@
 									<p><md-datepicker ng-model="departmentDateOfFoundtationForCreation" md-placeholder="Date Of Foundation"></md-datepicker>
 								</md-content>
 
-								<p><label class="w3-label">Offices:</label></p>
+								<p><label class="w3-label">Office:</label></p>
 								<md-input-container style="width: 140px; padding-left: 15px">
 									<label>Offices</label>
 									<md-select ng-model="selectedOfficeIdForCreation">
@@ -127,6 +127,39 @@
 				</md-tab>
 				<md-tab label="User and Worker Management">	
 					<md-content class="md-padding">
+						<div class="w3-border w3-round w3-padding-medium">
+							<input class="w3-btn w3-green w3-padding-tiny" ng-click="openSaveUser()" value="Add New User"></input>
+							<input class="w3-btn w3-green w3-padding-tiny" ng-click="openSaveWorker()" value="Add New Worker"></input>
+						</div>
+						<form ng-show="showSaveUserForm" ng-submit="createNewUser()">
+							<h2>Create User Form</h2>
+							<p><label class="w3-label">Login Name:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="loginName" required>
+
+							<p><label class="w3-label">Role:</label></p>
+							<md-input-container style="width: 140px; padding-left: 15px">
+								<label>Roles</label>
+								<md-select ng-model="selectedRoleForCreation">
+									<md-option ng-repeat="role in roles" value="{{role.id}}">{{role.name}}</md-option>
+								</md-select>
+							</md-input-container>
+
+							<div class="w3-padding-8">
+								<input class="w3-btn w3-green w3-left-align" type="submit" value="Create"></input>
+							</div>
+						</form>
+						<form ng-show="showSaveWorkerForm" ng-submit="createNewWorker()">
+							<h2>Create Worker Form</h2>
+							<p><label class="w3-label">First Name:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="firstName" required>
+
+							<p><label class="w3-label">Last Name:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="lastName" required>
+
+							<div class="w3-padding-8">
+								<input class="w3-btn w3-green w3-left-align" type="submit" value="Create"></input>
+							</div>
+						</form>
 					</md-content>
 				</md-tab>
 			</md-tabs>

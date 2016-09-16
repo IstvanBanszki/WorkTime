@@ -170,4 +170,40 @@ angular.module('Addition')
 				}
 			);
 		};
+		
+		$scope.showSaveUserForm = false;
+		$scope.showSaveWorkerForm = false;
+		$scope.roles = [
+			{id: 2, name: 'WORKER_ROLE'}, 
+			{id: 3, name: 'SUPERIOR_ROLE'}
+		];
+		$scope.loginName = "";
+		$scope.selectedRoleForCreation = "";
+		$scope.firstName = "";
+		$scope.lastName = "";
+
+		$scope.openSaveUser = function() {
+			$scope.showSaveWorkerForm = false;
+			$scope.showSaveUserForm = !$scope.showSaveUserForm;
+		};
+		$scope.openSaveWorker = function() {
+			$scope.showSaveUserForm = false;
+			$scope.showSaveWorkerForm = !$scope.showSaveWorkerForm;
+		};
+		$scope.createNewUser = function() {
+			AdditionService.SaveUser($scope.loginName, '', $scopeselectedRoleForCreation).then(
+				function(result) {
+				},
+				function(error) {
+				}
+			);
+		};
+		$scope.createNewWorker = function() {
+			AdditionService.SaveWorker().then(
+				function(result) {
+				},
+				function(error) {
+				}
+			);
+		};
     }]);

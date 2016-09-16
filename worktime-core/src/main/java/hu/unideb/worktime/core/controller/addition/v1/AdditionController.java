@@ -4,6 +4,7 @@ import hu.unideb.worktime.api.model.Department;
 import hu.unideb.worktime.api.model.Office;
 import hu.unideb.worktime.api.model.User;
 import hu.unideb.worktime.api.model.Worker;
+import hu.unideb.worktime.api.model.addition.Superior;
 import hu.unideb.worktime.core.security.WTEncryption;
 import hu.unideb.worktime.jdbc.addition.SqlCallAddition;
 import hu.unideb.worktime.jdbc.addition.SqlCallDepartmentAddition;
@@ -67,7 +68,7 @@ public class AdditionController {
     @Async
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
     public @ResponseBody Integer createUser(@RequestBody User request) {
-        String passwordForSave = this.wTEncryption.encryptPassword(request.getPassword());
+        String passwordForSave = this.wTEncryption.generateRandomPassword();
         return this.sqlCallAddition.saveUser(request, passwordForSave);
     }
     
@@ -77,4 +78,10 @@ public class AdditionController {
         return this.sqlCallAddition.saveWorker(request);
     }
     
+    @Async
+    @RequestMapping(value = "/superiors", method = RequestMethod.GET)
+    public @ResponseBody List<Superior> getSuperior() {
+        return this.sqlCallAddition.getSuperiors();
+    }
+
 }

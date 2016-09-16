@@ -5,9 +5,9 @@ import java.util.Arrays;
 public enum Role {
 
     NOT_SET(1, "NOT_SET"),
-    WORKER_ROLE(2, "COMPANY_ADMIN-ROLE"),
+    WORKER_ROLE(2, "WORKER_ROLE"),
     SUPEROR_ROLE(3, "SUPERIOR_ROLE"),
-    COMPANY_ADMIN_ROLE(4, "WORKER_ROLE");
+    COMPANY_ADMIN_ROLE(4, "COMPANY_ADMIN_ROLE");
 
     private Role(int id, String name) {
         this.id = id;

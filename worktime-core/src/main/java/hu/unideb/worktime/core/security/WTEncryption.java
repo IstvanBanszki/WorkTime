@@ -4,12 +4,15 @@ import org.jasypt.contrib.org.apache.commons.codec_1_3.binary.Base64;
 import org.jasypt.digest.StandardStringDigester;
 import org.jasypt.salt.RandomSaltGenerator;
 import org.springframework.stereotype.Component;
+import java.security.SecureRandom;
 
 @Component
 public class WTEncryption {
 
     private final StandardStringDigester passwordEncryptor;
     private final Base64 base64Converter;
+
+    static final String ABC = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     public WTEncryption() {
         this.passwordEncryptor = new StandardStringDigester();
@@ -33,8 +36,17 @@ public class WTEncryption {
     public String base64Decode(String text) {
         return new String(this.base64Converter.decode(text.getBytes()));
     }
-    
-    public String base64Encode(String text){
+
+    public String base64Encode(String text) {
         return new String(this.base64Converter.encode(text.getBytes()));
+    }
+
+    public String generateRandomPassword() {
+        SecureRandom random = new SecureRandom();
+        StringBuilder sb = new StringBuilder(10);
+        for (int i = 0; i < 10; i++) {
+            sb.append(ABC.charAt(random.nextInt(ABC.length())));
+        }
+        return sb.toString();
     }
 }
