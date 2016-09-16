@@ -3,6 +3,7 @@ package hu.unideb.worktime.api.model.profile;
 import hu.unideb.worktime.api.model.Gender;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class ProfileRecord implements Serializable {
     
@@ -10,7 +11,7 @@ public class ProfileRecord implements Serializable {
     private final String firstName;
     private final String lastName;
     private final Gender gender;
-    private final LocalDateTime dateOfBirth;
+    private final LocalDate dateOfBirth;
     private final String nationality;
     private final String position;
     private final String emailAddress;
@@ -18,7 +19,7 @@ public class ProfileRecord implements Serializable {
     private final String departmentName;
     private final String officeName;
 
-    public ProfileRecord(LocalDateTime dateOfRegistration, String firstName, String lastName, Gender gender, LocalDateTime dateOfBirth, String nationality, String position, String emailAddress, int dailyWorkHourTotal, String departmentName, String officeName) {
+    public ProfileRecord(LocalDateTime dateOfRegistration, String firstName, String lastName, Gender gender, LocalDate dateOfBirth, String nationality, String position, String emailAddress, int dailyWorkHourTotal, String departmentName, String officeName) {
         this.dateOfRegistration = dateOfRegistration;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -38,7 +39,7 @@ public class ProfileRecord implements Serializable {
         private String firstName;
         private String lastName;
         private Gender gender;
-        private LocalDateTime dateOfBirth;
+        private LocalDate dateOfBirth;
         private String nationality;
         private String position;
         private String emailAddress;
@@ -80,7 +81,7 @@ public class ProfileRecord implements Serializable {
             return this;
         }
 
-        public Builder setDateOfBirth(LocalDateTime dateOfBirth) {
+        public Builder setDateOfBirth(LocalDate dateOfBirth) {
             this.dateOfBirth = dateOfBirth;
             return this;
         }
@@ -146,7 +147,7 @@ public class ProfileRecord implements Serializable {
         return this.gender;
     }
 
-    public LocalDateTime getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return this.dateOfBirth;
     }
 

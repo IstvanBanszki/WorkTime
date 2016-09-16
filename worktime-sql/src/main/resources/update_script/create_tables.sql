@@ -78,7 +78,7 @@ CREATE TABLE `worker` (
   `first_name` tinytext NOT NULL,
   `last_name` tinytext NOT NULL,
   `gender` int(1) NOT NULL,
-  `date_of_birth` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date_of_birth` date NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nationality` tinytext NOT NULL,
   `position` tinytext NOT NULL,
   `email_address` tinytext NOT NULL,

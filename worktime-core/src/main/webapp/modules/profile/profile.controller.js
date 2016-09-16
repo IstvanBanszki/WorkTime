@@ -62,7 +62,7 @@ angular.module('Profile')
 					$scope.firstName = result.firstName;
 					$scope.lastName = result.lastName;
 					$scope.gender = result.gender;
-					$scope.dateOfBirth = moment(result.dateOfBirth).format('YYYY.MM.DD HH:mm:ss');
+					$scope.dateOfBirth = result.dateOfBirth;
 					$scope.nationality = result.nationality ;
 					// Work Tab - initial value
 					$scope.position = result.position;

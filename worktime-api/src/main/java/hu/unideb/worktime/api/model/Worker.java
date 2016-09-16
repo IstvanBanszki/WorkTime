@@ -1,13 +1,13 @@
 package hu.unideb.worktime.api.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Worker {
 
     private final String firstName;
     private final String lastName;
     private final Gender gender;
-    private final LocalDateTime dateOfBirth;
+    private final LocalDate dateOfBirth;
     private final String nationality;
     private final String position;
     private final int dailyWorkHourTotal;
@@ -16,8 +16,8 @@ public class Worker {
     private final int departmentId;
     private final int userId;
 
-    public Worker(String firstName, String lastName, Gender gender, LocalDateTime dateOfBirth, 
-            String nationality, String position, int dailyWorkHourTotal, String emailAddres, 
+    public Worker(String firstName, String lastName, Gender gender, LocalDate dateOfBirth,
+            String nationality, String position, int dailyWorkHourTotal, String emailAddres,
             int superiorId, int departmentId, int userId) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -44,7 +44,7 @@ public class Worker {
         return gender;
     }
 
-    public LocalDateTime getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 

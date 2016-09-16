@@ -45,7 +45,7 @@ public class SpGetProfile extends StoredProcedure implements ResultSetExtractor<
                   .setFirstName(rs.getString("first_name"))
                   .setLastName(rs.getString("last_name"))
                   .setGender(Gender.valueOf(rs.getInt("gender")))
-                  .setDateOfBirth(rs.getTimestamp("date_of_birth").toLocalDateTime())
+                  .setDateOfBirth(rs.getDate("date_of_birth").toLocalDate())
                   .setNationality(rs.getString("nationality"))
                   .setPosition(rs.getString("position"))
                   .setEmailAddress(rs.getString("email_address"))
