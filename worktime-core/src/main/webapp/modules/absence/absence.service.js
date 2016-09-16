@@ -12,8 +12,8 @@ angular.module("Absence")
 				'Content-Type': 'application/json'
 			},
 			data: {
-				'beginDate': moment(beginDate).format('YYYY-MM-DD'), 
-				'endDate': moment(endDate).format('YYYY-MM-DD'),
+				'beginDate': beginDate, 
+				'endDate': endDate,
 				'absenceType': absenceType
 			}
 		}).then(function successCallback(response) {
@@ -93,8 +93,8 @@ angular.module("Absence")
 				'Content-Type': 'application/json'
 			},
 			data: {
-				'beginDate': moment(beginDate).format('YYYY-MM-DD'), 
-				'endDate': moment(endDate).format('YYYY-MM-DD'),
+				'beginDate': beginDate, 
+				'endDate': endDate,
 				'absenceType': absenceType
 			}
 		}).then(function successCallback(response) {

@@ -84,7 +84,6 @@ angular.module('Administration')
 							$scope.employeeAbsences = result;
 							if($scope.employeeAbsences.length > 0) {
 								$scope.emptyAbsenceList = false;
-								$scope.dateFormatterAbsences();
 							} else {
 								$scope.emptyAbsenceList = true;
 							}
@@ -138,15 +137,6 @@ angular.module('Administration')
 				function(error) {
 				}
 			);
-		};
-
-		$scope.dateFormatterAbsences = function() {
-			if (!(typeof $scope.employeeAbsences) || $scope.employeeAbsences.length !== 0) {
-				$scope.employeeAbsences.forEach(function(employeeAbsence) {
-					employeeAbsence.beginDate = moment(employeeAbsence.beginDate).format('YYYY.MM.DD');
-					employeeAbsence.endDate   = moment(employeeAbsence.endDate).format('YYYY.MM.DD');
-				});
-			}
 		};
 
 		$scope.sortType = "BeginDate";

@@ -2,12 +2,12 @@ package hu.unideb.worktime.api.model.absence;
 
 import hu.unideb.worktime.api.model.AbsenceType;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class AbsenceRequest implements Serializable{
     
-    private final Date beginDate;
-    private final Date endDate;
+    private final LocalDate beginDate;
+    private final LocalDate endDate;
     private final AbsenceType absenceType;
 
     public AbsenceRequest() {
@@ -16,17 +16,17 @@ public class AbsenceRequest implements Serializable{
         this.absenceType = AbsenceType.NOT_SET;
     }
 
-    public AbsenceRequest(Date beginDate, Date endDate, int workerId, AbsenceType absenceType) {
+    public AbsenceRequest(LocalDate beginDate, LocalDate endDate, int workerId, AbsenceType absenceType) {
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.absenceType = absenceType;
     }
 
-    public Date getBeginDate() {
+    public LocalDate getBeginDate() {
         return this.beginDate;
     }
     
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return this.endDate;
     }
 

@@ -55,8 +55,8 @@ public class SpGetEmployeeAbsenceList extends StoredProcedure implements RowMapp
     public AdministrationAbsenceResponse mapRow(ResultSet rs, int i) throws SQLException {
         return new Builder().setId(rs.getInt("id"))
                                      .setNote(rs.getString("note"))
-                                     .setBeginDate(rs.getTimestamp("begin_date").toLocalDateTime())
-                                     .setEndDate(rs.getTimestamp("end_date").toLocalDateTime())
+                                     .setBeginDate(rs.getDate("begin_date").toLocalDate())
+                                     .setEndDate(rs.getDate("end_date").toLocalDate())
                                      .setStatus(Status.valueOf(rs.getInt("status")))
                                      .setAbsenceType(AbsenceType.valueOf(rs.getInt("absence_type_id")))
                                      .build();

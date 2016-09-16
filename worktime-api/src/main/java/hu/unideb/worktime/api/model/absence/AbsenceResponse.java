@@ -3,17 +3,17 @@ package hu.unideb.worktime.api.model.absence;
 import hu.unideb.worktime.api.model.Status;
 import hu.unideb.worktime.api.model.AbsenceType;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class AbsenceResponse implements Serializable {
 
     private final int id;
-    private final LocalDateTime beginDate;
-    private final LocalDateTime endDate;
+    private final LocalDate beginDate;
+    private final LocalDate endDate;
     private final Status status;
     private final AbsenceType absenceType;
 
-    public AbsenceResponse(int id, LocalDateTime beginDate, LocalDateTime endDate, Status status, AbsenceType absenceType) {
+    public AbsenceResponse(int id, LocalDate beginDate, LocalDate endDate, Status status, AbsenceType absenceType) {
         this.id = id;
         this.beginDate = beginDate;
         this.endDate = endDate;
@@ -24,8 +24,8 @@ public class AbsenceResponse implements Serializable {
     public static class Builder {
 
         private int id;
-        private LocalDateTime beginDate;
-        private LocalDateTime endDate;
+        private LocalDate beginDate;
+        private LocalDate endDate;
         private Status status;
         private AbsenceType absenceType;
 
@@ -40,12 +40,12 @@ public class AbsenceResponse implements Serializable {
             return this;
         }
 
-        public Builder setBeginDate(LocalDateTime begin) {
+        public Builder setBeginDate(LocalDate begin) {
             this.beginDate = begin;
             return this;
         }
 
-        public Builder setEndDate(LocalDateTime end) {
+        public Builder setEndDate(LocalDate end) {
             this.endDate = end;
             return this;
         }
@@ -69,11 +69,11 @@ public class AbsenceResponse implements Serializable {
         return this.id;
     }
 
-    public LocalDateTime getBeginDate() {
+    public LocalDate getBeginDate() {
         return this.beginDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return this.endDate;
     }
 

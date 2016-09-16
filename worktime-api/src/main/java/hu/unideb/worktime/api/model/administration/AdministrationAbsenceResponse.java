@@ -4,14 +4,14 @@ import hu.unideb.worktime.api.model.AbsenceType;
 import hu.unideb.worktime.api.model.Status;
 import hu.unideb.worktime.api.model.absence.AbsenceResponse;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class AdministrationAbsenceResponse extends AbsenceResponse implements Serializable {
     
     private final String note;
 
-    public AdministrationAbsenceResponse(String note, int id, LocalDateTime beginDate, 
-            LocalDateTime endDate, Status status, AbsenceType absenceType) {
+    public AdministrationAbsenceResponse(String note, int id, LocalDate beginDate, 
+            LocalDate endDate, Status status, AbsenceType absenceType) {
         super(id, beginDate, endDate, status, absenceType);
         this.note = note;
     }
@@ -19,8 +19,8 @@ public class AdministrationAbsenceResponse extends AbsenceResponse implements Se
     public static class Builder {
 
         private int id;
-        private LocalDateTime beginDate;
-        private LocalDateTime endDate;
+        private LocalDate beginDate;
+        private LocalDate endDate;
         private Status status;
         private AbsenceType absenceType;
         private String note;
@@ -36,12 +36,12 @@ public class AdministrationAbsenceResponse extends AbsenceResponse implements Se
             return this;
         }
 
-        public Builder setBeginDate(LocalDateTime begin) {
+        public Builder setBeginDate(LocalDate begin) {
             this.beginDate = begin;
             return this;
         }
 
-        public Builder setEndDate(LocalDateTime end) {
+        public Builder setEndDate(LocalDate end) {
             this.endDate = end;
             return this;
         }

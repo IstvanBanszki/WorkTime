@@ -114,11 +114,11 @@ public class ExportService implements IExportService {
     private void createAbsenceRow(Row row, CellStyle dataCellStyle, CellStyle dateCellStyle, AbsenceResponse response) {
 
         Cell beginDateCell = row.createCell(0);
-        beginDateCell.setCellValue(Date.from(response.getBeginDate().atZone(ZoneId.systemDefault()).toInstant()));
+        beginDateCell.setCellValue(Date.from(response.getBeginDate().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
         beginDateCell.setCellStyle(dateCellStyle);
 
         Cell endDateCell = row.createCell(1);
-        endDateCell.setCellValue(Date.from(response.getEndDate().atZone(ZoneId.systemDefault()).toInstant()));
+        endDateCell.setCellValue(Date.from(response.getEndDate().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
         endDateCell.setCellStyle(dateCellStyle);
 
         Cell typeCell = row.createCell(2);

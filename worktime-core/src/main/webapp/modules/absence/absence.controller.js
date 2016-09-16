@@ -54,8 +54,15 @@ angular.module('Absence')
 				//	$scope.showStatus(-1);
 				//}
 			//}
-			AbsenceService.AddAbsence($scope.beginDate, $scope.endDate, $rootScope.userData.workerId, $scope.absenceType).then(
+			var dateBegin = moment($scope.beginDate).format('YYYY.MM.DD');
+			var dateEnd = moment($scope.endDate).format('YYYY.MM.DD');
+			AbsenceService.AddAbsence(dateBegin, dateEnd, $rootScope.userData.workerId, $scope.absenceType).then(
 				function(result) {
+					$scope.absences.push({
+						beginDate: dateBegin,
+						endDate: dateEnd,
+						absenceType: $scope.absenceType
+					});
 					$scope.absenceType = "PAYED";
 					$scope.beginDate = "";
 					$scope.endDate = "";
@@ -77,7 +84,6 @@ angular.module('Absence')
 				function(result) {
 					$scope.absences = [];
 					$scope.absences = result;
-					$scope.dateFormatter();
 				},
 				function(error) {
 				}
@@ -128,8 +134,8 @@ angular.module('Absence')
 			}).then(function(answer) {
 				for(var i = 0; i < $scope.absences.length; i++) {
 					if($scope.absences[i].id === absence.id) {
-						$scope.absences[i].beginDate = moment(answer.beginDate).format('YYYY.MM.DD');
-						$scope.absences[i].endDate = moment(answer.endDate).format('YYYY.MM.DD');
+						$scope.absences[i].beginDate = answer.beginDate;
+						$scope.absences[i].endDate = answer.endDate;
 						$scope.absences[i].absenceType = answer.absenceType;
 						break;
 					}
@@ -150,13 +156,5 @@ angular.module('Absence')
 				function(error) {
 				}
 			);
-		};
-		$scope.dateFormatter = function() {
-			if (!(typeof $scope.absences) || $scope.absences.length !== 0) {
-				$scope.absences.forEach(function(absence) {
-					absence.beginDate = moment(absence.beginDate).format('YYYY.MM.DD');
-					absence.endDate = moment(absence.endDate).format('YYYY.MM.DD');
-				});
-			}
 		};
     }]);

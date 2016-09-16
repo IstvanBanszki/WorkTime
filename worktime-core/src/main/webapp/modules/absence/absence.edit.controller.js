@@ -15,15 +15,17 @@ angular.module('Absence')
 		$scope.error = false;
 
 		$scope.editAbsence = function() {
-			AbsenceService.EditAbsence($scope.id, $scope.newBeginDate, $scope.newEndDate, $scope.newAbsenceType).then(
+			var answerBeginDate = moment($scope.newBeginDate).format('YYYY.MM.DD');
+			var answerEndDate = moment($scope.newEndDate).format('YYYY.MM.DD');
+			AbsenceService.EditAbsence($scope.id, answerBeginDate, answerEndDate, $scope.newAbsenceType).then(
 				function(result) {
-					if(result === 1) {
+					if (result === 1) {
 						$scope.answer({
-							beginDate: $scope.newBeginDate,
-							endDate: $scope.newEndDate,
+							beginDate: answerBeginDate,
+							endDate: answerEndDate,
 							absenceType: $scope.newAbsenceType
 						});
-					}else {
+					} else {
 						$scope.error = true;
 					}						
 				},
