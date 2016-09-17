@@ -2,6 +2,7 @@ package hu.unideb.worktime.jdbc.addition;
 
 import hu.unideb.worktime.api.model.User;
 import hu.unideb.worktime.api.model.Worker;
+import hu.unideb.worktime.api.model.addition.FreeLogin;
 import hu.unideb.worktime.api.model.addition.Superior;
 import java.util.List;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ public class SqlCallAddition {
     @Autowired private SpSaveUser spSaveUser;
     @Autowired private SpSaveWorker spSaveWorker;
     @Autowired private SpGetAllSuperiorWorkers spGetAllSuperiorWorkers;
+    @Autowired private SpGetFreeLogins spGetFreeLogins;
     private Logger logger = LoggerFactory.getLogger(SqlCallAddition.class);
     
     
@@ -60,6 +62,21 @@ public class SqlCallAddition {
             this.logger.error("There is an exception during get_superiors SP call: {}", ex);
         }
         this.logger.info("Result of get_superiors SP: {}", result);
+        return result;
+    }
+
+    public List<FreeLogin> getFreeLogins() {
+        List<FreeLogin> result = null;
+        this.logger.info("Call get_free_logins SP with given parameters.");
+        try {
+            result = this.spGetFreeLogins.getFreeLogins();
+            if (result == null || result.isEmpty()) {
+                this.logger.debug("There is no such free login in database!");
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during get_free_logins SP call: {}", ex);
+        }
+        this.logger.info("Result of get_free_logins SP: {}", result);
         return result;
     }
 

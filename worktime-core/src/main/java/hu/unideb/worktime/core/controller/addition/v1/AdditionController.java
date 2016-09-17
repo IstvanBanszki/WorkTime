@@ -4,6 +4,7 @@ import hu.unideb.worktime.api.model.Department;
 import hu.unideb.worktime.api.model.Office;
 import hu.unideb.worktime.api.model.User;
 import hu.unideb.worktime.api.model.Worker;
+import hu.unideb.worktime.api.model.addition.FreeLogin;
 import hu.unideb.worktime.api.model.addition.Superior;
 import hu.unideb.worktime.core.security.WTEncryption;
 import hu.unideb.worktime.jdbc.addition.SqlCallAddition;
@@ -82,6 +83,12 @@ public class AdditionController {
     @RequestMapping(value = "/superiors", method = RequestMethod.GET)
     public @ResponseBody List<Superior> getSuperior() {
         return this.sqlCallAddition.getSuperiors();
+    }
+    
+    @Async
+    @RequestMapping(value = "/freeLogin", method = RequestMethod.GET)
+    public @ResponseBody List<FreeLogin> getFreeLogins() {
+        return this.sqlCallAddition.getFreeLogins();
     }
 
 }
