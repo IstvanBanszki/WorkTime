@@ -49,6 +49,7 @@ angular.module('Worklog')
 			WorklogService.AddWorklog(newDate, $scope.workHour, $rootScope.userData.workerId).then(
 				function(result) {
 					$scope.worklogs.push({
+						id: result.newId,
 						beginDate: newDate,
 						workHour: $scope.workHour
 					});

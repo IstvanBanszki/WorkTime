@@ -2,10 +2,10 @@ package hu.unideb.worktime.core.controller.addition.v1;
 
 import hu.unideb.worktime.api.model.Department;
 import hu.unideb.worktime.api.model.Office;
-import hu.unideb.worktime.api.model.User;
+import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.Worker;
-import hu.unideb.worktime.api.model.addition.FreeLogin;
 import hu.unideb.worktime.api.model.addition.Superior;
+import hu.unideb.worktime.api.model.addition.UserExtended;
 import hu.unideb.worktime.core.security.WTEncryption;
 import hu.unideb.worktime.jdbc.addition.SqlCallAddition;
 import hu.unideb.worktime.jdbc.addition.SqlCallDepartmentAddition;
@@ -44,7 +44,7 @@ public class AdditionController {
 
     @Async
     @RequestMapping(value = "/offices", method = RequestMethod.PUT)
-    public @ResponseBody Integer saveOffice(@RequestBody Office request) {
+    public @ResponseBody SaveResult saveOffice(@RequestBody Office request) {
         return this.sqlCallOfficeAddition.saveOffice(request);
     }
 
@@ -62,33 +62,27 @@ public class AdditionController {
 
     @Async
     @RequestMapping(value = "/departments", method = RequestMethod.PUT)
-    public @ResponseBody Integer saveDepartment(@RequestBody Department request) {
+    public @ResponseBody SaveResult saveDepartment(@RequestBody Department request) {
         return this.sqlCallDepartmentAddition.saveDepartment(request);
     }
 
     @Async
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    public @ResponseBody Integer createUser(@RequestBody User request) {
+    public @ResponseBody SaveResult createUser(@RequestBody UserExtended request) {
         String passwordForSave = this.wTEncryption.generateRandomPassword();
         return this.sqlCallAddition.saveUser(request, passwordForSave);
     }
     
     @Async
     @RequestMapping(value = "/worker", method = RequestMethod.PUT)
-    public @ResponseBody Integer createWorker(@RequestBody Worker request) {
+    public @ResponseBody SaveResult createWorker(@RequestBody Worker request) {
         return this.sqlCallAddition.saveWorker(request);
     }
     
     @Async
-    @RequestMapping(value = "/superiors", method = RequestMethod.GET)
+    @RequestMapping(value = "/superior", method = RequestMethod.GET)
     public @ResponseBody List<Superior> getSuperior() {
         return this.sqlCallAddition.getSuperiors();
-    }
-    
-    @Async
-    @RequestMapping(value = "/freeLogin", method = RequestMethod.GET)
-    public @ResponseBody List<FreeLogin> getFreeLogins() {
-        return this.sqlCallAddition.getFreeLogins();
     }
 
 }

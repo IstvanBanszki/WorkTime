@@ -8,6 +8,6 @@ BEGIN
 	INSERT INTO `worktime`.`office` (`name`, `address`, `date_of_foundation`)
     VALUES (name, address, date_of_foundation);
 
-	SELECT ROW_COUNT() AS status;
+	SELECT ROW_COUNT() AS status, LAST_INSERT_ID() new_id;
 
 END

@@ -16,6 +16,6 @@ BEGIN
 	INSERT INTO `worktime`.`worker` (`first_name`, `last_name`, `gender`, `date_of_birth`, `nationality`, `position`, `email_address`, `daily_work_hour_total`, `superior_worker_id`, `department_id`, `user_id`)
 	VALUES (first_name, last_name, date_of_birth, nationality, position, email_address, daily_work_hour_total, superior_worker_id, department_id, user_id);
 
-	SELECT ROW_COUNT() AS status; 
+	SELECT ROW_COUNT() AS status, LAST_INSERT_ID() new_id; 
 
 END

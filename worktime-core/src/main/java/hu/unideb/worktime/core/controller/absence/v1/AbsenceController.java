@@ -1,6 +1,7 @@
 
 package hu.unideb.worktime.core.controller.absence.v1;
 
+import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.absence.AbsenceDataResponse;
 import hu.unideb.worktime.api.model.absence.AbsenceResponse;
 import hu.unideb.worktime.api.model.absence.AbsenceRequest;
@@ -36,7 +37,7 @@ public class AbsenceController {
      */
     @Async
     @RequestMapping(value = "/absence/v1/workerId/{workerId}", method = RequestMethod.PUT)
-    public @ResponseBody Integer saveAbsence(@PathVariable("workerId") Integer workerId, @RequestBody AbsenceRequest request) {
+    public @ResponseBody SaveResult saveAbsence(@PathVariable("workerId") Integer workerId, @RequestBody AbsenceRequest request) {
         return this.sqlCallAbsence.saveAbsence(workerId, request);
     }
     
@@ -65,7 +66,7 @@ public class AbsenceController {
     }
 
     @Async
-        @RequestMapping(value = "/absence/v1/workerId/{workerId}/dateFilter/{dateFilter}/type/{type}/export", method = RequestMethod.GET)
+    @RequestMapping(value = "/absence/v1/workerId/{workerId}/dateFilter/{dateFilter}/type/{type}/export", method = RequestMethod.GET)
     public void exportAbsences(@PathVariable("workerId") Integer workerId, @PathVariable("dateFilter") String request, 
             @PathVariable("type") Integer excelType, HttpServletResponse response) {
         this.exportService.exportAbsences(workerId, request, excelType, response);

@@ -1,5 +1,6 @@
 package hu.unideb.worktime.jdbc.worklog;
 
+import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.worklog.WorklogRequest;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
@@ -14,7 +15,7 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpSaveWorklog extends StoredProcedure implements ResultSetExtractor<Integer> {
+public class SpSaveWorklog extends StoredProcedure implements ResultSetExtractor<SaveResult> {
 
     private static final String SP_NAME = "save_worklog";
     private static final String SP_PARAMETER_1 = "begin_date";
@@ -33,18 +34,17 @@ public class SpSaveWorklog extends StoredProcedure implements ResultSetExtractor
         compile();
     }
 
-    public Integer saveWorklog(Integer workerId, WorklogRequest values) {
-        return (Integer) super.execute(values.getBeginDate(), 
+    public SaveResult saveWorklog(Integer workerId, WorklogRequest values) {
+        return (SaveResult) super.execute(values.getBeginDate(), 
                 values.getWorkHour(), workerId).get(SP_RESULT);
     }
 
     @Override
-    public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+    public SaveResult extractData(ResultSet rs) throws SQLException, DataAccessException {
 
-        Integer result = null;
-
+        SaveResult result = null;
         if (rs.next()) {
-            result = rs.getInt("status");
+            result = new SaveResult(rs.getInt("status"), rs.getInt("new_id"));
         }
         return result;
     }

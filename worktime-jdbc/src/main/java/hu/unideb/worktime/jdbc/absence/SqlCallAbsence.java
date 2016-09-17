@@ -1,5 +1,6 @@
 package hu.unideb.worktime.jdbc.absence;
 
+import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.absence.AbsenceDataResponse;
 import hu.unideb.worktime.api.model.absence.AbsenceResponse;
 import hu.unideb.worktime.api.model.absence.AbsenceRequest;
@@ -19,8 +20,8 @@ public class SqlCallAbsence {
     @Autowired private SpEditAbsence spEditAbsence;
     private Logger logger = LoggerFactory.getLogger(SqlCallAbsence.class);
 
-    public Integer saveAbsence(Integer workerId, AbsenceRequest values) {
-        Integer result = null;
+    public SaveResult saveAbsence(Integer workerId, AbsenceRequest values) {
+        SaveResult result = null;
         this.logger.info("Call save_absence SP with given parameters: Key - {}, Values - {}", workerId, values);
         try {
             result = this.spSaveAbsence.saveAbsence(workerId, values);

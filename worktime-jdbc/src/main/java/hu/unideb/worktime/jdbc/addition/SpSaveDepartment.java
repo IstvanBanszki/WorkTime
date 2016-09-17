@@ -1,6 +1,7 @@
 package hu.unideb.worktime.jdbc.addition;
 
 import hu.unideb.worktime.api.model.Department;
+import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpSaveDepartment extends StoredProcedure implements ResultSetExtractor<Integer> {
+public class SpSaveDepartment extends StoredProcedure implements ResultSetExtractor<SaveResult> {
     
     private static final String SP_NAME = "save_department";
     private static final String SP_PARAMETER_1 = "name";
@@ -33,18 +34,17 @@ public class SpSaveDepartment extends StoredProcedure implements ResultSetExtrac
         compile();
     }
 
-    public Integer saveDepartment(Department request) {
-        return (Integer) super.execute(request.getName(), request.getDateOfFoundtation(),
+    public SaveResult saveDepartment(Department request) {
+        return (SaveResult) super.execute(request.getName(), request.getDateOfFoundtation(),
                                     request.getOfficeId()).get(SP_RESULT);
     }
 
     @Override
-    public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+    public SaveResult extractData(ResultSet rs) throws SQLException, DataAccessException {
 
-        Integer result = null;
-
+        SaveResult result = null;
         if (rs.next()) {
-            result = rs.getInt("status");
+            result = new SaveResult(rs.getInt("status"), rs.getInt("new_id"));
         }
         return result;
     }

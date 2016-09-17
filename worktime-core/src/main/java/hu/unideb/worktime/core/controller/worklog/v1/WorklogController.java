@@ -1,5 +1,6 @@
 package hu.unideb.worktime.core.controller.worklog.v1;
 
+import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogRequest;
 import hu.unideb.worktime.core.export.IExportService;
@@ -33,7 +34,7 @@ public class WorklogController {
      */
     @Async
     @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.PUT)
-    public @ResponseBody Integer saveWorklog(@PathVariable("workerId") Integer workerId, @RequestBody WorklogRequest request) {
+    public @ResponseBody SaveResult saveWorklog(@PathVariable("workerId") Integer workerId, @RequestBody WorklogRequest request) {
         return this.sqlCallSaveWorklog.saveWorklog(workerId, request);
     }
 

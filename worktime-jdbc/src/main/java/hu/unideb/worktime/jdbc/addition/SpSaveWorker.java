@@ -1,5 +1,6 @@
 package hu.unideb.worktime.jdbc.addition;
 
+import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.Worker;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
@@ -14,7 +15,7 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpSaveWorker extends StoredProcedure implements ResultSetExtractor<Integer> {
+public class SpSaveWorker extends StoredProcedure implements ResultSetExtractor<SaveResult> {
             
     private static final String SP_NAME = "save_worker";
     private static final String SP_PARAMETER_1 = "first_name";
@@ -49,20 +50,19 @@ public class SpSaveWorker extends StoredProcedure implements ResultSetExtractor<
         compile();
     }
 
-    public Integer saveWorker(Worker request) {
-        return (Integer) super.execute(request.getFirstName(), request.getLastName(),
+    public SaveResult saveWorker(Worker request) {
+        return (SaveResult) super.execute(request.getFirstName(), request.getLastName(),
                 request.getGender(), request.getDateOfBirth(), request.getNationality(),
                 request.getPosition(), request.getEmailAddres(), request.getDailyWorkHourTotal(),
                 request.getDepartmentId(), request.getSuperiorId(), request.getUserId()).get(SP_RESULT);
     }
 
     @Override
-    public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+    public SaveResult extractData(ResultSet rs) throws SQLException, DataAccessException {
 
-        Integer result = null;
-
+        SaveResult result = null;
         if (rs.next()) {
-            result = rs.getInt("status");
+            result = new SaveResult(rs.getInt("status"), rs.getInt("new_id"));
         }
         return result;
     }

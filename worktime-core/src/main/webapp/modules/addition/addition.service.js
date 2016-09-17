@@ -209,5 +209,24 @@ angular.module("Addition")
 				return deferred.promise;
 			});
 	}
+	service.GetSuperiors = function() {
+		var deferred = $q.defer();
+		return $http({
+			method : "GET",
+			url : '/api/addition/v1/superior',
+			headers : {
+				'Content-Type': 'application/json'
+			}
+		}).then(function successCallback(response) {
+
+				deferred.resolve(response.data);
+				return deferred.promise;
+
+			}, function errorCallback(response) {
+
+				deferred.reject(response);
+				return deferred.promise;
+			});
+	}
 	return service;
 }])

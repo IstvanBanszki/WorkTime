@@ -1,6 +1,7 @@
 package hu.unideb.worktime.jdbc.addition;
 
 import hu.unideb.worktime.api.model.Department;
+import hu.unideb.worktime.api.model.SaveResult;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +46,8 @@ public class SqlCallDepartmentAddition {
         return result;
     }
     
-    public Integer saveDepartment(Department values) {
-        Integer result = null;
+    public SaveResult saveDepartment(Department values) {
+        SaveResult result = null;
         this.logger.info("Call save_department SP with given parameters: values - {}", values);
         try {
             result = this.spSaveDepartment.saveDepartment(values);

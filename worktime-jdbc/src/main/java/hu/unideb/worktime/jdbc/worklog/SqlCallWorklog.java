@@ -1,5 +1,6 @@
 package hu.unideb.worktime.jdbc.worklog;
 
+import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogRequest;
 import java.util.List;
@@ -17,8 +18,8 @@ public class SqlCallWorklog {
     @Autowired private SpEditWorklog spEditWorklog;
     private Logger logger = LoggerFactory.getLogger(SqlCallWorklog.class);
     
-    public Integer saveWorklog(Integer workerId, WorklogRequest values) {
-        Integer result = null;
+    public SaveResult saveWorklog(Integer workerId, WorklogRequest values) {
+        SaveResult result = null;
         this.logger.info("Call save_worklog SP with given parameters: Key - {}, values - {}", workerId, values);
         try {
             result = this.spSaveWorklog.saveWorklog(workerId, values);

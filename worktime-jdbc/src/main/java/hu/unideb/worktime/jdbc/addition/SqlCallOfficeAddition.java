@@ -1,6 +1,7 @@
 package hu.unideb.worktime.jdbc.addition;
 
 import hu.unideb.worktime.api.model.Office;
+import hu.unideb.worktime.api.model.SaveResult;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,8 +47,8 @@ public class SqlCallOfficeAddition {
         return result;
     }
     
-    public Integer saveOffice(Office values) {
-        Integer result = null;
+    public SaveResult saveOffice(Office values) {
+        SaveResult result = null;
         this.logger.info("Call save_office SP with given parameters: Key - {}, values - {}", values);
         try {
             result = this.spSaveOffice.saveOffice(values);

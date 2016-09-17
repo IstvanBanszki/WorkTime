@@ -1,12 +1,14 @@
 package hu.unideb.worktime.api.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private final String loginName;
     private final String password;
     private final Role role;
 
-    private User(String loginName, String password, Role role) {
+    public User(String loginName, String password, Role role) {
         this.loginName = loginName;
         this.password = password;
         this.role = role;

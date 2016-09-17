@@ -59,6 +59,7 @@ angular.module('Absence')
 			AbsenceService.AddAbsence(dateBegin, dateEnd, $rootScope.userData.workerId, $scope.absenceType).then(
 				function(result) {
 					$scope.absences.push({
+						id: result.newId,
 						beginDate: dateBegin,
 						endDate: dateEnd,
 						absenceType: $scope.absenceType

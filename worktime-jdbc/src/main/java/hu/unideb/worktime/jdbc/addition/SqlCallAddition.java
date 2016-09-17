@@ -1,8 +1,8 @@
 package hu.unideb.worktime.jdbc.addition;
 
+import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.User;
 import hu.unideb.worktime.api.model.Worker;
-import hu.unideb.worktime.api.model.addition.FreeLogin;
 import hu.unideb.worktime.api.model.addition.Superior;
 import java.util.List;
 import org.slf4j.Logger;
@@ -16,12 +16,11 @@ public class SqlCallAddition {
     @Autowired private SpSaveUser spSaveUser;
     @Autowired private SpSaveWorker spSaveWorker;
     @Autowired private SpGetAllSuperiorWorkers spGetAllSuperiorWorkers;
-    @Autowired private SpGetFreeLogins spGetFreeLogins;
     private Logger logger = LoggerFactory.getLogger(SqlCallAddition.class);
     
     
-    public Integer saveUser(User user, String password) {
-        Integer result = null;
+    public SaveResult saveUser(User user, String password) {
+        SaveResult result = null;
         this.logger.info("Call save_user SP with given parameters: User - {}, passwordForSave - {}", user, password);
         try {
             result = this.spSaveUser.saveUser(user, password);
@@ -35,8 +34,8 @@ public class SqlCallAddition {
         return result;
     }
     
-    public Integer saveWorker(Worker worker) {
-        Integer result = null;
+    public SaveResult saveWorker(Worker worker) {
+        SaveResult result = null;
         this.logger.info("Call save_worker SP with given parameters: Worker - {}", worker);
         try {
             result = this.spSaveWorker.saveWorker(worker);
@@ -62,21 +61,6 @@ public class SqlCallAddition {
             this.logger.error("There is an exception during get_superiors SP call: {}", ex);
         }
         this.logger.info("Result of get_superiors SP: {}", result);
-        return result;
-    }
-
-    public List<FreeLogin> getFreeLogins() {
-        List<FreeLogin> result = null;
-        this.logger.info("Call get_free_logins SP with given parameters.");
-        try {
-            result = this.spGetFreeLogins.getFreeLogins();
-            if (result == null || result.isEmpty()) {
-                this.logger.debug("There is no such free login in database!");
-            }
-        } catch (Exception ex) {
-            this.logger.error("There is an exception during get_free_logins SP call: {}", ex);
-        }
-        this.logger.info("Result of get_free_logins SP: {}", result);
         return result;
     }
 

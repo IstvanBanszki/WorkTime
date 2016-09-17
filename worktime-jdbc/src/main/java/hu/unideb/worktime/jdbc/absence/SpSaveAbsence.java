@@ -1,12 +1,12 @@
 
 package hu.unideb.worktime.jdbc.absence;
 
+import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.absence.AbsenceRequest;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -16,7 +16,7 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpSaveAbsence extends StoredProcedure implements ResultSetExtractor<Integer> {
+public class SpSaveAbsence extends StoredProcedure implements ResultSetExtractor<SaveResult> {
     
     private static final String SP_NAME = "save_absence";
     private static final String SP_PARAMETER_1 = "begin_date";
@@ -37,23 +37,17 @@ public class SpSaveAbsence extends StoredProcedure implements ResultSetExtractor
         compile();
     }
 
-    public Integer saveAbsence(Integer workerId, AbsenceRequest values) {
-        Integer result = null;
-        List<Integer> spResult = (List<Integer>) super.execute(values.getBeginDate(), 
-                values.getEndDate(), workerId, values.getAbsenceType().getId()).get(SP_RESULT);
-        if (spResult != null) {
-            result = spResult.get(0);
-        }
-        return result;
+    public SaveResult saveAbsence(Integer workerId, AbsenceRequest values) {
+        return (SaveResult) super.execute(values.getBeginDate(),  values.getEndDate(),
+                workerId, values.getAbsenceType().getId()).get(SP_RESULT);
     }
 
     @Override
-    public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+    public SaveResult extractData(ResultSet rs) throws SQLException, DataAccessException {
 
-        Integer result = null;
-
+        SaveResult result = null;
         if (rs.next()) {
-            result = rs.getInt("status");
+            result = new SaveResult(rs.getInt("status"), rs.getInt("new_id"));
         }
         return result;
     }

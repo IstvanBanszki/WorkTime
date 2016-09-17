@@ -6,6 +6,7 @@ angular.module('Addition')
 		$scope.officesWithDepartments = [];
 		$scope.departments = [];
 		$scope.offices = [];
+		$scope.superiors = [];
 		$scope.departmentsForOffice = [];
 
 		$scope.indexOfSelectedOffice = -1;
@@ -33,6 +34,13 @@ angular.module('Addition')
 			AdditionService.GetOffices().then(
 				function(result) {
 					$scope.offices = result;
+				},
+				function(error) {
+				}
+			);
+			AdditionService.GetSuperiors().then(
+				function(result) {
+					$scope.superiors = result;
 				},
 				function(error) {
 				}
@@ -156,6 +164,12 @@ angular.module('Addition')
 			var newDate = moment($scope.officeDateOfFoundtationForCreation).format('YYYY.MM.DD');
 			AdditionService.SaveOffice($scope.officeNameForCreation, $scope.officeAddressForCreation, newDate).then(
 				function(result) {
+					$scope.offices.push({
+						id: result.newId,
+						name: $scope.officeNameForCreation,
+						address: $scope.officeAddressForCreation,
+						dateOfFoundation: newDate
+					});
 				},
 				function(error) {
 				}
@@ -165,14 +179,18 @@ angular.module('Addition')
 			var newDate = moment($scope.departmentDateOfFoundtationForCreation).format('YYYY.MM.DD');
 			AdditionService.SaveDepartment($scope.departmentNameForCreation, newDate, $scope.selectedOfficeIdForCreation).then(
 				function(result) {
+					$scope.departments.push({
+						id: result.newId,
+						name: $scope.departmentNameForCreation,
+						dateOfFoundation: newDate,
+						officeId: $scope.selectedOfficeIdForCreation
+					});
 				},
 				function(error) {
 				}
 			);
 		};
-		
-		$scope.showSaveUserForm = false;
-		$scope.showSaveWorkerForm = false;
+
 		$scope.roles = [
 			{id: 2, name: 'WORKER_ROLE'}, 
 			{id: 3, name: 'SUPERIOR_ROLE'}
@@ -181,25 +199,25 @@ angular.module('Addition')
 		$scope.selectedRoleForCreation = "";
 		$scope.firstName = "";
 		$scope.lastName = "";
+		$scope.selectedGender = "";
+		$scope.dateOfBirth = "";
+		$scope.nationality = "";
+		$scope.position = "";
+		$scope.dailyWorkHourTotal = "";
+		$scope.emailAddres = "";
+		$scope.selectedDepartmentIdForWorkerCreation = 0;
+		$scope.selectedSuperiorIdForWorkerCreation = "";
 
-		$scope.openSaveUser = function() {
-			$scope.showSaveWorkerForm = false;
-			$scope.showSaveUserForm = !$scope.showSaveUserForm;
-		};
-		$scope.openSaveWorker = function() {
-			$scope.showSaveUserForm = false;
-			$scope.showSaveWorkerForm = !$scope.showSaveWorkerForm;
-		};
-		$scope.createNewUser = function() {
-			AdditionService.SaveUser($scope.loginName, '', $scopeselectedRoleForCreation).then(
+		$scope.createNewUserAndWorker = function() {
+			var userId = 0;
+			AdditionService.SaveUser($scope.loginName, '', $scopeselectedRoleForCreation, $scope.emailAddres).then(
 				function(result) {
+					userId = result;
 				},
 				function(error) {
 				}
 			);
-		};
-		$scope.createNewWorker = function() {
-			AdditionService.SaveWorker().then(
+			AdditionService.SaveWorker($scope.firstName, $scope.lastName, $scope.selectedGender, $scope.dateOfBirth, $scope.nationality, $scope.position, $scope.dailyWorkHourTotal, $scope.emailAddres, $scope.selectedSuperiorIdForWorkerCreation, $scope.selectedDepartmentIdForWorkerCreation, userId).then(
 				function(result) {
 				},
 				function(error) {
