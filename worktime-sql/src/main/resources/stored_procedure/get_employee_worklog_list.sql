@@ -5,9 +5,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_employee_worklog_list`(
 )
 BEGIN
 
-    SET @dinQuery = CONCAT('SELECT wg.id, wg.begin_date, wg.work_hour, wg.note ',
+    SET @dinQuery = CONCAT('SELECT wg.id, wg.begin_date, wg.work_hour, wg.date_of_registration, wg.date_of_modification, wg.note ',
 					   'FROM worklog wg INNER JOIN worker w ON w.id = wg.worker_id ',
-					   'WHERE w.id = ', employee_id, ' ');
+					   'AND w.id = ', employee_id, ' ');
 
     IF(date_filter = 'This Year') THEN
 

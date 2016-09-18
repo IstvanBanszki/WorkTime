@@ -6,10 +6,15 @@ import java.time.LocalDate;
 
 public class AdministrationWorklogResponse extends WorklogResponse implements Serializable {
     
+    private final LocalDate dateOfRegistration;
+    private final LocalDate dateOfModification;
     private final String note;
 
-    public AdministrationWorklogResponse(String note, int id, LocalDate beginDate, int workHour) {
+    public AdministrationWorklogResponse(LocalDate dateOfRegistration, LocalDate dateOfModification, 
+            String note, int id, LocalDate beginDate, int workHour) {
         super(id, beginDate, workHour);
+        this.dateOfRegistration = dateOfRegistration;
+        this.dateOfModification = dateOfModification;
         this.note = note;
     }
 
@@ -17,10 +22,20 @@ public class AdministrationWorklogResponse extends WorklogResponse implements Se
         return this.note;
     }
 
+    public LocalDate getDateOfRegistration() {
+        return dateOfRegistration;
+    }
+
+    public LocalDate getDateOfModification() {
+        return dateOfModification;
+    }
+
     @Override
     public int hashCode() {
         int hash = super.hashCode();
         hash = 97 * hash + (this.note != null ? this.note.hashCode() : 0);
+        hash = 97 * hash + (this.dateOfRegistration != null ? this.dateOfRegistration.hashCode() : 0);
+        hash = 97 * hash + (this.dateOfModification != null ? this.dateOfModification.hashCode() : 0);
         return hash;
     }
 
@@ -39,13 +54,16 @@ public class AdministrationWorklogResponse extends WorklogResponse implements Se
             return false;
         }
         final AdministrationWorklogResponse other = (AdministrationWorklogResponse) obj;
-        return (this.note != null ? this.note.equals(other.note) : other.note == null);
+        return (this.note != null ? this.note.equals(other.note) : other.note == null) &&
+               (this.dateOfRegistration != null ? this.dateOfRegistration.equals(other.dateOfRegistration) : other.dateOfRegistration == null) &&
+               (this.dateOfModification != null ? this.dateOfModification.equals(other.dateOfModification) : other.dateOfModification == null);
     }
     
 
     @Override
     public String toString() {
         return "AdministrationWorklogResponse{id=" + this.getId() + ", beginDate=" + this.getBeginDate() + 
-                ", workHour=" + this.getWorkHour() + "note=" + this.note + '}';
+                ", workHour=" + this.getWorkHour() + ", dateOfRegistration=" + this.dateOfRegistration + 
+                ", dateOfModification=" + this.dateOfModification + ", note=" + this.note + '}';
     }
 }

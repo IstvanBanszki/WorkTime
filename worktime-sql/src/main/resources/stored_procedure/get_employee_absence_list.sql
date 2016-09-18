@@ -5,7 +5,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_employee_absence_list`(
 )
 BEGIN
 
-    SET @dinQuery = CONCAT('SELECT a.id, a.begin_date, a.end_date, a.absence_type_id, a.status, a.note ',
+    SET @dinQuery = CONCAT('SELECT a.id, a.begin_date, a.end_date, a.absence_type_id, a.status, a.date_of_registration, a.date_of_modification, a.note ',
 					   'FROM absence a ',
 					   'INNER JOIN worker w ON w.id = a.worker_id ',
 					   'AND w.id = ', employee_id, ' ');

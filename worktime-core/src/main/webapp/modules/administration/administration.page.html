@@ -54,12 +54,24 @@
 									<span ng-show="showDownCaret('Note')" class="fa fa-caret-down"></span>
 									<span ng-show="showUpCaret('Note')" class="fa fa-caret-up"></span>
 								</th>
+								<th ng-click="setSearchTypeOrReverse('DateOfRegistration')">
+									Date Of Registration
+									<span ng-show="showDownCaret('DateOfRegistration')" class="fa fa-caret-down"></span>
+									<span ng-show="showUpCaret('DateOfRegistration')" class="fa fa-caret-up"></span>
+								</th>
+								<th ng-click="setSearchTypeOrReverse('DateOfModification')">
+									Date Of Modification
+									<span ng-show="showDownCaret('DateOfModification')" class="fa fa-caret-down"></span>
+									<span ng-show="showUpCaret('DateOfModification')" class="fa fa-caret-up"></span>
+								</th>
 								<th id="signs"></th>
 							</tr>
 							<tr ng-repeat="worklog in employeeWorklogs | filter:searchQuery | orderBy:sortType:sortReverse" class="w3-hover-light-green">
 								<td>{{worklog.beginDate}}</td>
 								<td>{{worklog.workHour}}</td>
 								<td>{{worklog.note}}</td>
+								<td>{{worklog.dateOfRegistration}}</td>
+								<td>{{worklog.dateOfModification}}</td>
 								<td>
 									<div class="tooltip" ng-show="{{worklog.workHour != dailyWorkHour}}">
 										<span class="fa fa-question w3-xlarge"></span>
@@ -129,6 +141,16 @@
 									<span ng-show="showDownCaret('Status')" class="fa fa-caret-down"></span>
 									<span ng-show="showUpCaret('Status')" class="fa fa-caret-up"></span>
 								</th>
+								<th ng-click="setSearchTypeOrReverse('DateOfRegistration')">
+									Date Of Registration
+									<span ng-show="showDownCaret('DateOfRegistration')" class="fa fa-caret-down"></span>
+									<span ng-show="showUpCaret('DateOfRegistration')" class="fa fa-caret-up"></span>
+								</th>
+								<th ng-click="setSearchTypeOrReverse('DateOfModification')">
+									Date Of Modification
+									<span ng-show="showDownCaret('DateOfModification')" class="fa fa-caret-down"></span>
+									<span ng-show="showUpCaret('DateOfModification')" class="fa fa-caret-up"></span>
+								</th>
 								<th id="tableOperation"></th>
 							</tr>
 							<tr ng-repeat="absence in employeeAbsences | filter:searchQuery | orderBy:sortType:sortReverse" class="w3-hover-light-green">
@@ -136,6 +158,8 @@
 								<td>{{absence.endDate}}</td>
 								<td>{{absence.absenceType}}</td>
 								<td>{{absence.status}}</td>
+								<td>{{absence.dateOfRegistration}}</td>
+								<td>{{absence.dateOfModification}}</td>
 								<td>
 									<div class="tooltip" ng-show="{{absence.status !== 'APPROVE'}}">
 										<span class="fa fa-question w3-xlarge" ng-click="acceptEmployeeAbsence($event, absence)"></span>

@@ -118,17 +118,19 @@ angular.module('Administration')
 			});	
 		};
 		$scope.SelectEmployeeForEdit = function() {
-			AdministrationService.GetEmployeeWorkerData($rootScope.userData.workerId).then(
-				function(result) {
-					$scope.newFirstName = result.firstName;
-					$scope.newLastName = result.lastName;
-					$scope.newPosition = result.position;
-					$scope.newEmailAddress = result.emailAddress;
-					$scope.newDailyWorkHourTotal = result.dailyWorkHourTotal;
-				},
-				function(error) {
-				}
-			);
+			if($scope.selectedEmployeeEdit !== "") {
+				AdministrationService.GetEmployeeWorkerData($scope.selectedEmployeeEdit).then(
+					function(result) {
+						$scope.newFirstName = result.firstName;
+						$scope.newLastName = result.lastName;
+						$scope.newPosition = result.position;
+						$scope.newEmailAddress = result.emailAddress;
+						$scope.newDailyWorkHourTotal = result.dailyWorkHourTotal;
+					},
+					function(error) {
+					}
+				);
+			}
 		};
 		$scope.ChangeEmployeeData = function() {
 			AdministrationService.EditEmployeeWorkerData($scope.newFirstName, $scope.newLastName, $scope.newPosition, $scope.newEmailAddress, $scope.newDailyWorkHourTotal).then(
