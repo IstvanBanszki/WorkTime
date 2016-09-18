@@ -62,12 +62,13 @@ angular.module('Absence')
 						id: result.newId,
 						beginDate: dateBegin,
 						endDate: dateEnd,
-						absenceType: $scope.absenceType
+						absenceType: $scope.absenceType,
+						status: 'NOT_APPROVE'
 					});
 					$scope.absenceType = "PAYED";
 					$scope.beginDate = "";
 					$scope.endDate = "";
-					$scope.showStatus(result);
+					$scope.showStatus(result.status);
 				},
 				function(error) {
 				}

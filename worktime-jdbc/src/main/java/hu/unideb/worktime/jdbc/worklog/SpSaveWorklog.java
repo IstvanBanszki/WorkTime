@@ -44,7 +44,7 @@ public class SpSaveWorklog extends StoredProcedure implements ResultSetExtractor
 
         SaveResult result = null;
         if (rs.next()) {
-            result = new SaveResult(rs.getInt("status"), rs.getInt("new_id"));
+            result = new SaveResult(rs.getInt("new_id"), rs.getInt("status"));
         }
         return result;
     }

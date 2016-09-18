@@ -55,7 +55,7 @@ angular.module('Worklog')
 					});
 					$scope.beginDate = "";
 					$scope.workHour = 0;
-					$scope.showStatus(result);
+					$scope.showStatus(result.status);
 				},
 				function(error) {
 				}
