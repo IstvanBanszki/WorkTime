@@ -31,37 +31,37 @@ public class AdditionController {
     @Autowired private WTEncryption wTEncryption;
 
     @Async
-    @RequestMapping(value = "/officeId/{officeId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/office/{officeId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editOffice(@PathVariable("officeId") Integer officeId, @RequestBody Office request) {
         return this.sqlCallOfficeAddition.editOffice(officeId, request);
     }
 
     @Async
-    @RequestMapping(value = "/offices", method = RequestMethod.GET)
+    @RequestMapping(value = "/office", method = RequestMethod.GET)
     public @ResponseBody List<Office> getOffice() {
         return this.sqlCallOfficeAddition.getOffices();
     }
 
     @Async
-    @RequestMapping(value = "/offices", method = RequestMethod.PUT)
+    @RequestMapping(value = "/office", method = RequestMethod.PUT)
     public @ResponseBody SaveResult saveOffice(@RequestBody Office request) {
         return this.sqlCallOfficeAddition.saveOffice(request);
     }
 
     @Async
-    @RequestMapping(value = "/departmentId/{departmentId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/department/{departmentId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editDepartment(@PathVariable("departmentId") Integer departmentId, @RequestBody Department request) {
         return this.sqlCallDepartmentAddition.editDepartment(departmentId, request);
     }
 
     @Async
-    @RequestMapping(value = "/departments", method = RequestMethod.GET)
+    @RequestMapping(value = "/department", method = RequestMethod.GET)
     public @ResponseBody List<Department> getDepartment() {
         return this.sqlCallDepartmentAddition.getDepartments();
     }
 
     @Async
-    @RequestMapping(value = "/departments", method = RequestMethod.PUT)
+    @RequestMapping(value = "/department", method = RequestMethod.PUT)
     public @ResponseBody SaveResult saveDepartment(@RequestBody Department request) {
         return this.sqlCallDepartmentAddition.saveDepartment(request);
     }

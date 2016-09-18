@@ -44,7 +44,7 @@ public class LoginController {
     }
      */
     @Async
-    @RequestMapping(value = "/loginName/{loginName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{loginName}", method = RequestMethod.POST)
     public @ResponseBody LoginResponse getLogin(@PathVariable("loginName") String loginName, @RequestBody Password password) {
         LoginResponse result = null;
     
@@ -64,7 +64,7 @@ public class LoginController {
     }
 
     @Async
-    @RequestMapping(value = "/loginName/{loginName}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{loginName}", method = RequestMethod.PUT)
     public @ResponseBody Integer updateLogin(@PathVariable("loginName") String loginName, @RequestBody UpdatePasswordRequest updatePasswordRequest) {
         Integer result = 0;
         

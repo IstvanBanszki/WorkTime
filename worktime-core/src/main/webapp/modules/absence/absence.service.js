@@ -7,7 +7,7 @@ angular.module("Absence")
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
-			url : "/api/absence/v1/workerId/"+workerId,
+			url : "/api/absence/v1/absence/"+workerId,
 			headers : {
 				'Content-Type': 'application/json'
 			},
@@ -31,7 +31,7 @@ angular.module("Absence")
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",
-			url : "/api/absence/v1/workerId/"+workerId+'/dateFilter/'+dateFilter,
+			url : "/api/absence/v1/absence/"+workerId+'/'+dateFilter,
 			headers : {
 				'Content-Type': 'application/json'
 			}
@@ -50,7 +50,7 @@ angular.module("Absence")
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",
-			url : "/api/absencedata/v1/workerId/"+workerId,
+			url : "/api/absence/v1/absenceData/"+workerId,
 			headers : {
 				'Content-Type': 'application/json'
 			}
@@ -65,11 +65,11 @@ angular.module("Absence")
 				return deferred.promise;
 			});
 	}
-	service.DeleteAbsence = function(id) {
+	service.DeleteAbsence = function(absenceId) {
 		var deferred = $q.defer();
 		return $http({
 			method : "DELETE",
-			url : "/api/absence/v1/id/"+id,
+			url : "/api/absence/v1/absence/"+absenceId,
 			headers : {
 				'Content-Type': 'application/json'
 			}
@@ -84,11 +84,11 @@ angular.module("Absence")
 				return deferred.promise;
 			});
 	}
-	service.EditAbsence = function(id, beginDate, endDate, absenceType) {
+	service.EditAbsence = function(absenceId, beginDate, endDate, absenceType) {
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
-			url : "/api/absence/v1/id/"+id,
+			url : "/api/absence/v1/absence/"+absenceId,
 			headers : {
 				'Content-Type': 'application/json'
 			},
@@ -112,7 +112,7 @@ angular.module("Absence")
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",
-			url : "/api/absence/v1/workerId/"+workerId+'/dateFilter/'+dateFilter+'/type/'+excelType+'/export',
+			url : "/api/absence/v1/absence/"+workerId+'/'+dateFilter+'/'+excelType+'/export',
 			headers : {
 				'Content-Type': 'application/json'
 			},

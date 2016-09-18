@@ -7,7 +7,7 @@ angular.module("Profile")
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",
-			url : "/api/profile/v1/workerId/"+workerId,
+			url : "/api/profile/v1/"+workerId,
 			headers : {
 				'Content-Type': 'application/json'
 			}
@@ -26,7 +26,7 @@ angular.module("Profile")
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
-			url : "/api/login/v1/loginName/"+loginName,
+			url : "/api/login/v1/"+loginName,
 			headers : {
 				'Content-Type': 'application/json'
 			},

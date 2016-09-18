@@ -3,30 +3,11 @@
 angular.module("Addition")
 .factory('AdditionService', ['$http', '$rootScope', '$q', function AdditionServiceFactory($http, $rootScope, $q) {
 	var service = {};
-	service.GetOfficesWithDepartments = function() {
-		var deferred = $q.defer();
-		return $http({
-			method : "GET",
-			url : '/api/addition/v1/officesWithDepartments',
-			headers : {
-				'Content-Type': 'application/json'
-			}
-		}).then(function successCallback(response) {
-
-				deferred.resolve(response.data);
-				return deferred.promise;
-
-			}, function errorCallback(response) {
-
-				deferred.reject(response);
-				return deferred.promise;
-			});
-	}
 	service.GetOffices = function() {
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",
-			url : '/api/addition/v1/offices',
+			url : '/api/addition/v1/office',
 			headers : {
 				'Content-Type': 'application/json'
 			}
@@ -45,7 +26,7 @@ angular.module("Addition")
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",
-			url : '/api/addition/v1/departments',
+			url : '/api/addition/v1/department',
 			headers : {
 				'Content-Type': 'application/json'
 			}
@@ -64,7 +45,7 @@ angular.module("Addition")
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
-			url : '/api/addition/v1/officeId/' + officeId,
+			url : '/api/addition/v1/office/' + officeId,
 			headers : {
 				'Content-Type': 'application/json'
 			},
@@ -88,7 +69,7 @@ angular.module("Addition")
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
-			url : '/api/addition/v1/departmentId/' + departmentId,
+			url : '/api/addition/v1/department/' + departmentId,
 			headers : {
 				'Content-Type': 'application/json'
 			},
@@ -112,7 +93,7 @@ angular.module("Addition")
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
-			url : '/api/addition/v1/offices' ,
+			url : '/api/addition/v1/office' ,
 			headers : {
 				'Content-Type': 'application/json'
 			},
@@ -136,7 +117,7 @@ angular.module("Addition")
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
-			url : '/api/addition/v1/departments',
+			url : '/api/addition/v1/department',
 			headers : {
 				'Content-Type': 'application/json'
 			},

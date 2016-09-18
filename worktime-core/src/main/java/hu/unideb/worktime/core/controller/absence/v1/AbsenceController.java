@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api", produces = "application/json")
+@RequestMapping(value = "/api/absence/v1", produces = "application/json")
 public class AbsenceController {
 
     @Autowired private SqlCallAbsence sqlCallAbsence;
@@ -36,37 +36,37 @@ public class AbsenceController {
     }
      */
     @Async
-    @RequestMapping(value = "/absence/v1/workerId/{workerId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/absence/{workerId}", method = RequestMethod.PUT)
     public @ResponseBody SaveResult saveAbsence(@PathVariable("workerId") Integer workerId, @RequestBody AbsenceRequest request) {
         return this.sqlCallAbsence.saveAbsence(workerId, request);
     }
     
     @Async
-    @RequestMapping(value = "/absence/v1/workerId/{workerId}/dateFilter/{dateFilter}", method = RequestMethod.GET)
+    @RequestMapping(value = "/absence/{workerId}/{dateFilter}", method = RequestMethod.GET)
     public @ResponseBody List<AbsenceResponse> getAbsence(@PathVariable Integer workerId, @PathVariable("dateFilter") String request) {
         return this.sqlCallAbsence.getAbsence(workerId, request);
     }
     
     @Async
-    @RequestMapping(value = "/absencedata/v1/workerId/{workerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/absenceData/{workerId}", method = RequestMethod.GET)
     public @ResponseBody List<AbsenceDataResponse> getAbsenceData(@PathVariable Integer workerId) {
         return this.sqlCallAbsence.getAbsenceData(workerId);
     }
     
     @Async
-    @RequestMapping(value = "/absence/v1/id/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/absence/{absenceId}", method = RequestMethod.DELETE)
     public @ResponseBody Integer deleteAbsence(@PathVariable Integer id) {
         return this.sqlCallAbsence.deleteAbsence(id);
     }
     
     @Async
-    @RequestMapping(value = "/absence/v1/id/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/absence/{absenceId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editAbsence(@PathVariable Integer id, @RequestBody AbsenceRequest request) {
         return this.sqlCallAbsence.editAbsence(id, request);
     }
 
     @Async
-    @RequestMapping(value = "/absence/v1/workerId/{workerId}/dateFilter/{dateFilter}/type/{type}/export", method = RequestMethod.GET)
+    @RequestMapping(value = "/absence/{workerId}/{dateFilter}/{type}/export", method = RequestMethod.GET)
     public void exportAbsences(@PathVariable("workerId") Integer workerId, @PathVariable("dateFilter") String request, 
             @PathVariable("type") Integer excelType, HttpServletResponse response) {
         this.exportService.exportAbsences(workerId, request, excelType, response);

@@ -7,7 +7,7 @@ angular.module("Worklog")
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
-			url : "/api/worklog/v1/workerId/"+workerId,
+			url : "/api/worklog/v1/worklog/"+workerId,
 			headers : {
 				'Content-Type': 'application/json'
 			},
@@ -30,7 +30,7 @@ angular.module("Worklog")
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",
-			url : "/api/worklog/v1/workerId/"+workerId+'/dateFilter/'+dateFilter,
+			url : "/api/worklog/v1/worklog/"+workerId+'/'+dateFilter,
 			headers : {
 				'Content-Type': 'application/json'
 			}
@@ -45,11 +45,11 @@ angular.module("Worklog")
 				return deferred.promise;
 			});
 	}
-	service.DeleteWorklog = function(id) {
+	service.DeleteWorklog = function(worklogId) {
 		var deferred = $q.defer();
 		return $http({
 			method : "DELETE",
-			url : "/api/worklog/v1/id/"+id,
+			url : "/api/worklog/v1/worklog/"+worklogId,
 			headers : {
 				'Content-Type': 'application/json'
 			}
@@ -64,11 +64,11 @@ angular.module("Worklog")
 				return deferred.promise;
 			});
 	}
-	service.EditWorklog = function(id, beginDate, workHour) {
+	service.EditWorklog = function(worklogId, beginDate, workHour) {
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
-			url : "/api/worklog/v1/id/"+id,
+			url : "/api/worklog/v1/worklog/"+worklogId+"/edit",
 			headers : {
 				'Content-Type': 'application/json'
 			},
@@ -91,7 +91,7 @@ angular.module("Worklog")
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",
-			url : "/api/worklog/v1/workerId/"+workerId+'/dateFilter/'+dateFilter+'/type/'+excelType+'/export',
+			url : "/api/worklog/v1/worklog/"+workerId+'/'+dateFilter+'/'+excelType+'/export',
 			headers : {
 				'Content-Type': 'application/json'
 			},
