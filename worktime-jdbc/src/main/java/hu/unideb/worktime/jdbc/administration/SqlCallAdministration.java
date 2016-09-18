@@ -38,13 +38,13 @@ public class SqlCallAdministration {
         return result;
     }
     
-    public List<AdministrationWorklogResponse> getEmloyeeWorklog(String firstName, String lastName, AdministrationWorklogRequest request) {
+    public List<AdministrationWorklogResponse> getEmloyeeWorklog(Integer id, AdministrationWorklogRequest request) {
         List<AdministrationWorklogResponse> result = null;
-        this.logger.info("Call get_employee_worklog_list SP with given parameters: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
+        this.logger.info("Call get_employee_worklog_list SP with given parameters: EmployeeId - {}, Request - {}", id, request);
         try {
-            result = this.spGetEmployeeWorklogList.getWorklogListForEmployee(firstName, lastName, request);
+            result = this.spGetEmployeeWorklogList.getWorklogListForEmployee(id, request);
             if (result == null ||result.isEmpty()) {
-                this.logger.debug("There is no such worklogs in database! Key: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
+                this.logger.debug("There is no such worklogs in database! EmployeeId - {}, Request - {}", id, request);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during get_employee_worklog_list SP call: {}", ex);
@@ -53,13 +53,13 @@ public class SqlCallAdministration {
         return result;
     }
     
-    public List<AdministrationAbsenceResponse> getEmloyeeAbsence(String firstName, String lastName, AdministrationAbsenceRequest request) {
+    public List<AdministrationAbsenceResponse> getEmloyeeAbsence(Integer id, AdministrationAbsenceRequest request) {
         List<AdministrationAbsenceResponse> result = null;
-        this.logger.info("Call get_employee_absence_list SP with given parameters: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
+        this.logger.info("Call get_employee_absence_list SP with given parameters: EmployeeId - {}, Request - {}", id, request);
         try {
-            result = this.spGetEmployeeAbsenceList.getAbsenceListForEmployee(firstName, lastName, request);
+            result = this.spGetEmployeeAbsenceList.getAbsenceListForEmployee(id, request);
             if (result == null || result.isEmpty()) {
-                this.logger.debug("There is no such absence in database! Key: FirstName - {}, LastName - {}, Request - {}", firstName, lastName, request);
+                this.logger.debug("There is no such absence in database! EmployeeId - {}, Request - {}", id, request);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during get_employee_absence_list SP call: {}", ex);

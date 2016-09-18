@@ -9,7 +9,6 @@ import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -22,33 +21,25 @@ import org.springframework.stereotype.Repository;
 public class SpGetEmployeeAbsenceList extends StoredProcedure implements RowMapper<AdministrationAbsenceResponse>  {
     
     private static final String SP_NAME = "get_employee_absence_list";
-    private static final String SP_PARAMETER_1 = "first_name";
-    private static final String SP_PARAMETER_2 = "last_name";
-    private static final String SP_PARAMETER_3 = "date_filter";
-    private static final String SP_PARAMETER_4 = "show_not_approved";
+    private static final String SP_PARAMETER_1 = "employee_id";
+    private static final String SP_PARAMETER_2 = "date_filter";
+    private static final String SP_PARAMETER_3 = "show_not_approved";
     private static final String SP_RESULT = "result";
 
     @Autowired
     public SpGetEmployeeAbsenceList(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
-        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
+        declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.VARCHAR));
-        declareParameter(new SqlParameter(SP_PARAMETER_3, Types.VARCHAR));
-        declareParameter(new SqlParameter(SP_PARAMETER_4, Types.INTEGER));
+        declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();
     }
 
-    public List<AdministrationAbsenceResponse> getAbsenceListForEmployee(String firstName, String lastName, 
-            AdministrationAbsenceRequest request) {
+    public List<AdministrationAbsenceResponse> getAbsenceListForEmployee(Integer id, AdministrationAbsenceRequest request) {
 
-        List<AdministrationAbsenceResponse> spResult = (List<AdministrationAbsenceResponse>) 
-                super.execute(firstName, lastName, request.getDateFilter(), request.isNotApprove()).get(SP_RESULT);
-        if(spResult != null) {
-            return spResult;
-        }
-        return new ArrayList();
+        return (List<AdministrationAbsenceResponse>) super.execute(id, request.getDateFilter(), request.isNotApprove()).get(SP_RESULT);
     }
 
     @Override

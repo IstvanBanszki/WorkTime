@@ -12,7 +12,7 @@
 							<md-input-container style="margin-right: 10px">
 								<label>Employee</label>
 								<md-select ng-model="selectedEmployeeWorklog">
-								  <md-option ng-repeat="employee in employees" value="{{employee}}">{{employee}}</md-option>
+								  <md-option ng-repeat="employee in employees" value="{{employee.id}}">{{employee.name}}</md-option>
 								</md-select>
 							</md-input-container>
 							<md-input-container style="width: 140px">
@@ -82,7 +82,7 @@
 							<md-input-container style="margin-right: 10px">
 								<label>Employee</label>
 								<md-select ng-model="selectedEmployeeAbsence">
-								  <md-option ng-repeat="employee in employees" value="{{employee}}">{{employee}}</md-option>
+								  <md-option ng-repeat="employee in employees" value="{{employee.id}}">{{employee.name}}</md-option>
 								</md-select>
 							</md-input-container>
 							<md-input-container style="width: 140px">
@@ -157,7 +157,7 @@
 							<md-input-container style="margin-right: 10px">
 								<label>Employee</label>
 								<md-select ng-model="selectedEmployeeEdit" md-on-close="SelectEmployeeForEdit()">
-								  <md-option ng-repeat="employee in employees" value="{{employee}}">{{employee}}</md-option>
+								  <md-option ng-repeat="employee in employees" value="{{employee.id}}">{{employee.name}}</md-option>
 								</md-select>
 							</md-input-container>
 							<br>

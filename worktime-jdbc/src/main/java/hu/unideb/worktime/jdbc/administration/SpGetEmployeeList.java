@@ -5,7 +5,6 @@ import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -32,15 +31,11 @@ public class SpGetEmployeeList extends StoredProcedure implements RowMapper<Empl
 
     public List<Employee> getEmployees(Integer key) {
 
-        List<Employee> spResult = (List<Employee>) super.execute(key).get(SP_RESULT);
-        if(spResult != null){
-            return spResult;
-        }
-        return new ArrayList();
+        return (List<Employee>) super.execute(key).get(SP_RESULT);
     }
 
     @Override
     public Employee mapRow(ResultSet rs, int i) throws SQLException {
-        return new Employee(rs.getString("first_name"), rs.getString("last_name"));
+        return new Employee(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"));
     }
 }

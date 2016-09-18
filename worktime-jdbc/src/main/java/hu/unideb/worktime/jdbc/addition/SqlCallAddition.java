@@ -3,7 +3,7 @@ package hu.unideb.worktime.jdbc.addition;
 import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.User;
 import hu.unideb.worktime.api.model.Worker;
-import hu.unideb.worktime.api.model.addition.Superior;
+import hu.unideb.worktime.api.model.administration.Employee;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,8 +49,8 @@ public class SqlCallAddition {
         return result;
     }
 
-    public List<Superior> getSuperiors() {
-        List<Superior> result = null;
+    public List<Employee> getSuperiors() {
+        List<Employee> result = null;
         this.logger.info("Call get_superiors SP with given parameters.");
         try {
             result = this.spGetAllSuperiorWorkers.getSuperiors();

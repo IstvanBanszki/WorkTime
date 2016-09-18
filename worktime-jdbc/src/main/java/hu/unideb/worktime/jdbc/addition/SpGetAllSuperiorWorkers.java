@@ -1,10 +1,9 @@
 package hu.unideb.worktime.jdbc.addition;
 
-import hu.unideb.worktime.api.model.addition.Superior;
+import hu.unideb.worktime.api.model.administration.Employee;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,7 +12,7 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpGetAllSuperiorWorkers extends StoredProcedure implements RowMapper<Superior> {
+public class SpGetAllSuperiorWorkers extends StoredProcedure implements RowMapper<Employee> {
     
     private static final String SP_NAME = "get_superiors";
     private static final String SP_RESULT = "result";
@@ -26,17 +25,13 @@ public class SpGetAllSuperiorWorkers extends StoredProcedure implements RowMappe
         compile();
     }
 
-    public List<Superior> getSuperiors() {
-        List<Superior> spResult = (List<Superior>) super.execute().get(SP_RESULT);
-        if (spResult != null) {
-            return spResult;
-        }
-        return new ArrayList();
+    public List<Employee> getSuperiors() {
+        return (List<Employee>) super.execute().get(SP_RESULT);
     }
     
     @Override
-    public Superior mapRow(ResultSet rs, int i) throws SQLException {
-        return new Superior(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"));
+    public Employee mapRow(ResultSet rs, int i) throws SQLException {
+        return new Employee(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"));
     }
     
 }

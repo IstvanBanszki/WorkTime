@@ -1,6 +1,5 @@
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_employee_absence_list`(
-	IN first_name  		 TINYTEXT,
-	IN last_name   		 TINYTEXT,
+	IN employee_id 		 TINYINT,
 	IN date_filter 		 TINYTEXT,
 	IN show_not_approved TINYINT
 )
@@ -9,8 +8,7 @@ BEGIN
     SET @dinQuery = CONCAT('SELECT a.id, a.begin_date, a.end_date, a.absence_type_id, a.status, a.note ',
 					   'FROM absence a ',
 					   'INNER JOIN worker w ON w.id = a.worker_id ',
-					   'AND w.first_name = \'', first_name ,
-					   '\' AND w.last_name = \'', last_name, '\' ' );
+					   'AND w.id = ', employee_id, ' ');
 
     IF(date_filter = 'This Year') THEN
 

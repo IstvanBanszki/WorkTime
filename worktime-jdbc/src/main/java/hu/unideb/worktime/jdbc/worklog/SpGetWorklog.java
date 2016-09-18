@@ -5,7 +5,6 @@ import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -33,11 +32,7 @@ public class SpGetWorklog extends StoredProcedure implements RowMapper<WorklogRe
     }
 
     public List<WorklogResponse> getWorklogs(Integer key, String request) {
-        List<WorklogResponse> spResult = (List<WorklogResponse>) super.execute(key, request).get(SP_RESULT);
-        if (spResult != null) {
-            return spResult;
-        }
-        return new ArrayList();
+        return (List<WorklogResponse>) super.execute(key, request).get(SP_RESULT);
     }
 
     @Override

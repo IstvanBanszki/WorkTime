@@ -4,8 +4,8 @@ import hu.unideb.worktime.api.model.Department;
 import hu.unideb.worktime.api.model.Office;
 import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.Worker;
-import hu.unideb.worktime.api.model.addition.Superior;
 import hu.unideb.worktime.api.model.addition.UserExtended;
+import hu.unideb.worktime.api.model.administration.Employee;
 import hu.unideb.worktime.core.security.WTEncryption;
 import hu.unideb.worktime.jdbc.addition.SqlCallAddition;
 import hu.unideb.worktime.jdbc.addition.SqlCallDepartmentAddition;
@@ -81,7 +81,7 @@ public class AdditionController {
     
     @Async
     @RequestMapping(value = "/superior", method = RequestMethod.GET)
-    public @ResponseBody List<Superior> getSuperior() {
+    public @ResponseBody List<Employee> getSuperior() {
         return this.sqlCallAddition.getSuperiors();
     }
 

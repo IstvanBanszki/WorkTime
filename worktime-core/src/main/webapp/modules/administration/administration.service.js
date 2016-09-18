@@ -3,11 +3,11 @@
 angular.module("Administration")
 .factory('AdministrationService', ['$http', '$rootScope', '$q', function AdministrationServiceFactory($http, $rootScope, $q) {
 	var service = {};
-	service.GetWorklogsByEmployee = function(firstName, lastName, dateFilter, showDailyWorkhours) {
+	service.GetWorklogsByEmployee = function(employeeId, dateFilter, showDailyWorkhours) {
 		var deferred = $q.defer();
 		return $http({
 			method : "POST",
-			url : "/api/administration/v1/firstName/"+firstName+"/lastName/"+lastName+'/worklog',
+			url : "/api/administration/v1/worklog/"+employeeId,
 			headers : {
 				'Content-Type': 'application/json'
 			},
@@ -26,11 +26,11 @@ angular.module("Administration")
 				return deferred.promise;
 			});
 	}
-	service.GetAbsencesByEmployee = function(firstName, lastName, dateFilter, listNotApproved) {
+	service.GetAbsencesByEmployee = function(employeeId, dateFilter, listNotApproved) {
 		var deferred = $q.defer();
 		return $http({
 			method : "POST",
-			url : "/api/administration/v1/firstName/"+firstName+"/lastName/"+lastName+'/absence',
+			url : "/api/administration/v1/absence/"+employeeId,
 			headers : {
 				'Content-Type': 'application/json'
 			},
@@ -49,11 +49,11 @@ angular.module("Administration")
 				return deferred.promise;
 			});
 	}
-	service.GetEmployees = function(workerId){
+	service.GetEmployees = function(superiorWorkerId){
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",
-			url : "/api/administration/v1/workerId/"+workerId,
+			url : "/api/administration/v1/employee/"+superiorWorkerId,
 			headers : {
 				'Content-Type': 'application/json'
 			}
@@ -72,7 +72,7 @@ angular.module("Administration")
 		var deferred = $q.defer();
 		return $http({
 			method : "POST",
-			url : "/api/administration/v1/approve/absenceId/"+absenceId,
+			url : "/api/administration/v1/approve/"+absenceId,
 			headers : {
 				'Content-Type': 'application/json'
 			}
@@ -87,11 +87,11 @@ angular.module("Administration")
 				return deferred.promise;
 			});
 	}
-	service.EditEmployeeWorkerData = function(firstName, lastName, position, emailAddress, dailyWorkHourTotal, workerId) {
+	service.EditEmployeeWorkerData = function(firstName, lastName, position, emailAddress, dailyWorkHourTotal, employeeId) {
 		var deferred = $q.defer();
 		return $http({
 			method : "PUT",
-			url : '/api/administration/v1/workerData/workerId/'+workerId,
+			url : '/api/administration/v1/workerData/'+employeeId,
 			headers : {
 				'Content-Type': 'application/json'
 			},
@@ -113,11 +113,11 @@ angular.module("Administration")
 				return deferred.promise;
 			});
 	}		
-	service.GetEmployeeWorkerData = function(workerId){
+	service.GetEmployeeWorkerData = function(employeeId){
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",
-			url : "/api/administration/v1/workerData/workerId/"+workerId,
+			url : "/api/administration/v1/workerData/"+employeeId,
 			headers : {
 				'Content-Type': 'application/json'
 			}

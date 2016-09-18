@@ -44,10 +44,12 @@ angular.module('Administration')
 					function(result) {
 						if(result.length > 0) {
 							result.forEach(function(employee) {
-								$scope.employees.push(employee.firstName + ' ' + employee.lastName); 
+								$scope.employees.push({
+									id: employee.id,
+									name: employee.firstName + ' ' + employee.lastName
+								});
 							});
 							$rootScope.emptyEmployeeList = $scope.emptyEmployeeList = false;
-							$rootScope.employees = $scope.employees;
 						} else {
 							$rootScope.emptyEmployeeList = $scope.emptyEmployeeList = true;
 						}
@@ -58,9 +60,8 @@ angular.module('Administration')
 		};
 
 		$scope.filterWorklog = function() {
-			if($scope.selectedEmployeeWorklog !== "") {
-				var splitted = $scope.selectedEmployeeWorklog.split(" ");
-				AdministrationService.GetWorklogsByEmployee(splitted[0], splitted[1], $scope.selectedDateFilterWorklog, $scope.listDailyWorkHour).then(
+			if($scope.selectedEmployeeWorklog.name !== "") {
+				AdministrationService.GetWorklogsByEmployee($scope.selectedEmployeeWorklog, $scope.selectedDateFilterWorklog, $scope.listDailyWorkHour).then(
 						function(result) {
 							$scope.employeeWorklogs = [];
 							$scope.employeeWorklogs = result;
@@ -77,8 +78,7 @@ angular.module('Administration')
 		};
 		$scope.filterAbsence = function() {
 			if($scope.selectedEmployeeAbsence !== "") {
-				var splitted = $scope.selectedEmployeeAbsence.split(" ");
-				AdministrationService.GetAbsencesByEmployee(splitted[0], splitted[1], $scope.selectedDateFilterAbsence, $scope.listNotAccepted).then(
+				AdministrationService.GetAbsencesByEmployee($scope.selectedEmployeeAbsence, $scope.selectedDateFilterAbsence, $scope.listNotAccepted).then(
 						function(result) {
 							$scope.employeeAbsences = [];
 							$scope.employeeAbsences = result;

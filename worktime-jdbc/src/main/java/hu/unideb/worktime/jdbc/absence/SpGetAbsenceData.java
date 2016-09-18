@@ -5,7 +5,6 @@ import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -31,11 +30,7 @@ public class SpGetAbsenceData extends StoredProcedure implements RowMapper<Absen
     }
 
     public List<AbsenceDataResponse> getAbsenceData(Integer key) {
-        List<AbsenceDataResponse> spResult = (List<AbsenceDataResponse>) super.execute(key).get(SP_RESULT);
-        if (spResult != null) {
-            return spResult;
-        }
-        return new ArrayList();
+        return (List<AbsenceDataResponse>) super.execute(key).get(SP_RESULT);
     }
 
     @Override

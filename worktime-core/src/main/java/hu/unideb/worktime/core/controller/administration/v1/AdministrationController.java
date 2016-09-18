@@ -25,40 +25,40 @@ public class AdministrationController {
     private SqlCallAdministration sqlCallAdministration;
 
     @Async
-    @RequestMapping(value = "/firstName/{firstName}/lastName/{lastName}/worklog", method = RequestMethod.POST)
-    public @ResponseBody List<AdministrationWorklogResponse> getEmployeeWorklogList(@PathVariable("firstName") String firstName, 
-           @PathVariable("lastName") String lastName, @RequestBody AdministrationWorklogRequest request) {
-        return this.sqlCallAdministration.getEmloyeeWorklog(firstName, lastName, request);
+    @RequestMapping(value = "/worklog/{employeeId}", method = RequestMethod.POST)
+    public @ResponseBody List<AdministrationWorklogResponse> getEmployeeWorklogList(@PathVariable("employeeId") Integer employeeId, 
+           @RequestBody AdministrationWorklogRequest request) {
+        return this.sqlCallAdministration.getEmloyeeWorklog(employeeId, request);
     }
 
     @Async
-    @RequestMapping(value = "/firstName/{firstName}/lastName/{lastName}/absence", method = RequestMethod.POST)
-    public @ResponseBody List<AdministrationAbsenceResponse> getEmployeeAbsenceList(@PathVariable("firstName") String firstName, 
-           @PathVariable("lastName") String lastName, @RequestBody AdministrationAbsenceRequest request) {
-        return this.sqlCallAdministration.getEmloyeeAbsence(firstName, lastName, request);
+    @RequestMapping(value = "/absence/{employeeId}", method = RequestMethod.POST)
+    public @ResponseBody List<AdministrationAbsenceResponse> getEmployeeAbsenceList(@PathVariable("employeeId") Integer employeeId, 
+           @RequestBody AdministrationAbsenceRequest request) {
+        return this.sqlCallAdministration.getEmloyeeAbsence(employeeId, request);
     }
 
     @Async
-    @RequestMapping(value = "/workerId/{workerId}", method = RequestMethod.GET)
-    public @ResponseBody List<Employee> getEmployee(@PathVariable("workerId") Integer workerId ) {
-        return this.sqlCallAdministration.getEmloyees(workerId);
+    @RequestMapping(value = "/employee/{superiorWorkerId}", method = RequestMethod.GET)
+    public @ResponseBody List<Employee> getEmployee(@PathVariable("superiorWorkerId") Integer superiorWorkerId ) {
+        return this.sqlCallAdministration.getEmloyees(superiorWorkerId);
+    }
+
+    @Async
+    @RequestMapping(value = "/approve/{absenceId}", method = RequestMethod.POST)
+    public @ResponseBody Integer acceptEmployeeAbsence(@PathVariable("absenceId") Integer absenceId) {
+        return this.sqlCallAdministration.acceptEmployeeAbsence(absenceId);
     }
     
     @Async
-    @RequestMapping(value = "/approve/absenceId/{id}", method = RequestMethod.POST)
-    public @ResponseBody Integer acceptEmployeeAbsence(@PathVariable Integer id) {
-        return this.sqlCallAdministration.acceptEmployeeAbsence(id);
+    @RequestMapping(value = "/workerData/{employeeId}", method = RequestMethod.PUT)
+    public @ResponseBody Integer editWorkerData(@PathVariable("employeeId") Integer employeeId, @RequestBody EditWorker request) {
+        return this.sqlCallAdministration.editWorkerData(employeeId, request);
     }
     
     @Async
-    @RequestMapping(value = "/workerData/workerId/{id}", method = RequestMethod.PUT)
-    public @ResponseBody Integer editWorkerData(@PathVariable Integer id, @RequestBody EditWorker request) {
-        return this.sqlCallAdministration.editWorkerData(id, request);
-    }
-    
-    @Async
-    @RequestMapping(value = "/workerData/workerId/{id}", method = RequestMethod.GET)
-    public @ResponseBody EditWorker editWorkerData(@PathVariable Integer id) {
-        return this.sqlCallAdministration.getWorkerData(id);
+    @RequestMapping(value = "/workerData/{employeeId}", method = RequestMethod.GET)
+    public @ResponseBody EditWorker editWorkerData(@PathVariable("employeeId") Integer employeeId) {
+        return this.sqlCallAdministration.getWorkerData(employeeId);
     }
 }

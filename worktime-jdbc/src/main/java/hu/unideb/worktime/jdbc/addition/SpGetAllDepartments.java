@@ -4,7 +4,6 @@ import hu.unideb.worktime.api.model.Department;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -27,11 +26,7 @@ public class SpGetAllDepartments extends StoredProcedure implements RowMapper<De
     }
 
     public List<Department> getDepartments() {
-        List<Department> spResult = (List<Department>) super.execute().get(SP_RESULT);
-        if (spResult != null) {
-            return spResult;
-        }
-        return new ArrayList();
+        return (List<Department>) super.execute().get(SP_RESULT);
     }
     
     @Override
