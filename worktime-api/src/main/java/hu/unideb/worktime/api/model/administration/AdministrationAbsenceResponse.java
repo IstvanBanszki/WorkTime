@@ -5,14 +5,15 @@ import hu.unideb.worktime.api.model.Status;
 import hu.unideb.worktime.api.model.absence.AbsenceResponse;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class AdministrationAbsenceResponse extends AbsenceResponse implements Serializable {
     
-    private final LocalDate dateOfRegistration;
-    private final LocalDate dateOfModification;
+    private final LocalDateTime dateOfRegistration;
+    private final LocalDateTime dateOfModification;
     private final String note;
 
-    public AdministrationAbsenceResponse(LocalDate dateOfRegistration, LocalDate dateOfModification, String note, int id, LocalDate beginDate, 
+    public AdministrationAbsenceResponse(LocalDateTime dateOfRegistration, LocalDateTime dateOfModification, String note, int id, LocalDate beginDate, 
             LocalDate endDate, Status status, AbsenceType absenceType) {
         super(id, beginDate, endDate, status, absenceType);
         this.dateOfRegistration = dateOfRegistration;
@@ -27,8 +28,8 @@ public class AdministrationAbsenceResponse extends AbsenceResponse implements Se
         private LocalDate endDate;
         private Status status;
         private AbsenceType absenceType;
-        private LocalDate dateOfRegistration;
-        private LocalDate dateOfModification;
+        private LocalDateTime dateOfRegistration;
+        private LocalDateTime dateOfModification;
         private String note;
 
         public Builder() {
@@ -59,12 +60,12 @@ public class AdministrationAbsenceResponse extends AbsenceResponse implements Se
             return this;
         }
 
-        public Builder setDateOfRegistration(LocalDate dateOfRegistration) {
+        public Builder setDateOfRegistration(LocalDateTime dateOfRegistration) {
             this.dateOfRegistration = dateOfRegistration;
             return this;
         }
 
-        public Builder setDateOfModification(LocalDate dateOfModification) {
+        public Builder setDateOfModification(LocalDateTime dateOfModification) {
             this.dateOfModification = dateOfModification;
             return this;
         }
@@ -80,11 +81,11 @@ public class AdministrationAbsenceResponse extends AbsenceResponse implements Se
         }
     }    
 
-    public LocalDate getDateOfRegistration() {
+    public LocalDateTime getDateOfRegistration() {
         return dateOfRegistration;
     }
 
-    public LocalDate getDateOfModification() {
+    public LocalDateTime getDateOfModification() {
         return dateOfModification;
     }
 

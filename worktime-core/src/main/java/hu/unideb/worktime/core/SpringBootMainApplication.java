@@ -3,6 +3,7 @@ package hu.unideb.worktime.core;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import java.time.LocalDate;
@@ -27,8 +28,12 @@ public class SpringBootMainApplication {
     public ObjectMapper jsonObjectMapper() {
         ObjectMapper mapper = new ObjectMapper();
         JavaTimeModule javaTimeModule = new JavaTimeModule();
+
 	javaTimeModule.addSerializer(LocalDateTime.class, 
             new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+	javaTimeModule.addDeserializer(LocalDateTime.class, 
+            new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+
 	javaTimeModule.addSerializer(LocalDate.class, 
             new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
         javaTimeModule.addDeserializer(LocalDate.class, 

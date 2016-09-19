@@ -112,12 +112,50 @@ angular.module("Administration")
 				deferred.reject(response);
 				return deferred.promise;
 			});
-	}		
+	}
 	service.GetEmployeeWorkerData = function(employeeId){
 		var deferred = $q.defer();
 		return $http({
 			method : "GET",
 			url : "/api/administration/v1/workerData/"+employeeId,
+			headers : {
+				'Content-Type': 'application/json'
+			}
+		}).then(function successCallback(response) {
+
+				deferred.resolve(response.data);
+				return deferred.promise;
+
+			}, function errorCallback(response) {
+
+				deferred.reject(response);
+				return deferred.promise;
+			});
+	}
+	service.ExportEmployeeWorklogs = function(employeeId, type, dateFilter, showDailyWorkhours ) {
+		var deferred = $q.defer();
+		return $http({
+			method : "GET",
+			url : "/api/administration/v1/worklog/"+employeeId+'/'+dateFilter+'/'+showDailyWorkhours+'/'+type+'/export',
+			headers : {
+				'Content-Type': 'application/json'
+			}
+		}).then(function successCallback(response) {
+
+				deferred.resolve(response.data);
+				return deferred.promise;
+
+			}, function errorCallback(response) {
+
+				deferred.reject(response);
+				return deferred.promise;
+			});
+	}
+	service.ExportEmployeeAbsences = function(employeeId, type, dateFilter, showNotApprove ) {
+		var deferred = $q.defer();
+		return $http({
+			method : "GET",
+			url : "/api/administration/v1/absence/"+employeeId+'/'+dateFilter+'/'+showNotApprove+'/'+type+'/export',
 			headers : {
 				'Content-Type': 'application/json'
 			}

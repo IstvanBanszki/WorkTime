@@ -3,14 +3,15 @@ package hu.unideb.worktime.api.model.administration;
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class AdministrationWorklogResponse extends WorklogResponse implements Serializable {
     
-    private final LocalDate dateOfRegistration;
-    private final LocalDate dateOfModification;
+    private final LocalDateTime dateOfRegistration;
+    private final LocalDateTime dateOfModification;
     private final String note;
 
-    public AdministrationWorklogResponse(LocalDate dateOfRegistration, LocalDate dateOfModification, 
+    public AdministrationWorklogResponse(LocalDateTime dateOfRegistration, LocalDateTime dateOfModification, 
             String note, int id, LocalDate beginDate, int workHour) {
         super(id, beginDate, workHour);
         this.dateOfRegistration = dateOfRegistration;
@@ -22,11 +23,11 @@ public class AdministrationWorklogResponse extends WorklogResponse implements Se
         return this.note;
     }
 
-    public LocalDate getDateOfRegistration() {
+    public LocalDateTime getDateOfRegistration() {
         return dateOfRegistration;
     }
 
-    public LocalDate getDateOfModification() {
+    public LocalDateTime getDateOfModification() {
         return dateOfModification;
     }
 

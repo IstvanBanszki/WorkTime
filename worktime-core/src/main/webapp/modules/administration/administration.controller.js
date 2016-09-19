@@ -60,7 +60,7 @@ angular.module('Administration')
 		};
 
 		$scope.filterWorklog = function() {
-			if($scope.selectedEmployeeWorklog.name !== "") {
+			if($scope.selectedEmployeeWorklog !== "") {
 				AdministrationService.GetWorklogsByEmployee($scope.selectedEmployeeWorklog, $scope.selectedDateFilterWorklog, $scope.listDailyWorkHour).then(
 						function(result) {
 							$scope.employeeWorklogs = [];
@@ -139,6 +139,38 @@ angular.module('Administration')
 				function(error) {
 				}
 			);
+		};
+		$scope.exportAdminWorklog = function(excelType) {
+			if($scope.selectedEmployeeWorklog !== "") {
+
+				var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+				var excelFileName = 'ExportWorklog.xls' + ((excelType === 1) ? '' : 'x');
+
+				AdministrationService.ExportEmployeeWorklogs($scope.selectedEmployeeWorklog, excelType, $scope.selectedDateFilterWorklog, $scope.listDailyWorkHour).then(
+					function(result) {
+						var blob = new Blob([result], {type: excelTypeStr});
+						saveAs(blob, excelFileName);
+					},
+					function(error) {
+					}
+				);
+			}
+		};
+		$scope.exportAdminAbsence = function(excelType) {
+			if($scope.selectedEmployeeAbsence !== "") {
+
+				var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+				var excelFileName = 'ExportAbsence.xls' + ((excelType === 1) ? '' : 'x');
+
+				AdministrationService.ExportEmployeeAbsences($scope.selectedEmployeeAbsence, excelType, $scope.selectedDateFilterAbsence, $scope.listNotAccepted).then(
+					function(result) {
+						var blob = new Blob([result], {type: excelTypeStr});
+						saveAs(blob, excelFileName);
+					},
+					function(error) {
+					}
+				);
+			}
 		};
 
 		$scope.sortType = "BeginDate";
