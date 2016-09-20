@@ -35,7 +35,9 @@ public class ExportService implements IExportService {
     @Autowired SqlCallWorklog sqlCallWorklog;
     @Autowired SqlCallAbsence sqlCallAbsence;
     @Autowired SqlCallAdministration sqlCallAdministration;
+
     private final Logger logger = LoggerFactory.getLogger(ExportService.class);
+
     private static final String FILE_NAME_ABSENCE_XLS = "ExportAbsence.xls";
     private static final String FILE_NAME_ABSENCE_XLSX = "ExportAbsence.xlsx";
     private static final String FILE_NAME_WORKLOG_XLS = "ExportWorklog.xls";
@@ -60,12 +62,11 @@ public class ExportService implements IExportService {
 
         CellStyle dataCellStyle = this.getDataCellStyle(wb);
         CellStyle dateCellStyle = this.getDateCellStyle(wb);
-        CellStyle dateTimeCellStyle = this.getDateTimeCellStyle(wb);
         int rowIndex = 1;
 
         this.createAbsenceHeaderRow(sheet.createRow(0), this.getHeaderCellStyle(wb), false);
 
-        for (AbsenceResponse response : absences) {
+        for (AbsenceResponse response:absences) {
 
             this.createAbsenceRow(sheet.createRow(rowIndex++), dataCellStyle, dateCellStyle, response);
         }
@@ -101,7 +102,7 @@ public class ExportService implements IExportService {
 
         this.createWorklogHeaderRow(sheet.createRow(0), this.getHeaderCellStyle(wb), false);
 
-        for (WorklogResponse response : worklogs) {
+        for (WorklogResponse response:worklogs) {
 
             this.createWorklogRow(sheet.createRow(rowIndex++), dataCellStyle, dateCellStyle, response);
         }
@@ -118,7 +119,7 @@ public class ExportService implements IExportService {
 
     @Override
     public void exportAdminAbsences(Integer key, String dateFilter, Boolean notApprove, Integer excelType, HttpServletResponse response) {
-        
+
         AdministrationAbsenceRequest request = new AdministrationAbsenceRequest(dateFilter, notApprove);
         this.logger.info("Exporting of absences with the following parameters - Request: {}, dateFilter: {}, excelType: {}", key, request, excelType);
 
@@ -135,9 +136,9 @@ public class ExportService implements IExportService {
         CellStyle dateTimeCellStyle = this.getDateTimeCellStyle(wb);
         int rowIndex = 1;
 
-        this.createAbsenceHeaderRow(sheet.createRow(0), this.getHeaderCellStyle(wb), false);
+        this.createAbsenceHeaderRow(sheet.createRow(0), this.getHeaderCellStyle(wb), true);
 
-        for (AdministrationAbsenceResponse absence : absences) {
+        for (AdministrationAbsenceResponse absence:absences) {
 
             this.createAdminAbsenceRow(sheet.createRow(rowIndex++), dataCellStyle, dateTimeCellStyle, dateCellStyle, absence);
         }
@@ -177,7 +178,7 @@ public class ExportService implements IExportService {
 
         this.createWorklogHeaderRow(sheet.createRow(0), this.getHeaderCellStyle(wb), true);
 
-        for (AdministrationWorklogResponse worklog : worklogs) {
+        for (AdministrationWorklogResponse worklog:worklogs) {
 
             this.createAdminWorklogRow(sheet.createRow(rowIndex++), dataCellStyle, dateCellStyle, dateTimeCellStyle, worklog);
         }
@@ -232,12 +233,12 @@ public class ExportService implements IExportService {
 
         Cell statusCell = row.createCell(3);
         statusCell.setCellValue(response.getStatus().getName());
-        typeCell.setCellStyle(dataCellStyle);
-        
-        Cell dateofRegCell = row.createCell(4);
-        dateofRegCell.setCellValue(Date.from(response.getDateOfRegistration().toInstant(ZoneOffset.UTC)));
-        dateofRegCell.setCellStyle(dateTimeCellStyle);
-        
+        statusCell.setCellStyle(dataCellStyle);
+
+        Cell dateOfRegCell = row.createCell(4);
+        dateOfRegCell.setCellValue(Date.from(response.getDateOfRegistration().toInstant(ZoneOffset.UTC)));
+        dateOfRegCell.setCellStyle(dateTimeCellStyle);
+
         Cell dateofModCell = row.createCell(5);
         dateofModCell.setCellValue(Date.from(response.getDateOfRegistration().toInstant(ZoneOffset.UTC)));
         dateofModCell.setCellStyle(dateTimeCellStyle);
@@ -293,13 +294,14 @@ public class ExportService implements IExportService {
         Cell statusCell = headerRow.createCell(3);
         statusCell.setCellValue("Status");
         statusCell.setCellStyle(headerCellStyle);
+
         if (administration) {
 
-            Cell dateOfRegCell = headerRow.createCell(0);
+            Cell dateOfRegCell = headerRow.createCell(4);
             dateOfRegCell.setCellValue("Date Of Registration");
             dateOfRegCell.setCellStyle(headerCellStyle);
 
-            Cell dateOfModCell = headerRow.createCell(1);
+            Cell dateOfModCell = headerRow.createCell(5);
             dateOfModCell.setCellValue("Date Of Modification");
             dateOfModCell.setCellStyle(headerCellStyle);
         }  
@@ -316,11 +318,11 @@ public class ExportService implements IExportService {
         workHourCell.setCellStyle(headerCellStyle);
         if (administration) {
 
-            Cell dateOfRegCell = headerRow.createCell(0);
+            Cell dateOfRegCell = headerRow.createCell(2);
             dateOfRegCell.setCellValue("Date Of Registration");
             dateOfRegCell.setCellStyle(headerCellStyle);
 
-            Cell dateOfModCell = headerRow.createCell(1);
+            Cell dateOfModCell = headerRow.createCell(3);
             dateOfModCell.setCellValue("Date Of Modification");
             dateOfModCell.setCellStyle(headerCellStyle);
         }    

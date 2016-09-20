@@ -139,7 +139,8 @@ angular.module("Administration")
 			url : "/api/administration/v1/worklog/"+employeeId+'/'+dateFilter+'/'+showDailyWorkhours+'/'+type+'/export',
 			headers : {
 				'Content-Type': 'application/json'
-			}
+			},
+			responseType: 'arraybuffer'
 		}).then(function successCallback(response) {
 
 				deferred.resolve(response.data);
@@ -158,7 +159,8 @@ angular.module("Administration")
 			url : "/api/administration/v1/absence/"+employeeId+'/'+dateFilter+'/'+showNotApprove+'/'+type+'/export',
 			headers : {
 				'Content-Type': 'application/json'
-			}
+			},
+			responseType: 'arraybuffer'
 		}).then(function successCallback(response) {
 
 				deferred.resolve(response.data);

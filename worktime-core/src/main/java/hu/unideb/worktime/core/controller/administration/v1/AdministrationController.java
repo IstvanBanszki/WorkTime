@@ -71,7 +71,7 @@ public class AdministrationController {
     @RequestMapping(value = "/worklog/{employeeId}/{dateFilter}/{showDailyWorkhours}/{type}/export", method = RequestMethod.GET)
     public void exportWorklogs(@PathVariable("employeeId") Integer employeeId, 
                     @PathVariable("type") Integer excelType, @PathVariable("dateFilter") String dateFilter, 
-                    @PathVariable("showDailyWorkhours") Boolean showDailyWorkhours, HttpServletResponse response ) {
+                    @PathVariable("showDailyWorkhours") Boolean showDailyWorkhours, HttpServletResponse response) {
         this.exportService.exportAdminWorklogs(employeeId, dateFilter, showDailyWorkhours, excelType, response);
     }
 
@@ -79,7 +79,7 @@ public class AdministrationController {
     @RequestMapping(value = "/absence/{employeeId}/{dateFilter}/{notApprove}/{type}/export", method = RequestMethod.GET)
     public void exportAbsences(@PathVariable("employeeId") Integer employeeId, 
                     @PathVariable("type") Integer excelType, @PathVariable("dateFilter") String dateFilter, 
-                    @PathVariable("notApprove") Boolean notApprove, HttpServletResponse response ) {
+                    @PathVariable("notApprove") Boolean notApprove, HttpServletResponse response) {
         this.exportService.exportAdminAbsences(employeeId, dateFilter, notApprove, excelType, response);
     }
 }
