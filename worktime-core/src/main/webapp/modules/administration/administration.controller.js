@@ -46,6 +46,8 @@ angular.module('Administration')
 							result.forEach(function(employee) {
 								$scope.employees.push({
 									id: employee.id,
+									lastName: employee.lastName,
+									firstName: employee.firstName,
 									name: employee.firstName + ' ' + employee.lastName
 								});
 							});
@@ -144,7 +146,7 @@ angular.module('Administration')
 			if($scope.selectedEmployeeWorklog !== "") {
 
 				var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-				var excelFileName = 'ExportWorklog.xls' + ((excelType === 1) ? '' : 'x');
+				var excelFileName = $scope.createExcelFileName(excelType);
 
 				AdministrationService.ExportEmployeeWorklogs($scope.selectedEmployeeWorklog, excelType, $scope.selectedDateFilterWorklog, $scope.listDailyWorkHour).then(
 					function(result) {
@@ -160,7 +162,7 @@ angular.module('Administration')
 			if($scope.selectedEmployeeAbsence !== "") {
 
 				var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-				var excelFileName = 'ExportAbsence.xls' + ((excelType === 1) ? '' : 'x');
+				var excelFileName = $scope.createExcelFileName(excelType);
 
 				AdministrationService.ExportEmployeeAbsences($scope.selectedEmployeeAbsence, excelType, $scope.selectedDateFilterAbsence, $scope.listNotAccepted).then(
 					function(result) {
@@ -171,6 +173,15 @@ angular.module('Administration')
 					}
 				);
 			}
+		};
+		$scope.createExcelFileName = function(excelType) {
+			var employeeName = '';
+			$scope.employees.forEach(function(employee) {
+				if(employee.id === $scope.selectedEmployeeWorklog) {
+					employeeName = employee.firstName+employee.lastName;
+				}
+			});
+			return employeeName+'-'+moment(new Date()).format('YYYYMMDDHHhhmmss')+'-ExportWorklog.xls'+((excelType === 1) ? '' : 'x');
 		};
 
 		$scope.sortType = "BeginDate";

@@ -272,6 +272,10 @@ public class ExportService implements IExportService {
         Cell dateofModCell = row.createCell(3);
         dateofModCell.setCellValue(Date.from(response.getDateOfRegistration().toInstant(ZoneOffset.UTC)));
         dateofModCell.setCellStyle(dateTimeCellStyle);
+
+        Cell noteCell = row.createCell(4);
+        noteCell.setCellValue(response.getNote());
+        noteCell.setCellStyle(dataCellStyle);
     }
 
     /**********************************/
@@ -325,6 +329,10 @@ public class ExportService implements IExportService {
             Cell dateOfModCell = headerRow.createCell(3);
             dateOfModCell.setCellValue("Date Of Modification");
             dateOfModCell.setCellStyle(headerCellStyle);
+
+            Cell noteCell = headerRow.createCell(4);
+            noteCell.setCellValue("Note");
+            noteCell.setCellStyle(headerCellStyle);
         }    
     }
     
