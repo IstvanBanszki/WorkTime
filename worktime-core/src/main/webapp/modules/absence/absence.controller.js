@@ -148,7 +148,7 @@ angular.module('Absence')
 		$scope.ExportAbsence = function(excelType) {
 			
 			var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-			var excelFileName = 'ExportAbsence.xls' + ((excelType === 1) ? '' : 'x');
+			var excelFileName = $scope.createExcelFileName(excelType);
 
 			AbsenceService.ExportAbsence($rootScope.userData.workerId, $scope.selectedDateFilter, excelType).then(
 				function(result) {
@@ -158,5 +158,9 @@ angular.module('Absence')
 				function(error) {
 				}
 			);
+		};
+		$scope.createExcelFileName = function(excelType) {
+			var employeeName = $rootScope.profileData.firstName+$rootScope.profileData.lastName;
+			return employeeName+'-'+moment(new Date()).format('YYYYMMDDHHhhmmss')+'-ExportAbsence.xls'+((excelType === 1) ? '' : 'x');
 		};
     }]);

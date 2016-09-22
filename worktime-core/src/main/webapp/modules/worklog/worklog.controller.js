@@ -125,7 +125,7 @@ angular.module('Worklog')
 		$scope.ExportWorklog = function(excelType) {
 			
 			var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-			var excelFileName = 'ExportWorklog.xls' + ((excelType === 1) ? '' : 'x');
+			var excelFileName = $scope.createExcelFileName(excelType);
 
 			WorklogService.ExportWorklog($rootScope.userData.workerId, $scope.selectedDateFilter, excelType).then(
 				function(result) {
@@ -135,6 +135,10 @@ angular.module('Worklog')
 				function(error) {
 				}
 			);
+		};
+		$scope.createExcelFileName = function(excelType) {
+			var employeeName = $rootScope.profileData.firstName+$rootScope.profileData.lastName;
+			return employeeName+'-'+moment(new Date()).format('YYYYMMDDHHhhmmss')+'-ExportWorklog.xls'+((excelType === 1) ? '' : 'x');
 		};
 		$scope.timeValue = function(value) {
 			return value < 10 ? '0'+value : value+'';

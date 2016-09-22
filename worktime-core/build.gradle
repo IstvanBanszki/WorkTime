@@ -6,10 +6,12 @@ buildscript {
         mavenCentral()
     }
     ext {
-		springBootVersion = '1.4.0.RELEASE'
+		springBootVersion = '1.4.1.RELEASE'
 		jasyptVersion = '1.9.2'
 		fasterXmlVersion = '2.8.2'
 		poiVersion = '3.14'
+		javaxMailVersion = '1.5.6'
+        springVersion = '4.3.3.RELEASE'
     }
     dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
@@ -48,8 +50,13 @@ dependencies {
 	compile "org.jasypt:jasypt:${jasyptVersion}"
 	compile "org.jasypt:jasypt-spring31:${jasyptVersion}"
 
+	//Excel creation
 	compile "org.apache.poi:poi:${poiVersion}"
 	compile "org.apache.poi:poi-ooxml:${poiVersion}"
 
+	//For mail sending
+	compile "com.sun.mail:javax.mail:${javaxMailVersion}"
+	compile "org.springframework:spring-context-support:${springVersion}"
+	
 	provided "org.spockframework:spock-core:1.0-groovy-2.4"
 }
