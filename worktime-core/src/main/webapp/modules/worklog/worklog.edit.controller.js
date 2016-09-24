@@ -1,28 +1,39 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.module('Worklog')
-.controller('WorklogEditController', ['$scope', '$rootScope', '$mdDialog', 'WorklogService',
-    function ($scope, $rootScope, $mdDialog, WorklogService) {
+	angular
+		.module('Worklog')
+		.controller('WorklogEditController', WorklogEditController);
 
-		$scope.localBegin = $rootScope.selectedWorklog.beginDate;
+	WorklogEditController.$inject = ['$rootScope', '$mdDialog', 'WorklogService']
 
-		$scope.newBeginDate = new Date($scope.localBegin.substring(0,4)+'-'+$scope.localBegin.substring(5,7)+'-'+$scope.localBegin.substring(8,10))
-		$scope.newWorkHour = $rootScope.selectedWorklog.workHour;
-		$scope.id = $rootScope.selectedWorklog.id;
+	function WorklogEditController($rootScope, $mdDialog, WorklogService) {
 
-		$scope.error = false;
+		var vm = this;
 
-		$scope.editWorklog = function() {
-			var newDate = moment($scope.newBeginDate).format('YYYY.MM.DD');
-			WorklogService.EditWorklog($scope.id, newDate, $scope.newWorkHour).then(
+		vm.localBegin = $rootScope.selectedWorklog.beginDate;
+        vm.newBeginDate = new Date(vm.localBegin.substring(0,4)+'-'+vm.localBegin.substring(5,7)+'-'+vm.localBegin.substring(8,10))
+		vm.newWorkHour = $rootScope.selectedWorklog.workHour;
+		vm.id = $rootScope.selectedWorklog.id;
+		vm.error = false;
+
+		vm.editWorklog = editWorklog;
+		vm.range = range;
+
+		// *********************** //
+		// Function implementation //
+		// *********************** //
+		function editWorklog() {
+			var newDate = moment(vm.newBeginDate).format('YYYY.MM.DD');
+			WorklogService.editWorklog(vm.id, newDate, vm.newWorkHour).then(
 				function(result) {
 					if(result === 1) {
-						$scope.answer({
+						answer({
 							beginDate: newDate,
-							workHour: $scope.newWorkHour
+							workHour: vm.newWorkHour
 						});
 					} else {
-						$scope.error = true;
+						vm.error = true;
 					}
 				},
 				function(error) {
@@ -31,13 +42,14 @@ angular.module('Worklog')
 			)
 		};
 
-		$scope.answer = function(answer) {
+		function answer(answer) {
 		  $mdDialog.hide(answer);
 		};
-		$scope.cancel = function() {
+		function cancel() {
 		  $mdDialog.cancel();
 		};
-		$scope.range = function(count) {
+		function range(count) {
 			return new Array(count);
 		};
-    }]);
+	}
+})();

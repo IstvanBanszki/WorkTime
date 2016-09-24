@@ -1,21 +1,21 @@
-<div class="editWDialog" ng-controller="WorklogEditController">
+<div class="editWDialog" ng-controller="WorklogEditController as worklogEdit">
 	<h2>Edit Worklog</h2>
-	<form ng-submit="editWorklog()" >
+	<form ng-submit="worklogEdit.editWorklog()" >
 	
 		<md-content>
 			<p><label class="w3-label">New Begin Date</label></p>
-			<p><md-datepicker ng-model="newBeginDate"></md-datepicker>
+			<p><md-datepicker ng-model="worklogEdit.newBeginDate"></md-datepicker>
 		</md-content>
 
 		<p><label class="w3-label">New Work Hour</label></p>		
 		<md-input-container>
 			<label>Hour</label>
-			<md-select ng-model="newWorkHour">
-				<md-option ng-repeat="hour in range(24) track by $index" value="{{$index+1}}">{{$index+1}}</md-option>
+			<md-select ng-model="worklogEdit.newWorkHour">
+				<md-option ng-repeat="hour in worklogEdit.range(24) track by $index" value="{{$index+1}}">{{$index+1}}</md-option>
 			</md-select>
 		</md-input-container>
 
-		<div class="w3-container w3-red w3-center" ng-show="error">
+		<div class="w3-container w3-red w3-center" ng-show="worklogEdit.error">
 			<p>Error occured!</p>
 		</div>
 
