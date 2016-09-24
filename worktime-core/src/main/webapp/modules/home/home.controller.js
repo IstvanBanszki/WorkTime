@@ -1,9 +1,17 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.module('Home')
-.controller('HomeController', ['$scope', '$rootScope',
-    function ($scope, $rootScope) {
-		$scope.links = [{
+	angular
+		.module('Home')
+		.controller('HomeController', HomeController);
+
+	HomeController.$inject = ['$rootScope'];
+
+    function HomeController($rootScope) {
+
+		var vm = this;
+		//Bindable variables
+		vm.links = [{
 			title: 'Home', url: '#home'
 		}, {
 			title: 'Personal', url: '#profile'
@@ -12,16 +20,27 @@ angular.module('Home')
 		}, {
 			title: 'Absence', url: '#absence'
 		}];
-		if( $rootScope.userData.roleName === 'COMPANY-ADMIN-ROLE' ){
-			$scope.links.push({ title: 'Administration', url: '#administration' });
-			$scope.links.push({ title: 'Addition', url: '#addition' });
-		}
+		vm.currentLink = '#home';
+		//Bindable functions
+		vm.isActiveLink = isActiveLink;
+		vm.onClickLink = onClickLink;
 
-		$scope.currentLink = '#home';
-		$scope.isActiveLink = function(url) {
-			return url == $scope.currentLink;
+		activate();
+
+		// *********************** //
+		// Function implementation //
+		// *********************** //
+		function activate() {
+			if( $rootScope.userData.roleName === 'COMPANY-ADMIN-ROLE' ){
+				vm.links.push({ title: 'Administration', url: '#administration' });
+				vm.links.push({ title: 'Addition', url: '#addition' });
+			}
+		}
+		function isActiveLink(url) {
+			return url == vm.currentLink;
 		};
-		$scope.onClickLink = function(link) {
-			$scope.currentLink = link.url;
+		function onClickLink(link) {
+			vm.currentLink = link.url;
 		};
-    }]);
+    }
+})();
