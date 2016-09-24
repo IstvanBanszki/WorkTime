@@ -1,46 +1,58 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.module('Absence')
-.controller('AbsenceEditController', ['$scope', '$rootScope', '$mdDialog', 'AbsenceService',
-    function ($scope, $rootScope, $mdDialog, AbsenceService) {
+	angular
+		.module('Absence')
+		.controller('AbsenceEditController', AbsenceEditController);
 
-		$scope.localBegin = $rootScope.selectedAbsence.beginDate;
-		$scope.localEnd = $rootScope.selectedAbsence.endDate;
+	AbsenceEditController.$inject = ['$rootScope', '$mdDialog', 'AbsenceService'];
 
-		$scope.newBeginDate =  new Date($scope.localBegin.substring(0,4)+'-'+$scope.localBegin.substring(5,7)+'-'+$scope.localBegin.substring(8,10));
-		$scope.newEndDate = new Date($scope.localEnd.substring(0,4)+'-'+$scope.localEnd.substring(5,7)+'-'+$scope.localEnd.substring(8,10));
-		$scope.newAbsenceType = $rootScope.selectedAbsence.absenceType;
-		$scope.id = $rootScope.selectedAbsence.id;
+    function AbsenceEditController($rootScope, $mdDialog, AbsenceService) {
 
-		$scope.error = false;
+		var vm = this;
+		//Bindable variables
+		vm.localBegin = $rootScope.selectedAbsence.beginDate;
+		vm.localEnd = $rootScope.selectedAbsence.endDate;
+		vm.newBeginDate =  new Date(vm.localBegin.substring(0,4)+'-'+vm.localBegin.substring(5,7)+'-'+vm.localBegin.substring(8,10));
+		vm.newEndDate = new Date(vm.localEnd.substring(0,4)+'-'+vm.localEnd.substring(5,7)+'-'+vm.localEnd.substring(8,10));
+		vm.newAbsenceType = $rootScope.selectedAbsence.absenceType;
+		vm.id = $rootScope.selectedAbsence.id;
+		vm.error = false;
+		//Bindable functions
+		vm.editAbsence = editAbsence;
+		vm.range = range;
 
-		$scope.editAbsence = function() {
-			var answerBeginDate = moment($scope.newBeginDate).format('YYYY.MM.DD');
-			var answerEndDate = moment($scope.newEndDate).format('YYYY.MM.DD');
-			AbsenceService.EditAbsence($scope.id, answerBeginDate, answerEndDate, $scope.newAbsenceType).then(
+		// *********************** //
+		// Function implementation //
+		// *********************** //
+		function editAbsence() {
+			var answerBeginDate = moment(vm.newBeginDate).format('YYYY.MM.DD');
+			var answerEndDate = moment(vm.newEndDate).format('YYYY.MM.DD');
+			AbsenceService.editAbsence(vm.id, answerBeginDate, answerEndDate, vm.newAbsenceType).then(
 				function(result) {
 					if (result === 1) {
-						$scope.answer({
+						answer({
 							beginDate: answerBeginDate,
 							endDate: answerEndDate,
-							absenceType: $scope.newAbsenceType
+							absenceType: vm.newAbsenceType
 						});
 					} else {
-						$scope.error = true;
-					}						
+						vm.error = true;
+					}
 				},
 				function(error) {
-					$scope.cancel();
+					cancel();
 				}
 			)
 		};
-		$scope.answer = function(answer) {
+		function answer(answer) {
 		  $mdDialog.hide(answer);
 		};
-		$scope.answer = function(answer) {
+		function answer(answer) {
 		  $mdDialog.hide(answer);
 		};
-		$scope.cancel = function() {
+		function cancel() {
 		  $mdDialog.cancel();
 		};
-    }]);
+    };
+})();

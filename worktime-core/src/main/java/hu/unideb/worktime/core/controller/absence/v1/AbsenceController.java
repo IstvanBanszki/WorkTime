@@ -60,7 +60,7 @@ public class AbsenceController {
     }
     
     @Async
-    @RequestMapping(value = "/absence/{absenceId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/absence/{absenceId}/edit", method = RequestMethod.PUT)
     public @ResponseBody Integer editAbsence(@PathVariable Integer id, @RequestBody AbsenceRequest request) {
         return this.sqlCallAbsence.editAbsence(id, request);
     }

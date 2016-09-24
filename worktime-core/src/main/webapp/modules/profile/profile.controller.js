@@ -10,7 +10,7 @@
 	function ProfileController($rootScope, $mdDialog, ProfileService) {
 
 		var vm = this;
-
+		//Bindable variables
 		vm.oldPassword = "";
 		vm.newPassword = "";
 		vm.newPasswordSecond = "";
@@ -27,7 +27,7 @@
 		vm.dailyWorkHourTotal = "";
 		vm.departmentName = "";
 		vm.officeName = "";
-
+		//Bindable functions
 		vm.changePassword = changePassword;
 		vm.clearPasswords = clearPasswords;
 		vm.init = init;

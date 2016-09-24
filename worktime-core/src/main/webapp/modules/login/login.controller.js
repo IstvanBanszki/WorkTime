@@ -10,11 +10,11 @@
     function LoginController($location, LoginService) {
 
 		var vm = this;
-
+		//Bindable variables
 		vm.loginName = "";
 		vm.password = "";
 		vm.error = false;
-
+		//Bindable functions
 		vm.login = login;
 		vm.logout = logout;
 

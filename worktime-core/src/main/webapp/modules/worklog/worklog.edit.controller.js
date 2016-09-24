@@ -10,13 +10,13 @@
 	function WorklogEditController($rootScope, $mdDialog, WorklogService) {
 
 		var vm = this;
-
+		//Bindable variables
 		vm.localBegin = $rootScope.selectedWorklog.beginDate;
         vm.newBeginDate = new Date(vm.localBegin.substring(0,4)+'-'+vm.localBegin.substring(5,7)+'-'+vm.localBegin.substring(8,10))
 		vm.newWorkHour = $rootScope.selectedWorklog.workHour;
 		vm.id = $rootScope.selectedWorklog.id;
 		vm.error = false;
-
+		//Bindable functions
 		vm.editWorklog = editWorklog;
 		vm.range = range;
 

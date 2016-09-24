@@ -10,7 +10,7 @@
 	function WorklogController($rootScope, $mdDialog, WorklogService) {
 
 		var vm = this;
-
+		//Bindable variables
 		vm.worklogs = [];
 		vm.sortType = "BeginDate";
 		vm.sortReverse = false;
@@ -20,7 +20,7 @@
 		vm.dailyWorkHour = 8;
 		vm.beginDate = "";
 		vm.workHour = 0;
-
+		//Bindable functions
 		vm.showDownCaret = showDownCaret;
 		vm.showUpCaret = showUpCaret;
 		vm.setSearchTypeOrReverse = setSearchTypeOrReverse;

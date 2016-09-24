@@ -1,35 +1,59 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.module('Absence')
-.controller('AbsenceController', ['$scope', '$rootScope', '$mdDialog', 'AbsenceService',
-    function ($scope, $rootScope, $mdDialog, AbsenceService) {
+	angular
+		.module('Absence')
+		.controller('AbsenceController', AbsenceController);
 
-		$scope.absences = [];
-		$scope.absenceDatas = [];
-		$scope.sortType = "BeginDate";
-		$scope.sortReverse = false;
-		$scope.searchQuery = "";
-		$scope.showDownCaret = function(tableHeader) {
-			return ($scope.sortType == tableHeader && !$scope.sortReverse);
+	AbsenceController.$inject =	['$rootScope', '$mdDialog', 'AbsenceService'];
+
+	function AbsenceController($rootScope, $mdDialog, AbsenceService) {
+
+		var vm = this;
+		//Bindable variables
+		vm.absences = [];
+		vm.absenceDatas = [];
+		vm.sortType = "BeginDate";
+		vm.sortReverse = false;
+		vm.searchQuery = "";
+		vm.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
+		vm.selectedDateFilter = "All";
+		vm.absenceType = "PAYED";
+		vm.beginDate = "";
+		vm.endDate = "";
+		//Bindable functions
+		vm.showDownCaret = showDownCaret;
+		vm.showUpCaret = showUpCaret;
+		vm.setSearchTypeOrReverse = setSearchTypeOrReverse;
+		vm.addAbsence = addAbsence;
+		vm.initAbsence = initAbsence;
+		vm.getAbsences = getAbsences;
+		vm.getAbsenceDatas = getAbsenceDatas;
+		vm.deleteAbsence = deleteAbsence;
+		vm.editAbsence = editAbsence;
+		vm.exportAbsence = exportAbsence;
+
+		// *********************** //
+		// Function implementation //
+		// *********************** //
+		function showDownCaret(tableHeader) {
+			return (vm.sortType == tableHeader && !vm.sortReverse);
 		};
-		$scope.showUpCaret = function(tableHeader) {
-			return ($scope.sortType == tableHeader && $scope.sortReverse);
+		function showUpCaret(tableHeader) {
+			return (vm.sortType == tableHeader && vm.sortReverse);
 		};
-		$scope.setSearchTypeOrReverse = function(tableHeader) {
-			if($scope.sortType == tableHeader) {
-				$scope.sortReverse = !$scope.sortReverse;
+		function setSearchTypeOrReverse(tableHeader) {
+			if(vm.sortType == tableHeader) {
+				vm.sortReverse = !vm.sortReverse;
 			} else {
-				$scope.sortType = tableHeader;
+				vm.sortType = tableHeader;
 			}
 		};
-		$scope.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
-		$scope.selectedDateFilter = "All";
-
-		$scope.absenceType = "PAYED";
-		$scope.beginDate = "";
-		$scope.endDate = "";
-
-		$scope.showStatus = function(result) {
+		function createExcelFileName(excelType) {
+			var employeeName = $rootScope.profileData.firstName+$rootScope.profileData.lastName;
+			return employeeName+'-'+moment(new Date()).format('YYYYMMDDHHhhmmss')+'-ExportAbsence.xls'+((excelType === 1) ? '' : 'x');
+		};
+		function showStatus(result) {
 			var textContent = '';
 			if(result === -2) {
 				textContent = 'The saving is unsuccesfull, the Begin or End Date is in the range of an already exist absence!';
@@ -42,88 +66,88 @@ angular.module('Absence')
 				clickOutsideToClose: true,
 				ok: 'Close'
 			});
-		    $mdDialog.show(alert)
+			$mdDialog.show(alert)
 					 .finally(function() {
 						alert = undefined;
 					 });
 		};
-		$scope.AddAbsence = function() {
+		function addAbsence() {
 			//for(var i = 0; i < $scope.worklogs.length; i++) {
 				//if(moment($scope.worklogs[i].beginDate).isBetween($scope.beginDate, $scope.endDate) ||
 				//	 moment($scope.worklogs[i].endDate).isBetween($scope.beginDate, $scope.endDate)) {
 				//	$scope.showStatus(-1);
 				//}
 			//}
-			var dateBegin = moment($scope.beginDate).format('YYYY.MM.DD');
-			var dateEnd = moment($scope.endDate).format('YYYY.MM.DD');
-			AbsenceService.AddAbsence(dateBegin, dateEnd, $rootScope.userData.workerId, $scope.absenceType).then(
+			var dateBegin = moment(vm.beginDate).format('YYYY.MM.DD');
+			var dateEnd = moment(vm.endDate).format('YYYY.MM.DD');
+			AbsenceService.addAbsence(dateBegin, dateEnd, $rootScope.userData.workerId, vm.absenceType).then(
 				function(result) {
-					$scope.absences.push({
+					vm.absences.push({
 						id: result.newId,
 						beginDate: dateBegin,
 						endDate: dateEnd,
-						absenceType: $scope.absenceType,
+						absenceType: vm.absenceType,
 						status: 'NOT_APPROVE'
 					});
-					$scope.absenceType = "PAYED";
-					$scope.beginDate = "";
-					$scope.endDate = "";
-					$scope.showStatus(result.status);
+					vm.absenceType = "PAYED";
+					vm.beginDate = "";
+					vm.endDate = "";
+					showStatus(result.status);
 				},
 				function(error) {
 				}
 			);
 		};
-		$scope.initAbsence = function() {
-			if((typeof $scope.absences || $scope.absences.length === 0) && 
-			   (typeof $scope.absenceDatas || $scope.absenceDatas.length === 0)) {
-				$scope.GetAbsences();
-				$scope.GetAbsenceDatas();
+		function initAbsence() {
+			if((typeof vm.absences || vm.absences.length === 0) && 
+			   (typeof vm.absenceDatas || vm.absenceDatas.length === 0)) {
+				getAbsences();
+				getAbsenceDatas();
 			}
 		};
-		$scope.GetAbsences = function() {
-			AbsenceService.GetAbsence($rootScope.userData.workerId, $scope.selectedDateFilter).then(
+		function getAbsences() {
+			AbsenceService.getAbsence($rootScope.userData.workerId, vm.selectedDateFilter).then(
 				function(result) {
-					$scope.absences = [];
-					$scope.absences = result;
+					vm.absences = [];
+					vm.absences = result;
 				},
 				function(error) {
 				}
 			);
 		};
-		$scope.GetAbsenceDatas = function() {
-			AbsenceService.GetAbsenceData($rootScope.userData.workerId).then(
+		function getAbsenceDatas() {
+			AbsenceService.getAbsenceData($rootScope.userData.workerId).then(
 				function(result) {
-					$scope.absenceDatas = result;
+					vm.absenceDatas = result;
 				},
 				function(error) {
 				}
 			);
 		};
-		$scope.DeleteAbsence = function(ev, absence) {
+		function deleteAbsence(ev, absence) {
 			var confirm = $mdDialog.confirm().title('Absence Delete')
 											 .clickOutsideToClose(true)
-										     .htmlContent('<div><p>Are you sure about delete the below Absence?<br>Begin Date: '+absence.beginDate+'<br>End Date: '+absence.endDate+'<br>Absence Type: '+absence.absenceType+'</p></div>')
-										     .targetEvent(ev)
-										     .ok('Yes')
-										     .cancel('No');
+											 .htmlContent('<div><p>Are you sure about delete the below Absence?<br>Begin Date: '+absence.beginDate+'<br>End Date: '+absence.endDate+'<br>Absence Type: '+absence.absenceType+'</p></div>')
+											 .targetEvent(ev)
+											 .ok('Yes')
+											 .cancel('No');
 			$mdDialog.show(confirm).then(function() { // Yes
-				AbsenceService.DeleteAbsence(absence.id).then(
+				AbsenceService.deleteAbsence(absence.id).then(
 					function(result) {
 					},
 					function(error) {
 					}
 				)
-				for(var i = 0; i < $scope.absences.length; i++) {
-					if($scope.absences[i].id === absence.id) {
-						$scope.absences.splice(i, 1);
+				for(var i = 0; i < vm.absences.length; i++) {
+					if(vm.absences[i].id === absence.id) {
+						vm.absences.splice(i, 1);
 						break;
 					} 
 				}
 			}, function() { // No
 			});
 		};
-		$scope.EditAbsence = function(ev, absence) {
+		function editAbsence(ev, absence) {
 			$rootScope.selectedAbsence = absence;
 			$mdDialog.show({
 				locals: { absenceData: absence },
@@ -134,23 +158,23 @@ angular.module('Absence')
 				parent: angular.element(document.body),
 				targetEvent: ev
 			}).then(function(answer) {
-				for(var i = 0; i < $scope.absences.length; i++) {
-					if($scope.absences[i].id === absence.id) {
-						$scope.absences[i].beginDate = answer.beginDate;
-						$scope.absences[i].endDate = answer.endDate;
-						$scope.absences[i].absenceType = answer.absenceType;
+				for(var i = 0; i < vm.absences.length; i++) {
+					if(vm.absences[i].id === absence.id) {
+						vm.absences[i].beginDate = answer.beginDate;
+						vm.absences[i].endDate = answer.endDate;
+						vm.absences[i].absenceType = answer.absenceType;
 						break;
 					}
 				}
 			}, function() {
 			});
 		};
-		$scope.ExportAbsence = function(excelType) {
-			
-			var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-			var excelFileName = $scope.createExcelFileName(excelType);
+		function exportAbsence(excelType) {
 
-			AbsenceService.ExportAbsence($rootScope.userData.workerId, $scope.selectedDateFilter, excelType).then(
+			var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			var excelFileName = vm.createExcelFileName(excelType);
+
+			AbsenceService.exportAbsence($rootScope.userData.workerId, vm.selectedDateFilter, excelType).then(
 				function(result) {
 					var blob = new Blob([result], {type: excelTypeStr});
 					saveAs(blob, excelFileName);
@@ -159,8 +183,5 @@ angular.module('Absence')
 				}
 			);
 		};
-		$scope.createExcelFileName = function(excelType) {
-			var employeeName = $rootScope.profileData.firstName+$rootScope.profileData.lastName;
-			return employeeName+'-'+moment(new Date()).format('YYYYMMDDHHhhmmss')+'-ExportAbsence.xls'+((excelType === 1) ? '' : 'x');
-		};
-    }]);
+	};
+})();
