@@ -1,65 +1,82 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.module("Profile")
-.factory('ProfileService', ['$http', '$rootScope', '$q', function ProfileServiceFactory($http, $rootScope, $q) {
-	var service = {};
-	service.Profile = function(workerId) {
-		var deferred = $q.defer();
-		return $http({
-			method : "GET",
-			url : "/api/profile/v1/"+workerId,
-			headers : {
-				'Content-Type': 'application/json'
-			}
-		}).then(function successCallback(response) {
+	angular
+		.module("Profile")
+		.factory('ProfileService', ProfileService);
 
-				deferred.resolve(response.data);
-				return deferred.promise;
-				
-			}, function errorCallback(response) {
+	ProfileService.$inject = ['$http', '$rootScope', '$q']; 
 
-				deferred.reject(response);
-				return deferred.promise;
-			});
-	}
-	service.ChangePassword = function(loginName, oldPassword, newPassword) {
-		var deferred = $q.defer();
-		return $http({
-			method : "PUT",
-			url : "/api/login/v1/"+loginName,
-			headers : {
-				'Content-Type': 'application/json'
-			},
-			data: {
-				'oldPassword': oldPassword, 
-				'newPassword': newPassword
-			}
-		}).then(function successCallback(response) {
+	function ProfileService($http, $rootScope, $q) {
 
-				deferred.resolve(response.data);
-				return deferred.promise;
-				
-			}, function errorCallback(response) {
-
-				deferred.reject(response);
-				return deferred.promise;
-			});
-	}
-	service.SetProfileData = function(parameter) {
-		$rootScope.profileData = {
-			firstName: parameter.firstName,
-			lastName : parameter.lastName,
-			gender : parameter.gender,
-			dateOfBirth : parameter.dateOfBirth,
-			nationality : parameter.nationality,
-			position : parameter.position,
-			dailyWorkHourTotal : parameter.dailyWorkHourTotal,
-			departmentName : parameter.departmentName,
-			officeName : parameter.officeName
+		var service = {
+			Profile			  : Profile,
+			ChangePassword 	  : ChangePassword,
+			SetProfileData 	  : SetProfileData,
+			RemoveProfileData : RemoveProfileData
 		};
+		return service;
+
+		// *********************** //
+		// Function implementation //
+		// *********************** //
+		function Profile(workerId) {
+			var deferred = $q.defer();
+			return $http({
+				method : "GET",
+				url : "/api/profile/v1/"+workerId,
+				headers : {
+					'Content-Type': 'application/json'
+				}
+			}).then(function successCallback(response) {
+
+					deferred.resolve(response.data);
+					return deferred.promise;
+					
+				}, function errorCallback(response) {
+
+					deferred.reject(response);
+					return deferred.promise;
+				});
+		}
+		function ChangePassword(loginName, oldPassword, newPassword) {
+			var deferred = $q.defer();
+			return $http({
+				method : "PUT",
+				url : "/api/login/v1/"+loginName,
+				headers : {
+					'Content-Type': 'application/json'
+				},
+				data: {
+					'oldPassword': oldPassword, 
+					'newPassword': newPassword
+				}
+			}).then(function successCallback(response) {
+
+					deferred.resolve(response.data);
+					return deferred.promise;
+					
+				}, function errorCallback(response) {
+
+					deferred.reject(response);
+					return deferred.promise;
+			});
+		}
+		function SetProfileData(parameter) {
+			$rootScope.profileData = {
+				firstName: parameter.firstName,
+				lastName : parameter.lastName,
+				gender : parameter.gender,
+				dateOfBirth : parameter.dateOfBirth,
+				nationality : parameter.nationality,
+				position : parameter.position,
+				dailyWorkHourTotal : parameter.dailyWorkHourTotal,
+				departmentName : parameter.departmentName,
+				officeName : parameter.officeName
+			};
+		}
+		function RemoveProfileData() {
+			$rootScope.profileData= {};
+		}
 	}
-	service.RemoveProfileData = function(){
-		$rootScope.profileData= {};
-	}
-	return service;
-}])
+})();

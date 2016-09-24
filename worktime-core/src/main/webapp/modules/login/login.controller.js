@@ -1,31 +1,47 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.module('Login')
-.controller('LoginController', ['$scope', '$location', 'LoginService',
-    function ($scope, $location, LoginService) {
-		$scope.loginName = "";
-		$scope.password = "";
-		$scope.error = false;
-		$scope.login = function(){
-			LoginService.Login($scope.loginName, $scope.password)
+	angular
+		.module('Login')
+		.controller('LoginController', LoginController);
+
+	LoginController.$inject = ['$location', 'LoginService']
+	
+    function LoginController($location, LoginService) {
+
+		var vm = this;
+
+		vm.loginName = "";
+		vm.password = "";
+		vm.error = false;
+
+		vm.login = login;
+		vm.logout = logout;
+
+		// *********************** //
+		// Function implementation //
+		// *********************** //
+		function login () {
+			LoginService.Login(vm.loginName, vm.password)
 				.then(
 					function(result) {
 						if(result !== "") {
-							LoginService.SetUserData( result, $scope.loginName, $scope.password );
+							LoginService.SetUserData( result, vm.loginName, vm.password );
 							$location.path('/home');
 						} else {
-							$scope.error = true;
+							vm.error = true;
 						}
 					},
 					function(error) {
 						
-						$scope.error = true;
-						$scope.errorMessage = error.status;
+						vm.error = true;
+						vm.errorMessage = error.status;
 					}
 				);
 		}
-		$scope.logout = function(){
+		function logout () {
 			LoginService.RemoveUserData();
 			$location.path('/login');
 		}
-    }]);
+    };
+})();

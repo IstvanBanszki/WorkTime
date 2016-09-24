@@ -8,6 +8,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -15,12 +16,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class MailSender implements IMailSender {
     
-    @Autowired private Logger logger;
+    private Logger logger = LoggerFactory.getLogger(MailSender.class);
+    /*
     @Autowired private JavaMailSender javaMailSender;
-
-    public MailSender(){
-    }
-    
     @Override
     public void sendEmail(Mail mail) {
         this.logger.info("Send Mail message, with following properties {}", mail);
@@ -51,5 +49,10 @@ public class MailSender implements IMailSender {
         }
         javaMailSender.send(message);
     }
-    
+    */
+
+    @Override
+    public void sendEmail(Mail mail) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
