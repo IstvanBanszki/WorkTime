@@ -1,28 +1,28 @@
-<div class="editEDialog" ng-controller="AbsenceEditController">
+<div class="editEDialog" ng-controller="AbsenceEditController as absenceC">
 	<h2>Edit Absence</h2>
-	<form ng-submit="editAbsence()">
+	<form ng-submit="absenceC.editAbsence()">
 		<md-content>
 			<p><label class="w3-label">Begin Date</label></p>
-			<p><md-datepicker ng-model="newBeginDate" md-placeholder="Enter date"></md-datepicker></p>
+			<p><md-datepicker ng-model="absenceC.newBeginDate" md-placeholder="Enter date"></md-datepicker></p>
 			<p><label class="w3-label">End Date</label></p>
-			<p><md-datepicker ng-model="newEndDate" md-placeholder="Enter date"></md-datepicker></p>
+			<p><md-datepicker ng-model="absenceC.newEndDate" md-placeholder="Enter date"></md-datepicker></p>
 		</md-content>
 
 		<p><label class="w3-label">Absence Type</label></p>
 
-		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="PAYED"/>
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="absenceC.newAbsenceType" value="PAYED"/>
 		<label class="w3-validate">Payed</label></p>
 
-		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="UNPAYED"/>
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="absenceC.newAbsenceType" value="UNPAYED"/>
 		<label class="w3-validate">Unpayed</label></p>
 
-		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="SICK_PAY"/>
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="absenceC.newAbsenceType" value="SICK_PAY"/>
 		<label class="w3-validate">Sick Pay</label></p>
 
-		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="VERIFIED"/>
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="absenceC.newAbsenceType" value="VERIFIED"/>
 		<label class="w3-validate">Verified</label></p>
 
-		<div class="w3-container w3-red w3-center" ng-show="error">
+		<div class="w3-container w3-red w3-center" ng-show="absenceC.error">
 			<p>Error occured!</p>
 		</div>
 		

@@ -172,7 +172,7 @@
 		function exportAbsence(excelType) {
 
 			var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-			var excelFileName = vm.createExcelFileName(excelType);
+			var excelFileName = createExcelFileName(excelType);
 
 			AbsenceService.exportAbsence($rootScope.userData.workerId, vm.selectedDateFilter, excelType).then(
 				function(result) {

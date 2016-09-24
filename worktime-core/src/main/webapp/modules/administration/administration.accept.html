@@ -1,28 +1,28 @@
-<div class="editEDialog" ng-controller="AdministrationAcceptController">
+<div class="editEDialog" ng-controller="AdministrationAcceptController as administrationEdit">
 	<h2>Accept Employee Absence</h2>
-	<form ng-submit="acceptEmployeeAbsence()">
+	<form ng-submit="administrationEdit.acceptEmployeeAbsence()">
 		<md-content>
 			<p><label class="w3-label">Begin Date</label></p>
-			<p><md-datepicker ng-model="newBeginDate" md-placeholder="Enter date"></md-datepicker></p>
+			<p><md-datepicker ng-model="administrationEdit.newBeginDate" md-placeholder="Enter date"></md-datepicker></p>
 			<p><label class="w3-label">End Date</label></p>
-			<p><md-datepicker ng-model="newEndDate" md-placeholder="Enter date"></md-datepicker></p>
+			<p><md-datepicker ng-model="administrationEdit.newEndDate" md-placeholder="Enter date"></md-datepicker></p>
 		</md-content>
 
 		<p><label class="w3-label">Absence Type</label></p>
 
-		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="PAYED"/>
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="administrationEdit.newAbsenceType" value="PAYED"/>
 		<label class="w3-validate">Payed</label></p>
 
-		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="UNPAYED"/>
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="administrationEdit.newAbsenceType" value="UNPAYED"/>
 		<label class="w3-validate">Unpayed</label></p>
 
-		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="SICK_PAY"/>
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="administrationEdit.newAbsenceType" value="SICK_PAY"/>
 		<label class="w3-validate">Sick Pay</label></p>
 
-		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="newAbsenceType" value="VERIFIED"/>
+		<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="administrationEdit.newAbsenceType" value="VERIFIED"/>
 		<label class="w3-validate">Verified</label></p>
 
-		<div class="w3-container w3-red w3-center" ng-show="error">
+		<div class="w3-container w3-red w3-center" ng-show="administrationEdit.error">
 			<p>Error occured!</p>
 		</div>
 		

@@ -1,59 +1,69 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.module('Administration')
-.controller('AdministrationPageController', ['$scope', '$rootScope', '$mdDialog', 'AdministrationService',
-    function($scope, $rootScope, $mdDialog, AdministrationService) {
-		$scope.tabs = ['modules/administration/administration.worklog.html', 'modules/administration/administration.absence.html'];
-		$scope.currentTab = $scope.tabs[0];
-		$scope.isActiveTab = function(tabUrl) {
-			return tabUrl == $scope.currentTab;
-		};
-		$scope.onClickTab = function(tab) {
-			if(tab === 'Worklog'){
-				$scope.currentTab = $scope.tabs[0];
-			} else {
-				$scope.currentTab = $scope.tabs[1];
-			}
-		};
-		$scope.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
-		$scope.selectedDateFilterAbsence = "All";
-		$scope.selectedDateFilterWorklog = "All";
+	angular
+		.module('Administration')
+		.controller('AdministrationController', AdministrationController);
 
-		$scope.employees = [];
-		$scope.selectedEmployeeAbsence = "";
-		$scope.selectedEmployeeWorklog = "";
-		$scope.selectedEmployeeEdit = '';
-		$scope.emptyEmployeeList = false;
+	AdministrationController.$inject = ['$rootScope', '$mdDialog', 'AdministrationService'];
 
-		$scope.employeeWorklogs = [];
-		$scope.emptyWorklogList = false;
-		$scope.employeeAbsences = [];
-		$scope.emptyAbsenceList = false;
+    function AdministrationController($rootScope, $mdDialog, AdministrationService) {
 
-		$scope.listDailyWorkHour = false;
-		$scope.listNotAccepted 	 = false;
+		var vm = this;
+		//Bindable variables
+		vm.sortType = "BeginDate";
+		vm.sortReverse = false;
+		vm.searchQuery = "";
+		vm.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
+		vm.selectedDateFilterAbsence = "All";
+		vm.selectedDateFilterWorklog = "All";
+		vm.employees = [];
+		vm.selectedEmployeeAbsence = "";
+		vm.selectedEmployeeWorklog = "";
+		vm.selectedEmployeeEdit = '';
+		vm.emptyEmployeeList = false;
+		vm.employeeWorklogs = [];
+		vm.emptyWorklogList = false;
+		vm.employeeAbsences = [];
+		vm.emptyAbsenceList = false;
+		vm.listDailyWorkHour = false;
+		vm.listNotAccepted 	 = false;
+		vm.newFirstName = "";
+		vm.newLastName = "";
+		vm.newPosition = "";
+		vm.newEmailAddress = "";
+		vm.newDailyWorkHourTotal = "";
+		//Bindable functions
+		vm.init = init;
+		vm.showDownCaret = showDownCaret;
+		vm.showUpCaret = showUpCaret;
+		vm.setSearchTypeOrReverse = setSearchTypeOrReverse;
+		vm.filterWorklog = filterWorklog;
+		vm.filterAbsence = filterAbsence;
+		vm.acceptEmployeeAbsence = acceptEmployeeAbsence;
+		vm.selectEmployeeForEdit = selectEmployeeForEdit;
+		vm.changeEmployeeData = changeEmployeeData;
+		vm.exportAdminAbsence = exportAdminAbsence;
+		vm.exportAdminWorklog = exportAdminWorklog;
 
-		$scope.newFirstName = "";
-		$scope.newLastName = "";
-		$scope.newPosition = "";
-		$scope.newEmailAddress = "";
-		$scope.newDailyWorkHourTotal = "";
-		
-		$scope.init = function() {
-			AdministrationService.GetEmployees($rootScope.userData.workerId).then(
+		// *********************** //
+		// Function implementation //
+		// *********************** //
+		function init() {
+			AdministrationService.getEmployees($rootScope.userData.workerId).then(
 					function(result) {
 						if(result.length > 0) {
 							result.forEach(function(employee) {
-								$scope.employees.push({
+								vm.employees.push({
 									id: employee.id,
 									lastName: employee.lastName,
 									firstName: employee.firstName,
 									name: employee.firstName + ' ' + employee.lastName
 								});
 							});
-							$rootScope.emptyEmployeeList = $scope.emptyEmployeeList = false;
+							$rootScope.emptyEmployeeList = vm.emptyEmployeeList = false;
 						} else {
-							$rootScope.emptyEmployeeList = $scope.emptyEmployeeList = true;
+							$rootScope.emptyEmployeeList = vm.emptyEmployeeList = true;
 						}
 					},
 					function(error) {
@@ -61,16 +71,42 @@ angular.module('Administration')
 				);
 		};
 
-		$scope.filterWorklog = function() {
-			if($scope.selectedEmployeeWorklog !== "") {
-				AdministrationService.GetWorklogsByEmployee($scope.selectedEmployeeWorklog, $scope.selectedDateFilterWorklog, $scope.listDailyWorkHour).then(
+		function showDownCaret(tableHeader) {
+			return (vm.sortType == tableHeader && !vm.sortReverse);
+		};
+
+		function showUpCaret(tableHeader) {
+			return (vm.sortType == tableHeader && vm.sortReverse);
+		};
+
+		function setSearchTypeOrReverse(tableHeader) {
+			if(vm.sortType == tableHeader){
+				vm.sortReverse = !vm.sortReverse;
+			} else {
+				vm.sortType = tableHeader;
+			}
+		};
+
+		function createExcelFileName(excelType) {
+			var employeeName = '';
+			vm.employees.forEach(function(employee) {
+				if(employee.id === vm.selectedEmployeeWorklog) {
+					employeeName = employee.firstName+employee.lastName;
+				}
+			});
+			return employeeName+'-'+moment(new Date()).format('YYYYMMDDHHhhmmss')+'-ExportWorklog.xls'+((excelType === 1) ? '' : 'x');
+		};
+
+		function filterWorklog() {
+			if(vm.selectedEmployeeWorklog !== "") {
+				AdministrationService.getWorklogsByEmployee(vm.selectedEmployeeWorklog, vm.selectedDateFilterWorklog, vm.listDailyWorkHour).then(
 						function(result) {
-							$scope.employeeWorklogs = [];
-							$scope.employeeWorklogs = result;
-							if($scope.employeeWorklogs.length > 0) {
-								$scope.emptyWorklogList = false;
+							vm.employeeWorklogs = [];
+							vm.employeeWorklogs = result;
+							if(vm.employeeWorklogs.length > 0) {
+								vm.emptyWorklogList = false;
 							} else {
-								$scope.emptyWorklogList = true;
+								vm.emptyWorklogList = true;
 							}
 						},
 						function(error) {
@@ -78,16 +114,16 @@ angular.module('Administration')
 					);
 			}
 		};
-		$scope.filterAbsence = function() {
-			if($scope.selectedEmployeeAbsence !== "") {
-				AdministrationService.GetAbsencesByEmployee($scope.selectedEmployeeAbsence, $scope.selectedDateFilterAbsence, $scope.listNotAccepted).then(
+		function filterAbsence() {
+			if(vm.selectedEmployeeAbsence !== "") {
+				AdministrationService.getAbsencesByEmployee(vm.selectedEmployeeAbsence, vm.selectedDateFilterAbsence, vm.listNotAccepted).then(
 						function(result) {
-							$scope.employeeAbsences = [];
-							$scope.employeeAbsences = result;
-							if($scope.employeeAbsences.length > 0) {
-								$scope.emptyAbsenceList = false;
+							vm.employeeAbsences = [];
+							vm.employeeAbsences = result;
+							if(vm.employeeAbsences.length > 0) {
+								vm.emptyAbsenceList = false;
 							} else {
-								$scope.emptyAbsenceList = true;
+								vm.emptyAbsenceList = true;
 							}
 						},
 						function(error) {
@@ -95,7 +131,7 @@ angular.module('Administration')
 					);
 			}
 		};
-		$scope.acceptEmployeeAbsence = function(ev, absence) {
+		function acceptEmployeeAbsence(ev, absence) {
 
 			var confirm = $mdDialog.confirm().title('Approve Selected Absence')
 											 .clickOutsideToClose(true)
@@ -104,51 +140,51 @@ angular.module('Administration')
 										     .ok('Yes')
 										     .cancel('No');
 			$mdDialog.show(confirm).then(function() { // Yes
-				AdministrationService.AcceptEmployeeAbsence(absence.id).then(
+				AdministrationService.acceptEmployeeAbsence(absence.id).then(
 					function(result) {
 					},
 					function(error) {
 					}
 				);
-				for(var i = 0; i < $scope.employeeAbsences.length; i++) {
-					if($scope.employeeAbsences[i].id === absence.id) {
-						$scope.employeeAbsences[i].status = 'APPROVE';
+				for(var i = 0; i < vm.employeeAbsences.length; i++) {
+					if(vm.employeeAbsences[i].id === absence.id) {
+						vm.employeeAbsences[i].status = 'APPROVE';
 						break;
 					}
 				}
 			}, function() { // No
 			});	
 		};
-		$scope.SelectEmployeeForEdit = function() {
-			if($scope.selectedEmployeeEdit !== "") {
-				AdministrationService.GetEmployeeWorkerData($scope.selectedEmployeeEdit).then(
+		function selectEmployeeForEdit() {
+			if(vm.selectedEmployeeEdit !== "") {
+				AdministrationService.getEmployeeWorkerData(vm.selectedEmployeeEdit).then(
 					function(result) {
-						$scope.newFirstName = result.firstName;
-						$scope.newLastName = result.lastName;
-						$scope.newPosition = result.position;
-						$scope.newEmailAddress = result.emailAddress;
-						$scope.newDailyWorkHourTotal = result.dailyWorkHourTotal;
+						vm.newFirstName = result.firstName;
+						vm.newLastName = result.lastName;
+						vm.newPosition = result.position;
+						vm.newEmailAddress = result.emailAddress;
+						vm.newDailyWorkHourTotal = result.dailyWorkHourTotal;
 					},
 					function(error) {
 					}
 				);
 			}
 		};
-		$scope.ChangeEmployeeData = function() {
-			AdministrationService.EditEmployeeWorkerData($scope.newFirstName, $scope.newLastName, $scope.newPosition, $scope.newEmailAddress, $scope.newDailyWorkHourTotal).then(
+		function changeEmployeeData() {
+			AdministrationService.editEmployeeWorkerData(vm.newFirstName, vm.newLastName, vm.newPosition, vm.newEmailAddress, vm.newDailyWorkHourTotal).then(
 				function(result) {
 				},
 				function(error) {
 				}
 			);
 		};
-		$scope.exportAdminWorklog = function(excelType) {
-			if($scope.selectedEmployeeWorklog !== "") {
+		function exportAdminWorklog(excelType) {
+			if(vm.selectedEmployeeWorklog !== "") {
 
 				var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-				var excelFileName = $scope.createExcelFileName(excelType);
+				var excelFileName = createExcelFileName(excelType);
 
-				AdministrationService.ExportEmployeeWorklogs($scope.selectedEmployeeWorklog, excelType, $scope.selectedDateFilterWorklog, $scope.listDailyWorkHour).then(
+				AdministrationService.exportEmployeeWorklogs(vm.selectedEmployeeWorklog, excelType, vm.selectedDateFilterWorklog, vm.listDailyWorkHour).then(
 					function(result) {
 						var blob = new Blob([result], {type: excelTypeStr});
 						saveAs(blob, excelFileName);
@@ -158,13 +194,13 @@ angular.module('Administration')
 				);
 			}
 		};
-		$scope.exportAdminAbsence = function(excelType) {
-			if($scope.selectedEmployeeAbsence !== "") {
+		function exportAdminAbsence(excelType) {
+			if(vm.selectedEmployeeAbsence !== "") {
 
 				var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-				var excelFileName = $scope.createExcelFileName(excelType);
+				var excelFileName = createExcelFileName(excelType);
 
-				AdministrationService.ExportEmployeeAbsences($scope.selectedEmployeeAbsence, excelType, $scope.selectedDateFilterAbsence, $scope.listNotAccepted).then(
+				AdministrationService.exportEmployeeAbsences(vm.selectedEmployeeAbsence, excelType, vm.selectedDateFilterAbsence, vm.listNotAccepted).then(
 					function(result) {
 						var blob = new Blob([result], {type: excelTypeStr});
 						saveAs(blob, excelFileName);
@@ -174,30 +210,5 @@ angular.module('Administration')
 				);
 			}
 		};
-		$scope.createExcelFileName = function(excelType) {
-			var employeeName = '';
-			$scope.employees.forEach(function(employee) {
-				if(employee.id === $scope.selectedEmployeeWorklog) {
-					employeeName = employee.firstName+employee.lastName;
-				}
-			});
-			return employeeName+'-'+moment(new Date()).format('YYYYMMDDHHhhmmss')+'-ExportWorklog.xls'+((excelType === 1) ? '' : 'x');
-		};
-
-		$scope.sortType = "BeginDate";
-		$scope.sortReverse = false;
-		$scope.searchQuery = "";
-		$scope.showDownCaret = function(tableHeader) {
-			return ($scope.sortType == tableHeader && !$scope.sortReverse);
-		};
-		$scope.showUpCaret = function(tableHeader) {
-			return ($scope.sortType == tableHeader && $scope.sortReverse);
-		};
-		$scope.setSearchTypeOrReverse = function(tableHeader) {
-			if($scope.sortType == tableHeader){
-				$scope.sortReverse = !$scope.sortReverse;
-			} else {
-				$scope.sortType = tableHeader;
-			}
-		};
-    }]);
+    }
+})();

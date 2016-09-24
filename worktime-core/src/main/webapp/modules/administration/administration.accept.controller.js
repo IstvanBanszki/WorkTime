@@ -1,44 +1,55 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.module('Administration')
-.controller('AdministrationAcceptController', ['$scope', '$rootScope', '$mdDialog', 'AbsenceService',
-    function ($scope, $rootScope, $mdDialog, AbsenceService) {
+	angular
+		.module('Administration')
+		.controller('AdministrationAcceptController', AdministrationAcceptController);
 
-		$scope.localBegin = $rootScope.selectedAbsence.beginDate;
-		$scope.localEnd = $rootScope.selectedAbsence.endDate;
+	AdministrationAcceptController.$inject = ['$rootScope', '$mdDialog', 'AbsenceService'];
 
-		$scope.newBeginDate =  new Date($scope.localBegin.substring(0,4)+'-'+$scope.localBegin.substring(5,7)+'-'+$scope.localBegin.substring(8,10));
-		$scope.newEndDate = new Date($scope.localEnd.substring(0,4)+'-'+$scope.localEnd.substring(5,7)+'-'+$scope.localEnd.substring(8,10));
-		$scope.newAbsenceType = $rootScope.selectedAbsence.absenceType;
-		$scope.id = $rootScope.selectedAbsence.id;
+    function AdministrationAcceptController($rootScope, $mdDialog, AbsenceService) {
 
-		$scope.error = false;
+		var vm = this;
+		//Bindable variables
+		vm.localBegin = $rootScope.selectedAbsence.beginDate;
+		vm.localEnd = $rootScope.selectedAbsence.endDate;
+		vm.newBeginDate =  new Date(vm.localBegin.substring(0,4)+'-'+vm.localBegin.substring(5,7)+'-'+vm.localBegin.substring(8,10));
+		vm.newEndDate = new Date(vm.localEnd.substring(0,4)+'-'+vm.localEnd.substring(5,7)+'-'+vm.localEnd.substring(8,10));
+		vm.newAbsenceType = $rootScope.selectedAbsence.absenceType;
+		vm.id = $rootScope.selectedAbsence.id;
+		vm.error = false;
+		//Bindable functions
+		vm.editAbsence = editAbsence;
 
-		$scope.editAbsence = function() {
-			AbsenceService.EditAbsence($scope.id, $scope.newBeginDate, $scope.newEndDate, $scope.newAbsenceType).then(
+		// *********************** //
+		// Function implementation //
+		// *********************** //
+		function editAbsence() {
+			AbsenceService.EditAbsence(vm.id, vm.newBeginDate, vm.newEndDate, vm.newAbsenceType).then(
 				function(result) {
 					if(result === 1) {
-						$scope.answer({
-							beginDate: $scope.newBeginDate,
-							endDate: $scope.newEndDate,
-							absenceType: $scope.newAbsenceType
+						answer({
+							beginDate: vm.newBeginDate,
+							endDate: vm.newEndDate,
+							absenceType: vm.newAbsenceType
 						});
 					}else {
-						$scope.error = true;
+						vm.error = true;
 					}						
 				},
 				function(error) {
-					$scope.cancel();
+					cancel();
 				}
 			)
 		};
-		$scope.answer = function(answer) {
+		function answer(answer) {
 		  $mdDialog.hide(answer);
 		};
-		$scope.answer = function(answer) {
+		function answer(answer) {
 		  $mdDialog.hide(answer);
 		};
-		$scope.cancel = function() {
+		function cancel() {
 		  $mdDialog.cancel();
 		};
-    }]);
+    }
+})();

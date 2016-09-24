@@ -36,7 +36,7 @@ angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'Admi
 				title	   : 'WorkTime - Absence'
 			})
 			.when('/administration', {
-				controller : 'AdministrationPageController',
+				controller : 'AdministrationController',
 				templateUrl: 'modules/administration/administration.page.html',
 				title	   : 'WorkTime - Administration'
 			})
