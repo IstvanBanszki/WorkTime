@@ -10,17 +10,17 @@
 	function ProfileService($http, $rootScope, $q) {
 
 		var service = {
-			Profile			  : Profile,
-			ChangePassword 	  : ChangePassword,
-			SetProfileData 	  : SetProfileData,
-			RemoveProfileData : RemoveProfileData
+			profile			  : profile,
+			changePassword 	  : changePassword,
+			setProfileData 	  : setProfileData,
+			removeProfileData : removeProfileData
 		};
 		return service;
 
 		// *********************** //
 		// Function implementation //
 		// *********************** //
-		function Profile(workerId) {
+		function profile(workerId) {
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
@@ -39,7 +39,7 @@
 					return deferred.promise;
 				});
 		}
-		function ChangePassword(loginName, oldPassword, newPassword) {
+		function changePassword(loginName, oldPassword, newPassword) {
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
@@ -62,7 +62,7 @@
 					return deferred.promise;
 			});
 		}
-		function SetProfileData(parameter) {
+		function setProfileData(parameter) {
 			$rootScope.profileData = {
 				firstName: parameter.firstName,
 				lastName : parameter.lastName,
@@ -75,7 +75,7 @@
 				officeName : parameter.officeName
 			};
 		}
-		function RemoveProfileData() {
+		function removeProfileData() {
 			$rootScope.profileData= {};
 		}
 	}

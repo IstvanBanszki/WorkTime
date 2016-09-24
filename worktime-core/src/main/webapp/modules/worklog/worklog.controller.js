@@ -1,108 +1,147 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.module('Worklog')
-.controller('WorklogController', ['$scope', '$rootScope', '$mdDialog', 'WorklogService',
-    function ($scope, $rootScope, $mdDialog, WorklogService) {
-		$scope.worklogs = [];
-		$scope.sortType = "BeginDate";
-		$scope.sortReverse = false;
-		$scope.searchQuery = "";
-		$scope.showDownCaret = function(tableHeader) {
-			return ($scope.sortType == tableHeader && !$scope.sortReverse);
+	angular
+		.module('Worklog')
+		.controller('WorklogController', WorklogController);
+
+	WorklogController.$inject = ['$rootScope', '$mdDialog', 'WorklogService'];
+
+	function WorklogController($rootScope, $mdDialog, WorklogService) {
+
+		var vm = this;
+
+		vm.worklogs = [];
+		vm.sortType = "BeginDate";
+		vm.sortReverse = false;
+		vm.searchQuery = "";
+		vm.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
+		vm.selectedDateFilter = "All";
+		vm.dailyWorkHour = 8;
+		vm.beginDate = "";
+		vm.workHour = 0;
+
+		vm.showDownCaret = showDownCaret;
+		vm.showUpCaret = showUpCaret;
+		vm.setSearchTypeOrReverse = setSearchTypeOrReverse;
+		vm.range = range;
+		vm.addWorklog = addWorklog;
+		vm.initWorklog = initWorklog;
+		vm.getWorklogs = getWorklogs;
+		vm.deleteWorklog = deleteWorklog;
+		vm.editWorklog = editWorklog;
+		vm.exportWorklog = exportWorklog;
+		vm.deleteWorklog = deleteWorklog;
+
+		// *********************** //
+		// Function implementation //
+		// *********************** //
+		function showDownCaret(tableHeader) {
+			return (vm.sortType == tableHeader && !vm.sortReverse);
 		};
-		$scope.showUpCaret = function(tableHeader) {
-			return ($scope.sortType == tableHeader && $scope.sortReverse);
+
+		function showUpCaret(tableHeader) {
+			return (vm.sortType == tableHeader && vm.sortReverse);
 		};
-		$scope.setSearchTypeOrReverse = function(tableHeader) {
-			if($scope.sortType == tableHeader){
-				$scope.sortReverse = !$scope.sortReverse;
+
+		function setSearchTypeOrReverse(tableHeader) {
+			if(vm.sortType == tableHeader){
+				vm.sortReverse = !vm.sortReverse;
 			} else {
-				$scope.sortType = tableHeader;
+				vm.sortType = tableHeader;
 			}
 		};
-		$scope.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
-		$scope.selectedDateFilter = "All";
-		$scope.dailyWorkHour = 8;
-		
-		$scope.beginDate = "";
-		$scope.workHour = 0;
 
-		$scope.showStatus = function(result) {
+		function createExcelFileName(excelType) {
+			var employeeName = $rootScope.profileData.firstName+$rootScope.profileData.lastName;
+			return employeeName+'-'+moment(new Date()).format('YYYYMMDDHHhhmmss')+'-ExportWorklog.xls'+((excelType === 1) ? '' : 'x');
+		};
+
+		function range(count) {
+			return new Array(count);
+		};
+
+		function showStatus(result) {
 			alert = $mdDialog.alert({
 				title: 'Worklog Adding',
 				textContent: (result === 1 ? 'The saving is succesfull!' : (result === -1 ? 'There is an already saved worklog at the selected date!' : 'There is an error during saving!')),
 				clickOutsideToClose: true,
 				ok: 'Close'
 			});
-		    $mdDialog.show(alert)
+			$mdDialog.show(alert)
 					.finally(function() {
 						alert = undefined;
 					});
 		};
-		$scope.AddWorklog = function() {
+
+		function addWorklog() {
 			//for(var i = 0; i < $scope.worklogs.length; i++) {
 				//if(moment($scope.beginDate).isSame($scope.worklogs[i].beginDate, 'year')) {
 				//	$scope.showStatus(-1);
 				//}
 			//}
-			var newDate = moment($scope.beginDate).format('YYYY.MM.DD');
-			WorklogService.AddWorklog(newDate, $scope.workHour, $rootScope.userData.workerId).then(
+			var newDate = moment(vm.beginDate).format('YYYY.MM.DD');
+			WorklogService.addWorklog(newDate, vm.workHour, $rootScope.userData.workerId).then(
 				function(result) {
-					$scope.worklogs.push({
+					vm.worklogs.push({
 						id: result.newId,
 						beginDate: newDate,
-						workHour: $scope.workHour
+						workHour: vm.workHour
 					});
-					$scope.beginDate = "";
-					$scope.workHour = 0;
-					$scope.showStatus(result.status);
+					vm.beginDate = "";
+					vm.workHour = 0;
+					showStatus(result.status);
 				},
 				function(error) {
 				}
 			)
 		};
-		$scope.initWorklog = function() {
-			if (typeof $scope.worklogs || $scope.worklogs.length === 0) {
-				$scope.GetWorklogs();
+
+		function initWorklog() {
+			if (typeof vm.worklogs || vm.worklogs.length === 0) {
+				vm.getWorklogs();
 			}
 			if (!(typeof $rootScope.profileData)) {
-				$scope.dailyWorkHour = $rootScope.profileData.dailyWorkHourTotal;
+				vm.dailyWorkHour = $rootScope.profileData.dailyWorkHourTotal;
 			}
 		};
-		$scope.GetWorklogs = function() {
-			WorklogService.GetWorklog($rootScope.userData.workerId, $scope.selectedDateFilter).then(
+
+		function getWorklogs() {
+			WorklogService.getWorklog($rootScope.userData.workerId, vm.selectedDateFilter).then(
 				function(result) {
-					$scope.worklogs = [];
-					$scope.worklogs = result;
+					vm.worklogs = [];
+					vm.worklogs = result;
 				},
 				function(error) {
 				}
 			)
 		};
-		$scope.DeleteWorklog = function(ev, worklog) {
+
+		function deleteWorklog(ev, worklog) {
 			var confirm = $mdDialog.confirm().title('Worklog Delete')
 											 .clickOutsideToClose(true)
-										     .htmlContent('<div><p>Are you sure about delete the below worklog?<br>Begin Date: '+worklog.beginDate+', Hour: '+worklog.workHour+'</p></div>')
-										     .targetEvent(ev)
-										     .ok('Yes')
-										     .cancel('No');
+											 .htmlContent('<div><p>Are you sure about delete the below worklog?<br>Begin Date: '+worklog.beginDate+', Hour: '+worklog.workHour+'</p></div>')
+											 .targetEvent(ev)
+											 .ok('Yes')
+											 .cancel('No');
 			$mdDialog.show(confirm).then(function() { // Yes
-				WorklogService.DeleteWorklog(worklog.id).then(
+				WorklogService.deleteWorklog(worklog.id).then(
 					function(result) {
 					},
 					function(error) {
 					}
 				)
-				for(var i = 0; i < $scope.worklogs.length; i++) {
-					if($scope.worklogs[i].id === worklog.id) {
-					   $scope.worklogs.splice(i, 1);
+				for(var i = 0; i < vm.worklogs.length; i++) {
+					if(vm.worklogs[i].id === worklog.id) {
+					   vm.worklogs.splice(i, 1);
 					   break;
 					} 
 				}
 			}, function() { // No
 			});
 		};
-		$scope.EditWorklog = function(ev, worklog) {
+
+		function editWorklog(ev, worklog) {
 			$rootScope.selectedWorklog = worklog;
 			$mdDialog.show({
 				locals: { worklogData: worklog },
@@ -112,22 +151,23 @@ angular.module('Worklog')
 				parent: angular.element(document.body),
 				targetEvent: ev
 			}).then(function(answer) {
-				for(var i = 0; i < $scope.worklogs.length; i++) {
-					if($scope.worklogs[i].id === worklog.id) {
-					   $scope.worklogs[i].beginDate = answer.beginDate;
-					   $scope.worklogs[i].workHour = answer.workHour;
+				for(var i = 0; i < vm.worklogs.length; i++) {
+					if(vm.worklogs[i].id === worklog.id) {
+					   vm.worklogs[i].beginDate = answer.beginDate;
+					   vm.worklogs[i].workHour = answer.workHour;
 					   break;
 					}
 				}
 			}, function() {
 			});
 		};
-		$scope.ExportWorklog = function(excelType) {
-			
-			var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-			var excelFileName = $scope.createExcelFileName(excelType);
 
-			WorklogService.ExportWorklog($rootScope.userData.workerId, $scope.selectedDateFilter, excelType).then(
+		function exportWorklog(excelType) {
+
+			var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			var excelFileName = vm.createExcelFileName(excelType);
+
+			WorklogService.exportWorklog($rootScope.userData.workerId, vm.selectedDateFilter, excelType).then(
 				function(result) {
 					var blob = new Blob([result], {type: excelTypeStr});
 					saveAs(blob, excelFileName);
@@ -136,14 +176,5 @@ angular.module('Worklog')
 				}
 			);
 		};
-		$scope.createExcelFileName = function(excelType) {
-			var employeeName = $rootScope.profileData.firstName+$rootScope.profileData.lastName;
-			return employeeName+'-'+moment(new Date()).format('YYYYMMDDHHhhmmss')+'-ExportWorklog.xls'+((excelType === 1) ? '' : 'x');
-		};
-		$scope.timeValue = function(value) {
-			return value < 10 ? '0'+value : value+'';
-		};
-		$scope.range = function(count) {
-			return new Array(count);
-		};
-    }]);
+	}
+})();

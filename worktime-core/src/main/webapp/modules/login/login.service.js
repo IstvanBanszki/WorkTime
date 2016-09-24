@@ -10,16 +10,16 @@
 	function LoginService($http, $cookies, $rootScope, $q) {
 
 		var service = {
-			Login		   : Login,
-			SetUserData    : SetUserData,
-			RemoveUserData : RemoveUserData
+			login		   : login,
+			setUserData    : setUserData,
+			removeUserData : removeUserData
 		};
 		return service;
 
 		// *********************** //
 		// Function implementation //
 		// *********************** //
-		function Login(loginName, password) {
+		function login(loginName, password) {
 			var deferred = $q.defer();
 			return $http({
 				method : "POST",
@@ -41,7 +41,7 @@
 					return deferred.promise;
 				});
 		}
-		function SetUserData(parameter, loginName, password) {
+		function setUserData(parameter, loginName, password) {
 			var userDataCoded = btoa(loginName+':'+password+':'+parameter.workerId+':'+parameter.roleName);
 			$rootScope.userData = {
 				loginName: loginName,
@@ -52,7 +52,7 @@
 			$http.defaults.headers.common['Authorization'] = $rootScope.userData;
 			$cookies.putObject('data', $rootScope.userData);
 		}
-		function RemoveUserData() {
+		function removeUserData() {
 			$rootScope.userData= {};
 			$http.defaults.headers.common.Authorization = {};
 			$cookies.remove('data');

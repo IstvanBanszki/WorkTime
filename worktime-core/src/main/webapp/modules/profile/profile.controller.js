@@ -39,7 +39,7 @@
 		// *********************** //
 		function changePassword () {
 			if(vm.newPassword == vm.newPasswordSecond) {
-				ProfileService.ChangePassword(vm.userData.loginName, vm.oldPassword, vm.newPassword).then(
+				ProfileService.changePassword(vm.userData.loginName, vm.oldPassword, vm.newPassword).then(
 					function(result) {
 						vm.showStatus(result);
 					},
@@ -53,9 +53,9 @@
 			}
 		};
 		function init () {
-			ProfileService.Profile($rootScope.userData.workerId).then(
+			ProfileService.profile($rootScope.userData.workerId).then(
 				function(result) {
-					ProfileService.SetProfileData(result);
+					ProfileService.setProfileData(result);
 					// Account Tab - initial value
 					vm.loginName = $rootScope.userData.loginName;
 					vm.dateOfRegistration = moment(result.dateOfRegistration).format('YYYY.MM.DD HH:mm:ss');
@@ -75,7 +75,7 @@
 				},
 				function(error) {
 					vm.error = true;
-					ProfileService.RemoveProfileData();
+					ProfileService.removeProfileData();
 					vm.errorMessage = error.status;
 				}
 			)

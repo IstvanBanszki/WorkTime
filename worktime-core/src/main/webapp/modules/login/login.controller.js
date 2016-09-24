@@ -22,11 +22,11 @@
 		// Function implementation //
 		// *********************** //
 		function login () {
-			LoginService.Login(vm.loginName, vm.password)
+			LoginService.login(vm.loginName, vm.password)
 				.then(
 					function(result) {
 						if(result !== "") {
-							LoginService.SetUserData( result, vm.loginName, vm.password );
+							LoginService.setUserData( result, vm.loginName, vm.password );
 							$location.path('/home');
 						} else {
 							vm.error = true;
@@ -40,7 +40,7 @@
 				);
 		}
 		function logout () {
-			LoginService.RemoveUserData();
+			LoginService.removeUserData();
 			$location.path('/login');
 		}
     };
