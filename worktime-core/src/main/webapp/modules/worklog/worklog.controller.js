@@ -26,23 +26,32 @@
 		vm.setSearchTypeOrReverse = setSearchTypeOrReverse;
 		vm.range = range;
 		vm.addWorklog = addWorklog;
-		vm.initWorklog = initWorklog;
 		vm.getWorklogs = getWorklogs;
 		vm.deleteWorklog = deleteWorklog;
 		vm.editWorklog = editWorklog;
 		vm.exportWorklog = exportWorklog;
 		vm.deleteWorklog = deleteWorklog;
 
+		activate();
 		// *********************** //
 		// Function implementation //
 		// *********************** //
+		function activate() {
+			if (typeof vm.worklogs || vm.worklogs.length === 0) {
+				vm.getWorklogs();
+			}
+			if (!(typeof $rootScope.profileData)) {
+				vm.dailyWorkHour = $rootScope.profileData.dailyWorkHourTotal;
+			}
+		}
+
 		function showDownCaret(tableHeader) {
 			return (vm.sortType == tableHeader && !vm.sortReverse);
-		};
+		}
 
 		function showUpCaret(tableHeader) {
 			return (vm.sortType == tableHeader && vm.sortReverse);
-		};
+		}
 
 		function setSearchTypeOrReverse(tableHeader) {
 			if(vm.sortType == tableHeader){
@@ -50,16 +59,16 @@
 			} else {
 				vm.sortType = tableHeader;
 			}
-		};
+		}
 
 		function createExcelFileName(excelType) {
 			var employeeName = $rootScope.profileData.firstName+$rootScope.profileData.lastName;
 			return employeeName+'-'+moment(new Date()).format('YYYYMMDDHHhhmmss')+'-ExportWorklog.xls'+((excelType === 1) ? '' : 'x');
-		};
+		}
 
 		function range(count) {
 			return new Array(count);
-		};
+		}
 
 		function showStatus(result) {
 			alert = $mdDialog.alert({
@@ -72,7 +81,7 @@
 					.finally(function() {
 						alert = undefined;
 					});
-		};
+		}
 
 		function addWorklog() {
 			//for(var i = 0; i < $scope.worklogs.length; i++) {
@@ -95,16 +104,7 @@
 				function(error) {
 				}
 			)
-		};
-
-		function initWorklog() {
-			if (typeof vm.worklogs || vm.worklogs.length === 0) {
-				vm.getWorklogs();
-			}
-			if (!(typeof $rootScope.profileData)) {
-				vm.dailyWorkHour = $rootScope.profileData.dailyWorkHourTotal;
-			}
-		};
+		}
 
 		function getWorklogs() {
 			WorklogService.getWorklog($rootScope.userData.workerId, vm.selectedDateFilter).then(
@@ -115,7 +115,7 @@
 				function(error) {
 				}
 			)
-		};
+		}
 
 		function deleteWorklog(ev, worklog) {
 			var confirm = $mdDialog.confirm().title('Worklog Delete')
@@ -139,7 +139,7 @@
 				}
 			}, function() { // No
 			});
-		};
+		}
 
 		function editWorklog(ev, worklog) {
 			$rootScope.selectedWorklog = worklog;
@@ -160,7 +160,7 @@
 				}
 			}, function() {
 			});
-		};
+		}
 
 		function exportWorklog(excelType) {
 
@@ -175,6 +175,6 @@
 				function(error) {
 				}
 			);
-		};
+		}
 	}
 })();

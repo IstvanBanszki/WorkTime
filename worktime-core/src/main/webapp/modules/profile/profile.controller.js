@@ -30,29 +30,14 @@
 		//Bindable functions
 		vm.changePassword = changePassword;
 		vm.clearPasswords = clearPasswords;
-		vm.init = init;
 		vm.showStatus = showStatus;
 		vm.clearPasswords = clearPasswords;
 
+		activate();
 		// *********************** //
 		// Function implementation //
 		// *********************** //
-		function changePassword () {
-			if(vm.newPassword == vm.newPasswordSecond) {
-				ProfileService.changePassword(vm.userData.loginName, vm.oldPassword, vm.newPassword).then(
-					function(result) {
-						vm.showStatus(result);
-					},
-					function(error) {
-					}
-				)
-				vm.clearPasswords();
-			} else {
-				vm.showStatus(-2);
-				vm.clearPasswords();
-			}
-		};
-		function init () {
+		function activate() {
 			ProfileService.profile($rootScope.userData.workerId).then(
 				function(result) {
 					ProfileService.setProfileData(result);
@@ -79,7 +64,24 @@
 					vm.errorMessage = error.status;
 				}
 			)
-		};
+		}
+
+		function changePassword() {
+			if(vm.newPassword == vm.newPasswordSecond) {
+				ProfileService.changePassword(vm.userData.loginName, vm.oldPassword, vm.newPassword).then(
+					function(result) {
+						vm.showStatus(result);
+					},
+					function(error) {
+					}
+				)
+				vm.clearPasswords();
+			} else {
+				vm.showStatus(-2);
+				vm.clearPasswords();
+			}
+		}
+
 		function showStatus (result) {
 			var textContent = '';
 			if (result === -2) {
@@ -101,11 +103,12 @@
 					 .finally(function() {
 						alert = undefined;
 					});
-		};	
-		function clearPasswords () {
+		}
+
+		function clearPasswords() {
 			vm.oldPassword = "";
 			vm.newPassword = "";
 			vm.newPasswordSecond = "";
-		};
+		}
 	};
 })();

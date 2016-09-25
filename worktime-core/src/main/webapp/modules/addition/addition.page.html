@@ -1,201 +1,199 @@
 <div ng-controller="HomeController" ng-include="'modules/home/home.menu.html'"></div>
 <div class="page-element">
 	<div ng-include="'modules/home/home.header.html'"></div>
-	<div ng-controller="AdditionController as addition " ng-init="addition.init()">
-		<md-content>
-			<md-tabs md-dynamic-height="" md-border-bottom="">
-				<md-tab label="Office and Department Management">
-					<md-content class="md-padding">
-						<div class="w3-border w3-round w3-padding-medium">
-							<md-input-container style="width: 140px; padding-left: 15px">
-								<label>Offices</label>
-								<md-select ng-model="addition.selectedOfficeName" md-on-close="addition.setDepartments()" md-on-open="openSelect()">
-									<md-option ng-repeat="office in addition.offices" value="{{office.name}}">{{office.name}}</md-option>
-								</md-select>
-							</md-input-container>
-							<md-input-container style="width: 140px; padding-left: 15px">
-								<label>Departments</label>
-								<md-select ng-model="addition.selectedDepartmentName" md-on-close="addition.listInformation()">
-									<md-option ng-repeat="department in addition.departmentsForOffice" value="{{department.name}}">{{department.name}}</md-option>
-								</md-select>
-							</md-input-container>
-							<br>
-							<div ng-show="addition.showODInformation">
-								<div class="tooltip">
-									<span class="fa fa-edit w3-xlarge" ng-click="addition.openEditOffice()"></span>
-									<span class="tooltiptext">Edit Office</span>
-								</div> Office: <br>
-								<div class="w3-margin-left">
-									Name: {{addition.officeName}}<br>
-									Address: {{addition.officeAddress}}<br>
-									Date Of Foundation: {{addition.officeDateOfFoundtation}}<br>
-									Number Of Worker: {{addition.officeWorkerNumber}}<br>
-								</div>
-								<div class="tooltip">
-									<span class="fa fa-edit w3-xlarge" ng-click="addition.openEditDepartment()"></span>
-									<span class="tooltiptext">Edit Department</span>
-								</div> Department: <br>
-								<div class="w3-margin-left">
-									Name: {{addition.departmentName}}<br>
-									Date Of Foundation: {{addition.departmentDateOfFoundtation}}<br>
-									Number Of Worker: {{addition.departmentWorkerNumber}}<br>
-								</div>
+	<md-content>
+		<md-tabs md-dynamic-height="" md-border-bottom="">
+			<md-tab label="Office and Department Management">
+				<md-content class="md-padding">
+					<div class="w3-border w3-round w3-padding-medium">
+						<md-input-container style="width: 140px; padding-left: 15px">
+							<label>Offices</label>
+							<md-select ng-model="addition.selectedOfficeName" md-on-close="addition.setDepartments()" md-on-open="openSelect()">
+								<md-option ng-repeat="office in addition.offices" value="{{office.name}}">{{office.name}}</md-option>
+							</md-select>
+						</md-input-container>
+						<md-input-container style="width: 140px; padding-left: 15px">
+							<label>Departments</label>
+							<md-select ng-model="addition.selectedDepartmentName" md-on-close="addition.listInformation()">
+								<md-option ng-repeat="department in addition.departmentsForOffice" value="{{department.name}}">{{department.name}}</md-option>
+							</md-select>
+						</md-input-container>
+						<br>
+						<div ng-show="addition.showODInformation">
+							<div class="tooltip">
+								<span class="fa fa-edit w3-xlarge" ng-click="addition.openEditOffice()"></span>
+								<span class="tooltiptext">Edit Office</span>
+							</div> Office: <br>
+							<div class="w3-margin-left">
+								Name: {{addition.officeName}}<br>
+								Address: {{addition.officeAddress}}<br>
+								Date Of Foundation: {{addition.officeDateOfFoundtation}}<br>
+								Number Of Worker: {{addition.officeWorkerNumber}}<br>
 							</div>
-							<br>
-							<input class="w3-btn w3-green w3-padding-tiny" ng-click="addition.openSaveOffice()" value="Add New Office"></input>
-							<input class="w3-btn w3-green w3-padding-tiny" ng-click="addition.openSaveDepartment()" value="Add New Department"></input>
+							<div class="tooltip">
+								<span class="fa fa-edit w3-xlarge" ng-click="addition.openEditDepartment()"></span>
+								<span class="tooltiptext">Edit Department</span>
+							</div> Department: <br>
+							<div class="w3-margin-left">
+								Name: {{addition.departmentName}}<br>
+								Date Of Foundation: {{addition.departmentDateOfFoundtation}}<br>
+								Number Of Worker: {{addition.departmentWorkerNumber}}<br>
+							</div>
 						</div>
-						<div>
-							<form ng-show="addition.showEditOfficeForm" ng-submit="addition.editOffice()">
-								<h2>Edit Office Form</h2>
-								<p><label class="w3-label">Name:</label></p>
-								<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.officeName" required>
-
-								<p><label class="w3-label">Address:</label></p>
-								<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Address" ng-model="addition.officeAddress" required>
-
-								<md-content>
-									<p><label class="w3-label">Date Of Foundation:</label></p>
-									<p><md-datepicker ng-model="addition.officeDateOfFoundtationForEdit" md-placeholder="Date Of Foundation"></md-datepicker>
-								</md-content>
-
-								<div class="w3-padding-8">
-									<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
-								</div>
-							</form>
-						</div>
-						<div>
-							<form ng-show="addition.showEditDepartmentForm" ng-submit="addition.editDepartment()">
-								<h2>Edit Department Form</h2>
-								<p><label class="w3-label">Name:</label></p>
-								<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.departmentName" required>
-
-								<md-content>
-									<p><label class="w3-label">Date Of Foundation:</label></p>
-									<p><md-datepicker ng-model="addition.departmentDateOfFoundtationForEdit" md-placeholder="Date Of Foundation"></md-datepicker>
-								</md-content>
-
-								<div class="w3-padding-8">
-									<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
-								</div>
-							</form>
-						</div>
-						<div>
-							<form ng-show="addition.showSaveOfficeForm" ng-submit="addition.createNewOffice()">
-								<h2>Create Office Form</h2>
-								<p><label class="w3-label">Name:</label></p>
-								<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.officeNameForCreation" required>
-
-								<p><label class="w3-label">Address:</label></p>
-								<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Address" ng-model="addition.officeAddressForCreation" required>
-
-								<md-content>
-									<p><label class="w3-label">Date Of Foundation:</label></p>
-									<p><md-datepicker ng-model="addition.officeDateOfFoundtationForCreation" md-placeholder="Date Of Foundation"></md-datepicker>
-								</md-content>
-
-								<div class="w3-padding-8">
-									<input class="w3-btn w3-green w3-left-align" type="submit" value="Create"></input>
-								</div>
-							</form>
-						</div>
-						<div>
-							<form ng-show="addition.showSaveDepartmentForm" ng-submit="addition.createNewDepartment()">
-								<h2>Create Department Form</h2>
-								<p><label class="w3-label">Name:</label></p>
-								<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.departmentNameForCreation" required>
-
-								<md-content>
-									<p><label class="w3-label">Date Of Foundation:</label></p>
-									<p><md-datepicker ng-model="addition.departmentDateOfFoundtationForCreation" md-placeholder="Date Of Foundation"></md-datepicker>
-								</md-content>
-
-								<p><label class="w3-label">Office:</label></p>
-								<md-input-container style="width: 140px; padding-left: 15px">
-									<label>Offices</label>
-									<md-select ng-model="addition.selectedOfficeIdForCreation">
-										<md-option ng-repeat="office in addition.offices" value="{{office.id}}">{{office.name}}</md-option>
-									</md-select>
-								</md-input-container>
-
-								<div class="w3-padding-8">
-									<input class="w3-btn w3-green w3-left-align" type="submit" value="Create"></input>
-								</div>
-							</form>
-						</div>
-					</md-content>
-				</md-tab>
-				<md-tab label="User and Worker Management">	
-					<md-content class="md-padding">
-						<form ng-submit="addition.createNewUserAndWorker()">
-							<h2>User Related Data</h2>
-							<p><label class="w3-label">Login Name:</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.loginName" required>
-
-							<p><label class="w3-label">Role:</label></p>
-							<md-input-container style="width: 140px; padding-left: 15px">
-								<label>Roles</label>
-								<md-select ng-model="addition.selectedRoleForCreation">
-									<md-option ng-repeat="role in addition.roles" value="{{role.id}}">{{role.name}}</md-option>
-								</md-select>
-							</md-input-container>
-
-							<h2>Worker Related Data</h2>
-							<p><label class="w3-label">First Name:</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.firstName" required>
-
-							<p><label class="w3-label">Last Name:</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.lastName" required>
-
-							<p><label class="w3-label">Gender:</label></p>
-							<md-input-container style="width: 140px; padding-left: 15px">
-								<label>Genders</label>
-								<md-select ng-model="addition.selectedGender">
-									<md-option value="1">Male</md-option>
-									<md-option value="2">FeMale</md-option>
-								</md-select>
-							</md-input-container>
-
+						<br>
+						<input class="w3-btn w3-green w3-padding-tiny" ng-click="addition.openSaveOffice()" value="Add New Office"></input>
+						<input class="w3-btn w3-green w3-padding-tiny" ng-click="addition.openSaveDepartment()" value="Add New Department"></input>
+					</div>
+					<div>
+						<form ng-show="addition.showEditOfficeForm" ng-submit="addition.editOffice()">
+							<h2>Edit Office Form</h2>
+							<p><label class="w3-label">Name:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.officeName" required>
+    
+							<p><label class="w3-label">Address:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Address" ng-model="addition.officeAddress" required>
+    
 							<md-content>
-								<p><label class="w3-label">Date Of Birth:</label></p>
-								<p><md-datepicker ng-model="addition.dateOfBirth" md-placeholder="Date Of Birth"></md-datepicker>
+								<p><label class="w3-label">Date Of Foundation:</label></p>
+								<p><md-datepicker ng-model="addition.officeDateOfFoundtationForEdit" md-placeholder="Date Of Foundation"></md-datepicker>
 							</md-content>
-
-							<p><label class="w3-label">Nationality:</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Nationality" ng-model="addition.nationality" required>
-
-							<p><label class="w3-label">Position:</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Position" ng-model="addition.position" required>
-
-							<p><label class="w3-label">Daily Work Hour Total:</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Daily Work Hour Total" ng-model="addition.dailyWorkHourTotal" required>
-
-							<p><label class="w3-label">Email Addres:</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Email Addres" ng-model="addition.emailAddres" required>
-
-							<p><label class="w3-label">Department:</label></p>
-							<md-input-container style="width: 140px; padding-left: 15px">
-								<label>Departments</label>
-								<md-select ng-model="addition.selectedDepartmentIdForWorkerCreation">
-									<md-option ng-repeat="department in addition.departments" value="{{department.id}}">{{department.name}}</md-option>
-								</md-select>
-							</md-input-container>
-
-							<p><label class="w3-label">Superior:</label></p>
-							<md-input-container style="width: 140px; padding-left: 15px">
-								<label>Superiors</label>
-								<md-select ng-model="addition.selectedSuperiorIdForWorkerCreation">
-									<md-option ng-repeat="superior in addition.superiors" value="{{superior.id}}">{{superior.firstName+' '+superior.lastName}}</md-option>
-								</md-select>
-							</md-input-container>
-
+    
+							<div class="w3-padding-8">
+								<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
+							</div>
+						</form>
+					</div>
+					<div>
+						<form ng-show="addition.showEditDepartmentForm" ng-submit="addition.editDepartment()">
+							<h2>Edit Department Form</h2>
+							<p><label class="w3-label">Name:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.departmentName" required>
+    
+							<md-content>
+								<p><label class="w3-label">Date Of Foundation:</label></p>
+								<p><md-datepicker ng-model="addition.departmentDateOfFoundtationForEdit" md-placeholder="Date Of Foundation"></md-datepicker>
+							</md-content>
+    
+							<div class="w3-padding-8">
+								<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
+							</div>
+						</form>
+					</div>
+					<div>
+						<form ng-show="addition.showSaveOfficeForm" ng-submit="addition.createNewOffice()">
+							<h2>Create Office Form</h2>
+							<p><label class="w3-label">Name:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.officeNameForCreation" required>
+    
+							<p><label class="w3-label">Address:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Address" ng-model="addition.officeAddressForCreation" required>
+    
+							<md-content>
+								<p><label class="w3-label">Date Of Foundation:</label></p>
+								<p><md-datepicker ng-model="addition.officeDateOfFoundtationForCreation" md-placeholder="Date Of Foundation"></md-datepicker>
+							</md-content>
+    
 							<div class="w3-padding-8">
 								<input class="w3-btn w3-green w3-left-align" type="submit" value="Create"></input>
 							</div>
 						</form>
-					</md-content>
-				</md-tab>
-			</md-tabs>
-		</md-content>
-	</div>
+					</div>
+					<div>
+						<form ng-show="addition.showSaveDepartmentForm" ng-submit="addition.createNewDepartment()">
+							<h2>Create Department Form</h2>
+							<p><label class="w3-label">Name:</label></p>
+							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.departmentNameForCreation" required>
+    
+							<md-content>
+								<p><label class="w3-label">Date Of Foundation:</label></p>
+								<p><md-datepicker ng-model="addition.departmentDateOfFoundtationForCreation" md-placeholder="Date Of Foundation"></md-datepicker>
+							</md-content>
+    
+							<p><label class="w3-label">Office:</label></p>
+							<md-input-container style="width: 140px; padding-left: 15px">
+								<label>Offices</label>
+								<md-select ng-model="addition.selectedOfficeIdForCreation">
+									<md-option ng-repeat="office in addition.offices" value="{{office.id}}">{{office.name}}</md-option>
+								</md-select>
+							</md-input-container>
+    
+							<div class="w3-padding-8">
+								<input class="w3-btn w3-green w3-left-align" type="submit" value="Create"></input>
+							</div>
+						</form>
+					</div>
+				</md-content>
+			</md-tab>
+			<md-tab label="User and Worker Management">	
+				<md-content class="md-padding">
+					<form ng-submit="addition.createNewUserAndWorker()">
+						<h2>User Related Data</h2>
+						<p><label class="w3-label">Login Name:</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.loginName" required>
+    
+						<p><label class="w3-label">Role:</label></p>
+						<md-input-container style="width: 140px; padding-left: 15px">
+							<label>Roles</label>
+							<md-select ng-model="addition.selectedRoleForCreation">
+								<md-option ng-repeat="role in addition.roles" value="{{role.id}}">{{role.name}}</md-option>
+							</md-select>
+						</md-input-container>
+    
+						<h2>Worker Related Data</h2>
+						<p><label class="w3-label">First Name:</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.firstName" required>
+    
+						<p><label class="w3-label">Last Name:</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="addition.lastName" required>
+    
+						<p><label class="w3-label">Gender:</label></p>
+						<md-input-container style="width: 140px; padding-left: 15px">
+							<label>Genders</label>
+							<md-select ng-model="addition.selectedGender">
+								<md-option value="1">Male</md-option>
+								<md-option value="2">FeMale</md-option>
+							</md-select>
+						</md-input-container>
+    
+						<md-content>
+							<p><label class="w3-label">Date Of Birth:</label></p>
+							<p><md-datepicker ng-model="addition.dateOfBirth" md-placeholder="Date Of Birth"></md-datepicker>
+						</md-content>
+    
+						<p><label class="w3-label">Nationality:</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Nationality" ng-model="addition.nationality" required>
+    
+						<p><label class="w3-label">Position:</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Position" ng-model="addition.position" required>
+    
+						<p><label class="w3-label">Daily Work Hour Total:</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Daily Work Hour Total" ng-model="addition.dailyWorkHourTotal" required>
+    
+						<p><label class="w3-label">Email Addres:</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Email Addres" ng-model="addition.emailAddres" required>
+    
+						<p><label class="w3-label">Department:</label></p>
+						<md-input-container style="width: 140px; padding-left: 15px">
+							<label>Departments</label>
+							<md-select ng-model="addition.selectedDepartmentIdForWorkerCreation">
+								<md-option ng-repeat="department in addition.departments" value="{{department.id}}">{{department.name}}</md-option>
+							</md-select>
+						</md-input-container>
+    
+						<p><label class="w3-label">Superior:</label></p>
+						<md-input-container style="width: 140px; padding-left: 15px">
+							<label>Superiors</label>
+							<md-select ng-model="addition.selectedSuperiorIdForWorkerCreation">
+								<md-option ng-repeat="superior in addition.superiors" value="{{superior.id}}">{{superior.firstName+' '+superior.lastName}}</md-option>
+							</md-select>
+						</md-input-container>
+    
+						<div class="w3-padding-8">
+							<input class="w3-btn w3-green w3-left-align" type="submit" value="Create"></input>
+						</div>
+					</form>
+				</md-content>
+			</md-tab>
+		</md-tabs>
+	</md-content>
 </div>

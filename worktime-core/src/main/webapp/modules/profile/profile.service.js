@@ -9,13 +9,12 @@
 
 	function ProfileService($http, $rootScope, $q) {
 
-		var service = {
+		return {
 			profile			  : profile,
 			changePassword 	  : changePassword,
 			setProfileData 	  : setProfileData,
 			removeProfileData : removeProfileData
 		};
-		return service;
 
 		// *********************** //
 		// Function implementation //
@@ -39,6 +38,7 @@
 					return deferred.promise;
 				});
 		}
+
 		function changePassword(loginName, oldPassword, newPassword) {
 			var deferred = $q.defer();
 			return $http({
@@ -62,6 +62,7 @@
 					return deferred.promise;
 			});
 		}
+
 		function setProfileData(parameter) {
 			$rootScope.profileData = {
 				firstName: parameter.firstName,
@@ -75,6 +76,7 @@
 				officeName : parameter.officeName
 			};
 		}
+
 		function removeProfileData() {
 			$rootScope.profileData= {};
 		}

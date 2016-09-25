@@ -9,14 +9,13 @@
 
 	function WorklogService($http, $rootScope, $q) {
 
-		var service = {
+		return {
 			addWorklog	  : addWorklog,
 			getWorklog 	  : getWorklog,
 			deleteWorklog : deleteWorklog,
 			editWorklog   : editWorklog,
 			exportWorklog : exportWorklog
 		};
-		return service;
 
 		// *********************** //
 		// Function implementation //

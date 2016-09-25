@@ -1,60 +1,57 @@
 <div ng-include="'modules/home/home.menu.html'"></div>
 <div class="page-element">
 	<div ng-include="'modules/home/home.header.html'"></div>
-	<div ng-controller="ProfileController as profile" ng-init="profile.init()">
-
-		<md-content>
-			<md-tabs md-dynamic-height="" md-border-bottom="">
-				<md-tab label="Account Informations">	
-					<md-content class="md-padding">
-						<div>
-							Login Name: {{profile.loginName}}<br/>
-							Date Of Registration: {{profile.dateOfRegistration}}<br/>
-							Role: {{profile.role}}<br/>
+	<md-content>
+		<md-tabs md-dynamic-height="" md-border-bottom="">
+			<md-tab label="Account Informations">	
+				<md-content class="md-padding">
+					<div>
+						Login Name: {{profile.loginName}}<br/>
+						Date Of Registration: {{profile.dateOfRegistration}}<br/>
+						Role: {{profile.role}}<br/>
+					</div>
+				</md-content>
+			</md-tab>
+			<md-tab label="Personal Informations">
+				<md-content class="md-padding">
+					<div>
+						First Name: {{profile.firstName}}<br/>
+						Last Name: {{profile.lastName}}<br/>
+						Gender: {{profile.gender | lowercase}}<br/>
+						Date Of Birth: {{profile.dateOfBirth}}<br/>
+						Nationality: {{profile.nationality}}<br/>
+					</div>
+				</md-content>
+			</md-tab>
+			<md-tab label="Work Informations">
+				<md-content class="md-padding">
+					<div>
+						Position: {{profile.position}}<br/>
+						Email Address: {{profile.emailAddress}}<br/>
+						Daily Work Hour: {{profile.dailyWorkHourTotal}}<br/>
+						Department: {{profile.departmentName}}<br/>
+						Office: {{profile.officeName}}<br/>
+					</div>
+				</md-content>
+			</md-tab>
+			<md-tab label="Change Passwords">
+				<md-content class="md-padding">
+					<form class="w3-form w3-card-4 w3-margin" ng-submit="profile.changePassword()">
+						<p><label class="w3-label">Old Password</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Old Password" type="password" ng-model="profile.oldPassword" required>
+    
+						<p><label class="w3-label">New Password</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="New Password" type="password" ng-model="profile.newPassword" required>
+    
+						<p><label class="w3-label">New Password Again</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="New Password" type="password" ng-model="profile.newPasswordSecond" required>
+    
+						<div class="w3-padding-8">
+							<input class="w3-btn w3-green w3-left-align" type="submit" value="Add"></input>
 						</div>
-					</md-content>
-				</md-tab>
-				<md-tab label="Personal Informations">
-					<md-content class="md-padding">
-						<div>
-							First Name: {{profile.firstName}}<br/>
-							Last Name: {{profile.lastName}}<br/>
-							Gender: {{profile.gender | lowercase}}<br/>
-							Date Of Birth: {{profile.dateOfBirth}}<br/>
-							Nationality: {{profile.nationality}}<br/>
-						</div>
-					</md-content>
-				</md-tab>
-				<md-tab label="Work Informations">
-					<md-content class="md-padding">
-						<div>
-							Position: {{profile.position}}<br/>
-							Email Address: {{profile.emailAddress}}<br/>
-							Daily Work Hour: {{profile.dailyWorkHourTotal}}<br/>
-							Department: {{profile.departmentName}}<br/>
-							Office: {{profile.officeName}}<br/>
-						</div>
-					</md-content>
-				</md-tab>
-				<md-tab label="Change Passwords">
-					<md-content class="md-padding">
-						<form class="w3-form w3-card-4 w3-margin" ng-submit="profile.changePassword()">
-							<p><label class="w3-label">Old Password</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Old Password" type="password" ng-model="profile.oldPassword" required>
-
-							<p><label class="w3-label">New Password</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="New Password" type="password" ng-model="profile.newPassword" required>
-
-							<p><label class="w3-label">New Password Again</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="New Password" type="password" ng-model="profile.newPasswordSecond" required>
-
-							<div class="w3-padding-8">
-								<input class="w3-btn w3-green w3-left-align" type="submit" value="Add"></input>
-							</div>
-						</form>
-					</md-content>
-				</md-tab>
-			</md-tabs>
-		</md-content>
-	</div>
+					</form>
+				</md-content>
+			</md-tab>
+		</md-tabs>
+	</md-content>
 </div>

@@ -1,223 +1,220 @@
 <div ng-include="'modules/home/home.menu.html'"></div>
 <div class="page-element">
 	<div ng-include="'modules/home/home.header.html'"></div>
-	<div ng-controller="AdministrationController as administration" ng-init="administration.init()">
-
-		<md-content>
-			<md-tabs md-dynamic-height="" md-border-bottom="">
-				<md-tab label="View Employee Worklog">	
-					<md-content class="md-padding">
-					<div>
-						<form class="w3-border w3-round w3-padding-medium" ng-submit="administration.filterWorklog()">
-							<md-input-container style="margin-right: 10px">
-								<label>Employee</label>
-								<md-select ng-model="administration.selectedEmployeeWorklog">
-								  <md-option ng-repeat="employee in administration.employees" value="{{employee.id}}">{{employee.name}}</md-option>
-								</md-select>
-							</md-input-container>
-							<md-input-container style="width: 140px">
-								<label>Date Filter</label>
-								<md-select ng-model="administration.selectedDateFilterWorklog">
-								  <md-option ng-repeat="datefilter in administration.dateFilters" value="{{datefilter}}">{{datefilter}}</md-option>
-								</md-select>
-							</md-input-container>
-							<br>
-							<md-checkbox ng-model="administration.listDailyWorkHour" aria-label="Show daily workhours only!">
-								Show daily workhours only!
-							</md-checkbox>
-							<div class="w3-padding-8">
-								<input class="w3-btn w3-green w3-left-align" type="submit" value="Filter"></input>
-							</div>
-							<input class="w3-btn w3-green w3-padding-8" ng-click="administration.exportAdminWorklog(1)" value="Export In XLS"></input>
-							<input class="w3-btn w3-green w3-padding-8" ng-click="administration.exportAdminWorklog(2)" value="Export In XLSX"></input>
-
-							<div class="w3-center" ng-show="administration.emptyEmployeeList">
-								<p><b>The returned employee list is empty!</b></p>
-							</div>
-							<div class="w3-center" ng-show="administration.emptyWorklogList">
-								<p><b>The returned worklog list is empty!</b></p>
-							</div>
-						</form>
-
-						<table class="w3-table-all w3-hoverable">
-							<tr>
-								<th ng-click="administration.setSearchTypeOrReverse('BeginDate')">
-									Begin Date
-									<span ng-show="administration.showDownCaret('BeginDate')" class="fa fa-caret-down"></span>
-									<span ng-show="administration.showUpCaret('BeginDate')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="administration.setSearchTypeOrReverse('Hour')">
-									Hour
-									<span ng-show="administration.showDownCaret('Hour')" class="fa fa-caret-down"></span>
-									<span ng-show="administration.showUpCaret('Hour')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="administration.setSearchTypeOrReverse('Note')">
-									Note
-									<span ng-show="administration.showDownCaret('Note')" class="fa fa-caret-down"></span>
-									<span ng-show="administration.showUpCaret('Note')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="administration.setSearchTypeOrReverse('DateOfRegistration')">
-									Date Of Registration
-									<span ng-show="administration.showDownCaret('DateOfRegistration')" class="fa fa-caret-down"></span>
-									<span ng-show="administration.showUpCaret('DateOfRegistration')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="administration.setSearchTypeOrReverse('DateOfModification')">
-									Date Of Modification
-									<span ng-show="administration.showDownCaret('DateOfModification')" class="fa fa-caret-down"></span>
-									<span ng-show="administration.showUpCaret('DateOfModification')" class="fa fa-caret-up"></span>
-								</th>
-								<th id="signs"></th>
-							</tr>
-							<tr ng-repeat="worklog in administration.employeeWorklogs | filter:administration.searchQuery | orderBy:administration.sortType:administration.sortReverse" class="w3-hover-light-green">
-								<td>{{worklog.beginDate}}</td>
-								<td>{{worklog.workHour}}</td>
-								<td>{{worklog.note}}</td>
-								<td>{{worklog.dateOfRegistration}}</td>
-								<td>{{worklog.dateOfModification}}</td>
-								<td>
-									<div class="tooltip" ng-show="{{worklog.workHour != administration.dailyWorkHour}}">
-										<span class="fa fa-question w3-xlarge"></span>
-										<span class="tooltiptext">The WorkHour is equal to Daily WorkHour</span>
-									</div>
-									<div class="tooltip" ng-show="{{worklog.workHour == administration.dailyWorkHour}}">
-										<span class="fa fa-check w3-xlarge"></span>
-										<span class="tooltiptext">The WorkHour is bigger than Daily WorkHour</span>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-					</md-content>
-				</md-tab>
-				<md-tab label="View Employee Absence">
-					<md-content class="md-padding">
-					<div>
-						<form class="w3-border w3-round w3-padding-medium" ng-submit="administration.filterAbsence()">
-							<md-input-container style="margin-right: 10px">
-								<label>Employee</label>
-								<md-select ng-model="administration.selectedEmployeeAbsence">
-								  <md-option ng-repeat="employee in administration.employees" value="{{employee.id}}">{{employee.name}}</md-option>
-								</md-select>
-							</md-input-container>
-							<md-input-container style="width: 140px">
-								<label>Date Filter</label>
-								<md-select ng-model="administration.selectedDateFilterAbsence">
-								  <md-option ng-repeat="datefilter in administration.dateFilters" value="{{datefilter}}">{{datefilter}}</md-option>
-								</md-select>
-							</md-input-container>
-							<br>
-							<md-checkbox ng-model="administration.listNotAccepted" aria-label="Show not accepted absences only!">
-								Show not accepted absences only!
-							</md-checkbox>
-							<div class="w3-padding-8">
-								<input class="w3-btn w3-green w3-left-align" type="submit" value="Filter"></input>
-							</div>
-							<input class="w3-btn w3-green w3-padding-8" ng-click="administration.exportAdminAbsence(1)" value="Export In XLS"></input>
-							<input class="w3-btn w3-green w3-padding-8" ng-click="administration.exportAdminAbsence(2)" value="Export In XLSX"></input>
-
-							<div class="w3-center" ng-show="administration.emptyEmployeeList">
-								<p><b>The returned employee list is empty!</b></p>
-							</div>
-							<div class="w3-center" ng-show="administration.emptyAbsenceList">
-								<p><b>The returned absence list is empty!</b></p>
-							</div>
-						</form>
-
-						<table class="w3-table-all w3-hoverable">
-							<tr>
-								<th ng-click="administration.setSearchTypeOrReverse('BeginDate')">
-									Begin Date
-									<span ng-show="administration.showDownCaret('BeginDate')" class="fa fa-caret-down"></span>
-									<span ng-show="administration.showUpCaret('BeginDate')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="administration.setSearchTypeOrReverse('EndDate')">
-									End Date
-									<span ng-show="administration.showDownCaret('EndDate')" class="fa fa-caret-down"></span>
-									<span ng-show="administration.showUpCaret('EndDate')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="administration.setSearchTypeOrReverse('AbsenceType')">
-									AbsenceType
-									<span ng-show="administration.showDownCaret('AbsenceType')" class="fa fa-caret-down"></span>
-									<span ng-show="administration.showUpCaret('AbsenceType')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="administration.setSearchTypeOrReverse('Status')">
-									Status
-									<span ng-show="administration.showDownCaret('Status')" class="fa fa-caret-down"></span>
-									<span ng-show="administration.showUpCaret('Status')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="administration.setSearchTypeOrReverse('DateOfRegistration')">
-									Date Of Registration
-									<span ng-show="administration.showDownCaret('DateOfRegistration')" class="fa fa-caret-down"></span>
-									<span ng-show="administration.showUpCaret('DateOfRegistration')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="administration.setSearchTypeOrReverse('DateOfModification')">
-									Date Of Modification
-									<span ng-show="administration.showDownCaret('DateOfModification')" class="fa fa-caret-down"></span>
-									<span ng-show="administration.showUpCaret('DateOfModification')" class="fa fa-caret-up"></span>
-								</th>
-								<th id="tableOperation"></th>
-							</tr>
-							<tr ng-repeat="absence in administration.employeeAbsences | filter:administration.searchQuery | orderBy:administration.sortType:administration.sortReverse" class="w3-hover-light-green">
-								<td>{{absence.beginDate}}</td>
-								<td>{{absence.endDate}}</td>
-								<td>{{absence.absenceType}}</td>
-								<td>{{absence.status}}</td>
-								<td>{{absence.dateOfRegistration}}</td>
-								<td>{{absence.dateOfModification}}</td>
-								<td>
-									<div class="tooltip" ng-show="{{absence.status !== 'APPROVE'}}">
-										<span class="fa fa-question w3-xlarge" ng-click="administration.acceptEmployeeAbsence($event, absence)"></span>
-										<span class="tooltiptext">The status is not Approved</span>
-									</div>
-									<div class="tooltip" ng-show="{{absence.status === 'APPROVE'}}">
-										<span class="fa fa-check w3-xlarge"></span>
-										<span class="tooltiptext">The status is Approved</span>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-					</md-content>
-				</md-tab>
-				<md-tab label="Change Employee Worker Data">
-					<md-content class="md-padding">
-						<div class="w3-border w3-round w3-padding-medium">
-							<md-input-container style="margin-right: 10px">
-								<label>Employee</label>
-								<md-select ng-model="administration.selectedEmployeeEdit" md-on-close="administration.selectEmployeeForEdit()">
-								  <md-option ng-repeat="employee in administration.employees" value="{{employee.id}}">{{employee.name}}</md-option>
-								</md-select>
-							</md-input-container>
-							<br>
-							<div class="w3-center" ng-show="administration.emptyEmployeeList">
-								<p><b>The returned employee list is empty!</b></p>
-							</div>
+	<md-content>
+		<md-tabs md-dynamic-height="" md-border-bottom="">
+			<md-tab label="View Employee Worklog">	
+				<md-content class="md-padding">
+				<div>
+					<form class="w3-border w3-round w3-padding-medium" ng-submit="administration.filterWorklog()">
+						<md-input-container style="margin-right: 10px">
+							<label>Employee</label>
+							<md-select ng-model="administration.selectedEmployeeWorklog">
+							  <md-option ng-repeat="employee in administration.employees" value="{{employee.id}}">{{employee.name}}</md-option>
+							</md-select>
+						</md-input-container>
+						<md-input-container style="width: 140px">
+							<label>Date Filter</label>
+							<md-select ng-model="administration.selectedDateFilterWorklog">
+							  <md-option ng-repeat="datefilter in administration.dateFilters" value="{{datefilter}}">{{datefilter}}</md-option>
+							</md-select>
+						</md-input-container>
+						<br>
+						<md-checkbox ng-model="administration.listDailyWorkHour" aria-label="Show daily workhours only!">
+							Show daily workhours only!
+						</md-checkbox>
+						<div class="w3-padding-8">
+							<input class="w3-btn w3-green w3-left-align" type="submit" value="Filter"></input>
 						</div>
+						<input class="w3-btn w3-green w3-padding-8" ng-click="administration.exportAdminWorklog(1)" value="Export In XLS"></input>
+						<input class="w3-btn w3-green w3-padding-8" ng-click="administration.exportAdminWorklog(2)" value="Export In XLSX"></input>
 
-						<form ng-show="administration.selectedEmployeeEdit !== ''" class="w3-border w3-round w3-padding-medium" ng-submit="administration.ChangeEmployeeData()">
-							<h2>Edit Employee Worker Form</h2>
-							<p><label class="w3-label">First Name</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="First Name" ng-model="administration.newFirstName" required>
+						<div class="w3-center" ng-show="administration.emptyEmployeeList">
+							<p><b>The returned employee list is empty!</b></p>
+						</div>
+						<div class="w3-center" ng-show="administration.emptyWorklogList">
+							<p><b>The returned worklog list is empty!</b></p>
+						</div>
+					</form>
 
-							<p><label class="w3-label">Last Name</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Last Name" ng-model="administration.newLastName" required>
+					<table class="w3-table-all w3-hoverable">
+						<tr>
+							<th ng-click="administration.setSearchTypeOrReverse('BeginDate')">
+								Begin Date
+								<span ng-show="administration.showDownCaret('BeginDate')" class="fa fa-caret-down"></span>
+								<span ng-show="administration.showUpCaret('BeginDate')" class="fa fa-caret-up"></span>
+							</th>
+							<th ng-click="administration.setSearchTypeOrReverse('Hour')">
+								Hour
+								<span ng-show="administration.showDownCaret('Hour')" class="fa fa-caret-down"></span>
+								<span ng-show="administration.showUpCaret('Hour')" class="fa fa-caret-up"></span>
+							</th>
+							<th ng-click="administration.setSearchTypeOrReverse('Note')">
+								Note
+								<span ng-show="administration.showDownCaret('Note')" class="fa fa-caret-down"></span>
+								<span ng-show="administration.showUpCaret('Note')" class="fa fa-caret-up"></span>
+							</th>
+							<th ng-click="administration.setSearchTypeOrReverse('DateOfRegistration')">
+								Date Of Registration
+								<span ng-show="administration.showDownCaret('DateOfRegistration')" class="fa fa-caret-down"></span>
+								<span ng-show="administration.showUpCaret('DateOfRegistration')" class="fa fa-caret-up"></span>
+							</th>
+							<th ng-click="administration.setSearchTypeOrReverse('DateOfModification')">
+								Date Of Modification
+								<span ng-show="administration.showDownCaret('DateOfModification')" class="fa fa-caret-down"></span>
+								<span ng-show="administration.showUpCaret('DateOfModification')" class="fa fa-caret-up"></span>
+							</th>
+							<th id="signs"></th>
+						</tr>
+						<tr ng-repeat="worklog in administration.employeeWorklogs | filter:administration.searchQuery | orderBy:administration.sortType:administration.sortReverse" class="w3-hover-light-green">
+							<td>{{worklog.beginDate}}</td>
+							<td>{{worklog.workHour}}</td>
+							<td>{{worklog.note}}</td>
+							<td>{{worklog.dateOfRegistration}}</td>
+							<td>{{worklog.dateOfModification}}</td>
+							<td>
+								<div class="tooltip" ng-show="{{worklog.workHour != administration.dailyWorkHour}}">
+									<span class="fa fa-question w3-xlarge"></span>
+									<span class="tooltiptext">The WorkHour is equal to Daily WorkHour</span>
+								</div>
+								<div class="tooltip" ng-show="{{worklog.workHour == administration.dailyWorkHour}}">
+									<span class="fa fa-check w3-xlarge"></span>
+									<span class="tooltiptext">The WorkHour is bigger than Daily WorkHour</span>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				</md-content>
+			</md-tab>
+			<md-tab label="View Employee Absence">
+				<md-content class="md-padding">
+				<div>
+					<form class="w3-border w3-round w3-padding-medium" ng-submit="administration.filterAbsence()">
+						<md-input-container style="margin-right: 10px">
+							<label>Employee</label>
+							<md-select ng-model="administration.selectedEmployeeAbsence">
+							  <md-option ng-repeat="employee in administration.employees" value="{{employee.id}}">{{employee.name}}</md-option>
+							</md-select>
+						</md-input-container>
+						<md-input-container style="width: 140px">
+							<label>Date Filter</label>
+							<md-select ng-model="administration.selectedDateFilterAbsence">
+							  <md-option ng-repeat="datefilter in administration.dateFilters" value="{{datefilter}}">{{datefilter}}</md-option>
+							</md-select>
+						</md-input-container>
+						<br>
+						<md-checkbox ng-model="administration.listNotAccepted" aria-label="Show not accepted absences only!">
+							Show not accepted absences only!
+						</md-checkbox>
+						<div class="w3-padding-8">
+							<input class="w3-btn w3-green w3-left-align" type="submit" value="Filter"></input>
+						</div>
+						<input class="w3-btn w3-green w3-padding-8" ng-click="administration.exportAdminAbsence(1)" value="Export In XLS"></input>
+						<input class="w3-btn w3-green w3-padding-8" ng-click="administration.exportAdminAbsence(2)" value="Export In XLSX"></input>
 
-							<p><label class="w3-label">Position</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Position" ng-model="administration.newPosition" required>
+						<div class="w3-center" ng-show="administration.emptyEmployeeList">
+							<p><b>The returned employee list is empty!</b></p>
+						</div>
+						<div class="w3-center" ng-show="administration.emptyAbsenceList">
+							<p><b>The returned absence list is empty!</b></p>
+						</div>
+					</form>
 
-							<p><label class="w3-label">Email Address</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Email Address" ng-model="administration.newEmailAddress" required>
+					<table class="w3-table-all w3-hoverable">
+						<tr>
+							<th ng-click="administration.setSearchTypeOrReverse('BeginDate')">
+								Begin Date
+								<span ng-show="administration.showDownCaret('BeginDate')" class="fa fa-caret-down"></span>
+								<span ng-show="administration.showUpCaret('BeginDate')" class="fa fa-caret-up"></span>
+							</th>
+							<th ng-click="administration.setSearchTypeOrReverse('EndDate')">
+								End Date
+								<span ng-show="administration.showDownCaret('EndDate')" class="fa fa-caret-down"></span>
+								<span ng-show="administration.showUpCaret('EndDate')" class="fa fa-caret-up"></span>
+							</th>
+							<th ng-click="administration.setSearchTypeOrReverse('AbsenceType')">
+								AbsenceType
+								<span ng-show="administration.showDownCaret('AbsenceType')" class="fa fa-caret-down"></span>
+								<span ng-show="administration.showUpCaret('AbsenceType')" class="fa fa-caret-up"></span>
+							</th>
+							<th ng-click="administration.setSearchTypeOrReverse('Status')">
+								Status
+								<span ng-show="administration.showDownCaret('Status')" class="fa fa-caret-down"></span>
+								<span ng-show="administration.showUpCaret('Status')" class="fa fa-caret-up"></span>
+							</th>
+							<th ng-click="administration.setSearchTypeOrReverse('DateOfRegistration')">
+								Date Of Registration
+								<span ng-show="administration.showDownCaret('DateOfRegistration')" class="fa fa-caret-down"></span>
+								<span ng-show="administration.showUpCaret('DateOfRegistration')" class="fa fa-caret-up"></span>
+							</th>
+							<th ng-click="administration.setSearchTypeOrReverse('DateOfModification')">
+								Date Of Modification
+								<span ng-show="administration.showDownCaret('DateOfModification')" class="fa fa-caret-down"></span>
+								<span ng-show="administration.showUpCaret('DateOfModification')" class="fa fa-caret-up"></span>
+							</th>
+							<th id="tableOperation"></th>
+						</tr>
+						<tr ng-repeat="absence in administration.employeeAbsences | filter:administration.searchQuery | orderBy:administration.sortType:administration.sortReverse" class="w3-hover-light-green">
+							<td>{{absence.beginDate}}</td>
+							<td>{{absence.endDate}}</td>
+							<td>{{absence.absenceType}}</td>
+							<td>{{absence.status}}</td>
+							<td>{{absence.dateOfRegistration}}</td>
+							<td>{{absence.dateOfModification}}</td>
+							<td>
+								<div class="tooltip" ng-show="{{absence.status !== 'APPROVE'}}">
+									<span class="fa fa-question w3-xlarge" ng-click="administration.acceptEmployeeAbsence($event, absence)"></span>
+									<span class="tooltiptext">The status is not Approved</span>
+								</div>
+								<div class="tooltip" ng-show="{{absence.status === 'APPROVE'}}">
+									<span class="fa fa-check w3-xlarge"></span>
+									<span class="tooltiptext">The status is Approved</span>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				</md-content>
+			</md-tab>
+			<md-tab label="Change Employee Worker Data">
+				<md-content class="md-padding">
+					<div class="w3-border w3-round w3-padding-medium">
+						<md-input-container style="margin-right: 10px">
+							<label>Employee</label>
+							<md-select ng-model="administration.selectedEmployeeEdit" md-on-close="administration.selectEmployeeForEdit()">
+							  <md-option ng-repeat="employee in administration.employees" value="{{employee.id}}">{{employee.name}}</md-option>
+							</md-select>
+						</md-input-container>
+						<br>
+						<div class="w3-center" ng-show="administration.emptyEmployeeList">
+							<p><b>The returned employee list is empty!</b></p>
+						</div>
+					</div>
 
-							<p><label class="w3-label">Daily Work Hour Total</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Daily Work Hour Total" ng-model="administration.newDailyWorkHourTotal" required>
+					<form ng-show="administration.selectedEmployeeEdit !== ''" class="w3-border w3-round w3-padding-medium" ng-submit="administration.ChangeEmployeeData()">
+						<h2>Edit Employee Worker Form</h2>
+						<p><label class="w3-label">First Name</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="First Name" ng-model="administration.newFirstName" required>
 
-							<div class="w3-padding-8">
-								<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
-							</div>
-						</form>
-					</md-content>
-				</md-tab>
-			</md-tabs>
-		</md-content>
-	</div>
+						<p><label class="w3-label">Last Name</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Last Name" ng-model="administration.newLastName" required>
+
+						<p><label class="w3-label">Position</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Position" ng-model="administration.newPosition" required>
+
+						<p><label class="w3-label">Email Address</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Email Address" ng-model="administration.newEmailAddress" required>
+
+						<p><label class="w3-label">Daily Work Hour Total</label></p>
+						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Daily Work Hour Total" ng-model="administration.newDailyWorkHourTotal" required>
+
+						<div class="w3-padding-8">
+							<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
+						</div>
+					</form>
+				</md-content>
+			</md-tab>
+		</md-tabs>
+	</md-content>
 </div>

@@ -9,7 +9,7 @@
 
 	function AbsenceService($http, $rootScope, $q) {
 
-		var service = {
+		return {
 			addAbsence	   : addAbsence,
 			getAbsence	   : getAbsence,
 			getAbsenceData : getAbsenceData,
@@ -17,8 +17,6 @@
 			editAbsence    : editAbsence,
 			exportAbsence  : exportAbsence
 		};
-
-		return service;
 
 		function addAbsence(beginDate, endDate, workerId, absenceType) {
 			var deferred = $q.defer();

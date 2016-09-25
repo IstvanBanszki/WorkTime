@@ -64,7 +64,6 @@
 		vm.selectedDepartmentIdForWorkerCreation = 0;
 		vm.selectedSuperiorIdForWorkerCreation = "";
 		//Bindable functions
-		vm.init = init;
 		vm.openEditOffice = openEditOffice;
 		vm.openEditDepartment = openEditDepartment;
 		vm.openSaveOffice = openSaveOffice;
@@ -78,10 +77,11 @@
 		vm.createNewDepartment = createNewDepartment;
 		vm.createNewUserAndWorker = createNewUserAndWorker;
 
+		activate();
 		// *********************** //
 		// Function implementation //
 		// *********************** //
-		function init() {
+		function activate() {
 			AdditionService.getDepartments().then(
 				function(result) {
 					vm.departments = result;
@@ -103,31 +103,31 @@
 				function(error) {
 				}
 			);
-		};
+		}
 
 		function openEditOffice() {
 			vm.showSaveOfficeForm = false;
 			vm.showSaveDepartmentForm = false;
 			vm.showEditOfficeForm = !vm.showEditOfficeForm;
-		};
+		}
 
 		function openEditDepartment() {
 			vm.showSaveOfficeForm = false;
 			vm.showSaveDepartmentForm = false;
 			vm.showEditDepartmentForm = !vm.showEditDepartmentForm;
-		};
+		}
 
 		function openSaveOffice() {
 			vm.showEditOfficeForm = false;
 			vm.showEditDepartmentForm = false;
 			vm.showSaveOfficeForm = !vm.showSaveOfficeForm;
-		};
+		}
 
 		function openSaveDepartment() {
 			vm.showEditOfficeForm = false;
 			vm.showEditDepartmentForm = false;
 			vm.showSaveDepartmentForm = !vm.showSaveDepartmentForm;
-		};
+		}
 
 		function openSelect() {
 			vm.officeWorkerNumber = 0;
@@ -137,7 +137,7 @@
 			vm.showEditDepartmentForm = false;
 			vm.showSaveOfficeForm = false;
 			vm.showSaveDepartmentForm = false;
-		};
+		}
 
 		function setDepartments() {
 			if (!(typeof vm.departments) || (vm.departments.length !== 0)) {
@@ -160,7 +160,7 @@
 					}
 				}
 			}
-		};
+		}
 
 		function listInformation() {
 			for (var i = 0, len = vm.departments.length; i < len; i++) {
@@ -180,7 +180,7 @@
 			vm.departmentDateOfFoundtation = vm.selectedDepartment.dateOfFoundtation;
 			vm.departmentDateOfFoundtationForEdit = moment(vm.selectedDepartment.dateOfFoundtation, 'YYYY.MM.DD', false).toDate();
 			vm.departmentWorkerNumber = vm.selectedDepartment.workerNumber;
-		};
+		}
 
 		function editOffice() {
 			var newDate = moment(vm.officeDateOfFoundtationForEdit).format('YYYY.MM.DD');
@@ -194,7 +194,7 @@
 				function(error) {
 				}
 			);
-		};
+		}
 
 		function editDepartment() {
 			var newDate = moment(vm.departmentDateOfFoundtationForEdit).format('YYYY.MM.DD');
@@ -207,7 +207,7 @@
 				function(error) {
 				}
 			);
-		};
+		}
 
 		function createNewOffice() {
 			var newDate = moment(vm.officeDateOfFoundtationForCreation).format('YYYY.MM.DD');
@@ -223,7 +223,7 @@
 				function(error) {
 				}
 			);
-		};
+		}
 
 		function createNewDepartment() {
 			var newDate = moment(vm.departmentDateOfFoundtationForCreation).format('YYYY.MM.DD');
@@ -239,7 +239,7 @@
 				function(error) {
 				}
 			);
-		};
+		}
 
 		function createNewUserAndWorker() {
 			var userId = 0;
@@ -256,6 +256,6 @@
 				function(error) {
 				}
 			);
-		};
+		}
     }
 })();

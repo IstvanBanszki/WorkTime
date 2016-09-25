@@ -9,7 +9,7 @@
 
 	function AdditionService($http, $rootScope, $q) {
 
-		var service = {
+		return {
 			getOffices 	   : getOffices,
 			getDepartments : getDepartments,
 			editOffice 	   : editOffice,
@@ -20,8 +20,6 @@
 			saveWorker 	   : saveWorker,
 			getSuperiors   : getSuperiors
 		};
-
-		return service;
 
 		function getOffices() {
 			var deferred = $q.defer();

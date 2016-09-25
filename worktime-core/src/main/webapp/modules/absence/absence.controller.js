@@ -26,33 +26,44 @@
 		vm.showUpCaret = showUpCaret;
 		vm.setSearchTypeOrReverse = setSearchTypeOrReverse;
 		vm.addAbsence = addAbsence;
-		vm.initAbsence = initAbsence;
 		vm.getAbsences = getAbsences;
 		vm.getAbsenceDatas = getAbsenceDatas;
 		vm.deleteAbsence = deleteAbsence;
 		vm.editAbsence = editAbsence;
 		vm.exportAbsence = exportAbsence;
 
+		activate();
 		// *********************** //
 		// Function implementation //
 		// *********************** //
+		function activate() {
+			if((typeof vm.absences || vm.absences.length === 0) && 
+			   (typeof vm.absenceDatas || vm.absenceDatas.length === 0)) {
+				getAbsences();
+				getAbsenceDatas();
+			}
+		};
 		function showDownCaret(tableHeader) {
 			return (vm.sortType == tableHeader && !vm.sortReverse);
-		};
+		}
+
 		function showUpCaret(tableHeader) {
 			return (vm.sortType == tableHeader && vm.sortReverse);
-		};
+		}
+
 		function setSearchTypeOrReverse(tableHeader) {
 			if(vm.sortType == tableHeader) {
 				vm.sortReverse = !vm.sortReverse;
 			} else {
 				vm.sortType = tableHeader;
 			}
-		};
+		}
+
 		function createExcelFileName(excelType) {
 			var employeeName = $rootScope.profileData.firstName+$rootScope.profileData.lastName;
 			return employeeName+'-'+moment(new Date()).format('YYYYMMDDHHhhmmss')+'-ExportAbsence.xls'+((excelType === 1) ? '' : 'x');
-		};
+		}
+
 		function showStatus(result) {
 			var textContent = '';
 			if(result === -2) {
@@ -70,7 +81,8 @@
 					 .finally(function() {
 						alert = undefined;
 					 });
-		};
+		}
+
 		function addAbsence() {
 			//for(var i = 0; i < $scope.worklogs.length; i++) {
 				//if(moment($scope.worklogs[i].beginDate).isBetween($scope.beginDate, $scope.endDate) ||
@@ -97,14 +109,8 @@
 				function(error) {
 				}
 			);
-		};
-		function initAbsence() {
-			if((typeof vm.absences || vm.absences.length === 0) && 
-			   (typeof vm.absenceDatas || vm.absenceDatas.length === 0)) {
-				getAbsences();
-				getAbsenceDatas();
-			}
-		};
+		}
+
 		function getAbsences() {
 			AbsenceService.getAbsence($rootScope.userData.workerId, vm.selectedDateFilter).then(
 				function(result) {
@@ -114,7 +120,8 @@
 				function(error) {
 				}
 			);
-		};
+		}
+
 		function getAbsenceDatas() {
 			AbsenceService.getAbsenceData($rootScope.userData.workerId).then(
 				function(result) {
@@ -123,7 +130,8 @@
 				function(error) {
 				}
 			);
-		};
+		}
+
 		function deleteAbsence(ev, absence) {
 			var confirm = $mdDialog.confirm().title('Absence Delete')
 											 .clickOutsideToClose(true)
@@ -146,7 +154,8 @@
 				}
 			}, function() { // No
 			});
-		};
+		}
+
 		function editAbsence(ev, absence) {
 			$rootScope.selectedAbsence = absence;
 			$mdDialog.show({
@@ -168,7 +177,8 @@
 				}
 			}, function() {
 			});
-		};
+		}
+
 		function exportAbsence(excelType) {
 
 			var excelTypeStr = ((excelType === 1) ? 'application/vnd.ms-excel' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -182,6 +192,6 @@
 				function(error) {
 				}
 			);
-		};
-	};
+		}
+	}
 })();

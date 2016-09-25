@@ -9,7 +9,7 @@
 	
 	function AdministrationService($http, $rootScope, $q) {
 
-		var service = {
+		return {
 			getWorklogsByEmployee  : getWorklogsByEmployee,
 			getAbsencesByEmployee  : getAbsencesByEmployee,
 			acceptEmployeeAbsence  : acceptEmployeeAbsence,
@@ -19,8 +19,6 @@
 			exportEmployeeWorklogs : exportEmployeeWorklogs,
 			exportEmployeeAbsences : exportEmployeeAbsences
 		};
-		
-		return service;
 
 		function getWorklogsByEmployee(employeeId, dateFilter, showDailyWorkhours) {
 			var deferred = $q.defer();

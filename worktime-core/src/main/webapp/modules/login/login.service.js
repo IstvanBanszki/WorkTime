@@ -9,12 +9,11 @@
 	
 	function LoginService($http, $cookies, $rootScope, $q) {
 
-		var service = {
+		return {
 			login		   : login,
 			setUserData    : setUserData,
 			removeUserData : removeUserData
 		};
-		return service;
 
 		// *********************** //
 		// Function implementation //

@@ -21,7 +21,7 @@
 		// *********************** //
 		// Function implementation //
 		// *********************** //
-		function login () {
+		function login() {
 			LoginService.login(vm.loginName, vm.password)
 				.then(
 					function(result) {
@@ -39,7 +39,8 @@
 					}
 				);
 		}
-		function logout () {
+
+		function logout() {
 			LoginService.removeUserData();
 			$location.path('/login');
 		}

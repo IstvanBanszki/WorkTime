@@ -34,7 +34,6 @@
 		vm.newEmailAddress = "";
 		vm.newDailyWorkHourTotal = "";
 		//Bindable functions
-		vm.init = init;
 		vm.showDownCaret = showDownCaret;
 		vm.showUpCaret = showUpCaret;
 		vm.setSearchTypeOrReverse = setSearchTypeOrReverse;
@@ -46,10 +45,11 @@
 		vm.exportAdminAbsence = exportAdminAbsence;
 		vm.exportAdminWorklog = exportAdminWorklog;
 
+		activate();
 		// *********************** //
 		// Function implementation //
 		// *********************** //
-		function init() {
+		function activate() {
 			AdministrationService.getEmployees($rootScope.userData.workerId).then(
 					function(result) {
 						if(result.length > 0) {
@@ -69,15 +69,15 @@
 					function(error) {
 					}
 				);
-		};
+		}
 
 		function showDownCaret(tableHeader) {
 			return (vm.sortType == tableHeader && !vm.sortReverse);
-		};
+		}
 
 		function showUpCaret(tableHeader) {
 			return (vm.sortType == tableHeader && vm.sortReverse);
-		};
+		}
 
 		function setSearchTypeOrReverse(tableHeader) {
 			if(vm.sortType == tableHeader){
@@ -85,7 +85,7 @@
 			} else {
 				vm.sortType = tableHeader;
 			}
-		};
+		}
 
 		function createExcelFileName(excelType) {
 			var employeeName = '';
@@ -95,7 +95,7 @@
 				}
 			});
 			return employeeName+'-'+moment(new Date()).format('YYYYMMDDHHhhmmss')+'-ExportWorklog.xls'+((excelType === 1) ? '' : 'x');
-		};
+		}
 
 		function filterWorklog() {
 			if(vm.selectedEmployeeWorklog !== "") {
@@ -113,7 +113,8 @@
 						}
 					);
 			}
-		};
+		}
+
 		function filterAbsence() {
 			if(vm.selectedEmployeeAbsence !== "") {
 				AdministrationService.getAbsencesByEmployee(vm.selectedEmployeeAbsence, vm.selectedDateFilterAbsence, vm.listNotAccepted).then(
@@ -130,7 +131,8 @@
 						}
 					);
 			}
-		};
+		}
+
 		function acceptEmployeeAbsence(ev, absence) {
 
 			var confirm = $mdDialog.confirm().title('Approve Selected Absence')
@@ -154,7 +156,8 @@
 				}
 			}, function() { // No
 			});	
-		};
+		}
+
 		function selectEmployeeForEdit() {
 			if(vm.selectedEmployeeEdit !== "") {
 				AdministrationService.getEmployeeWorkerData(vm.selectedEmployeeEdit).then(
@@ -169,7 +172,8 @@
 					}
 				);
 			}
-		};
+		}
+
 		function changeEmployeeData() {
 			AdministrationService.editEmployeeWorkerData(vm.newFirstName, vm.newLastName, vm.newPosition, vm.newEmailAddress, vm.newDailyWorkHourTotal).then(
 				function(result) {
@@ -177,7 +181,8 @@
 				function(error) {
 				}
 			);
-		};
+		}
+
 		function exportAdminWorklog(excelType) {
 			if(vm.selectedEmployeeWorklog !== "") {
 
@@ -193,7 +198,8 @@
 					}
 				);
 			}
-		};
+		}
+
 		function exportAdminAbsence(excelType) {
 			if(vm.selectedEmployeeAbsence !== "") {
 
@@ -209,6 +215,6 @@
 					}
 				);
 			}
-		};
+		}
     }
 })();
