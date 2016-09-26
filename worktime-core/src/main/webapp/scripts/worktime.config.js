@@ -1,13 +1,5 @@
 (function() {
 	'use strict';
-
-	angular.module('Login', [])
-	angular.module('Home', [])
-	angular.module('Profile', [])
-	angular.module('Worklog', [])
-	angular.module('Absence', [])
-	angular.module('Administration', [])
-	angular.module('Addition', [])
 	
 	angular.module('WorkTime', [
 				'Login', 
