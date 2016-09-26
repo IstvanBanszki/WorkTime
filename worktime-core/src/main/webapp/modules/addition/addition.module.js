@@ -1,5 +1,12 @@
 (function() {
 	'use strict';
 
-	angular.module('Addition', [])
+	angular.module('Addition', [
+				'ngAnimate', 
+				'ngAria', 
+				'ngMaterial', 
+				'ngMessages', 
+				'ngSanitize', 
+				'material.svgAssetsCache'
+			])
 })();

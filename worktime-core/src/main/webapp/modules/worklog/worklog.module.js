@@ -1,5 +1,12 @@
 (function() {
 	'use strict';
 
-	angular.module('Worklog', [])
+	angular.module('Worklog', [
+				'ngAnimate', 
+				'ngAria', 
+				'ngMaterial', 
+				'ngMessages', 
+				'ngSanitize', 
+				'material.svgAssetsCache'
+			])
 })();

@@ -1,5 +1,12 @@
 (function() {
 	'use strict';
 
-	angular.module('Profile', [])
+	angular.module('Profile', [
+				'ngAnimate', 
+				'ngAria', 
+				'ngMaterial', 
+				'ngMessages', 
+				'ngSanitize', 
+				'material.svgAssetsCache'
+			])
 })();

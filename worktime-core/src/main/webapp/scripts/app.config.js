@@ -1,6 +1,6 @@
 (function() {
 	'use strict';
-	
+
 	angular.module('WorkTime', [
 				'Login', 
 				'Home', 
@@ -9,24 +9,18 @@
 				'Absence', 
 				'Administration', 
 				'Addition', 
-				'ngRoute', 
-				'ngCookies', 
-				"ngAnimate", 
-				"ngAria", 
-				'ngMaterial', 
-				'ngMessages', 
-				'ngSanitize', 
-				'material.svgAssetsCache'])
+				'ngRoute',
+				'ngCookies'])
 		.config(routingConfig)
 		.run(runner);
-	
+
 	routingConfig.$inject = ['$routeProvider'];
-	
+
 	function routingConfig($routeProvider) {
 		$routeProvider
 			.when('/login', {
 				controller : 'LoginController as login',
-				templateUrl: 'modules/login/login.html',
+				templateUrl: 'modules/login/login.header.html',
 				title	   : 'WorkTime - Login'
 			})
 			.when('/home', {
@@ -61,9 +55,9 @@
 			})
 			.otherwise('/login');
 	}
-	
+
 	runner.$inject = ['$rootScope', '$cookies', '$location', '$http'];
-	
+
 	function runner($rootScope, $cookies, $location, $http) {
         $rootScope.userData = $cookies.getObject('data');
 		if ($rootScope.userData){
