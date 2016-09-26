@@ -1,14 +1,36 @@
-'use strict';
+(function() {
+	'use strict';
 
-angular.module('Login', [])
-angular.module('Home', [])
-angular.module('Profile', [])
-angular.module('Worklog', [])
-angular.module('Absence', [])
-angular.module('Administration', [])
-angular.module('Addition', [])
-angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'Administration', 'Addition', 'ngRoute', 'ngCookies', "ngAnimate", "ngAria", 'ngMaterial', 'ngMessages', 'ngSanitize', 'material.svgAssetsCache'])
-	.config(['$routeProvider', '$mdDateLocaleProvider', function ($routeProvider, $mdDateLocaleProvider) {
+	angular.module('Login', [])
+	angular.module('Home', [])
+	angular.module('Profile', [])
+	angular.module('Worklog', [])
+	angular.module('Absence', [])
+	angular.module('Administration', [])
+	angular.module('Addition', [])
+	
+	angular.module('WorkTime', [
+				'Login', 
+				'Home', 
+				'Profile', 
+				'Worklog', 
+				'Absence', 
+				'Administration', 
+				'Addition', 
+				'ngRoute', 
+				'ngCookies', 
+				"ngAnimate", 
+				"ngAria", 
+				'ngMaterial', 
+				'ngMessages', 
+				'ngSanitize', 
+				'material.svgAssetsCache'])
+		.config(routingConfig)
+		.run(runner);
+	
+	routingConfig.$inject = ['$routeProvider'];
+	
+	function routingConfig($routeProvider) {
 		$routeProvider
 			.when('/login', {
 				controller : 'LoginController as login',
@@ -46,27 +68,24 @@ angular.module('myApp', ['Login', 'Home', 'Profile', 'Worklog', 'Absence', 'Admi
 				title	   : 'WorkTime - Addition'
 			})
 			.otherwise('/login');
-		$mdDateLocaleProvider.formatDate = function(date) {
-			return date ? moment(date).format('YYYY-MM-DD') : '';
-		};
-		$mdDateLocaleProvider.parseDate = function(dateString) {
-			var m = moment(dateString, 'YYYY-MM-DD', true);
-			return m.isValid() ? m.toDate() : new Date(NaN);
-		};
-	}])
-	.run(['$rootScope', '$cookies', '$location', '$http', function ($rootScope, $cookies, $location, $http) {
+	}
+	
+	runner.$inject = ['$rootScope', '$cookies', '$location', '$http'];
+	
+	function runner($rootScope, $cookies, $location, $http) {
         $rootScope.userData = $cookies.getObject('data');
-		if( $rootScope.userData ){
+		if ($rootScope.userData){
 			$http.defaults.headers.common['Authorization'] = $rootScope.userData.secret;
 		}
 		$rootScope.$on("$locationChangeStart", function(event, next, current) {
-			if( $location.path() !== '/login' && !$rootScope.userData ){
+			if ($location.path() !== '/login' && !$rootScope.userData){
                 $location.path('/login');
             }
         });
 		$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-			if( current.hasOwnProperty('$$route') ){
+			if (current.hasOwnProperty('$$route')){
 				$rootScope.title = current.$$route.title;
 			}
 		});
-	}])
+	}
+})();
