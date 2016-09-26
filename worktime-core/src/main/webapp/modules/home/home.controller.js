@@ -14,7 +14,7 @@
 		vm.links = [{
 			title: 'Home', url: '#home'
 		}, {
-			title: 'Personal', url: '#profile'
+			title: 'Profile', url: '#profile'
 		}, {
 			title: 'Worklog', url: '#worklog'
 		}, {

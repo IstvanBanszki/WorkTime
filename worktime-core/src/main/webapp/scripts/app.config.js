@@ -8,15 +8,68 @@
 				'Worklog', 
 				'Absence', 
 				'Administration', 
-				'Addition', 
-				'ngRoute',
-				'ngCookies'])
+				'Addition',
+				'ngCookies',
+				'ui.router'])
 		.config(routingConfig)
 		.run(runner);
 
-	routingConfig.$inject = ['$routeProvider'];
+	routingConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 
-	function routingConfig($routeProvider) {
+	function routingConfig($stateProvider, $urlRouterProvider) {
+
+		$urlRouterProvider.otherwise("/login");
+      
+		$stateProvider
+			.state('Login', {
+				url			 : '/login',
+				templateUrl  : 'modules/login/login.header.html',
+				controller   : 'LoginController',
+				controllerAs : 'login',
+				title	     : 'WorkTime - Login'
+			})
+			.state('Home', {
+				url			: '/home',
+				templateUrl : 'modules/home/home.page.html',
+				controller  : 'HomeController',
+				title	    : 'WorkTime - Home'
+			})
+			.state('Profile', {
+				url			 : '/profile',
+				templateUrl  : 'modules/profile/profile.page.html',
+				controller   : 'ProfileController',
+				controllerAs : 'profile',
+				title	     : 'WorkTime - Profile'
+			})
+			.state('Worklog', {
+				url			 : '/worklog',
+				templateUrl  : 'modules/worklog/worklog.page.html',
+				controller   : 'WorklogController',
+				controllerAs : 'worklogC',
+				title	     : 'WorkTime - Worklog'
+			})
+			.state('Absence', {
+				url			 : '/absence',
+				templateUrl  : 'modules/absence/absence.page.html',
+				controller   : 'AbsenceController',
+				controllerAs : 'absenceC',
+				title	     : 'WorkTime - Absence'
+			})
+			.state('Administration', {
+				url			 : '/administration',
+				templateUrl  : 'modules/administration/administration.page.html',
+				controller   : 'AdministrationController',
+				controllerAs : 'administration',
+				title	     : 'WorkTime - Administration'
+			})
+			.state('Addition', {
+				url			 : '/addition',
+				templateUrl  : 'modules/addition/addition.page.html',
+				controller   : 'AdditionController',
+				controllerAs : 'addition',
+				title	     : 'WorkTime - Addition'
+			});
+		/*
 		$routeProvider
 			.when('/login', {
 				controller : 'LoginController as login',
@@ -54,6 +107,7 @@
 				title	   : 'WorkTime - Addition'
 			})
 			.otherwise('/login');
+		*/
 	}
 
 	runner.$inject = ['$rootScope', '$cookies', '$location', '$http'];
