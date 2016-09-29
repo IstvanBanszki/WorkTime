@@ -2,6 +2,7 @@
 	'use strict';
 
 	angular.module('Worklog', [
+				'Utility',
 				'ngAnimate', 
 				'ngAria', 
 				'ngMaterial', 

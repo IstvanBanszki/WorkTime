@@ -5,9 +5,9 @@
 		.module('Worklog')
 		.controller('WorklogController', WorklogController);
 
-	WorklogController.$inject = ['$rootScope', '$mdDialog', 'WorklogService'];
+	WorklogController.$inject = ['$rootScope', '$mdDialog', 'WorklogService', 'StatusLogService'];
 
-	function WorklogController($rootScope, $mdDialog, WorklogService) {
+	function WorklogController($rootScope, $mdDialog, WorklogService, StatusLogService) {
 
 		var vm = this;
 		//Bindable variables
@@ -70,19 +70,6 @@
 			return new Array(count);
 		}
 
-		function showStatus(result) {
-			alert = $mdDialog.alert({
-				title: 'Worklog Adding',
-				textContent: (result === 1 ? 'The saving is succesfull!' : (result === -1 ? 'There is an already saved worklog at the selected date!' : 'There is an error during saving!')),
-				clickOutsideToClose: true,
-				ok: 'Close'
-			});
-			$mdDialog.show(alert)
-					.finally(function() {
-						alert = undefined;
-					});
-		}
-
 		function addWorklog() {
 			//for(var i = 0; i < $scope.worklogs.length; i++) {
 				//if(moment($scope.beginDate).isSame($scope.worklogs[i].beginDate, 'year')) {
@@ -92,6 +79,7 @@
 			var newDate = moment(vm.beginDate).format('YYYY.MM.DD');
 			WorklogService.addWorklog(newDate, vm.workHour, $rootScope.userData.workerId).then(
 				function(result) {
+					StatusLogService.showStatusLog(result.status, 'Create New Worklog');
 					vm.worklogs.push({
 						id: result.newId,
 						beginDate: newDate,
@@ -99,7 +87,6 @@
 					});
 					vm.beginDate = "";
 					vm.workHour = 0;
-					showStatus(result.status);
 				},
 				function(error) {
 				}
@@ -118,7 +105,7 @@
 		}
 
 		function deleteWorklog(ev, worklog) {
-			var confirm = $mdDialog.confirm().title('Worklog Delete')
+			var confirm = $mdDialog.confirm().title('Delete Worklog')
 											 .clickOutsideToClose(true)
 											 .htmlContent('<div><p>Are you sure about delete the below worklog?<br>Begin Date: '+worklog.beginDate+', Hour: '+worklog.workHour+'</p></div>')
 											 .targetEvent(ev)
@@ -127,16 +114,17 @@
 			$mdDialog.show(confirm).then(function() { // Yes
 				WorklogService.deleteWorklog(worklog.id).then(
 					function(result) {
+						StatusLogService.showStatusLog(result, 'Delete Worklog');
+						for(var i = 0; i < vm.worklogs.length; i++) {
+							if(vm.worklogs[i].id === worklog.id) {
+							   vm.worklogs.splice(i, 1);
+							   break;
+							} 
+						}
 					},
 					function(error) {
 					}
 				)
-				for(var i = 0; i < vm.worklogs.length; i++) {
-					if(vm.worklogs[i].id === worklog.id) {
-					   vm.worklogs.splice(i, 1);
-					   break;
-					} 
-				}
 			}, function() { // No
 			});
 		}
@@ -151,6 +139,7 @@
 				parent: angular.element(document.body),
 				targetEvent: ev
 			}).then(function(answer) {
+				StatusLogService.showStatusLog(answer.status, 'Edit Worklog');
 				for(var i = 0; i < vm.worklogs.length; i++) {
 					if(vm.worklogs[i].id === worklog.id) {
 					   vm.worklogs[i].beginDate = answer.beginDate;

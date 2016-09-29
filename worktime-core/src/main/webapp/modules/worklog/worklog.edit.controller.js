@@ -30,7 +30,8 @@
 					if(result === 1) {
 						answer({
 							beginDate: newDate,
-							workHour: vm.newWorkHour
+							workHour: vm.newWorkHour,
+							status: result
 						});
 					} else {
 						vm.error = true;
@@ -45,9 +46,11 @@
 		function answer(answer) {
 		  $mdDialog.hide(answer);
 		}
+
 		function cancel() {
 		  $mdDialog.cancel();
 		}
+
 		function range(count) {
 			return new Array(count);
 		}

@@ -2,6 +2,7 @@
 	'use strict';
 
 	angular.module('Addition', [
+				'Utility',
 				'ngAnimate', 
 				'ngAria', 
 				'ngMaterial', 

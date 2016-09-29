@@ -2,6 +2,7 @@
 	'use strict';
 
 	angular.module('Administration', [
+				'Utility',
 				'ngAnimate', 
 				'ngAria', 
 				'ngMaterial', 

@@ -49,6 +49,12 @@
 						<div class="w3-padding-8">
 							<input class="w3-btn w3-green w3-left-align" type="submit" value="Add"></input>
 						</div>
+						<div class="w3-center" ng-show="profile.showDuplicateErrorMessage">
+							<p><b>The newly entered passwords are not the same!</b></p>
+						</div>
+						<div class="w3-center" ng-show="profile.showErrorMessage">
+							<p><b>Error occured during password saving!</b></p>
+						</div>
 					</form>
 				</md-content>
 			</md-tab>

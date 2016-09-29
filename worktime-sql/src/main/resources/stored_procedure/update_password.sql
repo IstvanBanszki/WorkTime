@@ -6,10 +6,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_password`(
 BEGIN
 
 	IF ((SELECT COUNT(*) FROM user u WHERE u.password = old_password AND u.login_name = login_name) = 1) THEN
+
 		UPDATE user u
-		SET u.password = new_password 
-		WHERE u.login_name = login_name;
-        
+		   SET u.password = new_password 
+		 WHERE u.login_name = login_name;
+
 		SELECT ROW_COUNT() AS status;
 	ELSE
 	    SELECT -1 AS status;

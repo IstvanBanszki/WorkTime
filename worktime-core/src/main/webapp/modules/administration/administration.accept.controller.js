@@ -31,7 +31,8 @@
 						answer({
 							beginDate: vm.newBeginDate,
 							endDate: vm.newEndDate,
-							absenceType: vm.newAbsenceType
+							absenceType: vm.newAbsenceType,
+							status: result
 						});
 					}else {
 						vm.error = true;

@@ -5,9 +5,9 @@
 		.module('Addition')
 		.controller('AdditionController', AdditionController);
 
-	AdditionController.$inject = ['$rootScope', 'AdditionService']
+	AdditionController.$inject = ['$rootScope', 'AdditionService', 'StatusLogService']
 
-    function AdditionController($rootScope, AdditionService) {
+    function AdditionController($rootScope, AdditionService, StatusLogService) {
 
 		var vm = this;
 		//Bindable variables
@@ -186,10 +186,13 @@
 			var newDate = moment(vm.officeDateOfFoundtationForEdit).format('YYYY.MM.DD');
 			AdditionService.editOffice(vm.selectedOffice.id, vm.officeName, vm.officeAddress, newDate).then(
 				function(result) {
-					vm.offices[vm.indexOfSelectedOffice].name = vm.officeName;
-					vm.offices[vm.indexOfSelectedOffice].address = vm.officeAddress;
-					vm.offices[vm.indexOfSelectedOffice].dateOfFoundtation = newDate;
-					vm.officeDateOfFoundtation = newDate;
+					StatusLogService.showStatusLog(result, 'Edit Office!');
+					if (result === 1) {
+						vm.offices[vm.indexOfSelectedOffice].name = vm.officeName;
+						vm.offices[vm.indexOfSelectedOffice].address = vm.officeAddress;
+						vm.offices[vm.indexOfSelectedOffice].dateOfFoundtation = newDate;
+						vm.officeDateOfFoundtation = newDate;
+					}
 				},
 				function(error) {
 				}
@@ -200,9 +203,12 @@
 			var newDate = moment(vm.departmentDateOfFoundtationForEdit).format('YYYY.MM.DD');
 			AdditionService.editDepartment(vm.selectedDepartment.id, vm.departmentName, newDate, vm.selectedDepartment.officeId).then(
 				function(result) {
-					vm.departments[vm.indexOfSelectedDepartment].name = vm.departmentName;
-					vm.departments[vm.indexOfSelectedDepartment].dateOfFoundtation = newDate;
-					vm.departmentDateOfFoundtation = newDate;
+					StatusLogService.showStatusLog(result, 'Edit Department!');
+					if (result === 1) {
+						vm.departments[vm.indexOfSelectedDepartment].name = vm.departmentName;
+						vm.departments[vm.indexOfSelectedDepartment].dateOfFoundtation = newDate;
+						vm.departmentDateOfFoundtation = newDate;
+					}
 				},
 				function(error) {
 				}
@@ -213,12 +219,15 @@
 			var newDate = moment(vm.officeDateOfFoundtationForCreation).format('YYYY.MM.DD');
 			AdditionService.saveOffice(vm.officeNameForCreation, vm.officeAddressForCreation, newDate).then(
 				function(result) {
-					vm.offices.push({
-						id: result.newId,
-						name: vm.officeNameForCreation,
-						address: vm.officeAddressForCreation,
-						dateOfFoundation: newDate
-					});
+					StatusLogService.showStatusLog(result, 'Create New Office!');
+					if (result === 1) {
+						vm.offices.push({
+							id: result.newId,
+							name: vm.officeNameForCreation,
+							address: vm.officeAddressForCreation,
+							dateOfFoundation: newDate
+						});
+					}
 				},
 				function(error) {
 				}
@@ -229,12 +238,15 @@
 			var newDate = moment(vm.departmentDateOfFoundtationForCreation).format('YYYY.MM.DD');
 			AdditionService.saveDepartment(vm.departmentNameForCreation, newDate, vm.selectedOfficeIdForCreation).then(
 				function(result) {
-					vm.departments.push({
-						id: result.newId,
-						name: vm.departmentNameForCreation,
-						dateOfFoundation: newDate,
-						officeId: vm.selectedOfficeIdForCreation
-					});
+					StatusLogService.showStatusLog(result, 'Create New Department!');
+					if (result === 1) {
+						vm.departments.push({
+							id: result.newId,
+							name: vm.departmentNameForCreation,
+							dateOfFoundation: newDate,
+							officeId: vm.selectedOfficeIdForCreation
+						});
+					}
 				},
 				function(error) {
 				}

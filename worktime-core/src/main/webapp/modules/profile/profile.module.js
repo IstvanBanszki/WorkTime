@@ -2,6 +2,7 @@
 	'use strict';
 
 	angular.module('Profile', [
+				'Utility',
 				'ngAnimate', 
 				'ngAria', 
 				'ngMaterial', 

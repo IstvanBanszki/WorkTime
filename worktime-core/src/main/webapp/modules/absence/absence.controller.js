@@ -75,7 +75,7 @@
 			var dateEnd = moment(vm.endDate).format('YYYY.MM.DD');
 			AbsenceService.addAbsence(dateBegin, dateEnd, $rootScope.userData.workerId, vm.absenceType).then(
 				function(result) {
-					StatusLogService.showStatusLog(result.status, 'Absence Adding');
+					StatusLogService.showStatusLog(result.status, 'Create New Absence');
 					vm.absences.push({
 						id: result.newId,
 						beginDate: dateBegin,
@@ -114,7 +114,7 @@
 		}
 
 		function deleteAbsence(ev, absence) {
-			var confirm = $mdDialog.confirm().title('Absence Delete')
+			var confirm = $mdDialog.confirm().title('Delete Absence')
 											 .clickOutsideToClose(true)
 											 .htmlContent('<div><p>Are you sure about delete the below Absence?<br>Begin Date: '+absence.beginDate+'<br>End Date: '+absence.endDate+'<br>Absence Type: '+absence.absenceType+'</p></div>')
 											 .targetEvent(ev)
@@ -123,7 +123,7 @@
 			$mdDialog.show(confirm).then(function() { // Yes
 				AbsenceService.deleteAbsence(absence.id).then(
 					function(result) {
-						StatusLogService.showStatusLog(result, 'Absence Remove');
+						StatusLogService.showStatusLog(result, 'Delete Absence');
 						for(var i = 0; i < vm.absences.length; i++) {
 							if(vm.absences[i].id === absence.id) {
 								vm.absences.splice(i, 1);
@@ -157,7 +157,7 @@
 						break;
 					}
 				}
-				StatusLogService.showStatusLog(answer.status, 'Absence Edit');
+				StatusLogService.showStatusLog(answer.status, 'Edit Absence');
 			}, function() {
 			});
 		}

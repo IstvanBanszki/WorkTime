@@ -5,9 +5,9 @@
 		.module('Profile')
 		.controller('ProfileController', ProfileController);
 
-	ProfileController.$inject = ['$rootScope', '$mdDialog', 'ProfileService']
+	ProfileController.$inject = ['$rootScope', '$mdDialog', 'ProfileService', 'StatusLogService']
 
-	function ProfileController($rootScope, $mdDialog, ProfileService) {
+	function ProfileController($rootScope, $mdDialog, ProfileService, StatusLogService) {
 
 		var vm = this;
 		//Bindable variables
@@ -27,10 +27,10 @@
 		vm.dailyWorkHourTotal = "";
 		vm.departmentName = "";
 		vm.officeName = "";
+		vm.showDuplicateErrorMessage = false;
+		vm.showErrorMessage = false;
 		//Bindable functions
 		vm.changePassword = changePassword;
-		vm.clearPasswords = clearPasswords;
-		vm.showStatus = showStatus;
 		vm.clearPasswords = clearPasswords;
 
 		activate();
@@ -67,42 +67,28 @@
 		}
 
 		function changePassword() {
-			if(vm.newPassword == vm.newPasswordSecond) {
-				ProfileService.changePassword(vm.userData.loginName, vm.oldPassword, vm.newPassword).then(
-					function(result) {
-						vm.showStatus(result);
-					},
-					function(error) {
-					}
-				)
+			if (vm.newPassword == vm.newPasswordSecond) {
+				if (vm.newPassword != vm.oldPassword) {
+					ProfileService.changePassword($rootScope.userData.loginName, vm.oldPassword, vm.newPassword).then(
+						function(result) {
+							StatusLogService.showStatusLog(result, 'Password change');
+							if (result === 1) {
+								vm.showDuplicateErrorMessage = false;
+								vm.showErrorMessage = false;	
+							} else {
+								vm.showErrorMessage = true;	
+							}
+						},
+						function(error) {
+							vm.showErrorMessage = true;
+						}
+					)
+				}
 				vm.clearPasswords();
 			} else {
-				vm.showStatus(-2);
+				vm.showDuplicateErrorMessage = true;
 				vm.clearPasswords();
 			}
-		}
-
-		function showStatus (result) {
-			var textContent = '';
-			if (result === -2) {
-				textContent = 'The newly entered passwords are not the same!';
-			} else if (result === 2) {
-				textContent = 'Wrong old password typed!';
-			} else if (result === 1) {
-				textContent = 'Change is succesfull!';
-			} else {
-				textContent = 'Unexpected Error! Result - '+result;
-			}
-			alert = $mdDialog.alert({
-				title: 'Password Change',
-				textContent: textContent,
-				clickOutsideToClose: true,
-				ok: 'Close'
-			});
-			$mdDialog.show(alert)
-					 .finally(function() {
-						alert = undefined;
-					});
 		}
 
 		function clearPasswords() {

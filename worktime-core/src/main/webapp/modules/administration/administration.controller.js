@@ -5,9 +5,9 @@
 		.module('Administration')
 		.controller('AdministrationController', AdministrationController);
 
-	AdministrationController.$inject = ['$rootScope', '$mdDialog', 'AdministrationService'];
+	AdministrationController.$inject = ['$rootScope', '$mdDialog', 'AdministrationService', 'StatusLogService'];
 
-    function AdministrationController($rootScope, $mdDialog, AdministrationService) {
+    function AdministrationController($rootScope, $mdDialog, AdministrationService, StatusLogService) {
 
 		var vm = this;
 		//Bindable variables
@@ -144,16 +144,17 @@
 			$mdDialog.show(confirm).then(function() { // Yes
 				AdministrationService.acceptEmployeeAbsence(absence.id).then(
 					function(result) {
+						StatusLogService.showStatusLog(result.status, 'Accept Empolyee Absence');
+						for(var i = 0; i < vm.employeeAbsences.length; i++) {
+							if(vm.employeeAbsences[i].id === absence.id) {
+								vm.employeeAbsences[i].status = 'APPROVE';
+								break;
+							}
+						}
 					},
 					function(error) {
 					}
 				);
-				for(var i = 0; i < vm.employeeAbsences.length; i++) {
-					if(vm.employeeAbsences[i].id === absence.id) {
-						vm.employeeAbsences[i].status = 'APPROVE';
-						break;
-					}
-				}
 			}, function() { // No
 			});	
 		}
@@ -177,6 +178,7 @@
 		function changeEmployeeData() {
 			AdministrationService.editEmployeeWorkerData(vm.newFirstName, vm.newLastName, vm.newPosition, vm.newEmailAddress, vm.newDailyWorkHourTotal).then(
 				function(result) {
+					StatusLogService.showStatusLog(result, 'Change Empolyee Data');
 				},
 				function(error) {
 				}
