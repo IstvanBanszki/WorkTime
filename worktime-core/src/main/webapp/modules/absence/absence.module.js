@@ -2,6 +2,7 @@
 	'use strict';
 
 	angular.module('Absence', [
+				'Utility',
 				'ngAnimate', 
 				'ngAria', 
 				'ngMaterial', 

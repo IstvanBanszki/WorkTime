@@ -40,16 +40,16 @@
 					$scope.cancel();
 				}
 			)
-		};
+		}
 
 		function answer(answer) {
 		  $mdDialog.hide(answer);
-		};
+		}
 		function cancel() {
 		  $mdDialog.cancel();
-		};
+		}
 		function range(count) {
 			return new Array(count);
-		};
+		}
 	}
 })();

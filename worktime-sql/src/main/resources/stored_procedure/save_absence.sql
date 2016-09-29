@@ -7,7 +7,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `save_absence`(
 BEGIN
 	INSERT INTO `worktime`.`absence` (`begin_date`, `end_date`, `status`, `absence_type_id`, `worker_id`, `note`) 
 	VALUES (begin_date, end_date, 2, absence_type_id, worker_id, '');
-
+	
 	SELECT ROW_COUNT() AS status, LAST_INSERT_ID() new_id;
 
 	CASE absence_type_id
@@ -31,5 +31,7 @@ BEGIN
 		UPDATE `worktime`.`worker_holiday_number`
 		SET `verified_absence_number` = `verified_absence_number` + 1
 		WHERE worker_id = worker_id;
+	ELSE 
+		BEGIN END;
 	END CASE;
 END

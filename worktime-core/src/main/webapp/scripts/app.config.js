@@ -9,6 +9,7 @@
 				'Absence', 
 				'Administration', 
 				'Addition',
+				'Utility',
 				'ngCookies',
 				'ui.router'])
 		.config(routingConfig)

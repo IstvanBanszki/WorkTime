@@ -6,6 +6,7 @@ import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
 import hu.unideb.worktime.api.model.administration.EditWorker;
 import hu.unideb.worktime.api.model.administration.Employee;
+import hu.unideb.worktime.api.model.administration.Note;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ public class SqlCallAdministration {
     @Autowired private SpApproveEmployeeAbsence spAcceptAbsenceStatus;
     @Autowired private SpEditWorkerData spEditWorkerData;
     @Autowired private SpGetEmployeeWorkerData spGetEmployeeWorkerData;
+    @Autowired private SpUpdateWorklogNote spUpdateWorklogNote;
     private Logger logger = LoggerFactory.getLogger(SqlCallAdministration.class);
     
     public List<Employee> getEmloyees(Integer workerId) {
@@ -110,6 +112,21 @@ public class SqlCallAdministration {
             this.logger.error("There is an exception during get_worker_data SP call: {}", ex);
         }
         this.logger.info("Result of get_worker_data SP: {}", result);
+        return result;
+    }
+    
+    public Integer updateWorklogNote(Integer key, Note request) {
+        Integer result = null;
+        this.logger.info("Call update_worklog_note SP with given parameters: Key - {}, Note - {}", key, request);
+        try {
+            result = this.spUpdateWorklogNote.updateNote(key, request);
+            if (result == null) {
+                this.logger.debug("There is an error while update the worklog note in database! Key - {}, Note - {}", key, request);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during update_worklog_note SP call: {}", ex);
+        }
+        this.logger.info("Result of update_worklog_note SP: {}", result);
         return result;
     }
 }

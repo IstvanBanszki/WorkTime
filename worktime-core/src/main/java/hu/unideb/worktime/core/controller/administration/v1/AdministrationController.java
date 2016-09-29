@@ -6,6 +6,7 @@ import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
 import hu.unideb.worktime.api.model.administration.EditWorker;
 import hu.unideb.worktime.api.model.administration.Employee;
+import hu.unideb.worktime.api.model.administration.Note;
 import hu.unideb.worktime.core.export.IExportService;
 import hu.unideb.worktime.jdbc.administration.SqlCallAdministration;
 import java.util.List;
@@ -81,5 +82,12 @@ public class AdministrationController {
                     @PathVariable("type") Integer excelType, @PathVariable("dateFilter") String dateFilter, 
                     @PathVariable("notApprove") Boolean notApprove, HttpServletResponse response) {
         this.exportService.exportAdminAbsences(employeeId, dateFilter, notApprove, excelType, response);
+    }
+    
+    @Async
+    @RequestMapping(value = "/employee/worklog/{worklogId}", method = RequestMethod.PUT)
+    public @ResponseBody Integer updateWorklogNote(@PathVariable("worklogId") Integer worklogId, 
+                    @RequestBody Note request) {
+        return this.sqlCallAdministration.updateWorklogNote(worklogId, request);
     }
 }

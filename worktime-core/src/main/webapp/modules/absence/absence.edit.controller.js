@@ -34,7 +34,8 @@
 						answer({
 							beginDate: answerBeginDate,
 							endDate: answerEndDate,
-							absenceType: vm.newAbsenceType
+							absenceType: vm.newAbsenceType,
+							status: result
 						});
 					} else {
 						vm.error = true;
@@ -44,15 +45,15 @@
 					cancel();
 				}
 			)
-		};
+		}
 		function answer(answer) {
 		  $mdDialog.hide(answer);
-		};
-		function answer(answer) {
-		  $mdDialog.hide(answer);
-		};
+		}
+		function range(count) {
+			return new Array(count);
+		}
 		function cancel() {
 		  $mdDialog.cancel();
-		};
-    };
+		}
+    }
 })();

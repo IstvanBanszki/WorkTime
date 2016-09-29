@@ -5,9 +5,9 @@
 		.module('Absence')
 		.controller('AbsenceController', AbsenceController);
 
-	AbsenceController.$inject =	['$rootScope', '$mdDialog', 'AbsenceService'];
+	AbsenceController.$inject =	['$rootScope', '$mdDialog', 'AbsenceService', 'StatusLogService'];
 
-	function AbsenceController($rootScope, $mdDialog, AbsenceService) {
+	function AbsenceController($rootScope, $mdDialog, AbsenceService, StatusLogService) {
 
 		var vm = this;
 		//Bindable variables
@@ -64,25 +64,6 @@
 			return employeeName+'-'+moment(new Date()).format('YYYYMMDDHHhhmmss')+'-ExportAbsence.xls'+((excelType === 1) ? '' : 'x');
 		}
 
-		function showStatus(result) {
-			var textContent = '';
-			if(result === -2) {
-				textContent = 'The saving is unsuccesfull, the Begin or End Date is in the range of an already exist absence!';
-			} else {
-				textContent = 'The saving is succesfull!';
-			}
-			alert = $mdDialog.alert({
-				title: 'Absence Adding',
-				textContent: textContent,
-				clickOutsideToClose: true,
-				ok: 'Close'
-			});
-			$mdDialog.show(alert)
-					 .finally(function() {
-						alert = undefined;
-					 });
-		}
-
 		function addAbsence() {
 			//for(var i = 0; i < $scope.worklogs.length; i++) {
 				//if(moment($scope.worklogs[i].beginDate).isBetween($scope.beginDate, $scope.endDate) ||
@@ -94,6 +75,7 @@
 			var dateEnd = moment(vm.endDate).format('YYYY.MM.DD');
 			AbsenceService.addAbsence(dateBegin, dateEnd, $rootScope.userData.workerId, vm.absenceType).then(
 				function(result) {
+					StatusLogService.showStatusLog(result.status, 'Absence Adding');
 					vm.absences.push({
 						id: result.newId,
 						beginDate: dateBegin,
@@ -104,7 +86,6 @@
 					vm.absenceType = "PAYED";
 					vm.beginDate = "";
 					vm.endDate = "";
-					showStatus(result.status);
 				},
 				function(error) {
 				}
@@ -142,16 +123,17 @@
 			$mdDialog.show(confirm).then(function() { // Yes
 				AbsenceService.deleteAbsence(absence.id).then(
 					function(result) {
+						StatusLogService.showStatusLog(result, 'Absence Remove');
+						for(var i = 0; i < vm.absences.length; i++) {
+							if(vm.absences[i].id === absence.id) {
+								vm.absences.splice(i, 1);
+								break;
+							}
+						}
 					},
 					function(error) {
 					}
 				)
-				for(var i = 0; i < vm.absences.length; i++) {
-					if(vm.absences[i].id === absence.id) {
-						vm.absences.splice(i, 1);
-						break;
-					} 
-				}
 			}, function() { // No
 			});
 		}
@@ -175,6 +157,7 @@
 						break;
 					}
 				}
+				StatusLogService.showStatusLog(answer.status, 'Absence Edit');
 			}, function() {
 			});
 		}

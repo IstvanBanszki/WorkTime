@@ -43,25 +43,25 @@ public class AbsenceController {
     
     @Async
     @RequestMapping(value = "/absence/{workerId}/{dateFilter}", method = RequestMethod.GET)
-    public @ResponseBody List<AbsenceResponse> getAbsence(@PathVariable Integer workerId, @PathVariable("dateFilter") String request) {
+    public @ResponseBody List<AbsenceResponse> getAbsence(@PathVariable("workerId") Integer workerId, @PathVariable("dateFilter") String request) {
         return this.sqlCallAbsence.getAbsence(workerId, request);
     }
     
     @Async
     @RequestMapping(value = "/absenceData/{workerId}", method = RequestMethod.GET)
-    public @ResponseBody List<AbsenceDataResponse> getAbsenceData(@PathVariable Integer workerId) {
+    public @ResponseBody List<AbsenceDataResponse> getAbsenceData(@PathVariable("workerId") Integer workerId) {
         return this.sqlCallAbsence.getAbsenceData(workerId);
     }
     
     @Async
     @RequestMapping(value = "/absence/{absenceId}", method = RequestMethod.DELETE)
-    public @ResponseBody Integer deleteAbsence(@PathVariable Integer id) {
+    public @ResponseBody Integer deleteAbsence(@PathVariable("absenceId") Integer id) {
         return this.sqlCallAbsence.deleteAbsence(id);
     }
     
     @Async
     @RequestMapping(value = "/absence/{absenceId}/edit", method = RequestMethod.PUT)
-    public @ResponseBody Integer editAbsence(@PathVariable Integer id, @RequestBody AbsenceRequest request) {
+    public @ResponseBody Integer editAbsence(@PathVariable("absenceId") Integer id, @RequestBody AbsenceRequest request) {
         return this.sqlCallAbsence.editAbsence(id, request);
     }
 
