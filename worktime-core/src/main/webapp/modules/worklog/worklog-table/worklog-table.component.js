@@ -31,8 +31,6 @@
 		vm.dateFilters = ["All", "This Week", "Last Week", "This Month", "This Year"];
 		vm.selectedDateFilter = "All";
 		vm.dailyWorkHour = 8;
-		vm.beginDate = "";
-		vm.workHour = 0;
 		//Bindable functions
 		vm.showDownCaret = showDownCaret;
 		vm.showUpCaret = showUpCaret;

@@ -3,11 +3,11 @@
 
 	angular
 		.module('Absence')
-		.controller('AbsenceEditController', AbsenceEditController);
+		.controller('AbsenceEditController', Controller);
 
-	AbsenceEditController.$inject = ['$rootScope', '$mdDialog', 'AbsenceService'];
+	Controller.$inject = ['$rootScope', '$mdDialog', 'AbsenceService'];
 
-    function AbsenceEditController($rootScope, $mdDialog, AbsenceService) {
+    function Controller($rootScope, $mdDialog, AbsenceService) {
 
 		var vm = this;
 		//Bindable variables
@@ -46,14 +46,18 @@
 				}
 			)
 		}
+
 		function answer(answer) {
 		  $mdDialog.hide(answer);
 		}
+
 		function range(count) {
 			return new Array(count);
 		}
+
 		function cancel() {
 		  $mdDialog.cancel();
 		}
+
     }
 })();

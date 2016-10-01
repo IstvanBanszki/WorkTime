@@ -10,7 +10,7 @@
 	function ProfileService($http, $rootScope, $q) {
 
 		return {
-			profile			  : profile,
+			getProfile		  : getProfile,
 			changePassword 	  : changePassword,
 			setProfileData 	  : setProfileData,
 			removeProfileData : removeProfileData
@@ -19,7 +19,7 @@
 		// *********************** //
 		// Function implementation //
 		// *********************** //
-		function profile(workerId) {
+		function getProfile(workerId) {
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",

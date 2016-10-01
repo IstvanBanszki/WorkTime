@@ -1,0 +1,25 @@
+<form class="w3-form w3-card-4 w3-margin" ng-submit="vm.addAbsence()">
+	<md-content>
+		<p><label class="w3-label">Begin Date</label></p>
+		<p><md-datepicker ng-model="vm.beginDate" md-placeholder="Enter date"></md-datepicker></p>
+		<p><label class="w3-label">End Date</label></p>
+		<p><md-datepicker ng-model="vm.endDate" md-placeholder="Enter date"></md-datepicker></p>
+	</md-content>
+
+	<p><label class="w3-label">Absence Type</label></p>
+
+	<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="vm.absenceType" value="PAYED" ng-checked="true"/>
+	<label class="w3-validate">Payed</label></p>
+
+	<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="vm.absenceType" value="UNPAYED"/>
+	<label class="w3-validate">Unpayed</label></p>
+
+	<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="vm.absenceType" value="SICK_PAY"/>
+	<label class="w3-validate">Sick Pay</label></p>
+
+	<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="vm.absenceType" value="VERIFIED"/>
+	<label class="w3-validate">Verified</label></p>
+	<div class="w3-padding-8">
+		<input class="w3-btn w3-green w3-left-align" type="submit" value="Add"></input>
+	</div>
+</form>

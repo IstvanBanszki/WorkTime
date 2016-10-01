@@ -30,30 +30,31 @@
 				title	     : 'WorkTime - Login'
 			})
 			.state('Home', {
-				url			: '/home',
-				templateUrl : 'modules/home/home.page.html',
-				controller  : 'HomeController',
-				title	    : 'WorkTime - Home'
+				url			 : '/home',
+				templateUrl  : 'modules/home/home.page.html',
+				controller   : 'HomeController',
+				controllerAs : 'vm',
+				title	     : 'WorkTime - Home'
 			})
 			.state('Profile', {
 				url			 : '/profile',
 				templateUrl  : 'modules/profile/profile.page.html',
 				controller   : 'ProfileController',
-				controllerAs : 'profile',
+				controllerAs : 'vm',
 				title	     : 'WorkTime - Profile'
 			})
 			.state('Worklog', {
 				url			 : '/worklog',
 				templateUrl  : 'modules/worklog/worklog.page.html',
 				controller   : 'WorklogController',
-				controllerAs : 'worklogC',
+				controllerAs : 'vm',
 				title	     : 'WorkTime - Worklog'
 			})
 			.state('Absence', {
 				url			 : '/absence',
 				templateUrl  : 'modules/absence/absence.page.html',
 				controller   : 'AbsenceController',
-				controllerAs : 'absenceC',
+				controllerAs : 'vm',
 				title	     : 'WorkTime - Absence'
 			})
 			.state('Administration', {

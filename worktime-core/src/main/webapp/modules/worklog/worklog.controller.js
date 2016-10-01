@@ -3,15 +3,14 @@
 
 	angular
 		.module('Worklog')
-		.controller('WorklogController', WorklogController);
+		.controller('WorklogController', Controller);
 
-
-	function WorklogController() {
-
-		var vm = this;
+	function Controller() {
 
 		activate();
+
 		function activate() {
 		}
-	}
+
+	};
 })();

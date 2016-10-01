@@ -214,7 +214,7 @@ public class ExportService implements IExportService {
 
         Cell statusCell = row.createCell(3);
         statusCell.setCellValue(response.getStatus().getName());
-        typeCell.setCellStyle(dataCellStyle);
+        statusCell.setCellStyle(dataCellStyle);
     }
 
     private void createAdminAbsenceRow(Row row, CellStyle dataCellStyle, CellStyle dateCellStyle, CellStyle dateTimeCellStyle, AdministrationAbsenceResponse response) {

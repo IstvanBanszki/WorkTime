@@ -1,0 +1,54 @@
+<table class="w3-table-all w3-hoverable">
+	<tr>
+		<th ng-click="vm.setSearchTypeOrReverse('Year')">
+			Year
+			<span ng-show="vm.showDownCaret('Year')" class="fa fa-caret-down"></span>
+			<span ng-show="vm.showUpCaret('Year')" class="fa fa-caret-up"></span>
+		</th>
+		<th ng-click="setSearchTypeOrReverse('HolidayNumber')">
+			Holiday Number
+			<span ng-show="vm.showDownCaret('HolidayNumber')" class="fa fa-caret-down"></span>
+			<span ng-show="vm.showUpCaret('HolidayNumber')" class="fa fa-caret-up"></span>
+		</th>
+		<th ng-click="vm.setSearchTypeOrReverse('AllAbsenceNumber')">
+			All Absence Number
+			<span ng-show="vm.showDownCaret('AllAbsenceNumber')" class="fa fa-caret-down"></span>
+			<span ng-show="vm.showUpCaret('AllAbsenceNumber')" class="fa fa-caret-up"></span>
+		</th>
+		<th ng-click="vm.setSearchTypeOrReverse('NotSetAbsenceNumber')">
+			Not Set Absence Number
+			<span ng-show="vm.showDownCaret('NotSetAbsenceNumber')" class="fa fa-caret-down"></span>
+			<span ng-show="vm.showUpCaret('NotSetAbsenceNumber')" class="fa fa-caret-up"></span>
+		</th>
+		<th ng-click="vm.setSearchTypeOrReverse('PayedAbsenceNumber')">
+			Payed Absence Number
+			<span ng-show="vm.showDownCaret('PayedAbsenceNumber')" class="fa fa-caret-down"></span>
+			<span ng-show="vm.showUpCaret('PayedAbsenceNumber')" class="fa fa-caret-up"></span>
+		</th>
+		<th ng-click="vm.setSearchTypeOrReverse('UnPayedAbsenceNumber')">
+			UnPayed Absence Number
+			<span ng-show="vm.showDownCaret('UnPayedAbsenceNumber')" class="fa fa-caret-down"></span>
+			<span ng-show="vm.showUpCaret('UnPayedAbsenceNumber')" class="fa fa-caret-up"></span>
+		</th>
+		<th ng-click="vm.setSearchTypeOrReverse('SickPayedAbsenceNumber')">
+			Sick Payed Absence Number
+			<span ng-show="vm.showDownCaret('SickPayedAbsenceNumber')" class="fa fa-caret-down"></span>
+			<span ng-show="vm.showUpCaret('SickPayedAbsenceNumber')" class="fa fa-caret-up"></span>
+		</th>
+		<th ng-click="vm.setSearchTypeOrReverse('VerifiedPayedAbsenceNumber')">
+			Verified Payed Absence Number
+			<span ng-show="vm.showDownCaret('VerifiedPayedAbsenceNumber')" class="fa fa-caret-down"></span>
+			<span ng-show="vm.showUpCaret('VerifiedPayedAbsenceNumber')" class="fa fa-caret-up"></span>
+		</th>
+	</tr>
+	<tr ng-repeat="absenceData in vm.absenceDatas | orderBy:vm.sortType:vm.sortReverse" class="w3-hover-light-green">
+		<td>{{absenceData.year}}</td>
+		<td>{{absenceData.holidayNumber}}</td>
+		<td>{{absenceData.absenceNumber}}</td>
+		<td>{{absenceData.notSetAbsenceNumber}}</td>
+		<td>{{absenceData.payedAbsenceNumber}}</td>
+		<td>{{absenceData.unPayedAbsenceNumber}}</td>
+		<td>{{absenceData.sickPayedAbsenceNumber}}</td>
+		<td>{{absenceData.verifiedAbsenceNumber}}</td>
+	</tr>
+</table>

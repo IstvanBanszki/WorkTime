@@ -3,17 +3,14 @@
 
 	angular
 		.module('Profile')
-		.controller('ProfileController', ProfileController);
+		.controller('ProfileController', Controller);
 
-	ProfileController.$inject = ['$rootScope', '$mdDialog', 'ProfileService', 'StatusLogService']
-
-	function ProfileController($rootScope, $mdDialog, ProfileService, StatusLogService) {
+	Controller.$inject = ['$rootScope', 'ProfileService', 'StatusLogService'];
+		
+	function Controller($rootScope, ProfileService, StatusLogService) {
 
 		var vm = this;
 		//Bindable variables
-		vm.oldPassword = "";
-		vm.newPassword = "";
-		vm.newPasswordSecond = "";
 		vm.loginName = "";
 		vm.dateOfRegistration = "";
 		vm.role = "";
@@ -29,16 +26,13 @@
 		vm.officeName = "";
 		vm.showDuplicateErrorMessage = false;
 		vm.showErrorMessage = false;
-		//Bindable functions
-		vm.changePassword = changePassword;
-		vm.clearPasswords = clearPasswords;
 
 		activate();
 		// *********************** //
 		// Function implementation //
 		// *********************** //
 		function activate() {
-			ProfileService.profile($rootScope.userData.workerId).then(
+			ProfileService.getProfile($rootScope.userData.workerId).then(
 				function(result) {
 					ProfileService.setProfileData(result);
 					// Account Tab - initial value
@@ -66,35 +60,5 @@
 			)
 		}
 
-		function changePassword() {
-			if (vm.newPassword == vm.newPasswordSecond) {
-				if (vm.newPassword != vm.oldPassword) {
-					ProfileService.changePassword($rootScope.userData.loginName, vm.oldPassword, vm.newPassword).then(
-						function(result) {
-							StatusLogService.showStatusLog(result, 'Password change');
-							if (result === 1) {
-								vm.showDuplicateErrorMessage = false;
-								vm.showErrorMessage = false;	
-							} else {
-								vm.showErrorMessage = true;	
-							}
-						},
-						function(error) {
-							vm.showErrorMessage = true;
-						}
-					)
-				}
-				vm.clearPasswords();
-			} else {
-				vm.showDuplicateErrorMessage = true;
-				vm.clearPasswords();
-			}
-		}
-
-		function clearPasswords() {
-			vm.oldPassword = "";
-			vm.newPassword = "";
-			vm.newPasswordSecond = "";
-		}
 	};
 })();

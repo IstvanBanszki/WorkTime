@@ -6,158 +6,17 @@
 			<md-tabs md-dynamic-height="" md-border-bottom="">
 				<md-tab label="Create New Absence">
 					<md-content class="md-padding">
-						<form class="w3-form w3-card-4 w3-margin" ng-submit="absenceC.addAbsence()">
-							<md-content>
-								<p><label class="w3-label">Begin Date</label></p>
-								<p><md-datepicker ng-model="absenceC.beginDate" md-placeholder="Enter date"></md-datepicker></p>
-								<p><label class="w3-label">End Date</label></p>
-								<p><md-datepicker ng-model="absenceC.endDate" md-placeholder="Enter date"></md-datepicker></p>
-							</md-content>
-
-							<p><label class="w3-label">Absence Type</label></p>
-
-							<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="absenceC.absenceType" value="PAYED" ng-checked="true"/>
-							<label class="w3-validate">Payed</label></p>
-
-							<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="absenceC.absenceType" value="UNPAYED"/>
-							<label class="w3-validate">Unpayed</label></p>
-
-							<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="absenceC.absenceType" value="SICK_PAY"/>
-							<label class="w3-validate">Sick Pay</label></p>
-
-							<p><input class="w3-radio w3-padding-hor-16" type="radio" ng-model="absenceC.absenceType" value="VERIFIED"/>
-							<label class="w3-validate">Verified</label></p>
-							<div class="w3-padding-8">
-								<input class="w3-btn w3-green w3-left-align" type="submit" value="Add"></input>
-							</div>
-						</form>
+						<absence-form></absence-form>
 					</md-content>
 				</md-tab>
 				<md-tab label="Show Absences">
 					<md-content class="md-padding">
-						<div class="w3-border w3-round w3-padding-medium">
-							<i class="fa fa-search w3-padding-left w3-padding-right"></i>
-							<input type="text" placeholder="Search {{ absenceC.sortType }}" ng-model="absenceC.searchQuery"></input>
-							<md-input-container style="width: 140px; padding-left: 15px">
-									<label>Date Filter</label>
-									<md-select ng-model="absenceC.selectedDateFilter" md-on-close="absenceC.getAbsences()">
-									  <md-option ng-repeat="datefilter in absenceC.dateFilters" value="{{datefilter}}">{{datefilter}}</md-option>
-									</md-select>
-							</md-input-container>
-							<input class="w3-btn w3-green w3-padding-tiny" ng-click="absenceC.exportAbsence(1)" value="Export In XLS"></input>
-							<input class="w3-btn w3-green w3-padding-tiny" ng-click="absenceC.exportAbsence(2)" value="Export In XLSX"></input>
-						</div>
-
-						<table class="w3-table-all w3-hoverable">
-							<tr>
-								<th ng-click="absenceC.setSearchTypeOrReverse('BeginDate')">
-									Begin Date
-									<span ng-show="absenceC.showDownCaret('BeginDate')" class="fa fa-caret-down"></span>
-									<span ng-show="absenceC.showUpCaret('BeginDate')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="absenceC.setSearchTypeOrReverse('EndDate')">
-									End Date
-									<span ng-show="absenceC.showDownCaret('EndDate')" class="fa fa-caret-down"></span>
-									<span ng-show="absenceC.showUpCaret('EndDate')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="absenceC.setSearchTypeOrReverse('AbsenceType')">
-									AbsenceType
-									<span ng-show="absenceC.showDownCaret('AbsenceType')" class="fa fa-caret-down"></span>
-									<span ng-show="absenceC.showUpCaret('AbsenceType')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="absenceC.setSearchTypeOrReverse('Status')">
-									Status
-									<span ng-show="absenceC.showDownCaret('Status')" class="fa fa-caret-down"></span>
-									<span ng-show="absenceC.showUpCaret('Status')" class="fa fa-caret-up"></span>
-								</th>
-								<th id="signs"></th>
-								<th id="tableOperation"></th>
-							</tr>
-							<tr ng-repeat="absence in absenceC.absences | filter:absenceC.searchQuery | orderBy:absenceC.sortType:absenceC.sortReverse" class="w3-hover-light-green">
-								<td>{{absence.beginDate}}</td>
-								<td>{{absence.endDate}}</td>
-								<td>{{absence.absenceType}}</td>
-								<td>{{absence.status}}</td>
-								<td>
-									<div class="tooltip" ng-show="{{absence.status !== 'APPROVE'}}">
-										<span class="fa fa-question w3-xlarge"></span>
-										<span class="tooltiptext">The status is not Approved</span>
-									</div>
-									<div class="tooltip" ng-show="{{absence.status === 'APPROVE'}}">
-										<span class="fa fa-check w3-xlarge"></span>
-										<span class="tooltiptext">The status is Approved</span>
-									</div>
-								</td>
-								<td>
-									<div class="tooltip">
-										<span class="fa fa-trash w3-xlarge" ng-click="absenceC.deleteAbsence($event, absence)"></span>
-										<span class="tooltiptext">Delete Absence</span>
-									</div>
-									<div class="tooltip">
-										<span class="fa fa-edit w3-xlarge" ng-click="absenceC.editAbsence($event, absence)"></span>
-										<span class="tooltiptext">Edit Absence</span>
-									</div>
-								</td>
-							</tr>
-						</table>
+						<absence-table></absence-table>
 					</md-content>
 				</md-tab>
 				<md-tab label="Absence Informations">
 					<md-content class="md-padding">
-						<table class="w3-table-all w3-hoverable">
-							<tr>
-								<th ng-click="absenceC.setSearchTypeOrReverse('Year')">
-									Year
-									<span ng-show="absenceC.showDownCaret('Year')" class="fa fa-caret-down"></span>
-									<span ng-show="absenceC.showUpCaret('Year')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="setSearchTypeOrReverse('HolidayNumber')">
-									Holiday Number
-									<span ng-show="absenceC.showDownCaret('HolidayNumber')" class="fa fa-caret-down"></span>
-									<span ng-show="absenceC.showUpCaret('HolidayNumber')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="absenceC.setSearchTypeOrReverse('AllAbsenceNumber')">
-									All Absence Number
-									<span ng-show="absenceC.showDownCaret('AllAbsenceNumber')" class="fa fa-caret-down"></span>
-									<span ng-show="absenceC.showUpCaret('AllAbsenceNumber')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="absenceC.setSearchTypeOrReverse('NotSetAbsenceNumber')">
-									Not Set Absence Number
-									<span ng-show="absenceC.showDownCaret('NotSetAbsenceNumber')" class="fa fa-caret-down"></span>
-									<span ng-show="absenceC.showUpCaret('NotSetAbsenceNumber')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="absenceC.setSearchTypeOrReverse('PayedAbsenceNumber')">
-									Payed Absence Number
-									<span ng-show="absenceC.showDownCaret('PayedAbsenceNumber')" class="fa fa-caret-down"></span>
-									<span ng-show="absenceC.showUpCaret('PayedAbsenceNumber')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="absenceC.setSearchTypeOrReverse('UnPayedAbsenceNumber')">
-									UnPayed Absence Number
-									<span ng-show="absenceC.showDownCaret('UnPayedAbsenceNumber')" class="fa fa-caret-down"></span>
-									<span ng-show="absenceC.showUpCaret('UnPayedAbsenceNumber')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="absenceC.setSearchTypeOrReverse('SickPayedAbsenceNumber')">
-									Sick Payed Absence Number
-									<span ng-show="absenceC.showDownCaret('SickPayedAbsenceNumber')" class="fa fa-caret-down"></span>
-									<span ng-show="absenceC.showUpCaret('SickPayedAbsenceNumber')" class="fa fa-caret-up"></span>
-								</th>
-								<th ng-click="absenceC.setSearchTypeOrReverse('VerifiedPayedAbsenceNumber')">
-									Verified Payed Absence Number
-									<span ng-show="absenceC.showDownCaret('VerifiedPayedAbsenceNumber')" class="fa fa-caret-down"></span>
-									<span ng-show="absenceC.showUpCaret('VerifiedPayedAbsenceNumber')" class="fa fa-caret-up"></span>
-								</th>
-							</tr>
-							<tr ng-repeat="absenceData in absenceC.absenceDatas | orderBy:absenceC.sortType:absenceC.sortReverse" class="w3-hover-light-green">
-								<td>{{absenceData.year}}</td>
-								<td>{{absenceData.holidayNumber}}</td>
-								<td>{{absenceData.absenceNumber}}</td>
-								<td>{{absenceData.notSetAbsenceNumber}}</td>
-								<td>{{absenceData.payedAbsenceNumber}}</td>
-								<td>{{absenceData.unPayedAbsenceNumber}}</td>
-								<td>{{absenceData.sickPayedAbsenceNumber}}</td>
-								<td>{{absenceData.verifiedAbsenceNumber}}</td>
-							</tr>
-						</table>
+						<absence-show-data></absence-show-data>
 					</md-content>
 				</md-tab>
 			</md-tabs>
