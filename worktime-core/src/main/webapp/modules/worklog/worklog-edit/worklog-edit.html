@@ -1,0 +1,26 @@
+<div class="editWDialog" ng-controller="WorklogEditController as vm">
+	<h2>Edit Worklog</h2>
+	<form ng-submit="vm.editWorklog()" >
+	
+		<md-content>
+			<p><label class="w3-label">New Begin Date</label></p>
+			<p><md-datepicker ng-model="vm.newBeginDate"></md-datepicker>
+		</md-content>
+
+		<p><label class="w3-label">New Work Hour</label></p>		
+		<md-input-container>
+			<label>Hour</label>
+			<md-select ng-model="vm.newWorkHour">
+				<md-option ng-repeat="hour in vm.range(24) track by $index" value="{{$index+1}}">{{$index+1}}</md-option>
+			</md-select>
+		</md-input-container>
+
+		<div class="w3-container w3-red w3-center" ng-show="vm.error">
+			<p>Error occured!</p>
+		</div>
+
+		<div class="w3-padding-8">
+			<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
+		</div>
+	</form>
+</div>

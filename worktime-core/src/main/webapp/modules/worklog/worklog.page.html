@@ -5,84 +5,14 @@
 		<md-tabs md-dynamic-height="" md-border-bottom="">
 			<md-tab label="Create new worklog">	
 				<md-content class="md-padding">
-					<form class="w3-form w3-card-4 w3-margin" ng-submit="worklogC.addWorklog()" >
-    
-						<md-content>
-							<p><label class="w3-label">Begin Date</label></p>
-							<p><md-datepicker ng-model="worklogC.beginDate" md-placeholder="Enter date"></md-datepicker>
-						</md-content>
-    
-						<p><label class="w3-label">Work Hour</label></p>
-						<md-input-container>
-							<label>Hour</label>
-							<md-select ng-model="worklogC.workHour">
-								<md-option ng-repeat="hour in worklogC.range(24) track by $index" value="{{$index+1}}">{{$index+1}}</md-option>
-							</md-select>
-						</md-input-container>
-    
-						<div class="w3-padding-8">
-							<input class="w3-btn w3-green w3-left-align" type="submit" value="Add"></input>
-						</div>
-					</form>
+					<worklog-form></worklog-form>
 				</md-content>
 			</md-tab>
 			<md-tab label="Show worklogs">
 				<md-content class="md-padding">
-					<div class="w3-border w3-round w3-padding-medium">
-						<i class="fa fa-search w3-padding-left w3-padding-right"></i>
-						<input type="text" placeholder="Search {{ sortType }}" ng-model="worklogC.searchQuery"></input>
-						<md-input-container style="width: 140px; padding-left: 15px">
-								<label>Date Filter</label>
-								<md-select ng-model="worklogC.selectedDateFilter" md-on-close="worklogC.getWorklogs()">
-								  <md-option ng-repeat="datefilter in worklogC.dateFilters" value="{{datefilter}}">{{datefilter}}</md-option>
-								</md-select>
-						</md-input-container>
-						<input class="w3-btn w3-green w3-padding-tiny" ng-click="worklogC.exportWorklog(1)" value="Export In XLS"></input>
-						<input class="w3-btn w3-green w3-padding-tiny" ng-click="worklogC.exportWorklog(2)" value="Export In XLSX"></input>
-					</div>
-					<table class="w3-table-all w3-hoverable">
-						<tr>
-							<th ng-click="worklogC.setSearchTypeOrReverse('BeginDate')">
-								Begin Date
-								<span ng-show="worklogC.showDownCaret('BeginDate')" class="fa fa-caret-down"></span>
-								<span ng-show="worklogC.showUpCaret('BeginDate')" class="fa fa-caret-up"></span>
-							</th>
-							<th ng-click="worklogC.setSearchTypeOrReverse('Hour')">
-								Hour
-								<span ng-show="worklogC.showDownCaret('Hour')" class="fa fa-caret-down"></span>
-								<span ng-show="worklogC.showUpCaret('Hour')" class="fa fa-caret-up"></span>
-							</th>
-							<th id="signs"></th>
-							<th id="tableOperation"></th>
-						</tr>
-						<tr ng-repeat="worklog in worklogC.worklogs | filter:worklogC.searchQuery | orderBy:worklogC.sortType:worklogC.sortReverse" class="w3-hover-light-green">
-							<td>{{worklog.beginDate}}</td>
-							<td>{{worklog.workHour}}</td>
-							<td>
-								<div class="tooltip" ng-show="{{worklog.workHour != worklogC.dailyWorkHour}}">
-									<span class="fa fa-question w3-xlarge"></span>
-									<span class="tooltiptext">The WorkHour is equal to Daily WorkHour</span>
-								</div>
-								<div class="tooltip" ng-show="{{worklog.workHour == worklogC.dailyWorkHour}}">
-									<span class="fa fa-check w3-xlarge"></span>
-									<span class="tooltiptext">The WorkHour is bigger than Daily WorkHour</span>
-								</div>
-							</td>
-							<td>
-								<div class="tooltip">
-									<span class="fa fa-trash w3-xlarge" ng-click="worklogC.deleteWorklog($event, worklog)"></span> 
-									<span class="tooltiptext">Delete Worklog</span>
-								</div>
-								<div class="tooltip">
-									<span class="fa fa-edit w3-xlarge" ng-click="worklogC.editWorklog($event, worklog)"></span>
-									<span class="tooltiptext">Edit Worklog</span>
-								</div>
-							</td>
-						</tr>
-					</table>
+					<worklog-table></worklog-table>
 				</md-content>
 			</md-tab>
-    
 		</md-tabs>
 	</md-content>
 </div>

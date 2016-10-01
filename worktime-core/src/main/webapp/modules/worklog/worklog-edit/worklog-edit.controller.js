@@ -3,11 +3,11 @@
 
 	angular
 		.module('Worklog')
-		.controller('WorklogEditController', WorklogEditController);
+		.controller('WorklogEditController', Controller);
 
-	WorklogEditController.$inject = ['$rootScope', '$mdDialog', 'WorklogService']
+	Controller.$inject = ['$rootScope', '$mdDialog', 'WorklogService']
 
-	function WorklogEditController($rootScope, $mdDialog, WorklogService) {
+	function Controller($rootScope, $mdDialog, WorklogService) {
 
 		var vm = this;
 		//Bindable variables

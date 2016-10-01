@@ -1,0 +1,19 @@
+<form class="w3-form w3-card-4 w3-margin" ng-submit="vm.addWorklog()" >
+
+	<md-content>
+		<p><label class="w3-label">Begin Date</label></p>
+		<p><md-datepicker ng-model="vm.beginDate" md-placeholder="Enter date"></md-datepicker>
+	</md-content>
+
+	<p><label class="w3-label">Work Hour</label></p>
+	<md-input-container>
+		<label>Hour</label>
+		<md-select ng-model="vm.workHour">
+			<md-option ng-repeat="hour in vm.range(24) track by $index" value="{{$index+1}}">{{$index+1}}</md-option>
+		</md-select>
+	</md-input-container>
+
+	<div class="w3-padding-8">
+		<input class="w3-btn w3-green w3-left-align" type="submit" value="Add"></input>
+	</div>
+</form>
