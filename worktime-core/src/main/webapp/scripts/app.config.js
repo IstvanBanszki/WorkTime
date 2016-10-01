@@ -61,7 +61,7 @@
 				url			 : '/administration',
 				templateUrl  : 'modules/administration/administration.page.html',
 				controller   : 'AdministrationController',
-				controllerAs : 'administration',
+				controllerAs : 'vm',
 				title	     : 'WorkTime - Administration'
 			})
 			.state('Addition', {
