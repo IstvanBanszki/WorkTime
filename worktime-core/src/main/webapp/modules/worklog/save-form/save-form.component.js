@@ -3,8 +3,8 @@
 
 	const templateLoc = ['modules',
 						 'worklog',
-						 'worklog-form',
-						 'worklog-form.html'].join('/');
+						 'save-form',
+						 'save-form.html'].join('/');
 
 	angular
 		.module('Worklog')

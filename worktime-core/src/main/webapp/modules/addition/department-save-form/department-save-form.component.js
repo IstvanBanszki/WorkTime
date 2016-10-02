@@ -3,8 +3,8 @@
 
 	const templateLoc = ['modules',
 						 'addition',
-						 'addition-department-form',
-						 'addition-department-form.html'].join('/');
+						 'department-save-form',
+						 'department-save-form.html'].join('/');
 
 	angular
 		.module('Addition')
@@ -15,7 +15,6 @@
 			templateUrl : templateLoc,
 			controller  : Controller,
 			controllerAs: 'vm',
-			transclude  : true,
 			bindings    : {
 				offices	   : '=',
 				departments: '='

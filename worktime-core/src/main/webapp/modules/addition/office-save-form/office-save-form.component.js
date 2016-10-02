@@ -3,8 +3,8 @@
 
 	const templateLoc = ['modules',
 						 'addition',
-						 'addition-office-form',
-						 'addition-office-form.html'].join('/');
+						 'office-save-form',
+						 'office-save-form.html'].join('/');
 
 	angular
 		.module('Addition')
@@ -15,7 +15,6 @@
 			templateUrl : templateLoc,
 			controller  : Controller,
 			controllerAs: 'vm',
-			transclude  : true,
 			bindings    : {
 				offices: '='
 			}

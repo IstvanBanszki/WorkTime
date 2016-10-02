@@ -3,8 +3,8 @@
 
 	const templateLoc = ['modules',
 						 'absence',
-						 'absence-form',
-						 'absence-form.html'].join('/');
+						 'save-form',
+						 'save-form.html'].join('/');
 
 	angular
 		.module('Absence')

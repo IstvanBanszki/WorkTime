@@ -3,8 +3,8 @@
 
 	const templateLoc = ['modules',
 						 'administration',
-						 'administration-employee-form',
-						 'administration-employee-form.html'].join('/');
+						 'employee-form',
+						 'employee-form.html'].join('/');
 
 	angular
 		.module('Administration')

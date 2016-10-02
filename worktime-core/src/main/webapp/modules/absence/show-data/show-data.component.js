@@ -3,8 +3,8 @@
 
 	const templateLoc = ['modules',
 						 'absence',
-						 'absence-show-data',
-						 'absence-show-data.html'].join('/');
+						 'show-data',
+						 'show-data.html'].join('/');
 
 	angular
 		.module('Absence')
