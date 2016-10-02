@@ -1,0 +1,17 @@
+<form ng-submit="vm.createNewOffice()">
+	<h2>Create Office Form</h2>
+	<p><label class="w3-label">Name:</label></p>
+	<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="vm.officeNameForCreation" required>
+
+	<p><label class="w3-label">Address:</label></p>
+	<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Address" ng-model="vm.officeAddressForCreation" required>
+
+	<md-content>
+		<p><label class="w3-label">Date Of Foundation:</label></p>
+		<p><md-datepicker ng-model="vm.officeDateOfFoundtationForCreation" md-placeholder="Date Of Foundation"></md-datepicker>
+	</md-content>
+
+	<div class="w3-padding-8">
+		<input class="w3-btn w3-green w3-left-align" type="submit" value="Create"></input>
+	</div>
+</form>

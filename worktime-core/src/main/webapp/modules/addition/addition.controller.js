@@ -39,14 +39,6 @@
 		vm.departmentDateOfFoundtationForEdit = "";
 		vm.departmentWorkerNumber = 0;
 
-		vm.officeNameForCreation = "";
-		vm.officeAddressForCreation = "";
-		vm.officeDateOfFoundtationForCreation = "";
-
-		vm.departmentNameForCreation = "";
-		vm.departmentDateOfFoundtationForCreation = "";
-		vm.selectedOfficeIdForCreation = -1;
-
 		vm.roles = [
 			{id: 2, name: 'WORKER_ROLE'}, 
 			{id: 3, name: 'SUPERIOR_ROLE'}
@@ -73,8 +65,6 @@
 		vm.listInformation = listInformation;
 		vm.editOffice = editOffice;
 		vm.editDepartment = editDepartment;
-		vm.createNewOffice = createNewOffice;
-		vm.createNewDepartment = createNewDepartment;
 		vm.createNewUserAndWorker = createNewUserAndWorker;
 
 		activate();
@@ -208,44 +198,6 @@
 						vm.departments[vm.indexOfSelectedDepartment].name = vm.departmentName;
 						vm.departments[vm.indexOfSelectedDepartment].dateOfFoundtation = newDate;
 						vm.departmentDateOfFoundtation = newDate;
-					}
-				},
-				function(error) {
-				}
-			);
-		}
-
-		function createNewOffice() {
-			var newDate = moment(vm.officeDateOfFoundtationForCreation).format('YYYY.MM.DD');
-			AdditionService.saveOffice(vm.officeNameForCreation, vm.officeAddressForCreation, newDate).then(
-				function(result) {
-					StatusLogService.showStatusLog(result, 'Create New Office!');
-					if (result === 1) {
-						vm.offices.push({
-							id: result.newId,
-							name: vm.officeNameForCreation,
-							address: vm.officeAddressForCreation,
-							dateOfFoundation: newDate
-						});
-					}
-				},
-				function(error) {
-				}
-			);
-		}
-
-		function createNewDepartment() {
-			var newDate = moment(vm.departmentDateOfFoundtationForCreation).format('YYYY.MM.DD');
-			AdditionService.saveDepartment(vm.departmentNameForCreation, newDate, vm.selectedOfficeIdForCreation).then(
-				function(result) {
-					StatusLogService.showStatusLog(result, 'Create New Department!');
-					if (result === 1) {
-						vm.departments.push({
-							id: result.newId,
-							name: vm.departmentNameForCreation,
-							dateOfFoundation: newDate,
-							officeId: vm.selectedOfficeIdForCreation
-						});
 					}
 				},
 				function(error) {

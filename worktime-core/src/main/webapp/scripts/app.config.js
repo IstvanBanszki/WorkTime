@@ -68,7 +68,7 @@
 				url			 : '/addition',
 				templateUrl  : 'modules/addition/addition.page.html',
 				controller   : 'AdditionController',
-				controllerAs : 'addition',
+				controllerAs : 'vm',
 				title	     : 'WorkTime - Addition'
 			});
 		/*

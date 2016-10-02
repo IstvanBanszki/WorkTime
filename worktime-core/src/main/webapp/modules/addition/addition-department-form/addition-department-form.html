@@ -1,0 +1,22 @@
+<form ng-submit="vm.createNewDepartment()">
+	<h2>Create Department Form</h2>
+	<p><label class="w3-label">Name:</label></p>
+	<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="vm.departmentNameForCreation" required>
+
+	<md-content>
+		<p><label class="w3-label">Date Of Foundation:</label></p>
+		<p><md-datepicker ng-model="vm.departmentDateOfFoundtationForCreation" md-placeholder="Date Of Foundation"></md-datepicker>
+	</md-content>
+
+	<p><label class="w3-label">Office:</label></p>
+	<md-input-container style="width: 140px; padding-left: 15px">
+		<label>Offices</label>
+		<md-select ng-model="vm.selectedOfficeIdForCreation">
+			<md-option ng-repeat="office in vm.offices" value="{{office.id}}">{{office.name}}</md-option>
+		</md-select>
+	</md-input-container>
+
+	<div class="w3-padding-8">
+		<input class="w3-btn w3-green w3-left-align" type="submit" value="Create"></input>
+	</div>
+</form>
