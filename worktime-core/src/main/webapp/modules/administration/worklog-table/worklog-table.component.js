@@ -14,7 +14,10 @@
 		return {
 			templateUrl : templateLoc,
 			controller  : Controller,
-			controllerAs: 'vm'
+			controllerAs: 'vm',
+			bindings    : {
+				employees : '='
+			}
 		}
 	}
 
@@ -48,25 +51,6 @@
 		// Function implementation //
 		// *********************** //
 		function activate() {
-			AdministrationService.getEmployees($rootScope.userData.workerId).then(
-					function(result) {
-						if(result.length > 0) {
-							result.forEach(function(employee) {
-								vm.employees.push({
-									id: employee.id,
-									lastName: employee.lastName,
-									firstName: employee.firstName,
-									name: employee.firstName + ' ' + employee.lastName
-								});
-							});
-							$rootScope.emptyEmployeeList = vm.emptyEmployeeList = false;
-						} else {
-							$rootScope.emptyEmployeeList = vm.emptyEmployeeList = true;
-						}
-					},
-					function(error) {
-					}
-				);
 		}
 
 		function showDownCaret(tableHeader) {

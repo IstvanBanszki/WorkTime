@@ -14,7 +14,6 @@
 		vm.officesWithDepartments = [];
 		vm.departments = [];
 		vm.offices = [];
-		vm.superiors = [];
 		vm.departmentsForOffice = [];
 		vm.indexOfSelectedOffice = -1;
 		vm.indexOfSelectedDepartment = -1;
@@ -39,22 +38,6 @@
 		vm.departmentDateOfFoundtationForEdit = "";
 		vm.departmentWorkerNumber = 0;
 
-		vm.roles = [
-			{id: 2, name: 'WORKER_ROLE'}, 
-			{id: 3, name: 'SUPERIOR_ROLE'}
-		];
-		vm.loginName = "";
-		vm.selectedRoleForCreation = "";
-		vm.firstName = "";
-		vm.lastName = "";
-		vm.selectedGender = "";
-		vm.dateOfBirth = "";
-		vm.nationality = "";
-		vm.position = "";
-		vm.dailyWorkHourTotal = "";
-		vm.emailAddres = "";
-		vm.selectedDepartmentIdForWorkerCreation = 0;
-		vm.selectedSuperiorIdForWorkerCreation = "";
 		//Bindable functions
 		vm.openEditOffice = openEditOffice;
 		vm.openEditDepartment = openEditDepartment;
@@ -65,7 +48,6 @@
 		vm.listInformation = listInformation;
 		vm.editOffice = editOffice;
 		vm.editDepartment = editDepartment;
-		vm.createNewUserAndWorker = createNewUserAndWorker;
 
 		activate();
 		// *********************** //
@@ -82,13 +64,6 @@
 			AdditionService.getOffices().then(
 				function(result) {
 					vm.offices = result;
-				},
-				function(error) {
-				}
-			);
-			AdditionService.getSuperiors().then(
-				function(result) {
-					vm.superiors = result;
 				},
 				function(error) {
 				}
@@ -205,21 +180,5 @@
 			);
 		}
 
-		function createNewUserAndWorker() {
-			var userId = 0;
-			AdditionService.saveUser(vm.loginName, '', vmselectedRoleForCreation, vm.emailAddres).then(
-				function(result) {
-					userId = result;
-				},
-				function(error) {
-				}
-			);
-			AdditionService.saveWorker(vm.firstName, vm.lastName, vm.selectedGender, vm.dateOfBirth, vm.nationality, vm.position, vm.dailyWorkHourTotal, vm.emailAddres, vm.selectedSuperiorIdForWorkerCreation, vm.selectedDepartmentIdForWorkerCreation, userId).then(
-				function(result) {
-				},
-				function(error) {
-				}
-			);
-		}
     }
 })();

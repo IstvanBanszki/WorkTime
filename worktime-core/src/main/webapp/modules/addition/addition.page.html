@@ -89,72 +89,7 @@
 			</md-tab>
 			<md-tab label="User and Worker Management">	
 				<md-content class="md-padding">
-					<form ng-submit="vm.createNewUserAndWorker()">
-						<h2>User Related Data</h2>
-						<p><label class="w3-label">Login Name:</label></p>
-						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="vm.loginName" required>
-    
-						<p><label class="w3-label">Role:</label></p>
-						<md-input-container style="width: 140px; padding-left: 15px">
-							<label>Roles</label>
-							<md-select ng-model="vm.selectedRoleForCreation">
-								<md-option ng-repeat="role in vm.roles" value="{{role.id}}">{{role.name}}</md-option>
-							</md-select>
-						</md-input-container>
-    
-						<h2>Worker Related Data</h2>
-						<p><label class="w3-label">First Name:</label></p>
-						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="vm.firstName" required>
-    
-						<p><label class="w3-label">Last Name:</label></p>
-						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="vm.lastName" required>
-    
-						<p><label class="w3-label">Gender:</label></p>
-						<md-input-container style="width: 140px; padding-left: 15px">
-							<label>Genders</label>
-							<md-select ng-model="vm.selectedGender">
-								<md-option value="1">Male</md-option>
-								<md-option value="2">FeMale</md-option>
-							</md-select>
-						</md-input-container>
-    
-						<md-content>
-							<p><label class="w3-label">Date Of Birth:</label></p>
-							<p><md-datepicker ng-model="vm.dateOfBirth" md-placeholder="Date Of Birth"></md-datepicker>
-						</md-content>
-    
-						<p><label class="w3-label">Nationality:</label></p>
-						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Nationality" ng-model="vm.nationality" required>
-    
-						<p><label class="w3-label">Position:</label></p>
-						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Position" ng-model="vm.position" required>
-    
-						<p><label class="w3-label">Daily Work Hour Total:</label></p>
-						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Daily Work Hour Total" ng-model="vm.dailyWorkHourTotal" required>
-    
-						<p><label class="w3-label">Email Addres:</label></p>
-						<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Email Addres" ng-model="vm.emailAddres" required>
-    
-						<p><label class="w3-label">Department:</label></p>
-						<md-input-container style="width: 140px; padding-left: 15px">
-							<label>Departments</label>
-							<md-select ng-model="vm.selectedDepartmentIdForWorkerCreation">
-								<md-option ng-repeat="department in vm.departments" value="{{department.id}}">{{department.name}}</md-option>
-							</md-select>
-						</md-input-container>
-    
-						<p><label class="w3-label">Superior:</label></p>
-						<md-input-container style="width: 140px; padding-left: 15px">
-							<label>Superiors</label>
-							<md-select ng-model="vm.selectedSuperiorIdForWorkerCreation">
-								<md-option ng-repeat="superior in vm.superiors" value="{{superior.id}}">{{superior.firstName+' '+superior.lastName}}</md-option>
-							</md-select>
-						</md-input-container>
-    
-						<div class="w3-padding-8">
-							<input class="w3-btn w3-green w3-left-align" type="submit" value="Create"></input>
-						</div>
-					</form>
+					<worker-user-create-form departments="vm.departments"></worker-user-create-form>
 				</md-content>
 			</md-tab>
 		</md-tabs>
