@@ -5,13 +5,13 @@
 		.module('Addition')
 		.controller('AdditionController', AdditionController);
 
-	AdditionController.$inject = ['$rootScope', 'AdditionService', 'StatusLogService']
+	AdditionController.$inject = ['$rootScope', '$mdDialog', 'AdditionService', 'StatusLogService']
 
-    function AdditionController($rootScope, AdditionService, StatusLogService) {
+    function AdditionController($rootScope, $mdDialog, AdditionService, StatusLogService) {
 
 		var vm = this;
 		//Bindable variables
-		vm.officesWithDepartments = [];
+		vm.departmentsForOffice = [];
 		vm.departments = [];
 		vm.offices = [];
 		vm.departmentsForOffice = [];
@@ -20,10 +20,13 @@
 		vm.selectedDepartmentName = "";
 		vm.selectedDepartment = "";
 		vm.selectedOfficeName = "";
-		vm.selectedOffice = "";
+		vm.selectedOffice = {
+			id: -1,
+			name: "",
+			address: "",
+			dateOfFoundtation: ""
+		};
 		vm.showODInformation = false;
-		vm.showEditOfficeForm = false;
-		vm.showEditDepartmentForm = false;
 		vm.showSaveOfficeForm = false;
 		vm.showSaveDepartmentForm = false;
 
@@ -39,15 +42,13 @@
 		vm.departmentWorkerNumber = 0;
 
 		//Bindable functions
-		vm.openEditOffice = openEditOffice;
-		vm.openEditDepartment = openEditDepartment;
 		vm.openSaveOffice = openSaveOffice;
 		vm.openSaveDepartment = openSaveDepartment;
 		vm.openSelect = openSelect;
 		vm.setDepartments = setDepartments;
 		vm.listInformation = listInformation;
-		vm.editOffice = editOffice;
 		vm.editDepartment = editDepartment;
+		vm.editOffice = editOffice;
 
 		activate();
 		// *********************** //
@@ -70,27 +71,11 @@
 			);
 		}
 
-		function openEditOffice() {
-			vm.showSaveOfficeForm = false;
-			vm.showSaveDepartmentForm = false;
-			vm.showEditOfficeForm = !vm.showEditOfficeForm;
-		}
-
-		function openEditDepartment() {
-			vm.showSaveOfficeForm = false;
-			vm.showSaveDepartmentForm = false;
-			vm.showEditDepartmentForm = !vm.showEditDepartmentForm;
-		}
-
 		function openSaveOffice() {
-			vm.showEditOfficeForm = false;
-			vm.showEditDepartmentForm = false;
 			vm.showSaveOfficeForm = !vm.showSaveOfficeForm;
 		}
 
 		function openSaveDepartment() {
-			vm.showEditOfficeForm = false;
-			vm.showEditDepartmentForm = false;
 			vm.showSaveDepartmentForm = !vm.showSaveDepartmentForm;
 		}
 
@@ -98,8 +83,6 @@
 			vm.officeWorkerNumber = 0;
 			vm.departmentWorkerNumber = 0;
 			vm.showODInformation = false;
-			vm.showEditOfficeForm = false;
-			vm.showEditDepartmentForm = false;
 			vm.showSaveOfficeForm = false;
 			vm.showSaveDepartmentForm = false;
 		}
@@ -113,6 +96,9 @@
 					if(vm.offices[i].name === vm.selectedOfficeName) {
 						vm.selectedOffice = vm.offices[i];
 						vm.indexOfSelectedOffice = i;
+						$rootScope.addition = {
+							indexOfSelectedOffice: i
+						}
 						break;
 					}
 				}
@@ -147,21 +133,23 @@
 			vm.departmentWorkerNumber = vm.selectedDepartment.workerNumber;
 		}
 
-		function editOffice() {
-			var newDate = moment(vm.officeDateOfFoundtationForEdit).format('YYYY.MM.DD');
-			AdditionService.editOffice(vm.selectedOffice.id, vm.officeName, vm.officeAddress, newDate).then(
-				function(result) {
-					StatusLogService.showStatusLog(result, 'Edit Office!');
-					if (result === 1) {
-						vm.offices[vm.indexOfSelectedOffice].name = vm.officeName;
-						vm.offices[vm.indexOfSelectedOffice].address = vm.officeAddress;
-						vm.offices[vm.indexOfSelectedOffice].dateOfFoundtation = newDate;
-						vm.officeDateOfFoundtation = newDate;
-					}
-				},
-				function(error) {
-				}
-			);
+		function editOffice(event) {
+			$rootScope.selectedOffice = vm.selectedOffice;
+			$mdDialog.show({
+				templateUrl: 'modules/addition/office-edit-form/office-edit-form.html',
+				clickOutsideToClose: true,
+				bindToController: true,
+				controller: 'AdditionOfficeEditFormController',
+				parent: angular.element(document.body),
+				targetEvent: event
+			}).then(function(answer) {
+				vm.offices[vm.indexOfSelectedOffice].name = answer.name;
+				vm.offices[vm.indexOfSelectedOffice].address = answer.address;
+				vm.offices[vm.indexOfSelectedOffice].dateOfFoundtation = answer.dateOfFoundtation;
+				vm.officeDateOfFoundtationForEdit = answer.dateOfFoundtationStr;
+				StatusLogService.showStatusLog(answer.status, 'Edit Office');
+			}, function() {
+			});
 		}
 
 		function editDepartment() {

@@ -11,20 +11,29 @@
 
 		var vm = this;
 		//Bindable variables
-		vm.localBegin = $rootScope.selectedAbsence.beginDate;
-		vm.localEnd = $rootScope.selectedAbsence.endDate;
-		vm.newBeginDate =  new Date(vm.localBegin.substring(0,4)+'-'+vm.localBegin.substring(5,7)+'-'+vm.localBegin.substring(8,10));
-		vm.newEndDate = new Date(vm.localEnd.substring(0,4)+'-'+vm.localEnd.substring(5,7)+'-'+vm.localEnd.substring(8,10));
-		vm.newAbsenceType = $rootScope.selectedAbsence.absenceType;
-		vm.id = $rootScope.selectedAbsence.id;
+		vm.id = -1;
+		vm.newBeginDate = "";
+		vm.newEndDate = "";
+		vm.newAbsenceType = "";
 		vm.error = false;
 		//Bindable functions
 		vm.editAbsence = editAbsence;
 		vm.range = range;
 
+		activate();
 		// *********************** //
 		// Function implementation //
 		// *********************** //
+		function activate() {
+			var localBegin = $rootScope.selectedAbsence.beginDate;
+			var localEnd = $rootScope.selectedAbsence.endDate;
+
+			vm.newBeginDate = new Date(localBegin.substring(0,4)+'-'+localBegin.substring(5,7)+'-'+localBegin.substring(8,10));
+			vm.newEndDate = new Date(localEnd.substring(0,4)+'-'+localEnd.substring(5,7)+'-'+localEnd.substring(8,10));
+			vm.newAbsenceType = $rootScope.selectedAbsence.absenceType;
+			vm.id = $rootScope.selectedAbsence.id;
+		}
+		
 		function editAbsence() {
 			var answerBeginDate = moment(vm.newBeginDate).format('YYYY.MM.DD');
 			var answerEndDate = moment(vm.newEndDate).format('YYYY.MM.DD');
@@ -47,16 +56,18 @@
 			)
 		}
 
-		function answer(answer) {
-		  $mdDialog.hide(answer);
-		}
-
 		function range(count) {
 			return new Array(count);
 		}
 
+		function answer(answer) {
+			$rootScope.selectedAbsence = {};
+			$mdDialog.hide(answer);
+		}
+
 		function cancel() {
-		  $mdDialog.cancel();
+			$rootScope.selectedAbsence = {};
+			$mdDialog.cancel();
 		}
 
     }

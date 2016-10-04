@@ -1,0 +1,23 @@
+<div class="editEDialog" ng-controller="AdditionOfficeEditFormController as vm">
+	<form ng-submit="vm.editOffice()">
+		<h2>Edit Office Form</h2>
+		<p><label class="w3-label">Name:</label></p>
+		<input class="w3-input w3-border w3-padding-hor-16" placeholder="Name" ng-model="vm.officeName" required>
+
+		<p><label class="w3-label">Address:</label></p>
+		<input class="w3-input w3-border w3-padding-hor-16" placeholder="Address" ng-model="vm.officeAddress" required>
+
+		<md-content>
+			<p><label class="w3-label">Date Of Foundation:</label></p>
+			<p><md-datepicker ng-model="vm.officeDateOfFoundtation" md-placeholder="Date Of Foundation"></md-datepicker>
+		</md-content>
+
+		<div class="w3-container w3-red w3-center" ng-show="vm.error">
+			<p>Error occured!</p>
+		</div>
+
+		<div class="w3-padding-8">
+			<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
+		</div>
+	</form>
+</div>

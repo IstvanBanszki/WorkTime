@@ -8,7 +8,7 @@
 
 	angular
 		.module('Administration')
-		.component('administrationEmployeeForm', Component());
+		.component('employeeForm', Component());
 
 	function Component() {
 		return {

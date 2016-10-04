@@ -114,8 +114,7 @@
 		function editWorklog(ev, worklog) {
 			$rootScope.selectedWorklog = worklog;
 			$mdDialog.show({
-				locals: { worklogData: worklog },
-				templateUrl: 'modules/worklog/worklog-edit/worklog-edit.html',
+				templateUrl: 'modules/worklog/edit-form/edit-form.html',
 				clickOutsideToClose: true,
 				controller: 'WorklogEditController',
 				parent: angular.element(document.body),

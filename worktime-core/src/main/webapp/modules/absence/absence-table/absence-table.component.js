@@ -109,8 +109,7 @@
 		function editAbsence(ev, absence) {
 			$rootScope.selectedAbsence = absence;
 			$mdDialog.show({
-				locals: { absenceData: absence },
-				templateUrl: 'modules/absence/absence.edit.html',
+				templateUrl: 'modules/absence/edit-form/edit-form.html',
 				clickOutsideToClose: true,
 				bindToController: true,
 				controller: 'AbsenceEditController',

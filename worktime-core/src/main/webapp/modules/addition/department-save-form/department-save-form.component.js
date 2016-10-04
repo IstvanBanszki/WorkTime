@@ -8,7 +8,7 @@
 
 	angular
 		.module('Addition')
-		.component('additionDepartmentForm', Component());
+		.component('departmentSaveForm', Component());
 
 	function Component() {
 		return {

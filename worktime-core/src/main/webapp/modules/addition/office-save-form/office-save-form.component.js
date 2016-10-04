@@ -8,7 +8,7 @@
 
 	angular
 		.module('Addition')
-		.component('additionOfficeForm', Component());
+		.component('officeSaveForm', Component());
 
 	function Component() {
 		return {

@@ -5,24 +5,31 @@
 		.module('Worklog')
 		.controller('WorklogEditController', Controller);
 
-	Controller.$inject = ['$rootScope', '$mdDialog', 'WorklogService']
+	Controller.$inject = ['$rootScope', '$mdDialog', 'WorklogService'];
 
 	function Controller($rootScope, $mdDialog, WorklogService) {
 
 		var vm = this;
 		//Bindable variables
-		vm.localBegin = $rootScope.selectedWorklog.beginDate;
-        vm.newBeginDate = new Date(vm.localBegin.substring(0,4)+'-'+vm.localBegin.substring(5,7)+'-'+vm.localBegin.substring(8,10))
-		vm.newWorkHour = $rootScope.selectedWorklog.workHour;
-		vm.id = $rootScope.selectedWorklog.id;
+        vm.newBeginDate = "";
+		vm.newWorkHour = "";
+		vm.id = -1;
 		vm.error = false;
 		//Bindable functions
 		vm.editWorklog = editWorklog;
 		vm.range = range;
 
+		activate();
 		// *********************** //
 		// Function implementation //
 		// *********************** //
+		function activate() {
+			var localBegin = $rootScope.selectedWorklog.beginDate;
+			vm.newBeginDate = new Date(localBegin.substring(0,4)+'-'+localBegin.substring(5,7)+'-'+localBegin.substring(8,10))
+			vm.newWorkHour = $rootScope.selectedWorklog.workHour;
+			vm.id = $rootScope.selectedWorklog.id;
+		}
+
 		function editWorklog() {
 			var newDate = moment(vm.newBeginDate).format('YYYY.MM.DD');
 			WorklogService.editWorklog(vm.id, newDate, vm.newWorkHour).then(
@@ -43,16 +50,18 @@
 			)
 		}
 
+		function range(count) {
+			return new Array(count);
+		}
+
 		function answer(answer) {
-		  $mdDialog.hide(answer);
+			$rootScope.selectedWorklog = {};
+			$mdDialog.hide(answer);
 		}
 
 		function cancel() {
-		  $mdDialog.cancel();
-		}
-
-		function range(count) {
-			return new Array(count);
+			$rootScope.selectedWorklog = {};
+			$mdDialog.cancel();
 		}
 	}
 })();
