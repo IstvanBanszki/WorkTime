@@ -1,0 +1,16 @@
+<div class="editEDialog" ng-controller="DepartmentEditFormController as vm">
+	<form  ng-submit="vm.editDepartment()">
+		<h2>Edit Department Form</h2>
+		<p><label class="w3-label">Name:</label></p>
+		<input class="w3-input w3-border w3-padding-hor-16" placeholder="Name" ng-model="vm.departmentName" required>
+	
+		<md-content>
+			<p><label class="w3-label">Date Of Foundation:</label></p>
+			<p><md-datepicker ng-model="vm.departmentDateOfFoundtation" md-placeholder="Date Of Foundation"></md-datepicker>
+		</md-content>
+	
+		<div class="w3-padding-8">
+			<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
+		</div>
+	</form>
+</div>

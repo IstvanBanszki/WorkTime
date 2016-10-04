@@ -42,9 +42,9 @@
 		vm.departmentWorkerNumber = 0;
 
 		//Bindable functions
-		vm.openSaveOffice = openSaveOffice;
-		vm.openSaveDepartment = openSaveDepartment;
 		vm.openSelect = openSelect;
+		vm.openEditOffice = openEditOffice;
+		vm.openEditDepartment = openEditDepartment;
 		vm.setDepartments = setDepartments;
 		vm.listInformation = listInformation;
 		vm.editDepartment = editDepartment;
@@ -71,12 +71,12 @@
 			);
 		}
 
-		function openSaveOffice() {
-			vm.showSaveOfficeForm = !vm.showSaveOfficeForm;
+		function openEditOffice() {
+			vm.showEditOfficeForm = !vm.showEditOfficeForm;
 		}
 
-		function openSaveDepartment() {
-			vm.showSaveDepartmentForm = !vm.showSaveDepartmentForm;
+		function openEditDepartment() {
+			vm.showEditDepartmentForm = !vm.showEditDepartmentForm;
 		}
 
 		function openSelect() {
@@ -139,7 +139,7 @@
 				templateUrl: 'modules/addition/office-edit-form/office-edit-form.html',
 				clickOutsideToClose: true,
 				bindToController: true,
-				controller: 'AdditionOfficeEditFormController',
+				controller: 'OfficeEditFormController',
 				parent: angular.element(document.body),
 				targetEvent: event
 			}).then(function(answer) {
@@ -152,20 +152,22 @@
 			});
 		}
 
-		function editDepartment() {
-			var newDate = moment(vm.departmentDateOfFoundtationForEdit).format('YYYY.MM.DD');
-			AdditionService.editDepartment(vm.selectedDepartment.id, vm.departmentName, newDate, vm.selectedDepartment.officeId).then(
-				function(result) {
-					StatusLogService.showStatusLog(result, 'Edit Department!');
-					if (result === 1) {
-						vm.departments[vm.indexOfSelectedDepartment].name = vm.departmentName;
-						vm.departments[vm.indexOfSelectedDepartment].dateOfFoundtation = newDate;
-						vm.departmentDateOfFoundtation = newDate;
-					}
-				},
-				function(error) {
-				}
-			);
+		function editDepartment(event) {
+			$rootScope.selectedDepartment = vm.selectedDepartment;
+			$mdDialog.show({
+				templateUrl: 'modules/addition/department-edit-form/department-edit-form.html',
+				clickOutsideToClose: true,
+				bindToController: true,
+				controller: 'DepartmentEditFormController',
+				parent: angular.element(document.body),
+				targetEvent: event
+			}).then(function(answer) {
+				vm.departments[vm.indexOfSelectedDepartment].name = answer.name;
+				vm.departments[vm.indexOfSelectedDepartment].dateOfFoundtation = answer.dateOfFoundtation;
+				vm.departmentDateOfFoundtation = answer.dateOfFoundtationStr;
+				StatusLogService.showStatusLog(result, 'Edit Department!');
+			}, function() {
+			});
 		}
 
     }

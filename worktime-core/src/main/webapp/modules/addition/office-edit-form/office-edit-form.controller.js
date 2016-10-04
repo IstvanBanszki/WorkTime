@@ -3,11 +3,11 @@
 
 	angular
 		.module('Addition')
-		.controller('AdditionOfficeEditFormController', Controller);
+		.controller('OfficeEditFormController', Controller);
 
-	Controller.$inject = ['$rootScope', '$mdDialog', 'AdditionService', 'StatusLogService'];
+	Controller.$inject = ['$rootScope', '$mdDialog', 'AdditionService'];
 
-    function Controller($rootScope, $mdDialog, AdditionService, StatusLogService) {
+    function Controller($rootScope, $mdDialog, AdditionService) {
 
 		var vm = this;
 		//Bindable variables

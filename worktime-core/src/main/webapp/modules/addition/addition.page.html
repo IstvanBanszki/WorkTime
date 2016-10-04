@@ -44,26 +44,10 @@
 						<input class="w3-btn w3-green w3-padding-tiny" ng-click="vm.openSaveOffice()" value="Add New Office"></input>
 						<input class="w3-btn w3-green w3-padding-tiny" ng-click="vm.openSaveDepartment()" value="Add New Department"></input>
 					</div>
-					<div ng-show="vm.showEditDepartmentForm">
-						<form  ng-submit="vm.editDepartment()">
-							<h2>Edit Department Form</h2>
-							<p><label class="w3-label">Name:</label></p>
-							<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="vm.departmentName" required>
-    
-							<md-content>
-								<p><label class="w3-label">Date Of Foundation:</label></p>
-								<p><md-datepicker ng-model="vm.departmentDateOfFoundtationForEdit" md-placeholder="Date Of Foundation"></md-datepicker>
-							</md-content>
-    
-							<div class="w3-padding-8">
-								<input class="w3-btn w3-green w3-left-align" type="submit" value="Edit"></input>
-							</div>
-						</form>
-					</div>
-					<div ng-show="vm.showSaveOfficeForm">
+					<div ng-show="vm.openEditOffice()">
 						<office-save-form offices="vm.offices"></office-save-form>
 					</div>
-					<div ng-show="vm.showSaveDepartmentForm">
+					<div ng-show="vm.openEditDepartment()">
 						<department-save-form offices="vm.offices" departments="vm.departments"></department-save-form>
 					</div>
 				</md-content>
