@@ -38,6 +38,7 @@ public class SpringBootMainApplication {
             new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
         javaTimeModule.addDeserializer(LocalDate.class, 
                 new LocalDateDeserializer(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
+
         mapper.registerModule(javaTimeModule);
         return mapper;
     }

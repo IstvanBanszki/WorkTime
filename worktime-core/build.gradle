@@ -8,7 +8,7 @@ buildscript {
     ext {
 		springBootVersion = '1.4.1.RELEASE'
 		jasyptVersion = '1.9.2'
-		fasterXmlVersion = '2.8.2'
+		fasterXmlVersion = '2.8.3'
 		poiVersion = '3.14'
 		javaxMailVersion = '1.5.6'
         springVersion = '4.3.3.RELEASE'
@@ -20,12 +20,13 @@ buildscript {
     }
 }
 
+apply plugin: 'java'
 apply plugin: 'spring-boot'
 apply plugin: 'nebula.provided-base'
 
 jar {
     baseName = 'worktime-core'
-    version = '0.8.9-SNAPSHOT'
+    version = '0.8.10-SNAPSHOT'
 }
 
 repositories {
