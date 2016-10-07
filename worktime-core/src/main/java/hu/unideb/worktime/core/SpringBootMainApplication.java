@@ -11,19 +11,30 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
 @ComponentScan(basePackages = "hu.unideb.worktime")
 @EnableAutoConfiguration
+@EnableCaching
+@EnableScheduling
 public class SpringBootMainApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootMainApplication.class, args);
     }
 
+    @Bean
+    public CacheManager cacheManager() {
+        return new CaffeineCacheManager();
+    }
+    
     @Bean
     public ObjectMapper jsonObjectMapper() {
         ObjectMapper mapper = new ObjectMapper();

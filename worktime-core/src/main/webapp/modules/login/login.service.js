@@ -48,7 +48,7 @@
 				workerId : parameter.workerId,
 				roleName : parameter.roleName
 			};
-			$http.defaults.headers.common['Authorization'] = $rootScope.userData;
+			$http.defaults.headers.common['Authorization'] = userDataCoded;
 			$cookies.putObject('data', $rootScope.userData);
 		}
 		function removeUserData() {

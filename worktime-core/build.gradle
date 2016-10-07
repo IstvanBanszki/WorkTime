@@ -12,6 +12,7 @@ buildscript {
 		poiVersion = '3.14'
 		javaxMailVersion = '1.5.6'
         springVersion = '4.3.3.RELEASE'
+		caffeineVersion = '2.3.3'
     }
     dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
@@ -20,13 +21,12 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
 apply plugin: 'spring-boot'
 apply plugin: 'nebula.provided-base'
 
 jar {
     baseName = 'worktime-core'
-    version = '0.8.10-SNAPSHOT'
+    version = '0.9.0-SNAPSHOT'
 }
 
 repositories {
@@ -42,7 +42,8 @@ dependencies {
     }
     compile "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
-    //compile "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+	compile "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}"
+	compile "com.github.ben-manes.caffeine:caffeine:${caffeineVersion}"
 
 	//FasterXml for Java 8 time representation in JSON object
 	compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${fasterXmlVersion}"
