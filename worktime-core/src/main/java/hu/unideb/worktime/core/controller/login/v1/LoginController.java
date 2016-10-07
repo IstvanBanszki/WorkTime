@@ -3,7 +3,7 @@ package hu.unideb.worktime.core.controller.login.v1;
 import hu.unideb.worktime.api.model.login.LoginResponse;
 import hu.unideb.worktime.api.model.login.Password;
 import hu.unideb.worktime.api.model.login.UpdatePasswordRequest;
-import hu.unideb.worktime.core.service.LosingService;
+import hu.unideb.worktime.core.service.ILoginService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/login/v1", consumes = "application/json", produces = "application/json")
 public class LoginController {
 
-    @Autowired private LosingService losingService;
+    @Autowired private ILoginService losingService;
 
     /*
     --------------------
