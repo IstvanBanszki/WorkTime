@@ -51,13 +51,13 @@ public class LoginServiceImpl implements ILoginService {
         
         if (loginRecord != null) {
             if (this.wtEncryption.checkPassword(updatePasswordRequest.getOldPassword(), loginRecord.getPassword())) {
-                UpdatePasswordRecord record = new UpdatePasswordRecord(loginName, loginRecord.getPassword(), 
+                UpdatePasswordRecord newRecord = new UpdatePasswordRecord(loginName, loginRecord.getPassword(), 
                         this.wtEncryption.encryptPassword(updatePasswordRequest.getNewPassword()));
-                this.loginCache.updateByName(new LoginRecord(loginRecord.getWorkerId(), loginRecord.getRoleName(), record.getNewPassword()),
+                this.loginCache.updateByName(new LoginRecord(loginRecord.getWorkerId(), loginRecord.getRoleName(), newRecord.getNewPassword()),
                         loginName);
-                result = this.sqlCallLogin.updatePassword(record);
+                result = this.sqlCallLogin.updatePassword(newRecord);
             } else {
-                result = 2;
+                result = 0;
                 this.logger.info("The password was not matching!");
             }
         }
