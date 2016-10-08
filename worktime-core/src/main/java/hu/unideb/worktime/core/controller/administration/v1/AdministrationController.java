@@ -4,7 +4,7 @@ import hu.unideb.worktime.api.model.administration.AdministrationAbsenceRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
-import hu.unideb.worktime.api.model.administration.EditWorker;
+import hu.unideb.worktime.api.model.administration.WorkerData;
 import hu.unideb.worktime.api.model.administration.Employee;
 import hu.unideb.worktime.api.model.administration.Note;
 import hu.unideb.worktime.core.export.IExportService;
@@ -56,15 +56,22 @@ public class AdministrationController {
     }
     
     @Async
+    @RequestMapping(value = "/employee/worklog/{worklogId}", method = RequestMethod.PUT)
+    public @ResponseBody Integer updateWorklogNote(@PathVariable("worklogId") Integer worklogId, 
+                    @RequestBody Note request) {
+        return this.sqlCallAdministration.updateWorklogNote(worklogId, request);
+    }
+    
+    @Async
     @RequestMapping(value = "/workerData/{employeeId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editWorkerData(@PathVariable("employeeId") Integer employeeId, 
-                    @RequestBody EditWorker request) {
+                    @RequestBody WorkerData request) {
         return this.sqlCallAdministration.editWorkerData(employeeId, request);
     }
     
     @Async
     @RequestMapping(value = "/workerData/{employeeId}", method = RequestMethod.GET)
-    public @ResponseBody EditWorker editWorkerData(@PathVariable("employeeId") Integer employeeId) {
+    public @ResponseBody WorkerData getWorkerData(@PathVariable("employeeId") Integer employeeId) {
         return this.sqlCallAdministration.getWorkerData(employeeId);
     }
 
@@ -83,11 +90,5 @@ public class AdministrationController {
                     @PathVariable("notApprove") Boolean notApprove, HttpServletResponse response) {
         this.exportService.exportAdminAbsences(employeeId, dateFilter, notApprove, excelType, response);
     }
-    
-    @Async
-    @RequestMapping(value = "/employee/worklog/{worklogId}", method = RequestMethod.PUT)
-    public @ResponseBody Integer updateWorklogNote(@PathVariable("worklogId") Integer worklogId, 
-                    @RequestBody Note request) {
-        return this.sqlCallAdministration.updateWorklogNote(worklogId, request);
-    }
+
 }

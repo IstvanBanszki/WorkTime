@@ -1,7 +1,5 @@
 package hu.unideb.worktime.jdbc.administration;
 
-import hu.unideb.worktime.api.model.SaveResult;
-import hu.unideb.worktime.api.model.administration.EditWorker;
 import hu.unideb.worktime.api.model.administration.Note;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;

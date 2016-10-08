@@ -2,7 +2,7 @@ package hu.unideb.worktime.api.model.administration;
 
 import java.io.Serializable;
 
-public class EditWorker implements Serializable {
+public class WorkerData implements Serializable {
     
     private final String firstName;
     private final String lastName;
@@ -10,7 +10,7 @@ public class EditWorker implements Serializable {
     private final String emailAddress;
     private final int dailyWorkHourTotal;
 
-    public EditWorker(String firstName, String lastName, String position, String emailAddress, int dailyWorkHourTotal) {
+    public WorkerData(String firstName, String lastName, String position, String emailAddress, int dailyWorkHourTotal) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
@@ -18,7 +18,7 @@ public class EditWorker implements Serializable {
         this.dailyWorkHourTotal = dailyWorkHourTotal;
     }
     
-    public EditWorker() {
+    public WorkerData() {
         this("","","","",0);
     }
     
@@ -55,8 +55,8 @@ public class EditWorker implements Serializable {
             return this;
         }
         
-        public EditWorker build() {
-            return new EditWorker(this.firstName, this.lastName, this.position, this.emailAddress, this.dailyWorkHourTotal);
+        public WorkerData build() {
+            return new WorkerData(this.firstName, this.lastName, this.position, this.emailAddress, this.dailyWorkHourTotal);
         }
     }       
 
@@ -102,7 +102,7 @@ public class EditWorker implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final EditWorker other = (EditWorker) obj;
+        final WorkerData other = (WorkerData) obj;
         return (this.dailyWorkHourTotal == other.dailyWorkHourTotal) && 
                 (this.firstName != null ? this.firstName.equals(other.firstName) : other.firstName == null) && 
                 (this.lastName != null ? this.lastName.equals(other.lastName) : other.lastName == null) && 

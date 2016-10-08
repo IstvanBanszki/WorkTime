@@ -1,15 +1,15 @@
 package hu.unideb.worktime.core.controller
 
-import hu.unideb.worktime.api.model.Gender;
-import hu.unideb.worktime.api.model.profile.ProfileRecord;
+import hu.unideb.worktime.api.model.Gender
+import hu.unideb.worktime.api.model.profile.ProfileRecord
 import hu.unideb.worktime.core.controller.profile.v1.ProfileController
-import hu.unideb.worktime.jdbc.profile.SqlCallProfile;
+import hu.unideb.worktime.jdbc.profile.SqlCallProfile
 import spock.lang.Specification
-import java.time.LocalDateTime;
-import java.time.LocalDate;
+import java.time.LocalDateTime
+import java.time.LocalDate
 
 class ProfileControllerTest extends Specification {
-	
+
     def "test getLogin method"() {
         setup:
             def sqlCallProfileMock = Mock(SqlCallProfile)

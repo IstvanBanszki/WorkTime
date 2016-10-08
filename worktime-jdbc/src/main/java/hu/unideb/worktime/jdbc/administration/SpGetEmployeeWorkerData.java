@@ -1,6 +1,6 @@
 package hu.unideb.worktime.jdbc.administration;
 
-import hu.unideb.worktime.api.model.administration.EditWorker;
+import hu.unideb.worktime.api.model.administration.WorkerData;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class SpGetEmployeeWorkerData extends StoredProcedure implements ResultSetExtractor<EditWorker>{
+public class SpGetEmployeeWorkerData extends StoredProcedure implements ResultSetExtractor<WorkerData>{
 
     private static final String SP_NAME = "get_worker_data";
     private static final String SP_PARAMETER_1 = "worker_id";
@@ -30,14 +30,14 @@ public class SpGetEmployeeWorkerData extends StoredProcedure implements ResultSe
         compile();
     }
 
-    public EditWorker getWorkerData(Integer key) {
-        return (EditWorker) super.execute(key).get(SP_RESULT);
+    public WorkerData getWorkerData(Integer key) {
+        return (WorkerData) super.execute(key).get(SP_RESULT);
     }
 
     @Override
-    public EditWorker extractData(ResultSet rs) throws SQLException, DataAccessException {
+    public WorkerData extractData(ResultSet rs) throws SQLException, DataAccessException {
 
-        EditWorker.Builder builder = new EditWorker.Builder();
+        WorkerData.Builder builder = new WorkerData.Builder();
 
         if (rs.next()) {
             builder.setFirstName(rs.getString("first_name"));

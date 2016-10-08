@@ -4,7 +4,7 @@ import hu.unideb.worktime.api.model.administration.AdministrationAbsenceRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
-import hu.unideb.worktime.api.model.administration.EditWorker;
+import hu.unideb.worktime.api.model.administration.WorkerData;
 import hu.unideb.worktime.api.model.administration.Employee;
 import hu.unideb.worktime.api.model.administration.Note;
 import java.util.List;
@@ -85,7 +85,7 @@ public class SqlCallAdministration {
         return result;
     }
     
-    public Integer editWorkerData(Integer id, EditWorker request){
+    public Integer editWorkerData(Integer id, WorkerData request){
         Integer result = null;
         this.logger.info("Call edit_worker_data SP with given parameters: Key - {}, Request - {}", id, request);
         try {
@@ -100,8 +100,8 @@ public class SqlCallAdministration {
         return result;
     }
     
-    public EditWorker getWorkerData(Integer id){
-        EditWorker result = null;
+    public WorkerData getWorkerData(Integer id){
+        WorkerData result = null;
         this.logger.info("Call get_worker_data SP with given parameters: Key - {}", id);
         try {
             result = this.spGetEmployeeWorkerData.getWorkerData(id);
