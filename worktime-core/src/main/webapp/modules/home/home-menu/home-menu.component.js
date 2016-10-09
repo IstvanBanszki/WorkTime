@@ -1,13 +1,26 @@
 (function() {
 	'use strict';
 
+	const templateLoc = ['modules',
+						 'home',
+						 'home-menu',
+						 'home-menu.html'].join('/');
+
 	angular
 		.module('Home')
-		.controller('HomeController', HomeController);
+		.component('homeMenu', Component());
 
-	HomeController.$inject = ['$rootScope'];
+	function Component() {
+		return {
+			templateUrl : templateLoc,
+			controller  : Controller,
+			controllerAs: 'vm'
+		}
+	}
 
-    function HomeController($rootScope) {
+	Controller.$inject = ['$rootScope'];
+
+    function Controller($rootScope) {
 
 		var vm = this;
 		//Bindable variables
@@ -31,16 +44,20 @@
 		// Function implementation //
 		// *********************** //
 		function activate() {
-			if( $rootScope.userData.roleName === 'COMPANY-ADMIN-ROLE' ){
+			if ($rootScope.userData.roleName === 'COMPANY-ADMIN-ROLE') {
 				vm.links.push({ title: 'Administration', url: '#administration' });
 				vm.links.push({ title: 'Addition', url: '#addition' });
 			}
 		}
+
 		function isActiveLink(url) {
 			return url == vm.currentLink;
-		};
+		}
+
 		function onClickLink(link) {
 			vm.currentLink = link.url;
-		};
+		}
+
     }
+
 })();
