@@ -1,5 +1,8 @@
 package hu.unideb.worktime.jdbc.addition;
 
+import hu.unideb.worktime.jdbc.addition.storedprocedure.SpSaveDepartment;
+import hu.unideb.worktime.jdbc.addition.storedprocedure.SpGetAllDepartments;
+import hu.unideb.worktime.jdbc.addition.storedprocedure.SpEditDepartment;
 import hu.unideb.worktime.api.model.Department;
 import hu.unideb.worktime.api.model.SaveResult;
 import java.util.List;
@@ -9,13 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SqlCallDepartmentAddition {
+public class SqlCallDepartmentAddition implements ISqlCallDepartmentAddition {
     
     @Autowired private SpGetAllDepartments spGetAllDepartments;
     @Autowired private SpEditDepartment spEditDepartment;
     @Autowired private SpSaveDepartment spSaveDepartment;
     private Logger logger = LoggerFactory.getLogger(SqlCallDepartmentAddition.class);
     
+    @Override
     public List<Department> getDepartments() {
         List<Department> result = null;
         this.logger.info("Call get_all_deparments SP with given parameters.");
@@ -31,6 +35,7 @@ public class SqlCallDepartmentAddition {
         return result;
     }
     
+    @Override
     public Integer editDepartment(Integer id, Department values) {
         Integer result = null;
         this.logger.info("Call edit_department SP with given parameters: Key - {}, values - {}", id, values);
@@ -46,6 +51,7 @@ public class SqlCallDepartmentAddition {
         return result;
     }
     
+    @Override
     public SaveResult saveDepartment(Department values) {
         SaveResult result = null;
         this.logger.info("Call save_department SP with given parameters: values - {}", values);

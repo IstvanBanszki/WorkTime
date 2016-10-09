@@ -8,7 +8,7 @@ import hu.unideb.worktime.api.model.administration.WorkerData;
 import hu.unideb.worktime.api.model.administration.Employee;
 import hu.unideb.worktime.api.model.administration.Note;
 import hu.unideb.worktime.core.export.IExportService;
-import hu.unideb.worktime.jdbc.administration.SqlCallAdministration;
+import hu.unideb.worktime.jdbc.administration.ISqlCallAdministration;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/administration/v1", produces = "application/json")
 public class AdministrationController {
     
-    @Autowired private SqlCallAdministration sqlCallAdministration;
+    @Autowired private ISqlCallAdministration sqlCallAdministration;
     @Autowired private IExportService exportService;
 
     @Async

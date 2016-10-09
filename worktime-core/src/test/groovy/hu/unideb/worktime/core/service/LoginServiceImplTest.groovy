@@ -6,7 +6,7 @@ import hu.unideb.worktime.api.model.login.UpdatePasswordRecord
 import hu.unideb.worktime.api.model.login.UpdatePasswordRequest
 import hu.unideb.worktime.core.security.WTEncryption
 import hu.unideb.worktime.core.cache.ILoginCache
-import hu.unideb.worktime.jdbc.login.SqlCallLogin;
+import hu.unideb.worktime.jdbc.login.ISqlCallLogin;
 import org.slf4j.Logger
 import org.slf4j.helpers.NOPLogger
 import spock.lang.Shared
@@ -43,7 +43,7 @@ class LoginServiceImplTest extends Specification {
         setup:
             def wtEncryptionMock = Mock(WTEncryption)
             def loginCacheMock = Mock(ILoginCache)
-            def sqlCallLoginMock = Mock(SqlCallLogin)
+            def sqlCallLoginMock = Mock(ISqlCallLogin)
         and:
             def loginServiceObject = new LoginServiceImpl([
                 wtEncryption: wtEncryptionMock,

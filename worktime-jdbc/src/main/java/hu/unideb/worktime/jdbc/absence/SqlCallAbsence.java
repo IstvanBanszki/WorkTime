@@ -1,5 +1,10 @@
 package hu.unideb.worktime.jdbc.absence;
 
+import hu.unideb.worktime.jdbc.absence.storedprocedure.SpGetAbsence;
+import hu.unideb.worktime.jdbc.absence.storedprocedure.SpSaveAbsence;
+import hu.unideb.worktime.jdbc.absence.storedprocedure.SpDeleteAbsence;
+import hu.unideb.worktime.jdbc.absence.storedprocedure.SpGetAbsenceData;
+import hu.unideb.worktime.jdbc.absence.storedprocedure.SpEditAbsence;
 import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.absence.AbsenceDataResponse;
 import hu.unideb.worktime.api.model.absence.AbsenceResponse;
@@ -11,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SqlCallAbsence {
+public class SqlCallAbsence implements ISqlCallAbsence {
 
     @Autowired private SpGetAbsence spGetAbsence;
     @Autowired private SpSaveAbsence spSaveAbsence;
@@ -20,6 +25,7 @@ public class SqlCallAbsence {
     @Autowired private SpEditAbsence spEditAbsence;
     private Logger logger = LoggerFactory.getLogger(SqlCallAbsence.class);
 
+    @Override
     public SaveResult saveAbsence(Integer workerId, AbsenceRequest values) {
         SaveResult result = null;
         this.logger.info("Call save_absence SP with given parameters: Key - {}, Values - {}", workerId, values);
@@ -35,6 +41,7 @@ public class SqlCallAbsence {
         return result;
     }
 
+    @Override
     public List<AbsenceResponse> getAbsence(Integer key, String request) {
         List<AbsenceResponse> result = null;
         this.logger.info("Call get_all_absence_by_worker SP with given parameters - Key {}, dateFilter: {}", key, request);
@@ -50,6 +57,7 @@ public class SqlCallAbsence {
         return result;
     }
 
+    @Override
     public List<AbsenceDataResponse> getAbsenceData(Integer key) {
         List<AbsenceDataResponse> result = null;
         this.logger.info("Call get_absence_data SP with given parameters: {}", key);
@@ -64,7 +72,8 @@ public class SqlCallAbsence {
         this.logger.info("Result of get_absence_data SP: {}", result);
         return result;
     }
-    
+
+    @Override
     public Integer deleteAbsence(Integer key) {
         Integer result = null;
         this.logger.info("Call delete_absence SP with given parameters: Key - {}", key);
@@ -79,7 +88,8 @@ public class SqlCallAbsence {
         this.logger.info("Result of delete_absence SP: {}", result);
         return result;
     }
-    
+
+    @Override
     public Integer editAbsence(Integer id, AbsenceRequest values) {
         Integer result = null;
         this.logger.info("Call edit_absence SP with given parameters: Key - {}, values - {}", id, values);
@@ -94,4 +104,5 @@ public class SqlCallAbsence {
         this.logger.info("Result of edit_absence SP: {}", result);
         return result;
     }
+
 }

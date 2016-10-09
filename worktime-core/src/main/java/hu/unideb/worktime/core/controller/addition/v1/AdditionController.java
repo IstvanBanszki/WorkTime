@@ -7,9 +7,9 @@ import hu.unideb.worktime.api.model.Worker;
 import hu.unideb.worktime.api.model.addition.UserExtended;
 import hu.unideb.worktime.api.model.administration.Employee;
 import hu.unideb.worktime.core.security.WTEncryption;
-import hu.unideb.worktime.jdbc.addition.SqlCallAddition;
-import hu.unideb.worktime.jdbc.addition.SqlCallDepartmentAddition;
-import hu.unideb.worktime.jdbc.addition.SqlCallOfficeAddition;
+import hu.unideb.worktime.jdbc.addition.ISqlCallAddition;
+import hu.unideb.worktime.jdbc.addition.ISqlCallDepartmentAddition;
+import hu.unideb.worktime.jdbc.addition.ISqlCallOfficeAddition;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -25,9 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/addition/v1", produces = "application/json")
 public class AdditionController {
 
-    @Autowired private SqlCallAddition sqlCallAddition;
-    @Autowired private SqlCallDepartmentAddition sqlCallDepartmentAddition;
-    @Autowired private SqlCallOfficeAddition sqlCallOfficeAddition;
+    @Autowired private ISqlCallAddition sqlCallAddition;
+    @Autowired private ISqlCallDepartmentAddition sqlCallDepartmentAddition;
+    @Autowired private ISqlCallOfficeAddition sqlCallOfficeAddition;
     @Autowired private WTEncryption wTEncryption;
 
     @Async

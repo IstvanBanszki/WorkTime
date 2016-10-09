@@ -1,5 +1,7 @@
 package hu.unideb.worktime.jdbc.login;
 
+import hu.unideb.worktime.jdbc.login.storedprocedure.SpUpdatePassword;
+import hu.unideb.worktime.jdbc.login.storedprocedure.SpGetLogin;
 import hu.unideb.worktime.api.model.login.LoginRecord;
 import hu.unideb.worktime.api.model.login.UpdatePasswordRecord;
 import org.slf4j.Logger;
@@ -8,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SqlCallLogin {
+public class SqlCallLogin implements ISqlCallLogin {
 
     @Autowired private SpGetLogin spGetLogin;
     @Autowired private SpUpdatePassword spUpdatePassword;
     private Logger logger = LoggerFactory.getLogger(SqlCallLogin.class);
 
+    @Override
     public LoginRecord getLoginRecord(String loginName) {
         LoginRecord result = null;
         this.logger.info("Call get_login SP with given parameters: {}", loginName);
@@ -29,6 +32,7 @@ public class SqlCallLogin {
         return result;
     }
 
+    @Override
     public Integer updatePassword(UpdatePasswordRecord key) {
         Integer result = null;
         this.logger.info("Call change_password SP with given parameters: {}", key);
@@ -43,4 +47,5 @@ public class SqlCallLogin {
         this.logger.info("Result of change_password SP: {}", result);
         return result;
     }
+
 }

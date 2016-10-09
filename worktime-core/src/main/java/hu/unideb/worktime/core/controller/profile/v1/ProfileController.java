@@ -1,7 +1,7 @@
 package hu.unideb.worktime.core.controller.profile.v1;
 
 import hu.unideb.worktime.api.model.profile.ProfileRecord;
-import hu.unideb.worktime.jdbc.profile.SqlCallProfile;
+import hu.unideb.worktime.jdbc.profile.ISqlCallProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProfileController {
 
     @Autowired
-    private SqlCallProfile sqlCallProfile;
+    private ISqlCallProfile sqlCallProfile;
 
     @Async
     @RequestMapping(value = "/{workerId}", method = RequestMethod.GET)

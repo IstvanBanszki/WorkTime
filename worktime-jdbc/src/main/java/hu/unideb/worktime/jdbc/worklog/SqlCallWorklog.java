@@ -1,5 +1,9 @@
 package hu.unideb.worktime.jdbc.worklog;
 
+import hu.unideb.worktime.jdbc.worklog.storedprocedure.SpGetWorklog;
+import hu.unideb.worktime.jdbc.worklog.storedprocedure.SpEditWorklog;
+import hu.unideb.worktime.jdbc.worklog.storedprocedure.SpDeleteWorklog;
+import hu.unideb.worktime.jdbc.worklog.storedprocedure.SpSaveWorklog;
 import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogRequest;
@@ -10,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SqlCallWorklog {
+public class SqlCallWorklog implements ISqlCallWorklog {
     
     @Autowired private SpSaveWorklog spSaveWorklog;
     @Autowired private SpGetWorklog spGetWorklog;
@@ -18,6 +22,7 @@ public class SqlCallWorklog {
     @Autowired private SpEditWorklog spEditWorklog;
     private Logger logger = LoggerFactory.getLogger(SqlCallWorklog.class);
     
+    @Override
     public SaveResult saveWorklog(Integer workerId, WorklogRequest values) {
         SaveResult result = null;
         this.logger.info("Call save_worklog SP with given parameters: Key - {}, values - {}", workerId, values);
@@ -33,12 +38,13 @@ public class SqlCallWorklog {
         return result;
     }
     
+    @Override
     public List<WorklogResponse> getWorklog(Integer key, String request) {
         List<WorklogResponse> result = null;
         this.logger.info("Call get_all_worklog_by_worker SP with given parameters - Key: {}, DateFilter: {}", key, request);
         try {
             result = this.spGetWorklog.getWorklogs(key, request);
-            if(result == null ||result.isEmpty()) {
+            if(result == null || result.isEmpty()) {
                 this.logger.debug("There is no such worklogs in database! Key: {}, DateFilter: {}", key, request);
             }
         } catch (Exception ex) {
@@ -48,6 +54,7 @@ public class SqlCallWorklog {
         return result;
     }
     
+    @Override
     public Integer deleteWorklog(Integer key) {
         Integer result = null;
         this.logger.info("Call delete_worklog SP with given parameters: Key - {}", key);
@@ -63,6 +70,7 @@ public class SqlCallWorklog {
         return result;
     }
     
+    @Override
     public Integer editWorklog(Integer id, WorklogRequest values) {
         Integer result = null;
         this.logger.info("Call edit_worklog SP with given parameters: Key - {}, values - {}", id, values);

@@ -6,7 +6,7 @@ import hu.unideb.worktime.api.model.absence.AbsenceDataResponse;
 import hu.unideb.worktime.api.model.absence.AbsenceResponse;
 import hu.unideb.worktime.api.model.absence.AbsenceRequest;
 import hu.unideb.worktime.core.export.IExportService;
-import hu.unideb.worktime.jdbc.absence.SqlCallAbsence;
+import hu.unideb.worktime.jdbc.absence.ISqlCallAbsence;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/absence/v1", produces = "application/json")
 public class AbsenceController {
 
-    @Autowired private SqlCallAbsence sqlCallAbsence;
+    @Autowired private ISqlCallAbsence sqlCallAbsence;
     @Autowired private IExportService exportService;
     /*
     --------------------

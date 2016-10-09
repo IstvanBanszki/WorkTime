@@ -1,5 +1,8 @@
 package hu.unideb.worktime.jdbc.addition;
 
+import hu.unideb.worktime.jdbc.addition.storedprocedure.SpSaveOffice;
+import hu.unideb.worktime.jdbc.addition.storedprocedure.SpGetAllOffices;
+import hu.unideb.worktime.jdbc.addition.storedprocedure.SpEditOffice;
 import hu.unideb.worktime.api.model.Office;
 import hu.unideb.worktime.api.model.SaveResult;
 import java.util.List;
@@ -9,14 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SqlCallOfficeAddition {
+public class SqlCallOfficeAddition implements ISqlCallOfficeAddition {
     
     @Autowired private SpGetAllOffices spGetAllOffices;
     @Autowired private SpEditOffice spEditOffice;
     @Autowired private SpSaveOffice spSaveOffice;
     private Logger logger = LoggerFactory.getLogger(SqlCallOfficeAddition.class);
     
-    
+    @Override
     public List<Office> getOffices() {
         List<Office> result = null;
         this.logger.info("Call get_all_offices SP with given parameters.");
@@ -32,13 +35,14 @@ public class SqlCallOfficeAddition {
         return result;
     }
     
-    public Integer editOffice(Integer id, Office values) {
+    @Override
+    public Integer editOffice(Integer officeId, Office value) {
         Integer result = null;
-        this.logger.info("Call edit_office SP with given parameters: Key - {}, values - {}", id, values);
+        this.logger.info("Call edit_office SP with given parameters: Key - {}, values - {}", officeId, value);
         try {
-            result = this.spEditOffice.editOffice(id, values);
+            result = this.spEditOffice.editOffice(officeId, value);
             if (result == null) {
-                this.logger.debug("There is an error while edit the office in database! Key - {}, values - {}", id, values);
+                this.logger.debug("There is an error while edit the office in database! Key - {}, values - {}", officeId, value);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during edit_office SP call: {}", ex);
@@ -47,6 +51,7 @@ public class SqlCallOfficeAddition {
         return result;
     }
     
+    @Override
     public SaveResult saveOffice(Office values) {
         SaveResult result = null;
         this.logger.info("Call save_office SP with given parameters: Key - {}, values - {}", values);

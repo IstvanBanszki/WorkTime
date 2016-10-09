@@ -4,7 +4,7 @@ import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogRequest;
 import hu.unideb.worktime.core.export.IExportService;
-import hu.unideb.worktime.jdbc.worklog.SqlCallWorklog;
+import hu.unideb.worktime.jdbc.worklog.ISqlCallWorklog;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/worklog/v1", produces = "application/json")
 public class WorklogController {
     
-    @Autowired private SqlCallWorklog sqlCallSaveWorklog;
+    @Autowired private ISqlCallWorklog sqlCallSaveWorklog;
     @Autowired private IExportService exportService;
     /*
     --------------------

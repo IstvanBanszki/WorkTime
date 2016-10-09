@@ -7,7 +7,7 @@ import hu.unideb.worktime.api.model.login.UpdatePasswordRecord;
 import hu.unideb.worktime.api.model.login.UpdatePasswordRequest;
 import hu.unideb.worktime.core.cache.ILoginCache;
 import hu.unideb.worktime.core.security.WTEncryption;
-import hu.unideb.worktime.jdbc.login.SqlCallLogin;
+import hu.unideb.worktime.jdbc.login.ISqlCallLogin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class LoginServiceImpl implements ILoginService {
     
     @Autowired private WTEncryption wtEncryption;
     @Autowired private ILoginCache loginCache;
-    @Autowired private SqlCallLogin sqlCallLogin;
+    @Autowired private ISqlCallLogin sqlCallLogin;
     
     private Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
     

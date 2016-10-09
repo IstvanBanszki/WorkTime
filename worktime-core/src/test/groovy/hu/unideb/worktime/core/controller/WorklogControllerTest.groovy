@@ -4,7 +4,7 @@ import hu.unideb.worktime.api.model.SaveResult
 import hu.unideb.worktime.api.model.worklog.WorklogRequest
 import hu.unideb.worktime.api.model.worklog.WorklogResponse
 import hu.unideb.worktime.core.controller.worklog.v1.WorklogController
-import hu.unideb.worktime.jdbc.worklog.SqlCallWorklog
+import hu.unideb.worktime.jdbc.worklog.ISqlCallWorklog
 import spock.lang.Shared
 import spock.lang.Specification
 import java.time.LocalDate
@@ -15,7 +15,7 @@ class WorklogControllerTest extends Specification {
     
     def "test saveWorklog method"() {
         setup:
-            def sqlCallSaveWorklogMock = Mock(SqlCallWorklog)
+            def sqlCallSaveWorklogMock = Mock(ISqlCallWorklog)
         and:
             def worklogControllerObject = new WorklogController(
                 sqlCallSaveWorklog: sqlCallSaveWorklogMock
@@ -33,7 +33,7 @@ class WorklogControllerTest extends Specification {
     
     def "test getWorklog method"() {
         setup:
-            def sqlCallSaveWorklogMock = Mock(SqlCallWorklog)
+            def sqlCallSaveWorklogMock = Mock(ISqlCallWorklog)
         and:
             def worklogControllerObject = new WorklogController(
                 sqlCallSaveWorklog: sqlCallSaveWorklogMock
@@ -52,7 +52,7 @@ class WorklogControllerTest extends Specification {
     def "test deleteWorklog method"() {
         setup:
             def worklogControllerObject = new WorklogController(
-                sqlCallSaveWorklog: Mock(SqlCallWorklog) {
+                sqlCallSaveWorklog: Mock(ISqlCallWorklog) {
                     deleteWorklog(workerId) >> expectedResult
                 }
             )
@@ -65,7 +65,7 @@ class WorklogControllerTest extends Specification {
     def "test editWorklog method"() {
         setup:
             def worklogControllerObject = new WorklogController(
-                sqlCallSaveWorklog: Mock(SqlCallWorklog) {
+                sqlCallSaveWorklog: Mock(ISqlCallWorklog) {
                     editWorklog(workerId, worklogRequest) >> expectedResult
                 }
             )

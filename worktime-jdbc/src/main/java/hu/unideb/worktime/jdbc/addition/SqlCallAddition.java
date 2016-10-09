@@ -1,5 +1,8 @@
 package hu.unideb.worktime.jdbc.addition;
 
+import hu.unideb.worktime.jdbc.addition.storedprocedure.SpGetAllSuperiorWorkers;
+import hu.unideb.worktime.jdbc.addition.storedprocedure.SpSaveWorker;
+import hu.unideb.worktime.jdbc.addition.storedprocedure.SpSaveUser;
 import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.User;
 import hu.unideb.worktime.api.model.Worker;
@@ -11,14 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SqlCallAddition {
+public class SqlCallAddition implements ISqlCallAddition {
     
     @Autowired private SpSaveUser spSaveUser;
     @Autowired private SpSaveWorker spSaveWorker;
     @Autowired private SpGetAllSuperiorWorkers spGetAllSuperiorWorkers;
     private Logger logger = LoggerFactory.getLogger(SqlCallAddition.class);
     
-    
+    @Override
     public SaveResult saveUser(User user, String password) {
         SaveResult result = null;
         this.logger.info("Call save_user SP with given parameters: User - {}, passwordForSave - {}", user, password);
@@ -34,6 +37,7 @@ public class SqlCallAddition {
         return result;
     }
     
+    @Override
     public SaveResult saveWorker(Worker worker) {
         SaveResult result = null;
         this.logger.info("Call save_worker SP with given parameters: Worker - {}", worker);
@@ -49,6 +53,7 @@ public class SqlCallAddition {
         return result;
     }
 
+    @Override
     public List<Employee> getSuperiors() {
         List<Employee> result = null;
         this.logger.info("Call get_superiors SP with given parameters.");
