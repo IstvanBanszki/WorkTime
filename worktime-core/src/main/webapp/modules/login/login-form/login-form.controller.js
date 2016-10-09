@@ -3,11 +3,11 @@
 
 	angular
 		.module('Login')
-		.controller('LoginController', LoginController);
+		.controller('LoginController', Controller);
 
-	LoginController.$inject = ['$location', 'LoginService']
+	Controller.$inject = ['$location', 'LoginService']
 	
-    function LoginController($location, LoginService) {
+    function Controller($location, LoginService) {
 
 		var vm = this;
 		//Bindable variables
@@ -44,5 +44,7 @@
 			LoginService.removeUserData();
 			$location.path('/login');
 		}
-    };
+
+    }
+
 })();

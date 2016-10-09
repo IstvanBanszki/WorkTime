@@ -24,9 +24,9 @@
 		$stateProvider
 			.state('Login', {
 				url			 : '/login',
-				templateUrl  : 'modules/login/login.header.html',
+				templateUrl  : 'modules/login/login-form/login-form.html',
 				controller   : 'LoginController',
-				controllerAs : 'login',
+				controllerAs : 'vm',
 				title	     : 'WorkTime - Login'
 			})
 			.state('Home', {
