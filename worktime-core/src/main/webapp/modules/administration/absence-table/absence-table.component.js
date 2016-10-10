@@ -44,6 +44,7 @@
 		vm.setSearchTypeOrReverse = setSearchTypeOrReverse;
 		vm.filterAbsence = filterAbsence;
 		vm.acceptEmployeeAbsence = acceptEmployeeAbsence;
+		vm.updateAbsenceNote = updateAbsenceNote;
 		vm.exportAdminAbsence = exportAdminAbsence;
 
 		activate();
@@ -138,6 +139,27 @@
 					}
 				);
 			}
+		}
+
+		function updateAbsenceNote(ev, absence) {
+			$rootScope.selectedAbsence = absence;
+			$mdDialog.show({
+				templateUrl: 'modules/administration/update-note/update-note.html',
+				clickOutsideToClose: true,
+				bindToController: true,
+				controller: 'UpdateNoteController',
+				parent: angular.element(document.body),
+				targetEvent: ev
+			}).then(function(answer) {
+				for(var i = 0; i < vm.employeeAbsences.length; i++) {
+					if (vm.employeeAbsences[i].id === absence.id) {
+						vm.employeeAbsences[i].note = answer.note;
+						break;
+					}
+				}
+				StatusLogService.showStatusLog(answer.status, 'Update Absence Note');
+			}, function() {
+			});
 		}
     }
 })();

@@ -1,12 +1,5 @@
 package hu.unideb.worktime.jdbc.administration;
 
-import hu.unideb.worktime.jdbc.administration.storedprocedure.SpApproveEmployeeAbsence;
-import hu.unideb.worktime.jdbc.administration.storedprocedure.SpGetEmployeeWorklogList;
-import hu.unideb.worktime.jdbc.administration.storedprocedure.SpGetEmployeeAbsenceList;
-import hu.unideb.worktime.jdbc.administration.storedprocedure.SpEditWorkerData;
-import hu.unideb.worktime.jdbc.administration.storedprocedure.SpUpdateWorklogNote;
-import hu.unideb.worktime.jdbc.administration.storedprocedure.SpGetEmployeeWorkerData;
-import hu.unideb.worktime.jdbc.administration.storedprocedure.SpGetEmployeeList;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest;
@@ -14,6 +7,14 @@ import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse
 import hu.unideb.worktime.api.model.administration.WorkerData;
 import hu.unideb.worktime.api.model.administration.Employee;
 import hu.unideb.worktime.api.model.administration.Note;
+import hu.unideb.worktime.jdbc.administration.storedprocedure.SpApproveEmployeeAbsence;
+import hu.unideb.worktime.jdbc.administration.storedprocedure.SpGetEmployeeWorklogList;
+import hu.unideb.worktime.jdbc.administration.storedprocedure.SpGetEmployeeAbsenceList;
+import hu.unideb.worktime.jdbc.administration.storedprocedure.SpEditWorkerData;
+import hu.unideb.worktime.jdbc.administration.storedprocedure.SpUpdateAbsenceNote;
+import hu.unideb.worktime.jdbc.administration.storedprocedure.SpUpdateWorklogNote;
+import hu.unideb.worktime.jdbc.administration.storedprocedure.SpGetEmployeeWorkerData;
+import hu.unideb.worktime.jdbc.administration.storedprocedure.SpGetEmployeeList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,7 @@ public class SqlCallAdministration implements ISqlCallAdministration {
     @Autowired private SpEditWorkerData spEditWorkerData;
     @Autowired private SpGetEmployeeWorkerData spGetEmployeeWorkerData;
     @Autowired private SpUpdateWorklogNote spUpdateWorklogNote;
+    @Autowired private SpUpdateAbsenceNote spUpdateAbsencegNote;
     private Logger logger = LoggerFactory.getLogger(SqlCallAdministration.class);
     
     @Override
@@ -131,11 +133,11 @@ public class SqlCallAdministration implements ISqlCallAdministration {
     @Override
     public Integer updateWorklogNote(Integer worklogId, Note request) {
         Integer result = null;
-        this.logger.info("Call update_worklog_note SP with given parameters: Key - {}, Note - {}", worklogId, request);
+        this.logger.info("Call update_worklog_note SP with given parameters: Key - {}, Note - {}", worklogId, request.getNote());
         try {
             result = this.spUpdateWorklogNote.updateNote(worklogId, request);
             if (result == null) {
-                this.logger.debug("There is an error while update the worklog note in database! Key - {}, Note - {}", worklogId, request);
+                this.logger.debug("There is an error while update the worklog note in database! Key - {}, Note - {}", worklogId, request.getNote());
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during update_worklog_note SP call: {}", ex);
@@ -143,4 +145,21 @@ public class SqlCallAdministration implements ISqlCallAdministration {
         this.logger.info("Result of update_worklog_note SP: {}", result);
         return result;
     }
+    
+    @Override
+    public Integer updateAbsenceNote(Integer absenceId, Note request) {
+        Integer result = null;
+        this.logger.info("Call update_absence_note SP with given parameters: Key - {}, Note - {}", absenceId, request.getNote());
+        try {
+            result = this.spUpdateAbsencegNote.updateNote(absenceId, request);
+            if (result == null) {
+                this.logger.debug("There is an error while update the absence note in database! Key - {}, Note - {}", absenceId, request.getNote());
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during update_absence_note SP call: {}", ex);
+        }
+        this.logger.info("Result of update_absence_note SP: {}", result);
+        return result;
+    }
+
 }

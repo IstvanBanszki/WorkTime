@@ -3,11 +3,11 @@
 
 	angular
 		.module("Profile")
-		.factory('ProfileService', ProfileService);
+		.factory('ProfileService', Service);
 
-	ProfileService.$inject = ['$http', '$rootScope', '$q']; 
+	Service.$inject = ['$http', '$rootScope', '$q']; 
 
-	function ProfileService($http, $rootScope, $q) {
+	function Service($http, $rootScope, $q) {
 
 		return {
 			getProfile		  : getProfile,
@@ -23,7 +23,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/profile/v1/"+workerId,
+				url : "/api/workers/v1/workers/"+workerId,
 				headers : {
 					'Content-Type': 'application/json'
 				}

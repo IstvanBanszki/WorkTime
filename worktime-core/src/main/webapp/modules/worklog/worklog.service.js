@@ -3,11 +3,11 @@
 
 	angular
 		.module("Worklog")
-		.factory('WorklogService', WorklogService);
+		.factory('WorklogService', Service);
 
-	WorklogService.$inject = ['$http', '$rootScope', '$q'];
+	Service.$inject = ['$http', '$rootScope', '$q'];
 
-	function WorklogService($http, $rootScope, $q) {
+	function Service($http, $rootScope, $q) {
 
 		return {
 			addWorklog	  : addWorklog,
@@ -24,7 +24,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : "/api/worklog/v1/worklog/"+workerId,
+				url : "/api/worklog/v1/workers/"+workerId,
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -47,7 +47,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/worklog/v1/worklog/"+workerId+'/'+dateFilter,
+				url : "/api/worklog/v1/workers/"+workerId+'/dates/'+dateFilter,
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -85,7 +85,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : "/api/worklog/v1/worklog/"+worklogId+"/edit",
+				url : "/api/worklog/v1/workers/"+worklogId+"/edit",
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -108,7 +108,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/worklog/v1/worklog/"+workerId+'/'+dateFilter+'/'+excelType+'/export',
+				url : "/api/worklog/v1/workers/"+workerId+'/dates/'+dateFilter+'/types/'+excelType+'/export',
 				headers : {
 					'Content-Type': 'application/json'
 				},

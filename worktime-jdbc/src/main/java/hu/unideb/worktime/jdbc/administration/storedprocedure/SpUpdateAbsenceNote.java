@@ -14,15 +14,15 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpUpdateWorklogNote extends StoredProcedure implements ResultSetExtractor<Integer> {
+public class SpUpdateAbsenceNote extends StoredProcedure implements ResultSetExtractor<Integer> {
     
-    private static final String SP_NAME = "update_worklog_note";
-    private static final String SP_PARAMETER_1 = "worklog_id";
+    private static final String SP_NAME = "update_absence_note";
+    private static final String SP_PARAMETER_1 = "absence_id";
     private static final String SP_PARAMETER_2 = "note";
     private static final String SP_RESULT = "result";
 
     @Autowired
-    public SpUpdateWorklogNote(WTConnection wtConnection) {
+    public SpUpdateAbsenceNote(WTConnection wtConnection) {
         super(wtConnection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.VARCHAR));
@@ -44,5 +44,5 @@ public class SpUpdateWorklogNote extends StoredProcedure implements ResultSetExt
         }
         return result;
     }
-
+    
 }

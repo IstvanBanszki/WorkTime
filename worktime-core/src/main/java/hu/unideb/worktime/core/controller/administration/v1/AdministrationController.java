@@ -28,7 +28,7 @@ public class AdministrationController {
     @Autowired private IExportService exportService;
 
     @Async
-    @RequestMapping(value = "/worklog/{employeeId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/employees/{employeeId}/worklog", method = RequestMethod.POST)
     public @ResponseBody List<AdministrationWorklogResponse> getEmployeeWorklogList(
                     @PathVariable("employeeId") Integer employeeId, 
                     @RequestBody AdministrationWorklogRequest request) {
@@ -36,7 +36,7 @@ public class AdministrationController {
     }
 
     @Async
-    @RequestMapping(value = "/absence/{employeeId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/employees/{employeeId}/absence", method = RequestMethod.POST)
     public @ResponseBody List<AdministrationAbsenceResponse> getEmployeeAbsenceList(
                     @PathVariable("employeeId") Integer employeeId, 
                     @RequestBody AdministrationAbsenceRequest request) {
@@ -44,39 +44,46 @@ public class AdministrationController {
     }
 
     @Async
-    @RequestMapping(value = "/employee/{superiorWorkerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/superiors/{superiorWorkerId}", method = RequestMethod.GET)
     public @ResponseBody List<Employee> getEmployee(@PathVariable("superiorWorkerId") Integer superiorWorkerId ) {
         return this.sqlCallAdministration.getEmloyees(superiorWorkerId);
     }
 
     @Async
-    @RequestMapping(value = "/approve/{absenceId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/absences/{absenceId}/approve", method = RequestMethod.POST)
     public @ResponseBody Integer acceptEmployeeAbsence(@PathVariable("absenceId") Integer absenceId) {
         return this.sqlCallAdministration.acceptEmployeeAbsence(absenceId);
     }
     
     @Async
-    @RequestMapping(value = "/employee/worklog/{worklogId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/worklogs/{worklogId}", method = RequestMethod.PUT)
     public @ResponseBody Integer updateWorklogNote(@PathVariable("worklogId") Integer worklogId, 
                     @RequestBody Note request) {
         return this.sqlCallAdministration.updateWorklogNote(worklogId, request);
     }
     
     @Async
-    @RequestMapping(value = "/workerData/{employeeId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/absences/{absenceId}", method = RequestMethod.PUT)
+    public @ResponseBody Integer updateAbsenceNote(@PathVariable("absenceId") Integer absenceId, 
+                    @RequestBody Note request) {
+        return this.sqlCallAdministration.updateAbsenceNote(absenceId, request);
+    }
+    
+    @Async
+    @RequestMapping(value = "/employees/{employeeId}/workerData", method = RequestMethod.PUT)
     public @ResponseBody Integer editWorkerData(@PathVariable("employeeId") Integer employeeId, 
                     @RequestBody WorkerData request) {
         return this.sqlCallAdministration.editWorkerData(employeeId, request);
     }
     
     @Async
-    @RequestMapping(value = "/workerData/{employeeId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/employees/{employeeId}/workerData", method = RequestMethod.GET)
     public @ResponseBody WorkerData getWorkerData(@PathVariable("employeeId") Integer employeeId) {
         return this.sqlCallAdministration.getWorkerData(employeeId);
     }
 
     @Async
-    @RequestMapping(value = "/worklog/{employeeId}/{dateFilter}/{showDailyWorkhours}/{type}/export", method = RequestMethod.GET)
+    @RequestMapping(value = "/employees/{employeeId}/dates/{dateFilter}/{showDailyWorkhours}/types/{type}/worklog/export", method = RequestMethod.GET)
     public void exportWorklogs(@PathVariable("employeeId") Integer employeeId, 
                     @PathVariable("type") Integer excelType, @PathVariable("dateFilter") String dateFilter, 
                     @PathVariable("showDailyWorkhours") Boolean showDailyWorkhours, HttpServletResponse response) {
@@ -84,7 +91,7 @@ public class AdministrationController {
     }
 
     @Async
-    @RequestMapping(value = "/absence/{employeeId}/{dateFilter}/{notApprove}/{type}/export", method = RequestMethod.GET)
+    @RequestMapping(value = "/employees/{employeeId}/dates/{dateFilter}/{notApprove}/types/{type}/absence/export", method = RequestMethod.GET)
     public void exportAbsences(@PathVariable("employeeId") Integer employeeId, 
                     @PathVariable("type") Integer excelType, @PathVariable("dateFilter") String dateFilter, 
                     @PathVariable("notApprove") Boolean notApprove, HttpServletResponse response) {

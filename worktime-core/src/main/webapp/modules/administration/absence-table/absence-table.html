@@ -67,6 +67,11 @@
 		<td>{{absence.endDate}}</td>
 		<td>{{absence.absenceType}}</td>
 		<td>{{absence.status}}</td>
+		<td><div class="tooltip" ng-click="vm.updateAbsenceNote($event, absence)">
+				<span class="fa fa-comment-o w3-xlarge"></span>
+				<span class="tooltiptext">Update absence note!</span>
+			</div>
+			{{absence.note}}</td>
 		<td>{{absence.dateOfRegistration}}</td>
 		<td>{{absence.dateOfModification}}</td>
 		<td>

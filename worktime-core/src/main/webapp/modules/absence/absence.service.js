@@ -3,11 +3,11 @@
 
 	angular
 		.module("Absence")
-		.factory('AbsenceService', AbsenceService);
+		.factory('AbsenceService', Service);
 
-	AbsenceService.$inject = ['$http', '$rootScope', '$q'];
+	Service.$inject = ['$http', '$rootScope', '$q'];
 
-	function AbsenceService($http, $rootScope, $q) {
+	function Service($http, $rootScope, $q) {
 
 		return {
 			addAbsence	   : addAbsence,
@@ -22,7 +22,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : "/api/absence/v1/absence/"+workerId,
+				url : "/api/absence/v1/workers/"+workerId+"/absence",
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -46,7 +46,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/absence/v1/absence/"+workerId+'/'+dateFilter,
+				url : "/api/absence/v1/workers/"+workerId+"/dates/"+dateFilter+"/absence",
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -65,7 +65,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/absence/v1/absenceData/"+workerId,
+				url : "/api/absence/v1/workers/"+workerId+"/absenceData",
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -84,7 +84,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "DELETE",
-				url : "/api/absence/v1/absence/"+absenceId,
+				url : "/api/absence/v1/absences/"+absenceId,
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -103,7 +103,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : "/api/absence/v1/absence/"+absenceId+'/edit',
+				url : "/api/absence/v1/absences/"+absenceId+"/edit",
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -127,7 +127,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/absence/v1/absence/"+workerId+'/'+dateFilter+'/'+excelType+'/export',
+				url : "/api/absence/v1/workers/"+workerId+'/dates/'+dateFilter+'/types/'+excelType+'/export',
 				headers : {
 					'Content-Type': 'application/json'
 				},

@@ -44,6 +44,7 @@
 		vm.showUpCaret = showUpCaret;
 		vm.setSearchTypeOrReverse = setSearchTypeOrReverse;
 		vm.filterWorklog = filterWorklog;
+		vm.updateWorklogNote = updateWorklogNote;
 		vm.exportAdminWorklog = exportAdminWorklog;
 
 		activate();
@@ -113,5 +114,27 @@
 				);
 			}
 		}
+		
+		function updateWorklogNote(ev, worklog) {
+			$rootScope.selectedWorklog = worklog;
+			$mdDialog.show({
+				templateUrl: 'modules/administration/update-note/update-note.html',
+				clickOutsideToClose: true,
+				bindToController: true,
+				controller: 'UpdateNoteController',
+				parent: angular.element(document.body),
+				targetEvent: ev
+			}).then(function(answer) {
+				for(var i = 0; i < vm.employeeWorklogs.length; i++) {
+					if (vm.employeeWorklogs[i].id === worklog.id) {
+						vm.employeeWorklogs[i].note = answer.note;
+						break;
+					}
+				}
+				StatusLogService.showStatusLog(answer.status, 'Update Woklog Note');
+			}, function() {
+			});
+		}
+
     }
 })();

@@ -31,56 +31,56 @@ public class AdditionController {
     @Autowired private WTEncryption wTEncryption;
 
     @Async
-    @RequestMapping(value = "/office/{officeId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/offices/{officeId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editOffice(@PathVariable("officeId") Integer officeId, @RequestBody Office request) {
         return this.sqlCallOfficeAddition.editOffice(officeId, request);
     }
 
     @Async
-    @RequestMapping(value = "/office", method = RequestMethod.GET)
+    @RequestMapping(value = "/offices", method = RequestMethod.GET)
     public @ResponseBody List<Office> getOffice() {
         return this.sqlCallOfficeAddition.getOffices();
     }
 
     @Async
-    @RequestMapping(value = "/office", method = RequestMethod.PUT)
+    @RequestMapping(value = "/offices", method = RequestMethod.PUT)
     public @ResponseBody SaveResult saveOffice(@RequestBody Office request) {
         return this.sqlCallOfficeAddition.saveOffice(request);
     }
 
     @Async
-    @RequestMapping(value = "/department/{departmentId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/departments/{departmentId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editDepartment(@PathVariable("departmentId") Integer departmentId, @RequestBody Department request) {
         return this.sqlCallDepartmentAddition.editDepartment(departmentId, request);
     }
 
     @Async
-    @RequestMapping(value = "/department", method = RequestMethod.GET)
+    @RequestMapping(value = "/departments", method = RequestMethod.GET)
     public @ResponseBody List<Department> getDepartment() {
         return this.sqlCallDepartmentAddition.getDepartments();
     }
 
     @Async
-    @RequestMapping(value = "/department", method = RequestMethod.PUT)
+    @RequestMapping(value = "/departments", method = RequestMethod.PUT)
     public @ResponseBody SaveResult saveDepartment(@RequestBody Department request) {
         return this.sqlCallDepartmentAddition.saveDepartment(request);
     }
 
     @Async
-    @RequestMapping(value = "/user", method = RequestMethod.PUT)
+    @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public @ResponseBody SaveResult createUser(@RequestBody UserExtended request) {
         String passwordForSave = this.wTEncryption.generateRandomPassword();
         return this.sqlCallAddition.saveUser(request, passwordForSave);
     }
     
     @Async
-    @RequestMapping(value = "/worker", method = RequestMethod.PUT)
+    @RequestMapping(value = "/workers", method = RequestMethod.PUT)
     public @ResponseBody SaveResult createWorker(@RequestBody Worker request) {
         return this.sqlCallAddition.saveWorker(request);
     }
     
     @Async
-    @RequestMapping(value = "/superior", method = RequestMethod.GET)
+    @RequestMapping(value = "/superiors", method = RequestMethod.GET)
     public @ResponseBody List<Employee> getSuperior() {
         return this.sqlCallAddition.getSuperiors();
     }

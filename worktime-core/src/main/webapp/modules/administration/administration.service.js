@@ -3,11 +3,11 @@
 
 	angular
 		.module("Administration")
-		.factory('AdministrationService', AdministrationService);
+		.factory('AdministrationService', Service);
 
-	AdministrationService.$inject =	['$http', '$rootScope', '$q'] 
+	Service.$inject = ['$http', '$rootScope', '$q'] 
 	
-	function AdministrationService($http, $rootScope, $q) {
+	function Service($http, $rootScope, $q) {
 
 		return {
 			getWorklogsByEmployee  : getWorklogsByEmployee,
@@ -17,14 +17,16 @@
 			editEmployeeWorkerData : editEmployeeWorkerData,
 			getEmployeeWorkerData  : getEmployeeWorkerData,
 			exportEmployeeWorklogs : exportEmployeeWorklogs,
-			exportEmployeeAbsences : exportEmployeeAbsences
+			exportEmployeeAbsences : exportEmployeeAbsences,
+			updateWorklogNote	   : updateWorklogNote,
+			updateAbsenceNote	   : updateAbsenceNote
 		};
 
 		function getWorklogsByEmployee(employeeId, dateFilter, showDailyWorkhours) {
 			var deferred = $q.defer();
 			return $http({
 				method : "POST",
-				url : "/api/administration/v1/worklog/"+employeeId,
+				url : "/api/administration/v1/employees/"+employeeId+"/worklog",
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -43,11 +45,12 @@
 					return deferred.promise;
 				});
 		}
+
 		function getAbsencesByEmployee(employeeId, dateFilter, listNotApproved) {
 			var deferred = $q.defer();
 			return $http({
 				method : "POST",
-				url : "/api/administration/v1/absence/"+employeeId,
+				url : "/api/administration/v1/employees/"+employeeId+"/absence",
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -66,11 +69,12 @@
 					return deferred.promise;
 				});
 		}
+
 		function getEmployees(superiorWorkerId) {
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/administration/v1/employee/"+superiorWorkerId,
+				url : "/api/administration/v1/superiors/"+superiorWorkerId,
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -85,11 +89,12 @@
 					return deferred.promise;
 				});
 		}
+
 		function acceptEmployeeAbsence(absenceId) {
 			var deferred = $q.defer();
 			return $http({
 				method : "POST",
-				url : "/api/administration/v1/approve/"+absenceId,
+				url : "/api/administration/v1/absences/"+absenceId+"/approve",
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -104,11 +109,12 @@
 					return deferred.promise;
 				});
 		}
+
 		function editEmployeeWorkerData(firstName, lastName, position, emailAddress, dailyWorkHourTotal, employeeId) {
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : '/api/administration/v1/workerData/'+employeeId,
+				url : '/api/administration/v1/employees/'+employeeId+"/workerData",
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -130,11 +136,12 @@
 					return deferred.promise;
 				});
 		}
+
 		function getEmployeeWorkerData(employeeId) {
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/administration/v1/workerData/"+employeeId,
+				url : "/api/administration/v1/employees/"+employeeId+"/workerData",
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -149,11 +156,58 @@
 					return deferred.promise;
 				});
 		}
+
+		function updateWorklogNote(worklogId, note) {
+			var deferred = $q.defer();
+			return $http({
+				method : "PUT",
+				url : "/api/administration/v1/worklogs/"+worklogId,
+				headers : {
+					'Content-Type': 'application/json'
+				},
+				data: {
+					'note': note
+				}
+			}).then(function successCallback(response) {
+
+					deferred.resolve(response.data);
+					return deferred.promise;
+
+				}, function errorCallback(response) {
+
+					deferred.reject(response);
+					return deferred.promise;
+				});
+		}
+		
+		function updateAbsenceNote(absenceId, note) {
+			var deferred = $q.defer();
+			return $http({
+				method : "PUT",
+				url : "/api/administration/v1/absences/"+absenceId,
+				headers : {
+					'Content-Type': 'application/json'
+				},
+				data: {
+					'note': note
+				}
+			}).then(function successCallback(response) {
+
+					deferred.resolve(response.data);
+					return deferred.promise;
+
+				}, function errorCallback(response) {
+
+					deferred.reject(response);
+					return deferred.promise;
+				});
+		}
+
 		function exportEmployeeWorklogs(employeeId, type, dateFilter, showDailyWorkhours) {
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/administration/v1/worklog/"+employeeId+'/'+dateFilter+'/'+showDailyWorkhours+'/'+type+'/export',
+				url : "/api/administration/v1/employees/"+employeeId+'/dates/'+dateFilter+'/'+showDailyWorkhours+'/types/'+type+'/worklog/export',
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -169,11 +223,12 @@
 					return deferred.promise;
 				});
 		}
+
 		function exportEmployeeAbsences(employeeId, type, dateFilter, showNotApprove) {
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/administration/v1/absence/"+employeeId+'/'+dateFilter+'/'+showNotApprove+'/'+type+'/export',
+				url : "/api/administration/v1/employees/"+employeeId+'/dates/'+dateFilter+'/'+showNotApprove+'/types/'+type+'/absence/export',
 				headers : {
 					'Content-Type': 'application/json'
 				},

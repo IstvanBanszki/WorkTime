@@ -60,7 +60,11 @@
 	<tr ng-repeat="worklog in vm.employeeWorklogs | filter:vm.searchQuery | orderBy:vm.sortType:vm.sortReverse" class="w3-hover-light-green">
 		<td>{{worklog.beginDate}}</td>
 		<td>{{worklog.workHour}}</td>
-		<td>{{worklog.note}}</td>
+		<td><div class="tooltip" ng-click="vm.updateWorklogNote($event, worklog)">
+				<span class="fa fa-comment-o w3-xlarge"></span>
+				<span class="tooltiptext">Update worklog note!</span>
+			</div>
+			{{worklog.note}}</td>
 		<td>{{worklog.dateOfRegistration}}</td>
 		<td>{{worklog.dateOfModification}}</td>
 		<td>

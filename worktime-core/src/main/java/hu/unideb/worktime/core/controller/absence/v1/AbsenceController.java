@@ -36,37 +36,37 @@ public class AbsenceController {
     }
      */
     @Async
-    @RequestMapping(value = "/absence/{workerId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/workers/{workerId}", method = RequestMethod.PUT)
     public @ResponseBody SaveResult saveAbsence(@PathVariable("workerId") Integer workerId, @RequestBody AbsenceRequest request) {
         return this.sqlCallAbsence.saveAbsence(workerId, request);
     }
     
     @Async
-    @RequestMapping(value = "/absence/{workerId}/{dateFilter}", method = RequestMethod.GET)
+    @RequestMapping(value = "/workers/{workerId}/dates/{dateFilter}/absence", method = RequestMethod.GET)
     public @ResponseBody List<AbsenceResponse> getAbsence(@PathVariable("workerId") Integer workerId, @PathVariable("dateFilter") String request) {
         return this.sqlCallAbsence.getAbsence(workerId, request);
     }
     
     @Async
-    @RequestMapping(value = "/absenceData/{workerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/workers/{workerId}/absenceData", method = RequestMethod.GET)
     public @ResponseBody List<AbsenceDataResponse> getAbsenceData(@PathVariable("workerId") Integer workerId) {
         return this.sqlCallAbsence.getAbsenceData(workerId);
     }
     
     @Async
-    @RequestMapping(value = "/absence/{absenceId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/absences/{absenceId}", method = RequestMethod.DELETE)
     public @ResponseBody Integer deleteAbsence(@PathVariable("absenceId") Integer id) {
         return this.sqlCallAbsence.deleteAbsence(id);
     }
     
     @Async
-    @RequestMapping(value = "/absence/{absenceId}/edit", method = RequestMethod.PUT)
+    @RequestMapping(value = "/absences/{absenceId}/edit", method = RequestMethod.PUT)
     public @ResponseBody Integer editAbsence(@PathVariable("absenceId") Integer id, @RequestBody AbsenceRequest request) {
         return this.sqlCallAbsence.editAbsence(id, request);
     }
 
     @Async
-    @RequestMapping(value = "/absence/{workerId}/{dateFilter}/{type}/export", method = RequestMethod.GET)
+    @RequestMapping(value = "/workers/{workerId}/dates/{dateFilter}/types/{type}/export", method = RequestMethod.GET)
     public void exportAbsences(@PathVariable("workerId") Integer workerId, @PathVariable("dateFilter") String request, 
             @PathVariable("type") Integer excelType, HttpServletResponse response) {
         this.exportService.exportAbsences(workerId, request, excelType, response);

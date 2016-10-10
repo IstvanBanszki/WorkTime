@@ -7,7 +7,12 @@
 
 	function StatusLogService() {
 
-		var optionsOverride = 'toast-top-left';
+		var optionsOverride = {
+			tapToDismiss: true,
+			positionClass: 'toast-bottom-right',
+			fadeIn: 300,
+			fadeOut: 1000
+		};
 
 		return {
 			showStatusLog: showStatusLog

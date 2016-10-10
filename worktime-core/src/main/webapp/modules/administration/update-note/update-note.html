@@ -1,0 +1,16 @@
+<div class="editNDialog" ng-controller="UpdateNoteController as vm">
+	<h2>Worklog Note</h2>
+	<form ng-submit="vm.updateNote()">
+
+		<p><label class="w3-label">Note</label></p>
+		<input class="w3-input w3-border w3-padding-hor-16" placeholder="Note" ng-model="vm.note" required>
+
+		<div class="w3-container w3-red w3-center" ng-show="vm.error">
+			<p>Error occured!</p>
+		</div>
+		
+		<div class="w3-padding-8">
+			<input class="w3-btn w3-green w3-left-align" type="submit" value="Update"></input>
+		</div>
+	</form>
+</div>

@@ -3,11 +3,11 @@
 
 	angular
 		.module("Login")
-		.factory('LoginService', LoginService);
+		.factory('LoginService', Service);
 
-	LoginService.$inject = ['$http', '$cookies', '$rootScope', '$q']; 
+	Service.$inject = ['$http', '$cookies', '$rootScope', '$q']; 
 	
-	function LoginService($http, $cookies, $rootScope, $q) {
+	function Service($http, $cookies, $rootScope, $q) {
 
 		return {
 			login		   : login,

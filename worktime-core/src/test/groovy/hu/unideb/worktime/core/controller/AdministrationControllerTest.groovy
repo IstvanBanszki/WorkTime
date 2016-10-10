@@ -90,6 +90,21 @@ class AdministrationControllerTest extends Specification {
             noteRequest = new Note([note: "note number 1"])
             expectedResult << [0, 1]
     }
+
+    def "test updateAbsenceNote method"() {
+        setup:
+            def administrationControllerObject = new AdministrationController(
+                sqlCallAdministration: Mock(SqlCallAdministration) {
+                    updateAbsenceNote(absenceId, noteRequest) >> expectedResult
+                }
+            )
+        expect:
+            administrationControllerObject.updateAbsenceNote(absenceId, noteRequest) == expectedResult
+         where:
+            absenceId = 1
+            noteRequest = new Note([note: "note number 1"])
+            expectedResult << [0, 1]
+    }
     
     def "test editWorkerData method"() {
         setup:

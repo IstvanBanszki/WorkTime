@@ -186,6 +186,7 @@ public class ExportService implements IExportService {
         sheet.autoSizeColumn(1);
         sheet.autoSizeColumn(2);
         sheet.autoSizeColumn(3);
+        sheet.autoSizeColumn(4);
 
         try (ServletOutputStream outputStream = response.getOutputStream()) {
             wb.write(outputStream);

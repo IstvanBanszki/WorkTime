@@ -3,11 +3,11 @@
 
 	angular
 		.module("Addition")
-		.factory('AdditionService', AdditionService);
+		.factory('AdditionService', Service);
 
-	AdditionService.$inject = ['$http', '$rootScope', '$q'];
+	Service.$inject = ['$http', '$rootScope', '$q'];
 
-	function AdditionService($http, $rootScope, $q) {
+	function Service($http, $rootScope, $q) {
 
 		return {
 			getOffices 	   : getOffices,
@@ -25,7 +25,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : '/api/addition/v1/office',
+				url : '/api/addition/v1/offices',
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -44,7 +44,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : '/api/addition/v1/department',
+				url : '/api/addition/v1/departments',
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -63,7 +63,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : '/api/addition/v1/office/' + officeId,
+				url : '/api/addition/v1/offices/' + officeId,
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -87,7 +87,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : '/api/addition/v1/department/' + departmentId,
+				url : '/api/addition/v1/departments/' + departmentId,
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -111,7 +111,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : '/api/addition/v1/office' ,
+				url : '/api/addition/v1/offices' ,
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -135,7 +135,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : '/api/addition/v1/department',
+				url : '/api/addition/v1/departments',
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -159,7 +159,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : '/api/addition/v1/user' ,
+				url : '/api/addition/v1/users' ,
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -183,7 +183,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : '/api/addition/v1/worker',
+				url : '/api/addition/v1/workers',
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -212,7 +212,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : '/api/addition/v1/superior',
+				url : '/api/addition/v1/superiors',
 				headers : {
 					'Content-Type': 'application/json'
 				}

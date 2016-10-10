@@ -14,6 +14,7 @@ import hu.unideb.worktime.jdbc.administration.storedprocedure.SpGetEmployeeWorkl
 import hu.unideb.worktime.jdbc.administration.storedprocedure.SpGetEmployeeAbsenceList
 import hu.unideb.worktime.jdbc.administration.storedprocedure.SpEditWorkerData
 import hu.unideb.worktime.jdbc.administration.storedprocedure.SpUpdateWorklogNote
+import hu.unideb.worktime.jdbc.administration.storedprocedure.SpUpdateAbsenceNote
 import hu.unideb.worktime.jdbc.administration.storedprocedure.SpGetEmployeeWorkerData
 import hu.unideb.worktime.jdbc.administration.storedprocedure.SpGetEmployeeList
 import spock.lang.Specification
@@ -104,6 +105,24 @@ class SqlCallAdministrationTest extends Specification {
             noteRequest = new Note([note: "note number 1"])
 
             worklogId || expectedResult
+            1         || 0
+            2         || 1
+    }
+    
+    def "test updateAbsenceNote method"() {
+        setup:
+            def sqlCallAsministraionObject = new SqlCallAdministration([
+                spUpdateAbsencegNote: Mock(SpUpdateAbsenceNote) {
+                    updateNote(absenceId, noteRequest) >> expectedResult
+                },
+                logger: NOPLogger.NOP_LOGGER
+            ])
+        expect:
+            sqlCallAsministraionObject.updateAbsenceNote(absenceId, noteRequest) == expectedResult
+        where:
+            noteRequest = new Note([note: "note number 1"])
+
+            absenceId || expectedResult
             1         || 0
             2         || 1
     }

@@ -18,5 +18,6 @@ public interface ISqlCallAdministration {
     Integer editWorkerData(Integer id, WorkerData request);
     WorkerData getWorkerData(Integer id);
     Integer updateWorklogNote(Integer key, Note request);
+    Integer updateAbsenceNote(Integer key, Note request);
 
 }
