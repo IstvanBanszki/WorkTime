@@ -155,7 +155,7 @@
 					return deferred.promise;
 				});
 		}
-		function saveUser(name, password, role) {
+		function saveUser(loginName, password, role, emailAddress) {
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
@@ -164,9 +164,10 @@
 					'Content-Type': 'application/json'
 				},
 				data: {
-					'name': name,
+					'loginName': loginName,
 					'password': password,
-					'role': role
+					'role': role,
+					'emailAddress': emailAddress
 				}
 			}).then(function successCallback(response) {
 
@@ -179,7 +180,7 @@
 					return deferred.promise;
 				});
 		}
-		function saveWorker(firstName, lastName, gender, dateOfBirth, nationality, position, dailyWorkHourTotal, emailAddres) {
+		function saveWorker(firstName, lastName, gender, dateOfBirth, nationality, position, dailyWorkHourTotal, emailAddress, superiorId, departmentId, userId) {
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
@@ -195,7 +196,10 @@
 					'nationality': nationality,
 					'position': position,
 					'dailyWorkHourTotal': dailyWorkHourTotal,
-					'emailAddres': emailAddres
+					'emailAddress': emailAddress,
+					'superiorId': superiorId,
+					'departmentId': departmentId,
+					'userId': userId
 				}
 			}).then(function successCallback(response) {
 

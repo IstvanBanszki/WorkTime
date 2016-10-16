@@ -1,4 +1,4 @@
-package hu.unideb.worktime.core.service;
+package hu.unideb.worktime.core.service.impl;
 
 import hu.unideb.worktime.api.model.login.LoginRecord;
 import hu.unideb.worktime.api.model.login.LoginResponse;
@@ -7,6 +7,7 @@ import hu.unideb.worktime.api.model.login.UpdatePasswordRecord;
 import hu.unideb.worktime.api.model.login.UpdatePasswordRequest;
 import hu.unideb.worktime.core.cache.ILoginCache;
 import hu.unideb.worktime.core.security.WTEncryption;
+import hu.unideb.worktime.core.service.ILoginService;
 import hu.unideb.worktime.jdbc.login.ISqlCallLogin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

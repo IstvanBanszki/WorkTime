@@ -9,6 +9,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cache.CacheManager;
@@ -17,6 +18,8 @@ import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
@@ -53,4 +56,21 @@ public class SpringBootMainApplication {
         mapper.registerModule(javaTimeModule);
         return mapper;
     }
+
+    @Bean
+    public JavaMailSender javaMailSender() {
+        Properties javaMailProperties = new Properties();
+        javaMailProperties.put("mail.smtp.aut", "true");
+        javaMailProperties.put("mail.smtp.starttls.enable", "true");
+        javaMailProperties.put("mail.smtp.quitwait", "true");
+
+        JavaMailSenderImpl sender = new JavaMailSenderImpl();
+        sender.setHost("smtp.gmail.com");
+        sender.setPort(587);
+        sender.setUsername("banszki.anarchy@gmail.com");
+        sender.setPassword("***");
+        sender.setJavaMailProperties(javaMailProperties);
+        return sender;
+    }
+
 }

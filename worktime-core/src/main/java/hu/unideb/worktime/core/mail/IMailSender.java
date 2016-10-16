@@ -5,4 +5,5 @@ import hu.unideb.worktime.api.model.mail.Mail;
 public interface IMailSender {
     
     void sendEmail(Mail mail);
+
 }

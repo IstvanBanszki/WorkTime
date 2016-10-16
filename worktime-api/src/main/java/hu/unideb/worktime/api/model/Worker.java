@@ -11,10 +11,24 @@ public class Worker {
     private final String nationality;
     private final String position;
     private final int dailyWorkHourTotal;
-    private final String emailAddres;
+    private final String emailAddress;
     private final int superiorId;
     private final int departmentId;
     private final int userId;
+
+    public Worker(){
+        this.firstName = "";
+        this.lastName = "";
+        this.gender = Gender.NOT_SET;
+        this.dateOfBirth = null;
+        this.nationality = "";
+        this.position = "";
+        this.dailyWorkHourTotal = 0;
+        this.emailAddress = "";
+        this.superiorId = 0;
+        this.departmentId = 0;
+        this.userId = 0;        
+    }
 
     public Worker(String firstName, String lastName, Gender gender, LocalDate dateOfBirth,
             String nationality, String position, int dailyWorkHourTotal, String emailAddres,
@@ -26,7 +40,7 @@ public class Worker {
         this.nationality = nationality;
         this.position = position;
         this.dailyWorkHourTotal = dailyWorkHourTotal;
-        this.emailAddres = emailAddres;
+        this.emailAddress = emailAddres;
         this.superiorId = superiorId;
         this.departmentId = departmentId;
         this.userId = userId;
@@ -60,8 +74,8 @@ public class Worker {
         return dailyWorkHourTotal;
     }
 
-    public String getEmailAddres() {
-        return emailAddres;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
     public int getSuperiorId() {
@@ -86,7 +100,7 @@ public class Worker {
         hash = 59 * hash + (this.nationality != null ? this.nationality.hashCode() : 0);
         hash = 59 * hash + (this.position != null ? this.position.hashCode() : 0);
         hash = 59 * hash + this.dailyWorkHourTotal;
-        hash = 59 * hash + (this.emailAddres != null ? this.emailAddres.hashCode() : 0);
+        hash = 59 * hash + (this.emailAddress != null ? this.emailAddress.hashCode() : 0);
         hash = 59 * hash + this.superiorId;
         hash = 59 * hash + this.departmentId;
         hash = 59 * hash + this.userId;
@@ -114,7 +128,7 @@ public class Worker {
                (this.dateOfBirth != null ? this.dateOfBirth.equals(other.dateOfBirth) : other.dateOfBirth == null) &&
                (this.nationality != null ? this.nationality.equals(other.nationality) : other.nationality == null) &&
                (this.position != null ? this.position.equals(other.position) : other.position == null) &&
-               (this.emailAddres != null ? this.emailAddres.equals(other.emailAddres) : other.emailAddres == null) &&
+               (this.emailAddress != null ? this.emailAddress.equals(other.emailAddress) : other.emailAddress == null) &&
                (this.gender != null ? this.gender.equals(other.gender) : other.gender == null);
     }
 
@@ -123,7 +137,7 @@ public class Worker {
         return "Worker{firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + 
                 ", dateOfBirth=" + dateOfBirth + ", nationality=" + nationality + 
                 ", position=" + position + ", dailyWorkHourTotal=" + dailyWorkHourTotal + 
-                ", emailAddres=" + emailAddres + ", superiorId=" + superiorId + 
+                ", emailAddress=" + emailAddress + ", superiorId=" + superiorId + 
                 ", departmentId=" + departmentId + ", userId=" + userId + '}';
     }
 

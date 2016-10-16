@@ -6,21 +6,26 @@ import java.io.Serializable;
 
 public class UserExtended extends User implements Serializable {
     
-    private final String emailAdress;
+    private final String emailAddress;
+
+    public UserExtended() {
+        super();
+        this.emailAddress = "";
+    }
 
     public UserExtended(String emailAdress, String loginName, String password, Role role) {
         super(loginName, password, role);
-        this.emailAdress = emailAdress;
+        this.emailAddress = emailAdress;
     }
 
-    public String getEmailAdress() {
-        return emailAdress;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
     @Override
     public int hashCode() {
         int hash = super.hashCode();
-        hash = 97 * hash + (this.emailAdress != null ? this.emailAdress.hashCode() : 0);
+        hash = 97 * hash + (this.emailAddress != null ? this.emailAddress.hashCode() : 0);
         return hash;
     }
 
@@ -39,12 +44,12 @@ public class UserExtended extends User implements Serializable {
             return false;
         }
         final UserExtended other = (UserExtended) obj;
-        return (this.emailAdress != null ? this.emailAdress.equals(other.emailAdress) : other.emailAdress == null);
+        return (this.emailAddress != null ? this.emailAddress.equals(other.emailAddress) : other.emailAddress == null);
     }
 
     @Override
     public String toString() {
-        return "UserExtended{emailAdress=" + emailAdress + ", loginName=" + 
+        return "UserExtended{emailAddress=" + emailAddress + ", loginName=" + 
                 this.getLoginName() + ", password=" + this.getPassword() + ", role=" + this.getRole() + '}';
     }
     

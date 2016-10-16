@@ -52,8 +52,8 @@ public class SpSaveWorker extends StoredProcedure implements ResultSetExtractor<
 
     public SaveResult saveWorker(Worker request) {
         return (SaveResult) super.execute(request.getFirstName(), request.getLastName(),
-                request.getGender(), request.getDateOfBirth(), request.getNationality(),
-                request.getPosition(), request.getEmailAddres(), request.getDailyWorkHourTotal(),
+                request.getGender().getId(), request.getDateOfBirth(), request.getNationality(),
+                request.getPosition(), request.getEmailAddress(), request.getDailyWorkHourTotal(),
                 request.getDepartmentId(), request.getSuperiorId(), request.getUserId()).get(SP_RESULT);
     }
 

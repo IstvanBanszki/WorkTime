@@ -64,19 +64,43 @@
 
 		function createNewUserAndWorker() {
 			var userId = 0;
-			AdditionService.saveUser(vm.loginName, '', vmselectedRoleForCreation, vm.emailAddres).then(
+			AdditionService.saveUser(vm.loginName, '', vm.selectedRoleForCreation, vm.emailAddres).then(
 				function(result) {
-					userId = result;
+					StatusLogService.showStatusLog(result.status, 'Create User');
+
+					userId = result.newId;
+					var dateOfBirthStr = moment(vm.dateOfBirth).format('YYYY.MM.DD');
+					AdditionService.saveWorker(vm.firstName, vm.lastName, vm.selectedGender, dateOfBirthStr, vm.nationality, vm.position, vm.dailyWorkHourTotal, vm.emailAddres, vm.selectedSuperiorIdForWorkerCreation, vm.selectedDepartmentIdForWorkerCreation, userId).then(
+						function(result) {
+							StatusLogService.showStatusLog(result.status, 'Create Worker');
+						},
+						function(error) {
+							StatusLogService.showStatusLog(-1, 'Create Worker');
+						}
+					);
+					clearFields();
 				},
 				function(error) {
-				}
-			);
-			AdditionService.saveWorker(vm.firstName, vm.lastName, vm.selectedGender, vm.dateOfBirth, vm.nationality, vm.position, vm.dailyWorkHourTotal, vm.emailAddres, vm.selectedSuperiorIdForWorkerCreation, vm.selectedDepartmentIdForWorkerCreation, userId).then(
-				function(result) {
-				},
-				function(error) {
+					StatusLogService.showStatusLog(-1, 'Create User');
+					clearFields();
 				}
 			);
 		}
+
+		function clearFields() {
+			vm.loginName = "";
+			vm.selectedRoleForCreation = "";
+			vm.firstName = "";
+			vm.lastName = "";
+			vm.selectedGender = "";
+			vm.dateOfBirth = "";
+			vm.nationality = "";
+			vm.position = "";
+			vm.dailyWorkHourTotal = "";
+			vm.emailAddres = "";
+			vm.selectedDepartmentIdForWorkerCreation = 0;
+			vm.selectedSuperiorIdForWorkerCreation = "";
+		}
+
     }
 })();

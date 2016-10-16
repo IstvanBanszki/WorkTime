@@ -6,8 +6,7 @@ import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.Worker;
 import hu.unideb.worktime.api.model.addition.UserExtended;
 import hu.unideb.worktime.api.model.administration.Employee;
-import hu.unideb.worktime.core.security.WTEncryption;
-import hu.unideb.worktime.jdbc.addition.ISqlCallAddition;
+import hu.unideb.worktime.core.service.IAdditionnService;
 import hu.unideb.worktime.jdbc.addition.ISqlCallDepartmentAddition;
 import hu.unideb.worktime.jdbc.addition.ISqlCallOfficeAddition;
 import java.util.List;
@@ -25,10 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/addition/v1", produces = "application/json")
 public class AdditionController {
 
-    @Autowired private ISqlCallAddition sqlCallAddition;
     @Autowired private ISqlCallDepartmentAddition sqlCallDepartmentAddition;
     @Autowired private ISqlCallOfficeAddition sqlCallOfficeAddition;
-    @Autowired private WTEncryption wTEncryption;
+    @Autowired private IAdditionnService additionnService;
 
     @Async
     @RequestMapping(value = "/offices/{officeId}", method = RequestMethod.PUT)
@@ -66,23 +64,30 @@ public class AdditionController {
         return this.sqlCallDepartmentAddition.saveDepartment(request);
     }
 
+    /*
+    {
+        "loginName": "Arany",
+        "role": 1,
+        "password": "987987",
+        "emailAdress": "banszki.anarchy@gmail.com"
+    }
+    */
     @Async
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public @ResponseBody SaveResult createUser(@RequestBody UserExtended request) {
-        String passwordForSave = this.wTEncryption.generateRandomPassword();
-        return this.sqlCallAddition.saveUser(request, passwordForSave);
+        return this.additionnService.createUser(request);
     }
     
     @Async
     @RequestMapping(value = "/workers", method = RequestMethod.PUT)
     public @ResponseBody SaveResult createWorker(@RequestBody Worker request) {
-        return this.sqlCallAddition.saveWorker(request);
+        return this.additionnService.createWorker(request);
     }
     
     @Async
     @RequestMapping(value = "/superiors", method = RequestMethod.GET)
     public @ResponseBody List<Employee> getSuperior() {
-        return this.sqlCallAddition.getSuperiors();
+        return this.additionnService.getSuperior();
     }
 
 }

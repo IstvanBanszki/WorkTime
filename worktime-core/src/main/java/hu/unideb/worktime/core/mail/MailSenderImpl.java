@@ -14,15 +14,16 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MailSender implements IMailSender {
+public class MailSenderImpl implements IMailSender {
     
-    private Logger logger = LoggerFactory.getLogger(MailSender.class);
-    /*
+    private Logger logger = LoggerFactory.getLogger(MailSenderImpl.class);
+    
     @Autowired private JavaMailSender javaMailSender;
+
     @Override
     public void sendEmail(Mail mail) {
         this.logger.info("Send Mail message, with following properties {}", mail);
-        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessage message = this.javaMailSender.createMimeMessage();
         
         try {
             message.setFrom(new InternetAddress(mail.getFromAddress()));
@@ -47,12 +48,7 @@ public class MailSender implements IMailSender {
         } catch (MessagingException ex) {
             this.logger.error("There's an exception during sending {}", ex);
         }
-        javaMailSender.send(message);
+        this.javaMailSender.send(message);
     }
-    */
 
-    @Override
-    public void sendEmail(Mail mail) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
