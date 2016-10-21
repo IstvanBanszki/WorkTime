@@ -58,6 +58,7 @@
 					vm.endDate = "";
 				},
 				function(error) {
+					StatusLogService.showStatusLog(-1, 'Create New Absence');
 				}
 			);
 		}

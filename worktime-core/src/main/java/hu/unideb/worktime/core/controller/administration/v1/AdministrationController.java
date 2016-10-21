@@ -1,8 +1,6 @@
 package hu.unideb.worktime.core.controller.administration.v1;
 
-import hu.unideb.worktime.api.model.administration.AdministrationAbsenceRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
-import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
 import hu.unideb.worktime.api.model.administration.WorkerData;
 import hu.unideb.worktime.api.model.administration.Employee;
@@ -28,19 +26,19 @@ public class AdministrationController {
     @Autowired private IExportService exportService;
 
     @Async
-    @RequestMapping(value = "/employees/{employeeId}/worklog", method = RequestMethod.POST)
+    @RequestMapping(value = "worklogs/employees/{employeeId}/dateFilters/{dateFilter}/showDailyWorkhours/{showDailyWorkhour}", method = RequestMethod.GET)
     public @ResponseBody List<AdministrationWorklogResponse> getEmployeeWorklogList(
-                    @PathVariable("employeeId") Integer employeeId, 
-                    @RequestBody AdministrationWorklogRequest request) {
-        return this.sqlCallAdministration.getEmloyeeWorklog(employeeId, request);
+                    @PathVariable("employeeId") Integer employeeId, @PathVariable("dateFilter") String dateFilter, 
+                    @PathVariable("showDailyWorkhour") boolean showDailyWorkhour) {
+        return this.sqlCallAdministration.getEmloyeeWorklog(employeeId, dateFilter, showDailyWorkhour);
     }
 
     @Async
-    @RequestMapping(value = "/employees/{employeeId}/absence", method = RequestMethod.POST)
+    @RequestMapping(value = "/absences/employees/{employeeId}/dateFilters/{dateFilter}/notApproves/{notApprove}", method = RequestMethod.GET)
     public @ResponseBody List<AdministrationAbsenceResponse> getEmployeeAbsenceList(
-                    @PathVariable("employeeId") Integer employeeId, 
-                    @RequestBody AdministrationAbsenceRequest request) {
-        return this.sqlCallAdministration.getEmloyeeAbsence(employeeId, request);
+                    @PathVariable("employeeId") Integer employeeId, @PathVariable("dateFilter") String dateFilter, 
+                    @PathVariable("notApprove") boolean notApprove) {
+        return this.sqlCallAdministration.getEmloyeeAbsence(employeeId, dateFilter, notApprove);
     }
 
     @Async

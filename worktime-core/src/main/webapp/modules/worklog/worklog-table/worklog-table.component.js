@@ -82,6 +82,7 @@
 					vm.worklogs = result;
 				},
 				function(error) {
+					StatusLogService.showStatusLog(-1, 'Filter Worklog');
 				}
 			)
 		}
@@ -105,6 +106,7 @@
 						}
 					},
 					function(error) {
+						StatusLogService.showStatusLog(-1, 'Delete Worklog');
 					}
 				)
 			}, function() { // No
@@ -141,8 +143,10 @@
 				function(result) {
 					var blob = new Blob([result], {type: excelTypeStr});
 					saveAs(blob, excelFileName);
+					StatusLogService.showStatusLog(1, 'Export Worklog');
 				},
 				function(error) {
+					StatusLogService.showStatusLog(-1, 'Export Worklog');
 				}
 			);
 		}

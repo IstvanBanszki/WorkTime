@@ -2,9 +2,7 @@ package hu.unideb.worktime.jdbc.administration
 
 import hu.unideb.worktime.api.model.AbsenceType
 import hu.unideb.worktime.api.model.Status
-import hu.unideb.worktime.api.model.administration.AdministrationAbsenceRequest
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse
-import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse
 import hu.unideb.worktime.api.model.administration.WorkerData
 import hu.unideb.worktime.api.model.administration.Employee
@@ -45,34 +43,34 @@ class SqlCallAdministrationTest extends Specification {
         setup:
             def sqlCallAsministraionObject = new SqlCallAdministration([
                 spGetEmployeeWorklogList: Mock(SpGetEmployeeWorklogList) {
-                    getWorklogListForEmployee(workerId, request) >> expectedResult
+                    getWorklogListForEmployee(workerId, dateFilter, showDailyWorkhours) >> expectedResult
                 },
                 logger: NOPLogger.NOP_LOGGER
             ])
         expect:
-            sqlCallAsministraionObject.getEmloyeeWorklog(workerId, request) == expectedResult
+            sqlCallAsministraionObject.getEmloyeeWorklog(workerId, dateFilter, showDailyWorkhours) == expectedResult
         where:
-            workerId | request          || expectedResult
-            1        | AWR("All", true) || null
-            2        | AWR("All", true) || []
-            2        | AWR("All", true) || [AWE("Note 1", 1, 7), AWE("Note 2", 2, 8)]
+            workerId | dateFilter | showDailyWorkhours || expectedResult
+            1        | "All"      | true               || null
+            2        | "All"      | true               || []
+            2        | "All"      | true               || [AWE("Note 1", 1, 7), AWE("Note 2", 2, 8)]
     }
 	
     def "test getEmloyeeAbsence method"() {
         setup:
             def sqlCallAsministraionObject = new SqlCallAdministration([
                 spGetEmployeeAbsenceList: Mock(SpGetEmployeeAbsenceList) {
-                    getAbsenceListForEmployee(workerId, request) >> expectedResult
+                    getAbsenceListForEmployee(workerId, dateFilter, notApprove) >> expectedResult
                 },
                 logger: NOPLogger.NOP_LOGGER
             ])
         expect:
-            sqlCallAsministraionObject.getEmloyeeAbsence(workerId, request) == expectedResult
+            sqlCallAsministraionObject.getEmloyeeAbsence(workerId, dateFilter, notApprove) == expectedResult
         where:
-            workerId | request          || expectedResult
-            1        | AAR("All", true) || null
-            2        | AAR("All", true) || []
-            2        | AAR("All", true) || [AAE("Note 1", 1, Status.NOT_APPROVE, AbsenceType.PAYED), AAE("Note 2", 2, Status.APPROVE, AbsenceType.UNPAYED)]
+            workerId | dateFilter | notApprove || expectedResult
+            1        | "All"      | true       || null
+            2        | "All"      | true       || []
+            2        | "All"      | true       || [AAE("Note 1", 1, Status.NOT_APPROVE, AbsenceType.PAYED), AAE("Note 2", 2, Status.APPROVE, AbsenceType.UNPAYED)]
     }
 	
     def "test acceptEmployeeAbsence method"() {
@@ -166,14 +164,6 @@ class SqlCallAdministrationTest extends Specification {
     /*******************************/
     private def E(id, firstName, lastName) {
         return new Employee(id, firstName, lastName)
-    }
-    
-    private def AWR(datefilter, showDailyWorkhours) {
-        return new AdministrationWorklogRequest(datefilter, showDailyWorkhours)
-    }
-    
-    private def AAR(datefilter, notApprove) {
-        return new AdministrationAbsenceRequest(datefilter, notApprove)
     }
     
     private def AWE(note, id, workHour) {

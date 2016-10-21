@@ -46,6 +46,7 @@
 					vm.workHour = 0;
 				},
 				function(error) {
+					StatusLogService.showStatusLog(-1, 'Create New Worklog');
 				}
 			)
 		}

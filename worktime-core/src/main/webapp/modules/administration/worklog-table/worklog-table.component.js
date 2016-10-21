@@ -93,6 +93,7 @@
 							}
 						},
 						function(error) {
+							StatusLogService.showStatusLog(-1, 'Filter Woklog');
 						}
 					);
 			}
@@ -108,8 +109,10 @@
 					function(result) {
 						var blob = new Blob([result], {type: excelTypeStr});
 						saveAs(blob, excelFileName);
+						StatusLogService.showStatusLog(1, 'Export Woklog');
 					},
 					function(error) {
+						StatusLogService.showStatusLog(-1, 'Export Woklog');
 					}
 				);
 			}

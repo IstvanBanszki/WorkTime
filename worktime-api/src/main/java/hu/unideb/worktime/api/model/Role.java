@@ -25,7 +25,11 @@ public enum Role {
         return this.name;
     }
     
-    public static Role valueOf(int id){
+    public static Role getValue(String name) {
+        return Arrays.stream(Role.values()).filter(role -> role.getName().equalsIgnoreCase(name)).findFirst().orElse(NOT_SET);
+    }
+    
+    public static Role valueOf(int id) {
         return Arrays.stream(Role.values()).filter(role -> role.getId() == id).findFirst().orElse(NOT_SET);
     }
 }

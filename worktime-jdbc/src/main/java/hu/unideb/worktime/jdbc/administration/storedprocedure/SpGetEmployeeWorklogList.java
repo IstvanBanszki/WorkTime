@@ -1,6 +1,5 @@
 package hu.unideb.worktime.jdbc.administration.storedprocedure;
 
-import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
 import java.sql.ResultSet;
@@ -34,9 +33,8 @@ public class SpGetEmployeeWorklogList extends StoredProcedure implements RowMapp
         compile();
     }
 
-    public List<AdministrationWorklogResponse> getWorklogListForEmployee(Integer id, AdministrationWorklogRequest request) {
-
-        return (List<AdministrationWorklogResponse>) super.execute(id, request.getDateFilter(), request.isShowDailyWorkhours()).get(SP_RESULT);
+    public List<AdministrationWorklogResponse> getWorklogListForEmployee(Integer id, String dateFilter, boolean showDailyWorkhour) {
+        return (List<AdministrationWorklogResponse>) super.execute(id, dateFilter, showDailyWorkhour).get(SP_RESULT);
     }
 
     @Override

@@ -4,7 +4,7 @@ import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.Worker;
 import hu.unideb.worktime.api.model.addition.UserExtended;
 import hu.unideb.worktime.api.model.administration.Employee;
-import hu.unideb.worktime.core.security.WTEncryption;
+import hu.unideb.worktime.core.security.IEncryptionUtility;
 import hu.unideb.worktime.core.service.IAdditionnService;
 import hu.unideb.worktime.core.service.IMailSenderService;
 import hu.unideb.worktime.jdbc.addition.ISqlCallAddition;
@@ -18,14 +18,14 @@ import org.springframework.stereotype.Service;
 public class AdditionnServiceImpl implements IAdditionnService {
 
     @Autowired private ISqlCallAddition sqlCallAddition;
-    @Autowired private WTEncryption wTEncryption;
+    @Autowired private IEncryptionUtility encryptionUtility;
     @Autowired private IMailSenderService mailSenderService;
 
     private Logger logger = LoggerFactory.getLogger(AdditionnServiceImpl.class);
     
     @Override
     public SaveResult createUser(UserExtended request) {
-        String passwordForSave = this.wTEncryption.generateRandomPassword();
+        String passwordForSave = this.encryptionUtility.generateRandomPassword();
         this.logger.info("Newly generated password {}, for the following user {}", passwordForSave, request);
         SaveResult saveResult = this.sqlCallAddition.saveUser(request, passwordForSave);
         this.mailSenderService.sendEmailForNewlyRegisteredUser(request, passwordForSave);

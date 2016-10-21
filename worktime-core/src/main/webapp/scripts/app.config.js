@@ -15,9 +15,16 @@
 		.config(routingConfig)
 		.run(runner);
 
-	routingConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
+	routingConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider'];
 
-	function routingConfig($stateProvider, $urlRouterProvider) {
+	function routingConfig($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+
+		$httpProvider.defaults.headers.common.Authorization = 'Basic';
+
+		$locationProvider.html5Mode({
+			enabled: true,
+			requireBase: false
+		});
 
 		$urlRouterProvider.otherwise("/login");
       
@@ -76,7 +83,9 @@
 	function runner($rootScope, $cookies, $location, $http) {
         $rootScope.userData = $cookies.getObject('data');
 		if ($rootScope.userData){
-			$http.defaults.headers.common['Authorization'] = $rootScope.userData.secret;
+			$http.defaults.headers.common.Authorization = $rootScope.userData.secret;
+		} else {
+			$http.defaults.headers.common.Authorization = 'Basic'
 		}
 		$rootScope.$on("$locationChangeStart", function(event, next, current) {
 			if ($location.path() !== '/login' && !$rootScope.userData){

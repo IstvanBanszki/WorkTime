@@ -25,14 +25,10 @@
 		function getWorklogsByEmployee(employeeId, dateFilter, showDailyWorkhours) {
 			var deferred = $q.defer();
 			return $http({
-				method : "POST",
-				url : "/api/administration/v1/employees/"+employeeId+"/worklog",
+				method : "GET",
+				url : "/api/administration/v1/worklogs/employees/"+employeeId+"/dateFilters/"+dateFilter+'/showDailyWorkhours/'+showDailyWorkhours,
 				headers : {
 					'Content-Type': 'application/json'
-				},
-				data: {
-					'dateFilter': dateFilter,
-					'showDailyWorkhours': showDailyWorkhours
 				}
 			}).then(function successCallback(response) {
 
@@ -49,14 +45,10 @@
 		function getAbsencesByEmployee(employeeId, dateFilter, listNotApproved) {
 			var deferred = $q.defer();
 			return $http({
-				method : "POST",
-				url : "/api/administration/v1/employees/"+employeeId+"/absence",
+				method : "GET",
+				url : "/api/administration/v1/absences/employees/"+employeeId+"/dateFilters/"+dateFilter+'/notApproves/'+listNotApproved,
 				headers : {
 					'Content-Type': 'application/json'
-				},
-				data: {
-					'dateFilter': dateFilter,
-					'notApprove': listNotApproved
 				}
 			}).then(function successCallback(response) {
 

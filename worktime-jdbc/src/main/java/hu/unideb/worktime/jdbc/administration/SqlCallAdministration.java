@@ -1,8 +1,6 @@
 package hu.unideb.worktime.jdbc.administration;
 
-import hu.unideb.worktime.api.model.administration.AdministrationAbsenceRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
-import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
 import hu.unideb.worktime.api.model.administration.WorkerData;
 import hu.unideb.worktime.api.model.administration.Employee;
@@ -51,13 +49,13 @@ public class SqlCallAdministration implements ISqlCallAdministration {
     }
     
     @Override
-    public List<AdministrationWorklogResponse> getEmloyeeWorklog(Integer employeeId, AdministrationWorklogRequest request) {
+    public List<AdministrationWorklogResponse> getEmloyeeWorklog(Integer employeeId, String dateFilter, boolean showDailyWorkhour) {
         List<AdministrationWorklogResponse> result = null;
-        this.logger.info("Call get_employee_worklog_list SP with given parameters: EmployeeId - {}, Request - {}", employeeId, request);
+        this.logger.info("Call get_employee_worklog_list SP with given parameters: EmployeeId - {}, DateFilter - {}, ShowDailyWorkhour - {}", employeeId, dateFilter, showDailyWorkhour);
         try {
-            result = this.spGetEmployeeWorklogList.getWorklogListForEmployee(employeeId, request);
+            result = this.spGetEmployeeWorklogList.getWorklogListForEmployee(employeeId, dateFilter, showDailyWorkhour);
             if (result == null ||result.isEmpty()) {
-                this.logger.debug("There is no such worklogs in database! EmployeeId - {}, Request - {}", employeeId, request);
+                this.logger.debug("There is no such worklogs in database! EmployeeId - {}, DateFilter - {}, ShowDailyWorkhour - {}", employeeId, dateFilter, showDailyWorkhour);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during get_employee_worklog_list SP call: {}", ex);
@@ -67,13 +65,13 @@ public class SqlCallAdministration implements ISqlCallAdministration {
     }
     
     @Override
-    public List<AdministrationAbsenceResponse> getEmloyeeAbsence(Integer employeeId, AdministrationAbsenceRequest request) {
+    public List<AdministrationAbsenceResponse> getEmloyeeAbsence(Integer employeeId, String dateFilter, boolean notApprove) {
         List<AdministrationAbsenceResponse> result = null;
-        this.logger.info("Call get_employee_absence_list SP with given parameters: EmployeeId - {}, Request - {}", employeeId, request);
+        this.logger.info("Call get_employee_absence_list SP with given parameters: EmployeeId - {}, DateFilter - {}, ShowDailyWorkhour - {}", employeeId, dateFilter, notApprove);
         try {
-            result = this.spGetEmployeeAbsenceList.getAbsenceListForEmployee(employeeId, request);
+            result = this.spGetEmployeeAbsenceList.getAbsenceListForEmployee(employeeId, dateFilter, notApprove);
             if (result == null || result.isEmpty()) {
-                this.logger.debug("There is no such absence in database! EmployeeId - {}, Request - {}", employeeId, request);
+                this.logger.debug("There is no such absence in database! EmployeeId - {}, DateFilter - {}, ShowDailyWorkhour - {}", employeeId, dateFilter, notApprove);
             }
         } catch (Exception ex) {
             this.logger.error("There is an exception during get_employee_absence_list SP call: {}", ex);

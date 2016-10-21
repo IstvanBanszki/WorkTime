@@ -22,22 +22,33 @@
 		// Function implementation //
 		// *********************** //
 		function login() {
-			LoginService.login(vm.loginName, vm.password)
-				.then(
-					function(result) {
-						if(result !== "") {
-							LoginService.setUserData( result, vm.loginName, vm.password );
-							$location.path('/home');
-						} else {
-							vm.error = true;
-						}
-					},
-					function(error) {
-						
+			LoginService.getLogin(vm.loginName, vm.password).then(
+				function(loginResult) {
+					if(loginResult !== "") {
+						LoginService.getToken(vm.loginName, loginResult.roleName).then(
+							function(result) {
+								if(result !== "") {
+									LoginService.setUserData(loginResult, result, vm.loginName, vm.password);
+									$location.path('/home');
+								} else {
+									vm.error = true;
+									vm.errorMessage = error.status;
+								}
+							},
+							function(error) {
+								vm.error = true;
+								vm.errorMessage = error.status;
+							}
+						);
+					} else {
 						vm.error = true;
-						vm.errorMessage = error.status;
 					}
-				);
+				},
+				function(error) {
+					vm.error = true;
+					vm.errorMessage = error.status;
+				}
+			);
 		}
 
 		function logout() {

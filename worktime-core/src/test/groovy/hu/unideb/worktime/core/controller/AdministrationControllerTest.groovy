@@ -2,9 +2,7 @@ package hu.unideb.worktime.core.controller
 
 import hu.unideb.worktime.api.model.AbsenceType
 import hu.unideb.worktime.api.model.Status
-import hu.unideb.worktime.api.model.administration.AdministrationAbsenceRequest
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse
-import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse
 import hu.unideb.worktime.api.model.administration.Employee
 import hu.unideb.worktime.api.model.administration.Note
@@ -19,18 +17,19 @@ import java.time.LocalDateTime
 class AdministrationControllerTest extends Specification {
 
     @Shared def employeeId = 1
+    @Shared def dateFilter = "All"
 
     def "test getEmployeeWorklogList method"() {
         setup:
             def administrationControllerObject = new AdministrationController(
                 sqlCallAdministration: Mock(SqlCallAdministration) {
-                    getEmloyeeWorklog(employeeId, request) >> expectedResult
+                    getEmloyeeWorklog(employeeId, dateFilter, showDailyWorkhour) >> expectedResult
                 }
             )
         expect:
-            administrationControllerObject.getEmployeeWorklogList(employeeId, request) == expectedResult
+            administrationControllerObject.getEmployeeWorklogList(employeeId, dateFilter, showDailyWorkhour) == expectedResult
         where:
-            request = new AdministrationWorklogRequest("All", true)
+            showDailyWorkhour = true
             expectedResult << [null, [], [AWE("Note 1", 1, 7), AWE("Note 2", 2, 8)]]
     }
 
@@ -38,13 +37,13 @@ class AdministrationControllerTest extends Specification {
         setup:
             def administrationControllerObject = new AdministrationController(
                 sqlCallAdministration: Mock(SqlCallAdministration) {
-                    getEmloyeeAbsence(employeeId, request) >> expectedResult
+                    getEmloyeeAbsence(employeeId, dateFilter, notApprove) >> expectedResult
                 }
             )
         expect:
-            administrationControllerObject.getEmployeeAbsenceList(employeeId, request) == expectedResult
+            administrationControllerObject.getEmployeeAbsenceList(employeeId, dateFilter, notApprove) == expectedResult
         where:
-            request = new AdministrationAbsenceRequest("All", true)
+            notApprove = true
             expectedResult << [null, [], [AAE("Note 1", 1, Status.NOT_APPROVE, AbsenceType.PAYED), AAE("Note 2", 2, Status.APPROVE, AbsenceType.UNPAYED)]]
     }
     

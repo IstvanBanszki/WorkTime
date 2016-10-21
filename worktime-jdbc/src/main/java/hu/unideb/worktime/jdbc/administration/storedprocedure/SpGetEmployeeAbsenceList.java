@@ -2,7 +2,6 @@ package hu.unideb.worktime.jdbc.administration.storedprocedure;
 
 import hu.unideb.worktime.api.model.AbsenceType;
 import hu.unideb.worktime.api.model.Status;
-import hu.unideb.worktime.api.model.administration.AdministrationAbsenceRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse.Builder;
 import hu.unideb.worktime.jdbc.connection.WTConnection;
@@ -37,9 +36,8 @@ public class SpGetEmployeeAbsenceList extends StoredProcedure implements RowMapp
         compile();
     }
 
-    public List<AdministrationAbsenceResponse> getAbsenceListForEmployee(Integer id, AdministrationAbsenceRequest request) {
-
-        return (List<AdministrationAbsenceResponse>) super.execute(id, request.getDateFilter(), request.isNotApprove()).get(SP_RESULT);
+    public List<AdministrationAbsenceResponse> getAbsenceListForEmployee(Integer id, String dateFilter, boolean notApprove) {
+        return (List<AdministrationAbsenceResponse>) super.execute(id, dateFilter, notApprove).get(SP_RESULT);
     }
 
     @Override

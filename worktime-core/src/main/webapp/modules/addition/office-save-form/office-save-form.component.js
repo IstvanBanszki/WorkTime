@@ -45,7 +45,7 @@
 			var newDate = moment(vm.officeDateOfFoundtationForCreation).format('YYYY.MM.DD');
 			AdditionService.saveOffice(vm.officeNameForCreation, vm.officeAddressForCreation, newDate).then(
 				function(result) {
-					StatusLogService.showStatusLog(result.status, 'Create New Office!');
+					StatusLogService.showStatusLog(result.status, 'Create New Office');
 					if (result.status === 1) {
 						vm.offices.push({
 							id: result.newId,
@@ -56,6 +56,7 @@
 					}
 				},
 				function(error) {
+					StatusLogService.showStatusLog(-1, 'Create New Office');
 				}
 			);
 		}

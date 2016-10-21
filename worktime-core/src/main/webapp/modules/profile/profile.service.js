@@ -23,7 +23,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/workers/v1/workers/"+workerId,
+				url : "/api/profile/v1/workers/"+workerId,
 				headers : {
 					'Content-Type': 'application/json'
 				}

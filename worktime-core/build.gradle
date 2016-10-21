@@ -13,6 +13,7 @@ buildscript {
 		javaxMailVersion = '1.5.6'
         springVersion = '4.3.3.RELEASE'
 		caffeineVersion = '2.3.3'
+		jjwtVersion = '0.7.0'
     }
     dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
@@ -26,7 +27,7 @@ apply plugin: 'nebula.provided-base'
 
 jar {
     baseName = 'worktime-core'
-    version = '0.9.2-SNAPSHOT'
+    version = '0.9.3-SNAPSHOT'
 }
 
 repositories {
@@ -36,6 +37,7 @@ repositories {
 dependencies {
 	//Add the project dependency
 	compile project(':worktime-jdbc')
+
     //Add SpringBoot
     compile ("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude module: "spring-boot-starter-tomcat"
@@ -43,12 +45,18 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
 	compile "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}"
+	//compile "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+	
+	//JWT
+	compile "io.jsonwebtoken:jjwt:${jjwtVersion}"
+	
+	//Cache
 	compile "com.github.ben-manes.caffeine:caffeine:${caffeineVersion}"
 
 	//FasterXml for Java 8 time representation in JSON object
 	compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${fasterXmlVersion}"
 
-	//Jasypt 
+	//Jasypt - for decrypt and encryption
 	compile "org.jasypt:jasypt:${jasyptVersion}"
 	compile "org.jasypt:jasypt-spring31:${jasyptVersion}"
 
@@ -56,14 +64,15 @@ dependencies {
 	compile "org.apache.poi:poi:${poiVersion}"
 	compile "org.apache.poi:poi-ooxml:${poiVersion}"
 
-	//For mail sending
+	//Mail sending
 	compile "com.sun.mail:javax.mail:${javaxMailVersion}"
 	compile "org.springframework:spring-context-support:${springVersion}"
 	
+	//Spock Testing framework
     compile "org.codehaus.groovy:groovy-all:2.4.7"
 	testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
 
-	// optional dependencies for using Spock
+	//Optional dependencies for using Spock
 	testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
 	testRuntime "cglib:cglib-nodep:3.2.4"        // allows mocking of classes (in addition to interfaces)
 	testRuntime "org.objenesis:objenesis:2.4"    // allows mocking of classes without default constructor (together with CGLIB)

@@ -1,9 +1,7 @@
 package hu.unideb.worktime.core.export;
 
 import hu.unideb.worktime.api.model.absence.AbsenceResponse;
-import hu.unideb.worktime.api.model.administration.AdministrationAbsenceRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
-import hu.unideb.worktime.api.model.administration.AdministrationWorklogRequest;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.jdbc.absence.SqlCallAbsence;
@@ -120,17 +118,15 @@ public class ExportService implements IExportService {
     @Override
     public void exportAdminAbsences(Integer key, String dateFilter, Boolean notApprove, Integer excelType, HttpServletResponse response) {
 
-        AdministrationAbsenceRequest request = new AdministrationAbsenceRequest(dateFilter, notApprove);
-        this.logger.info("Exporting of absences with the following parameters - Request: {}, dateFilter: {}, excelType: {}", key, request, excelType);
+        this.logger.info("Exporting of absences with the following parameters - Request: {}, dateFilter: {}, "
+                + "notApprove: {}, excelType: {}", key, dateFilter, notApprove, excelType);
 
         response.setContentType(((excelType == 1) ? XLS_CONTENT_TYPE : XLSX_CONTENT_TYPE));
         response.setHeader("Content-Disposition", "attachment; filename=" + ((excelType == 1) ? FILE_NAME_ABSENCE_XLS : FILE_NAME_ABSENCE_XLSX));
 
-        List<AdministrationAbsenceResponse> absences = this.sqlCallAdministration.getEmloyeeAbsence(key, request);
-
+        List<AdministrationAbsenceResponse> absences = this.sqlCallAdministration.getEmloyeeAbsence(key, dateFilter, notApprove);
         Workbook wb = (excelType == 1) ? new HSSFWorkbook() : new XSSFWorkbook();
         Sheet sheet = wb.createSheet(SHEET_NAME_ABSENCE);
-
         CellStyle dataCellStyle = this.getDataCellStyle(wb);
         CellStyle dateCellStyle = this.getDateCellStyle(wb);
         CellStyle dateTimeCellStyle = this.getDateTimeCellStyle(wb);
@@ -160,17 +156,14 @@ public class ExportService implements IExportService {
     @Override
     public void exportAdminWorklogs(Integer key, String dateFilter, Boolean showDailyWorkhours, Integer excelType, HttpServletResponse response) {
         
-        AdministrationWorklogRequest request = new AdministrationWorklogRequest(dateFilter, showDailyWorkhours);
-        this.logger.info("Exporting of worklogs with the following parameters - Key: {}, request: {}, excelType: {}", key, request, excelType);
-
+        this.logger.info("Exporting of worklogs with the following parameters - Key: {}, dateFilter: {}, "
+                + "showDailyWorkhours: {}, excelType: {}", key, dateFilter, showDailyWorkhours, excelType);
         response.setContentType(((excelType == 1) ? XLS_CONTENT_TYPE : XLSX_CONTENT_TYPE));
         response.setHeader("Content-Disposition", "attachment; filename=" + ((excelType == 1) ? FILE_NAME_WORKLOG_XLS : FILE_NAME_WORKLOG_XLSX));
 
-        List<AdministrationWorklogResponse> worklogs = this.sqlCallAdministration.getEmloyeeWorklog(key, request);
-
+        List<AdministrationWorklogResponse> worklogs = this.sqlCallAdministration.getEmloyeeWorklog(key, dateFilter, showDailyWorkhours);
         Workbook wb = (excelType == 1) ? new HSSFWorkbook() : new XSSFWorkbook();
         Sheet sheet = wb.createSheet(SHEET_NAME_WORKLOG);
-
         CellStyle dataCellStyle = this.getDataCellStyle(wb);
         CellStyle dateCellStyle = this.getDateCellStyle(wb);
         CellStyle dateTimeCellStyle = this.getDateTimeCellStyle(wb);

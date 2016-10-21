@@ -68,6 +68,7 @@
 					StatusLogService.showStatusLog(result, 'Change Empolyee Data');
 				},
 				function(error) {
+					StatusLogService.showStatusLog(-1, 'Change Empolyee Data');
 				}
 			);
 		}

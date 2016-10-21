@@ -93,6 +93,7 @@
 							}
 						},
 						function(error) {
+							StatusLogService.showStatusLog(-1, 'Filter Absence');
 						}
 					);
 			}
@@ -118,6 +119,7 @@
 						}
 					},
 					function(error) {
+						StatusLogService.showStatusLog(-1, 'Accept Empolyee Absence');
 					}
 				);
 			}, function() { // No
@@ -134,8 +136,10 @@
 					function(result) {
 						var blob = new Blob([result], {type: excelTypeStr});
 						saveAs(blob, excelFileName);
+						StatusLogService.showStatusLog(1, 'Export Absence');
 					},
 					function(error) {
+						StatusLogService.showStatusLog(-1, 'Export Absence');
 					}
 				);
 			}

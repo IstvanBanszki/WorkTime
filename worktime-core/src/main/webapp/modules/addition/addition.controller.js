@@ -165,7 +165,7 @@
 				vm.departments[vm.indexOfSelectedDepartment].name = answer.name;
 				vm.departments[vm.indexOfSelectedDepartment].dateOfFoundtation = answer.dateOfFoundtation;
 				vm.departmentDateOfFoundtation = answer.dateOfFoundtationStr;
-				StatusLogService.showStatusLog(result, 'Edit Department!');
+				StatusLogService.showStatusLog(result, 'Edit Department');
 			}, function() {
 			});
 		}

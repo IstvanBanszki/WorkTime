@@ -10,7 +10,8 @@
 	function Service($http, $cookies, $rootScope, $q) {
 
 		return {
-			login		   : login,
+			getLogin	   : getLogin,
+			getToken	   : getToken,
 			setUserData    : setUserData,
 			removeUserData : removeUserData
 		};
@@ -18,7 +19,7 @@
 		// *********************** //
 		// Function implementation //
 		// *********************** //
-		function login(loginName, password) {
+		function getLogin(loginName, password) {
 			var deferred = $q.defer();
 			return $http({
 				method : "POST",
@@ -40,15 +41,35 @@
 					return deferred.promise;
 				});
 		}
-		function setUserData(parameter, loginName, password) {
-			var userDataCoded = btoa(loginName+':'+password+':'+parameter.workerId+':'+parameter.roleName);
+		function getToken(loginName, role) {
+			var deferred = $q.defer();
+			return $http({
+				method : "GET",
+				url : '/api/login/v1/tokens/loginNames/'+loginName+'/roles/'+role,
+				headers : {
+					'Content-Type': 'application/json;'
+				}
+			}).then(function successCallback(response) {
+
+					deferred.resolve(response.data);
+					return deferred.promise;
+					
+				}, function errorCallback(response) {
+
+					deferred.reject(response);
+					return deferred.promise;
+				});
+		}
+		function setUserData(parameter, token, loginName, password) {
+			var userDataCoded = 'Basic ' + token;
 			$rootScope.userData = {
 				loginName: loginName,
 				password : password,
 				workerId : parameter.workerId,
-				roleName : parameter.roleName
+				roleName : parameter.roleName,
+				secret   : userDataCoded
 			};
-			$http.defaults.headers.common['Authorization'] = userDataCoded;
+			$http.defaults.headers.common.Authorization = userDataCoded;
 			$cookies.putObject('data', $rootScope.userData);
 		}
 		function removeUserData() {

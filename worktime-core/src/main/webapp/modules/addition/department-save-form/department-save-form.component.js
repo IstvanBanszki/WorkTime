@@ -46,7 +46,7 @@
 			var newDate = moment(vm.departmentDateOfFoundtationForCreation).format('YYYY.MM.DD');
 			AdditionService.saveDepartment(vm.departmentNameForCreation, newDate, vm.selectedOfficeIdForCreation).then(
 				function(result) {
-					StatusLogService.showStatusLog(result.status, 'Create New Department!');
+					StatusLogService.showStatusLog(result.status, 'Create New Department');
 					if (result.status === 1) {
 						vm.departments.push({
 							id: result.newId,
@@ -57,6 +57,7 @@
 					}
 				},
 				function(error) {
+					StatusLogService.showStatusLog(-1, 'Create New Department!');
 				}
 			);
 		}
