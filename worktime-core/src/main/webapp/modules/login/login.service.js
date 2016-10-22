@@ -23,7 +23,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "POST",
-				url : "/api/login/v1/"+loginName,
+				url : "/api/login/v1/logins/loginNames/"+loginName,
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -41,11 +41,11 @@
 					return deferred.promise;
 				});
 		}
-		function getToken(loginName, role) {
+		function getToken(loginName) {
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : '/api/login/v1/tokens/loginNames/'+loginName+'/roles/'+role,
+				url : '/api/login/v1/tokens/loginNames/'+loginName,
 				headers : {
 					'Content-Type': 'application/json;'
 				}

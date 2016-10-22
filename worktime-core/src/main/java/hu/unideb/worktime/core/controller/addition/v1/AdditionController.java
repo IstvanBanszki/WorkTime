@@ -29,7 +29,7 @@ public class AdditionController {
     @Autowired private IAdditionnService additionnService;
 
     @Async
-    @RequestMapping(value = "/offices/{officeId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/offices/officeIds/{officeId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editOffice(@PathVariable("officeId") Integer officeId, @RequestBody Office request) {
         return this.sqlCallOfficeAddition.editOffice(officeId, request);
     }
@@ -47,7 +47,7 @@ public class AdditionController {
     }
 
     @Async
-    @RequestMapping(value = "/departments/{departmentId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/departments/departmentIds/{departmentId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editDepartment(@PathVariable("departmentId") Integer departmentId, @RequestBody Department request) {
         return this.sqlCallDepartmentAddition.editDepartment(departmentId, request);
     }

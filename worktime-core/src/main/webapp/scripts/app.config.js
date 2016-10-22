@@ -19,7 +19,7 @@
 
 	function routingConfig($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
-		$httpProvider.defaults.headers.common.Authorization = 'Basic';
+		$httpProvider.defaults.headers.common.Authorization = 'Basic ';
 
 		$locationProvider.html5Mode({
 			enabled: true,
@@ -82,18 +82,18 @@
 
 	function runner($rootScope, $cookies, $location, $http) {
         $rootScope.userData = $cookies.getObject('data');
-		if ($rootScope.userData){
+		if ($rootScope.userData) {
 			$http.defaults.headers.common.Authorization = $rootScope.userData.secret;
 		} else {
 			$http.defaults.headers.common.Authorization = 'Basic'
 		}
 		$rootScope.$on("$locationChangeStart", function(event, next, current) {
-			if ($location.path() !== '/login' && !$rootScope.userData){
+			if ($location.path() !== '/login' && !$rootScope.userData) {
                 $location.path('/login');
             }
         });
 		$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-			if (current.hasOwnProperty('$$route')){
+			if (current.hasOwnProperty('$$route')) {
 				$rootScope.title = current.$$route.title;
 			}
 		});

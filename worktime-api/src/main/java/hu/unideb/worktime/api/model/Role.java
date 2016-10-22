@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 public enum Role {
 
-    NOT_SET(1, "NOT_SET"),
-    WORKER_ROLE(2, "WORKER_ROLE"),
-    SUPEROR_ROLE(3, "SUPERIOR_ROLE"),
-    COMPANY_ADMIN_ROLE(4, "COMPANY_ADMIN_ROLE");
+    NOT_SET(1, "NOT-SET"),
+    WORKER_ROLE(2, "WORKER-ROLE"),
+    SUPEROR_ROLE(3, "SUPERIOR-ROLE"),
+    COMPANY_ADMIN_ROLE(4, "COMPANY-ADMIN_ROLE");
 
     private Role(int id, String name) {
         this.id = id;
@@ -26,7 +26,7 @@ public enum Role {
     }
     
     public static Role getValue(String name) {
-        return Arrays.stream(Role.values()).filter(role -> role.getName().equalsIgnoreCase(name)).findFirst().orElse(NOT_SET);
+        return Arrays.stream(Role.values()).filter(role -> role.getName().equals(name)).findFirst().orElse(NOT_SET);
     }
     
     public static Role valueOf(int id) {

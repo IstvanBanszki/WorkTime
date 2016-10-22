@@ -11,9 +11,6 @@ import hu.unideb.worktime.core.cache.ILoginCache;
 import hu.unideb.worktime.core.security.IEncryptionUtility;
 import hu.unideb.worktime.core.service.ILoginService;
 import hu.unideb.worktime.jdbc.login.ISqlCallLogin;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,23 +65,6 @@ public class LoginServiceImpl implements ILoginService {
             }
         }
         return result;
-    }
-
-    @Override
-    public Token generateToken(String loginName, Role role) {
-
-        this.logger.info("Calling get logins cache following parameters - loginName: {}", loginName);
-        LoginRecord record = this.loginCache.getByName(loginName);
-        this.logger.info("Result of get logins cache calling: {}", record);
-        
-        Token token = null;
-        if(record != null) {
-            token = new Token(Jwts.builder().setSubject(loginName)
-                .claim("roles", role).setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, "secretkey").compact());
-        }
-        this.logger.info("Newly created token - {}", token);
-        return token;
     }
 
 }

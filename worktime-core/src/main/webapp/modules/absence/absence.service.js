@@ -22,7 +22,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : "/api/absence/v1/workers/"+workerId+"/absence",
+				url : "/api/absence/v1/absences/workerIds/"+workerId,
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -46,7 +46,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/absence/v1/workers/"+workerId+"/dates/"+dateFilter+"/absence",
+				url : "/api/absence/v1/absences/workerIds/"+workerId+"/dateFilters/"+dateFilter,
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -65,7 +65,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/absence/v1/workers/"+workerId+"/absenceData",
+				url : "/api/absence/v1/absenceData/workerIds/"+workerId,
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -84,7 +84,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "DELETE",
-				url : "/api/absence/v1/absences/"+absenceId,
+				url : "/api/absence/v1/absences/workerIds/"+absenceId,
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -103,7 +103,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : "/api/absence/v1/absences/"+absenceId+"/edit",
+				url : "/api/absence/v1/absences/edit/workerIds/"+absenceId,
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -127,7 +127,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/absence/v1/workers/"+workerId+'/dates/'+dateFilter+'/types/'+excelType+'/export',
+				url : "/api/absence/v1/absences/export/workerIds/"+workerId+'/dateFilters/'+dateFilter+'/types/'+excelType,
 				headers : {
 					'Content-Type': 'application/json'
 				},

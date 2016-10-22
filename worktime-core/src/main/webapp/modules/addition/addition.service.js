@@ -63,7 +63,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : '/api/addition/v1/offices/' + officeId,
+				url : '/api/addition/v1/offices/officeIds/' + officeId,
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -87,7 +87,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : '/api/addition/v1/departments/' + departmentId,
+				url : '/api/addition/v1/departments/departmentIds/' + departmentId,
 				headers : {
 					'Content-Type': 'application/json'
 				},

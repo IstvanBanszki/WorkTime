@@ -33,31 +33,31 @@ public class WorklogController {
     }
     */
     @Async
-    @RequestMapping(value = "/workers/{workerId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/worklogs/workerIds/{workerId}", method = RequestMethod.PUT)
     public @ResponseBody SaveResult saveWorklog(@PathVariable("workerId") Integer workerId, @RequestBody WorklogRequest request) {
         return this.sqlCallSaveWorklog.saveWorklog(workerId, request);
     }
 
     @Async
-    @RequestMapping(value = "/workers/{workerId}/dates/{dateFilter}", method = RequestMethod.GET)
+    @RequestMapping(value = "/worklogs/workerIds/{workerId}/dateFilters/{dateFilter}", method = RequestMethod.GET)
     public @ResponseBody List<WorklogResponse> getWorklog(@PathVariable("workerId") Integer workerId, @PathVariable("dateFilter") String request) {
         return this.sqlCallSaveWorklog.getWorklog(workerId, request);
     }
 
     @Async
-    @RequestMapping(value = "/workers/{worklogId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/worklogs/workerIds/{worklogId}", method = RequestMethod.DELETE)
     public @ResponseBody Integer deleteWorklog(@PathVariable("worklogId") Integer id) {
         return this.sqlCallSaveWorklog.deleteWorklog(id);
     }
 
     @Async
-    @RequestMapping(value = "/workers/{worklogId}/edit", method = RequestMethod.PUT)
+    @RequestMapping(value = "/worklogs/edit/workerIds/{worklogId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editWorklog(@PathVariable("worklogId") Integer id, @RequestBody WorklogRequest request) {
         return this.sqlCallSaveWorklog.editWorklog(id, request);
     }
 
     @Async
-    @RequestMapping(value = "/workers/{workerId}/dates/{dateFilter}/types/{type}/export", method = RequestMethod.GET)
+    @RequestMapping(value = "/worklogs/export/workerIds/{workerId}/dateFilters/{dateFilter}/types/{type}", method = RequestMethod.GET)
     public void exportWorklogs(@PathVariable("workerId") Integer workerId, @PathVariable("dateFilter") String request, 
             @PathVariable("type") Integer excelType, HttpServletResponse response) {
         this.exportService.exportWorklogs(workerId, request, excelType, response);

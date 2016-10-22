@@ -6,7 +6,7 @@
 		.controller('LoginController', Controller);
 
 	Controller.$inject = ['$location', 'LoginService']
-	
+
     function Controller($location, LoginService) {
 
 		var vm = this;
@@ -25,10 +25,10 @@
 			LoginService.getLogin(vm.loginName, vm.password).then(
 				function(loginResult) {
 					if(loginResult !== "") {
-						LoginService.getToken(vm.loginName, loginResult.roleName).then(
+						LoginService.getToken(vm.loginName).then(
 							function(result) {
 								if(result !== "") {
-									LoginService.setUserData(loginResult, result, vm.loginName, vm.password);
+									LoginService.setUserData(loginResult, result.token, vm.loginName, vm.password);
 									$location.path('/home');
 								} else {
 									vm.error = true;

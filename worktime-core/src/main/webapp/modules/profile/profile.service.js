@@ -23,7 +23,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/profile/v1/workers/"+workerId,
+				url : "/api/profile/v1/profiles/workerIds/"+workerId,
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -43,7 +43,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : "/api/login/v1/"+loginName,
+				url : "/api/logins/v1/login/loginNames/"+loginName,
 				headers : {
 					'Content-Type': 'application/json'
 				},

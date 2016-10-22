@@ -24,7 +24,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : "/api/worklog/v1/workers/"+workerId,
+				url : "/api/worklog/v1/worklogs/workerIds/"+workerId,
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -47,7 +47,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/worklog/v1/workers/"+workerId+'/dates/'+dateFilter,
+				url : "/api/worklog/v1/worklogs/workerIds/"+workerId+'/dateFilters/'+dateFilter,
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -66,7 +66,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "DELETE",
-				url : "/api/worklog/v1/worklog/"+worklogId,
+				url : "/api/worklog/v1/worklogs/workerIds/"+worklogId,
 				headers : {
 					'Content-Type': 'application/json'
 				}
@@ -85,7 +85,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
-				url : "/api/worklog/v1/workers/"+worklogId+"/edit",
+				url : "/api/worklog/v1/worklogs/edit/workerIds/"+worklogId,
 				headers : {
 					'Content-Type': 'application/json'
 				},
@@ -108,7 +108,7 @@
 			var deferred = $q.defer();
 			return $http({
 				method : "GET",
-				url : "/api/worklog/v1/workers/"+workerId+'/dates/'+dateFilter+'/types/'+excelType+'/export',
+				url : "/api/worklog/v1/worklogs/export/workerIds/"+workerId+'/dateFilters/'+dateFilter+'/types/'+excelType,
 				headers : {
 					'Content-Type': 'application/json'
 				},

@@ -18,7 +18,7 @@ public class ProfileController {
     private ISqlCallProfile sqlCallProfile;
 
     @Async
-    @RequestMapping(value = "/workers/{workerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/profiles/workerIds/{workerId}", method = RequestMethod.GET)
     public @ResponseBody ProfileRecord getProfile(@PathVariable("workerId") Integer workerId) {
         return this.sqlCallProfile.getProfileData(workerId);
     }

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import hu.unideb.worktime.core.filter.JwtFilter;
+import hu.unideb.worktime.core.filter.TokenFilter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -78,7 +78,7 @@ public class SpringBootMainApplication {
     @Bean
     public FilterRegistrationBean shallowEtagHeaderFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new JwtFilter());
+        registration.setFilter(new TokenFilter());
         registration.addUrlPatterns("/api/*");
         return registration;
     }

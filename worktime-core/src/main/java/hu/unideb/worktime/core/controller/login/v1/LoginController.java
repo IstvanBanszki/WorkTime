@@ -6,7 +6,7 @@ import hu.unideb.worktime.api.model.login.LoginResponse;
 import hu.unideb.worktime.api.model.login.Password;
 import hu.unideb.worktime.api.model.login.UpdatePasswordRequest;
 import hu.unideb.worktime.core.service.ILoginService;
-
+import hu.unideb.worktime.core.service.ITokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     @Autowired private ILoginService losingService;
+    @Autowired private ITokenService tokenService;
 
     /*
     --------------------
@@ -31,21 +32,21 @@ public class LoginController {
     }
      */
     @Async
-    @RequestMapping(value = "/{loginName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/logins/loginNames/{loginName}", method = RequestMethod.POST)
     public @ResponseBody LoginResponse getLogin(@PathVariable("loginName") String loginName, @RequestBody Password password) {
         return this.losingService.getLogin(loginName, password);
     }
     
     @Async
-    @RequestMapping(value = "/{loginName}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/logins/loginNames/{loginName}", method = RequestMethod.PUT)
     public @ResponseBody Integer updateLogin(@PathVariable("loginName") String loginName, @RequestBody UpdatePasswordRequest updatePasswordRequest) {
         return this.losingService.updateLogin(loginName, updatePasswordRequest);
     }
 
     @Async
-    @RequestMapping(value = "/tokens/loginNames/{loginName}/roles/{role}", method = RequestMethod.GET)
-    public @ResponseBody Token getToken(@PathVariable("loginName") String loginName, @PathVariable("role") String role) {
-        return this.losingService.generateToken(loginName, Role.getValue(role));
+    @RequestMapping(value = "/tokens/loginNames/{loginName}", method = RequestMethod.GET)
+    public @ResponseBody Token getToken(@PathVariable("loginName") String loginName) {
+        return this.tokenService.generateToken(loginName);
     }
 
 }
