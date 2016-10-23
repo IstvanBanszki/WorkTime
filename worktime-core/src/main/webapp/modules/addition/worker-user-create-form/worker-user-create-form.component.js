@@ -21,9 +21,9 @@
 		}
 	}
 
-	Controller.$inject = ['$rootScope', 'AdditionService', 'StatusLogService']
+	Controller.$inject = ['$rootScope', 'AdditionService', 'StatusLogService', 'ResponseWatcherService']
 
-    function Controller($rootScope, AdditionService, StatusLogService) {
+    function Controller($rootScope, AdditionService, StatusLogService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -58,6 +58,7 @@
 					vm.superiors = result;
 				},
 				function(error) {
+					ResponseWatcherService.checkHttpStatus(error.status);
 				}
 			);
 		}
@@ -76,12 +77,14 @@
 						},
 						function(error) {
 							StatusLogService.showStatusLog(-1, 'Create Worker');
+							ResponseWatcherService.checkHttpStatus(error.status);
 						}
 					);
 					clearFields();
 				},
 				function(error) {
 					StatusLogService.showStatusLog(-1, 'Create User');
+					ResponseWatcherService.checkHttpStatus(error.status);
 					clearFields();
 				}
 			);

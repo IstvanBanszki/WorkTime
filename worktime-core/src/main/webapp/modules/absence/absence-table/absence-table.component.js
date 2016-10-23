@@ -18,9 +18,9 @@
 		}
 	}
 
-	Controller.$inject = ['$rootScope', '$mdDialog', 'AbsenceService', 'StatusLogService'];
+	Controller.$inject = ['$rootScope', '$mdDialog', 'AbsenceService', 'StatusLogService', 'ResponseWatcherService'];
 
-	function Controller($rootScope, $mdDialog, AbsenceService, StatusLogService) {
+	function Controller($rootScope, $mdDialog, AbsenceService, StatusLogService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -78,6 +78,7 @@
 				},
 				function(error) {
 					StatusLogService.showStatusLog(-1, 'Filter Absence');
+					ResponseWatcherService.checkHttpStatus(error.status);
 				}
 			);
 		}
@@ -102,6 +103,7 @@
 					},
 					function(error) {
 						StatusLogService.showStatusLog(-1, 'Delete Absence');
+						ResponseWatcherService.checkHttpStatus(error.status);
 					}
 				)
 			}, function() { // No
@@ -144,6 +146,7 @@
 				},
 				function(error) {
 					StatusLogService.showStatusLog(-1, 'Export Absence');
+					ResponseWatcherService.checkHttpStatus(error.status);
 				}
 			);
 		}

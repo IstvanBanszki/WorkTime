@@ -18,9 +18,9 @@
 		}
 	}
 
-	Controller.$inject = ['$rootScope', '$mdDialog', 'WorklogService', 'StatusLogService'];
+	Controller.$inject = ['$rootScope', '$mdDialog', 'WorklogService', 'StatusLogService', 'ResponseWatcherService'];
 
-	function Controller($rootScope, $mdDialog, WorklogService, StatusLogService) {
+	function Controller($rootScope, $mdDialog, WorklogService, StatusLogService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -83,6 +83,7 @@
 				},
 				function(error) {
 					StatusLogService.showStatusLog(-1, 'Filter Worklog');
+					ResponseWatcherService.checkHttpStatus(error.status);
 				}
 			)
 		}
@@ -107,6 +108,7 @@
 					},
 					function(error) {
 						StatusLogService.showStatusLog(-1, 'Delete Worklog');
+						ResponseWatcherService.checkHttpStatus(error.status);
 					}
 				)
 			}, function() { // No
@@ -147,6 +149,7 @@
 				},
 				function(error) {
 					StatusLogService.showStatusLog(-1, 'Export Worklog');
+					ResponseWatcherService.checkHttpStatus(error.status);
 				}
 			);
 		}

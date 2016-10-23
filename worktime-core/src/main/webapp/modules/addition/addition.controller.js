@@ -5,9 +5,9 @@
 		.module('Addition')
 		.controller('AdditionController', AdditionController);
 
-	AdditionController.$inject = ['$rootScope', '$mdDialog', 'AdditionService', 'StatusLogService']
+	AdditionController.$inject = ['$rootScope', '$mdDialog', 'AdditionService', 'StatusLogService', 'ResponseWatcherService']
 
-    function AdditionController($rootScope, $mdDialog, AdditionService, StatusLogService) {
+    function AdditionController($rootScope, $mdDialog, AdditionService, StatusLogService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -60,6 +60,7 @@
 					vm.departments = result;
 				},
 				function(error) {
+					ResponseWatcherService.checkHttpStatus(error.status);
 				}
 			);
 			AdditionService.getOffices().then(
@@ -67,6 +68,7 @@
 					vm.offices = result;
 				},
 				function(error) {
+					ResponseWatcherService.checkHttpStatus(error.status);
 				}
 			);
 		}

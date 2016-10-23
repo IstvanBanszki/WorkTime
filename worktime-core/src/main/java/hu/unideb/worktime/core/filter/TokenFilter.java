@@ -2,6 +2,8 @@ package hu.unideb.worktime.core.filter;
 
 import hu.unideb.worktime.core.service.ITokenService;
 import hu.unideb.worktime.core.service.impl.TokenServiceImpl;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -10,21 +12,19 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 public class TokenFilter implements Filter {
 
     private ITokenService tokenService;
 
+    private static final String AUTH_HEADER_BEGIN = "Basic ";
+    private static final String TOKEN_SECRETKEY_HEADER = "secretkey";
     //Responses
-    private static final String AUTH_ERROR_MSG = "Please make sure your request has an Authorization header";
+    private static final String AUTH_ERROR_MSG = "No Authorization header";
     private static final String EXPIRE_ERROR_MSG = "Token has expired";
-    private static final String ERROR_TOKEN_MSG = "Unable to parse Token";
     private static final String INVALID_TOKEN_MSG = "Invalid Token";
-
-    private boolean checkLoginRequestUri(String uri) {
-        return (uri != null) ? uri.contains("/api/login/v1/") : false;
-    }
 
     @Override
     public void init(FilterConfig fc) throws ServletException {
@@ -37,17 +37,46 @@ public class TokenFilter implements Filter {
     public void doFilter(ServletRequest sr, ServletResponse sr1, FilterChain fc) throws IOException, ServletException {
 
         HttpServletRequest request = (HttpServletRequest) sr;
+        HttpServletResponse response = (HttpServletResponse) sr1;
         final String authHeader = request.getHeader("Authorization");
         final String uri = request.getRequestURI();
-        
-        //Continue the flow if the there is a valid auth header or the requested url is a login
-        if (this.tokenService.checkTokenValidity(authHeader) || checkLoginRequestUri(uri)) {
+
+        if (checkLoginRequestUri(uri)) {
             fc.doFilter(request, sr1);
+        } else if (checkAuthHeader(authHeader)) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, AUTH_ERROR_MSG);
+        } else {
+            try {
+                final Claims token = Jwts.parser().setSigningKey(TOKEN_SECRETKEY_HEADER)
+                        .parseClaimsJws(authHeader.substring(6)).getBody();
+
+                System.out.println(token);
+                System.out.println(this.tokenService.checkTokenValidity(token));
+                System.out.println(this.tokenService.checkTokenExpiration(token));
+ 
+                if (!this.tokenService.checkTokenValidity(token)) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, INVALID_TOKEN_MSG);
+                } else  if (this.tokenService.checkTokenExpiration(token)) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, EXPIRE_ERROR_MSG);
+                } else {
+                    fc.doFilter(request, sr1);
+                }
+            } catch(Exception e) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, INVALID_TOKEN_MSG);
+            }
         }
     }
 
     @Override
     public void destroy() {
+    }
+
+    private boolean checkLoginRequestUri(String uri) {
+        return (uri != null) ? uri.contains("/api/login/v1/") : false;
+    }
+
+    boolean checkAuthHeader(String authHeader){
+        return authHeader == null || authHeader.isEmpty() || !authHeader.startsWith(AUTH_HEADER_BEGIN);
     }
 
 }

@@ -5,9 +5,9 @@
 		.module('Profile')
 		.controller('ProfileController', Controller);
 
-	Controller.$inject = ['$rootScope', 'ProfileService', 'StatusLogService'];
-		
-	function Controller($rootScope, ProfileService, StatusLogService) {
+	Controller.$inject = ['$rootScope', 'ProfileService', 'StatusLogService', 'ResponseWatcherService'];
+
+	function Controller($rootScope, ProfileService, StatusLogService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -54,8 +54,10 @@
 				},
 				function(error) {
 					vm.error = true;
-					ProfileService.removeProfileData();
 					vm.errorMessage = error.status;
+					StatusLogService.showStatusLog(-1, 'Get Profile Data');
+					ResponseWatcherService.checkHttpStatus(error.status);
+					ProfileService.removeProfileData();
 				}
 			)
 		}

@@ -5,9 +5,9 @@
 		.module('Worklog')
 		.controller('WorklogEditController', Controller);
 
-	Controller.$inject = ['$rootScope', '$mdDialog', 'WorklogService'];
+	Controller.$inject = ['$rootScope', '$mdDialog', 'WorklogService', 'ResponseWatcherService'];
 
-	function Controller($rootScope, $mdDialog, WorklogService) {
+	function Controller($rootScope, $mdDialog, WorklogServicem ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -45,6 +45,7 @@
 					}
 				},
 				function(error) {
+					ResponseWatcherService.checkHttpStatus(error.status);
 					$scope.cancel();
 				}
 			)

@@ -5,9 +5,9 @@
 		.module('Administration')
 		.controller('AdministrationController', Controller);
 
-	Controller.$inject = ['$rootScope', 'AdministrationService'];
+	Controller.$inject = ['$rootScope', 'AdministrationService', 'ResponseWatcherService'];
 
-    function Controller($rootScope, AdministrationService) {
+    function Controller($rootScope, AdministrationService, ResponseWatcherService) {
 
 		var vm = this;
 		vm.employees = [];
@@ -34,6 +34,7 @@
 						}
 					},
 					function(error) {
+						ResponseWatcherService.checkHttpStatus(error.status);
 					}
 				);
 		}

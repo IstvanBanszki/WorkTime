@@ -5,9 +5,9 @@
 		.module('Administration')
 		.controller('UpdateNoteController', Controller);
 
-	Controller.$inject = ['$rootScope', '$mdDialog', 'AdministrationService'];
+	Controller.$inject = ['$rootScope', '$mdDialog', 'AdministrationService', 'ResponseWatcherService'];
 
-    function Controller($rootScope, $mdDialog, AdministrationService) {
+    function Controller($rootScope, $mdDialog, AdministrationService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -44,6 +44,7 @@
 						}
 					},
 					function(error) {
+						ResponseWatcherService.checkHttpStatus(error.status);
 						cancel();
 					}
 				)
@@ -60,6 +61,7 @@
 						}
 					},
 					function(error) {
+						ResponseWatcherService.checkHttpStatus(error.status);
 						cancel();
 					}
 				)

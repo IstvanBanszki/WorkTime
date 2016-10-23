@@ -22,9 +22,9 @@
 		}
 	}
 
-	Controller.$inject = ['$rootScope', '$attrs', 'AdditionService', 'StatusLogService'];
+	Controller.$inject = ['$rootScope', '$attrs', 'AdditionService', 'StatusLogService', 'ResponseWatcherService', 'ResponseWatcherService'];
 
-    function Controller($rootScope, $attrs, AdditionService, StatusLogService) {
+    function Controller($rootScope, $attrs, AdditionService, StatusLogService, ResponseWatcherService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -58,6 +58,7 @@
 				},
 				function(error) {
 					StatusLogService.showStatusLog(-1, 'Create New Department!');
+					ResponseWatcherService.checkHttpStatus(error.status);
 				}
 			);
 		}

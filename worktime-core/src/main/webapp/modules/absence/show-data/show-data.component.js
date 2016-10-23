@@ -18,9 +18,9 @@
 		}
 	}
 
-	Controller.$inject = ['$rootScope', 'AbsenceService'];
+	Controller.$inject = ['$rootScope', 'AbsenceService', 'ResponseWatcherService'];
 
-	function Controller($rootScope, AbsenceService) {
+	function Controller($rootScope, AbsenceService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -44,6 +44,7 @@
 					vm.absenceDatas = result;
 				},
 				function(error) {
+					ResponseWatcherService.checkHttpStatus(error.status);
 				}
 			);
 		}

@@ -18,9 +18,9 @@
 		}
 	}
 
-	Controller.$inject = ['$rootScope', 'WorklogService', 'StatusLogService'];
+	Controller.$inject = ['$rootScope', 'WorklogService', 'StatusLogService', 'ResponseWatcherService'];
 
-	function Controller($rootScope, WorklogService, StatusLogService) {
+	function Controller($rootScope, WorklogService, StatusLogService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -47,6 +47,7 @@
 				},
 				function(error) {
 					StatusLogService.showStatusLog(-1, 'Create New Worklog');
+					ResponseWatcherService.checkHttpStatus(error.status);
 				}
 			)
 		}

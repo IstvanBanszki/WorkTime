@@ -21,9 +21,9 @@
 		}
 	}
 
-	Controller.$inject = ['$rootScope', 'AdministrationService', 'StatusLogService'];
+	Controller.$inject = ['$rootScope', 'AdministrationService', 'StatusLogService', 'ResponseWatcherService'];
 
-    function Controller($rootScope, AdministrationService, StatusLogService) {
+    function Controller($rootScope, AdministrationService, StatusLogService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -57,6 +57,7 @@
 						vm.newDailyWorkHourTotal = result.dailyWorkHourTotal;
 					},
 					function(error) {
+						ResponseWatcherService.checkHttpStatus(error.status);
 					}
 				);
 			}
@@ -69,6 +70,7 @@
 				},
 				function(error) {
 					StatusLogService.showStatusLog(-1, 'Change Empolyee Data');
+					ResponseWatcherService.checkHttpStatus(error.status);
 				}
 			);
 		}

@@ -18,9 +18,9 @@
 		}
 	}
 
-	Controller.$inject = ['$rootScope', 'AbsenceService', 'StatusLogService'];
+	Controller.$inject = ['$rootScope', 'AbsenceService', 'StatusLogService', 'ResponseWatcherService'];
 
-	function Controller($rootScope, AbsenceService, StatusLogService) {
+	function Controller($rootScope, AbsenceService, StatusLogService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -59,6 +59,7 @@
 				},
 				function(error) {
 					StatusLogService.showStatusLog(-1, 'Create New Absence');
+					ResponseWatcherService.checkHttpStatus(error.status);
 				}
 			);
 		}

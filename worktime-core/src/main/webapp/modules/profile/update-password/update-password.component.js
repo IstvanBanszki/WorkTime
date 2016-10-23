@@ -18,9 +18,9 @@
 		}
 	}
 
-	Controller.$inject = ['$rootScope', 'ProfileService', 'StatusLogService'];
+	Controller.$inject = ['$rootScope', 'ProfileService', 'StatusLogService', 'ResponseWatcherService'];
 
-	function Controller($rootScope, ProfileService, StatusLogService) {
+	function Controller($rootScope, ProfileService, StatusLogService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -51,6 +51,7 @@
 						},
 						function(error) {
 							vm.showErrorMessage = true;
+							ResponseWatcherService.checkHttpStatus(error.status);
 						}
 					)
 				}

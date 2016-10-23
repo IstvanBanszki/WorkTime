@@ -5,9 +5,9 @@
 		.module('Addition')
 		.controller('OfficeEditFormController', Controller);
 
-	Controller.$inject = ['$rootScope', '$mdDialog', 'AdditionService'];
+	Controller.$inject = ['$rootScope', '$mdDialog', 'AdditionService', 'ResponseWatcherService'];
 
-    function Controller($rootScope, $mdDialog, AdditionService) {
+    function Controller($rootScope, $mdDialog, AdditionService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -47,6 +47,7 @@
 					}
 				},
 				function(error) {
+					ResponseWatcherService.checkHttpStatus(error.status);
 					cancel();
 				}
 			);

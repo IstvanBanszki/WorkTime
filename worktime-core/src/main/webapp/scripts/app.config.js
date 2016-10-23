@@ -85,7 +85,7 @@
 		if ($rootScope.userData) {
 			$http.defaults.headers.common.Authorization = $rootScope.userData.secret;
 		} else {
-			$http.defaults.headers.common.Authorization = 'Basic'
+			$http.defaults.headers.common.Authorization = 'Basic ';
 		}
 		$rootScope.$on("$locationChangeStart", function(event, next, current) {
 			if ($location.path() !== '/login' && !$rootScope.userData) {

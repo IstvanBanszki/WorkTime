@@ -5,9 +5,9 @@
 		.module('Absence')
 		.controller('AbsenceEditController', Controller);
 
-	Controller.$inject = ['$rootScope', '$mdDialog', 'AbsenceService'];
+	Controller.$inject = ['$rootScope', '$mdDialog', 'AbsenceService', 'ResponseWatcherService'];
 
-    function Controller($rootScope, $mdDialog, AbsenceService) {
+    function Controller($rootScope, $mdDialog, AbsenceService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
@@ -51,6 +51,7 @@
 					}
 				},
 				function(error) {
+					ResponseWatcherService.checkHttpStatus(error.status);
 					cancel();
 				}
 			)

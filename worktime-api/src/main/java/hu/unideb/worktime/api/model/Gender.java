@@ -24,7 +24,7 @@ public enum Gender {
         if( g.isPresent() ){
             return g.get();
         } else {
-            throw new IllegalStateException("No valid Gender enum found for the id: " + id);
+            return Gender.NOT_SET;
         }
     }
 }
