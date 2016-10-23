@@ -10,6 +10,6 @@ public interface IAdditionnService {
 
     SaveResult createUser(UserExtended request);
     SaveResult createWorker(Worker request);
-    List<Employee> getSuperior();
+    List<Employee> getSuperiors();
 
 }

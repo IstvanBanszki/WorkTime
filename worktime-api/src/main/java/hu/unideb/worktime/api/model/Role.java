@@ -7,7 +7,7 @@ public enum Role {
     NOT_SET(1, "NOT-SET"),
     WORKER_ROLE(2, "WORKER-ROLE"),
     SUPEROR_ROLE(3, "SUPERIOR-ROLE"),
-    COMPANY_ADMIN_ROLE(4, "COMPANY-ADMIN_ROLE");
+    COMPANY_ADMIN_ROLE(4, "COMPANY-ADMIN-ROLE");
 
     private Role(int id, String name) {
         this.id = id;

@@ -38,7 +38,7 @@ public class AdditionnServiceImpl implements IAdditionnService {
     }
 
     @Override
-    public List<Employee> getSuperior() {
+    public List<Employee> getSuperiors() {
         return this.sqlCallAddition.getSuperiors();
     }
 

@@ -87,7 +87,7 @@ public class AdditionController {
     @Async
     @RequestMapping(value = "/superiors", method = RequestMethod.GET)
     public @ResponseBody List<Employee> getSuperior() {
-        return this.additionnService.getSuperior();
+        return this.additionnService.getSuperiors();
     }
 
 }

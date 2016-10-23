@@ -69,7 +69,7 @@ public class SpringBootMainApplication {
         JavaMailSenderImpl sender = new JavaMailSenderImpl();
         sender.setHost("smtp.gmail.com");
         sender.setPort(587);
-        sender.setUsername("banszki.anarchy@gmail.com");
+        sender.setUsername("***");
         sender.setPassword("***");
         sender.setJavaMailProperties(javaMailProperties);
         return sender;

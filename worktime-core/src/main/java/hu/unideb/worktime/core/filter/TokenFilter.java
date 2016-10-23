@@ -20,7 +20,9 @@ public class TokenFilter implements Filter {
     private ITokenService tokenService;
 
     private static final String AUTH_HEADER_BEGIN = "Basic ";
-    private static final String TOKEN_SECRETKEY_HEADER = "secretkey";
+    private static final String TOKEN_SECRETKEY_HEADER = "WoRkTiMe";
+    
+    private static final String LOGIN_SERVICE_URI = "/api/login/v1";
     //Responses
     private static final String AUTH_ERROR_MSG = "No Authorization header";
     private static final String EXPIRE_ERROR_MSG = "Token has expired";
@@ -49,14 +51,12 @@ public class TokenFilter implements Filter {
             try {
                 final Claims token = Jwts.parser().setSigningKey(TOKEN_SECRETKEY_HEADER)
                         .parseClaimsJws(authHeader.substring(6)).getBody();
-
-                System.out.println(token);
-                System.out.println(this.tokenService.checkTokenValidity(token));
-                System.out.println(this.tokenService.checkTokenExpiration(token));
  
                 if (!this.tokenService.checkTokenValidity(token)) {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, INVALID_TOKEN_MSG);
-                } else  if (this.tokenService.checkTokenExpiration(token)) {
+                } else if (this.tokenService.checkTokenExpiration(token)) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, EXPIRE_ERROR_MSG);
+                } else if (!this.tokenService.checkTokenRole(token, uri)) {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, EXPIRE_ERROR_MSG);
                 } else {
                     fc.doFilter(request, sr1);
@@ -72,7 +72,7 @@ public class TokenFilter implements Filter {
     }
 
     private boolean checkLoginRequestUri(String uri) {
-        return (uri != null) ? uri.contains("/api/login/v1/") : false;
+        return (uri != null) ? uri.contains(LOGIN_SERVICE_URI) : false;
     }
 
     boolean checkAuthHeader(String authHeader){
