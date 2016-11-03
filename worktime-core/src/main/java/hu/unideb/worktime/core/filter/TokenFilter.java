@@ -21,8 +21,9 @@ public class TokenFilter implements Filter {
 
     private static final String AUTH_HEADER_BEGIN = "Basic ";
     private static final String TOKEN_SECRETKEY_HEADER = "WoRkTiMe";
-    
+
     private static final String LOGIN_SERVICE_URI = "/api/login/v1";
+    private static final String ENTRANCE_SERVICE_URI = "/api/entrance/v1";
     //Responses
     private static final String AUTH_ERROR_MSG = "No Authorization header";
     private static final String EXPIRE_ERROR_MSG = "Token has expired";
@@ -72,7 +73,7 @@ public class TokenFilter implements Filter {
     }
 
     private boolean checkLoginRequestUri(String uri) {
-        return (uri != null) ? uri.contains(LOGIN_SERVICE_URI) : false;
+        return uri != null ? uri.contains(LOGIN_SERVICE_URI) || uri.contains(ENTRANCE_SERVICE_URI) : false;
     }
 
     boolean checkAuthHeader(String authHeader){
