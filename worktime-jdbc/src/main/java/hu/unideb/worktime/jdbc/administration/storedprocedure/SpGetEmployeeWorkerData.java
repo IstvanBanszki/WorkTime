@@ -1,7 +1,7 @@
 package hu.unideb.worktime.jdbc.administration.storedprocedure;
 
 import hu.unideb.worktime.api.model.administration.WorkerData;
-import hu.unideb.worktime.jdbc.connection.WTConnection;
+import hu.unideb.worktime.jdbc.connection.WorkTimeConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -22,8 +22,8 @@ public class SpGetEmployeeWorkerData extends StoredProcedure implements ResultSe
     private static final String SP_RESULT = "result";
 
     @Autowired
-    public SpGetEmployeeWorkerData(WTConnection wtConnection) {
-        super(wtConnection.getDataSource(), SP_NAME);
+    public SpGetEmployeeWorkerData(WorkTimeConnection connection) {
+        super(connection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);

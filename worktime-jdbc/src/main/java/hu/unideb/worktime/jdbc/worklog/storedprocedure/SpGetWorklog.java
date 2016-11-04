@@ -1,7 +1,7 @@
 package hu.unideb.worktime.jdbc.worklog.storedprocedure;
 
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
-import hu.unideb.worktime.jdbc.connection.WTConnection;
+import hu.unideb.worktime.jdbc.connection.WorkTimeConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -22,8 +22,8 @@ public class SpGetWorklog extends StoredProcedure implements RowMapper<WorklogRe
     private static final String SP_RESULT = "result";
 
     @Autowired
-    public SpGetWorklog(WTConnection wtConnection) {
-        super(wtConnection.getDataSource(), SP_NAME);
+    public SpGetWorklog(WorkTimeConnection connection) {
+        super(connection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.VARCHAR));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));

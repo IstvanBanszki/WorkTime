@@ -1,7 +1,7 @@
 package hu.unideb.worktime.jdbc.addition.storedprocedure;
 
 import hu.unideb.worktime.api.model.Office;
-import hu.unideb.worktime.jdbc.connection.WTConnection;
+import hu.unideb.worktime.jdbc.connection.WorkTimeConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -18,8 +18,8 @@ public class SpGetAllOffices extends StoredProcedure implements RowMapper<Office
     private static final String SP_RESULT = "result";
 
     @Autowired
-    public SpGetAllOffices(WTConnection wtConnection) {
-        super(wtConnection.getDataSource(), SP_NAME);
+    public SpGetAllOffices(WorkTimeConnection connection) {
+        super(connection.getDataSource(), SP_NAME);
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();

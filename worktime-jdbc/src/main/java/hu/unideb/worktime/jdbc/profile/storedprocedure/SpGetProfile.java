@@ -3,7 +3,7 @@ package hu.unideb.worktime.jdbc.profile.storedprocedure;
 import hu.unideb.worktime.api.model.Gender;
 import hu.unideb.worktime.api.model.profile.ProfileRecord;
 import hu.unideb.worktime.api.model.profile.ProfileRecord.Builder;
-import hu.unideb.worktime.jdbc.connection.WTConnection;
+import hu.unideb.worktime.jdbc.connection.WorkTimeConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -23,8 +23,8 @@ public class SpGetProfile extends StoredProcedure implements ResultSetExtractor<
     private static final String SP_RESULT = "result";
     
     @Autowired
-    public SpGetProfile(WTConnection wtConnection) {
-        super(wtConnection.getDataSource(), SP_NAME);
+    public SpGetProfile(WorkTimeConnection connection) {
+        super(connection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);

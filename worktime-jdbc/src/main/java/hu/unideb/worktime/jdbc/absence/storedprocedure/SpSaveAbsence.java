@@ -3,7 +3,7 @@ package hu.unideb.worktime.jdbc.absence.storedprocedure;
 
 import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.absence.AbsenceRequest;
-import hu.unideb.worktime.jdbc.connection.WTConnection;
+import hu.unideb.worktime.jdbc.connection.WorkTimeConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -26,8 +26,8 @@ public class SpSaveAbsence extends StoredProcedure implements ResultSetExtractor
     private static final String SP_RESULT = "result";
     
     @Autowired
-    public SpSaveAbsence(WTConnection wtConnection) {
-        super(wtConnection.getDataSource(), SP_NAME);
+    public SpSaveAbsence(WorkTimeConnection connection) {
+        super(connection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.DATE));
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.DATE));
         declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));

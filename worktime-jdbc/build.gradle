@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     ext {
-		mySqlConnectorVersion = '6.0.4'
+		mySqlConnectorVersion = '6.0.5'
                 springVersion = '4.3.3.RELEASE'
     }
 }

@@ -1,7 +1,7 @@
 package hu.unideb.worktime.jdbc.addition.storedprocedure;
 
 import hu.unideb.worktime.api.model.administration.Employee;
-import hu.unideb.worktime.jdbc.connection.WTConnection;
+import hu.unideb.worktime.jdbc.connection.WorkTimeConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -18,8 +18,8 @@ public class SpGetAllSuperiorWorkers extends StoredProcedure implements RowMappe
     private static final String SP_RESULT = "result";
 
     @Autowired
-    public SpGetAllSuperiorWorkers(WTConnection wtConnection) {
-        super(wtConnection.getDataSource(), SP_NAME);
+    public SpGetAllSuperiorWorkers(WorkTimeConnection connection) {
+        super(connection.getDataSource(), SP_NAME);
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();

@@ -110,7 +110,7 @@ CREATE TABLE `worker_holiday_number` (
   PRIMARY KEY (`id`),
   KEY `FK_whn_worker_id_idx` (`worker_id`),
   CONSTRAINT `FK_whn_worker_id` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /* ***************************************************
 				worklog table creation
@@ -127,7 +127,7 @@ CREATE TABLE `worklog` (
   PRIMARY KEY (`id`),
   KEY `FK_wl_worker_idx` (`worker_id`),
   CONSTRAINT `FK_wl_worker_id` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /* ***************************************************
 				absence table creation
@@ -148,4 +148,18 @@ CREATE TABLE `absence` (
   KEY `FK_a_absence_type_id_idx` (`absence_type_id`),
   CONSTRAINT `FK_a_absence_type_id` FOREIGN KEY (`absence_type_id`) REFERENCES `absence_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_a_worker_id` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/* ***************************************************
+				entry table creation
+   *************************************************** */
+
+CREATE TABLE `entry` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `int_out` tinyint(4) NOT NULL,
+  `log_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `worker_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_e_worker_id_idx` (`worker_id`),
+  CONSTRAINT `FK_e_worker_id` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -2,7 +2,7 @@ package hu.unideb.worktime.jdbc.worklog.storedprocedure;
 
 import hu.unideb.worktime.api.model.SaveResult;
 import hu.unideb.worktime.api.model.worklog.WorklogRequest;
-import hu.unideb.worktime.jdbc.connection.WTConnection;
+import hu.unideb.worktime.jdbc.connection.WorkTimeConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -24,8 +24,8 @@ public class SpSaveWorklog extends StoredProcedure implements ResultSetExtractor
     private static final String SP_RESULT = "result";
 
     @Autowired
-    public SpSaveWorklog(WTConnection wtConnection) {
-        super(wtConnection.getDataSource(), SP_NAME);
+    public SpSaveWorklog(WorkTimeConnection connection) {
+        super(connection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.DATE));
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.INTEGER));
         declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));

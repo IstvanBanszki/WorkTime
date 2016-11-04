@@ -1,6 +1,7 @@
-package hu.unideb.worktime.jdbc.worklog.storedprocedure;
+package hu.unideb.worktime.jdbc.entrance.storedprocedure;
 
-import hu.unideb.worktime.api.model.worklog.WorklogRequest;
+import hu.unideb.worktime.api.model.SaveResult;
+import hu.unideb.worktime.api.model.entrance.EntryRecord;
 import hu.unideb.worktime.jdbc.connection.WorkTimeConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,37 +15,35 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpEditWorklog extends StoredProcedure implements ResultSetExtractor<Integer> {
+public class SpSaveEntry extends StoredProcedure implements ResultSetExtractor<SaveResult> {
     
-    private static final String SP_NAME = "edit_worklog";
-    private static final String SP_PARAMETER_1 = "worklog_id";
-    private static final String SP_PARAMETER_2 = "begin_date";
-    private static final String SP_PARAMETER_3 = "work_hour";
+    private static final String SP_NAME = "save_entry_log";
+    private static final String SP_PARAMETER_1 = "int_out";
+    private static final String SP_PARAMETER_2 = "log_timestamp";
+    private static final String SP_PARAMETER_3 = "worker_id";
     private static final String SP_RESULT = "result";
-
+    
     @Autowired
-    public SpEditWorklog(WorkTimeConnection connection) {
+    public SpSaveEntry(WorkTimeConnection connection) {
         super(connection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
-        declareParameter(new SqlParameter(SP_PARAMETER_2, Types.DATE));
+        declareParameter(new SqlParameter(SP_PARAMETER_2, Types.TIMESTAMP));
         declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();
     }
 
-    public Integer editWorklog(Integer id, WorklogRequest values) {
-        return (Integer) super.execute(id, values.getBeginDate(), 
-                values.getWorkHour()).get(SP_RESULT);
+    public SaveResult saveEntry(EntryRecord value) {
+        return (SaveResult) super.execute(value.getInOut(), value.getLogTimeStamp(), value.getWorkerId()).get(SP_RESULT);
     }
 
     @Override
-    public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+    public SaveResult extractData(ResultSet rs) throws SQLException, DataAccessException {
 
-        Integer result = null;
-
+        SaveResult result = null;
         if (rs.next()) {
-            result = rs.getInt("status");
+            result = new SaveResult(rs.getInt("new_id"), rs.getInt("status"));
         }
         return result;
     }

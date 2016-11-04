@@ -5,11 +5,11 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WTConnection {
+public class WorkTimeConnection {
 
     private DriverManagerDataSource dataSourceManager;
 
-    public WTConnection() {
+    public WorkTimeConnection() {
         this.dataSourceManager = new DriverManagerDataSource();
         this.dataSourceManager.setDriverClassName("com.mysql.jdbc.Driver");
         this.dataSourceManager.setUrl("jdbc:mysql://localhost:3306/worktime?"

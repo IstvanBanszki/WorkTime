@@ -4,7 +4,7 @@ import hu.unideb.worktime.api.model.AbsenceType;
 import hu.unideb.worktime.api.model.Status;
 import hu.unideb.worktime.api.model.absence.AbsenceResponse;
 import hu.unideb.worktime.api.model.absence.AbsenceResponse.Builder;
-import hu.unideb.worktime.jdbc.connection.WTConnection;
+import hu.unideb.worktime.jdbc.connection.WorkTimeConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -25,8 +25,8 @@ public class SpGetAbsence extends StoredProcedure implements RowMapper<AbsenceRe
     private static final String SP_RESULT = "result";
     
     @Autowired
-    public SpGetAbsence(WTConnection wtConnection) {
-        super(wtConnection.getDataSource(), SP_NAME);
+    public SpGetAbsence(WorkTimeConnection connection) {
+        super(connection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.VARCHAR));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));

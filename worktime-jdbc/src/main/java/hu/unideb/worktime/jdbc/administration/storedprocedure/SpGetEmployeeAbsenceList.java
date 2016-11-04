@@ -4,7 +4,7 @@ import hu.unideb.worktime.api.model.AbsenceType;
 import hu.unideb.worktime.api.model.Status;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse.Builder;
-import hu.unideb.worktime.jdbc.connection.WTConnection;
+import hu.unideb.worktime.jdbc.connection.WorkTimeConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -26,8 +26,8 @@ public class SpGetEmployeeAbsenceList extends StoredProcedure implements RowMapp
     private static final String SP_RESULT = "result";
 
     @Autowired
-    public SpGetEmployeeAbsenceList(WTConnection wtConnection) {
-        super(wtConnection.getDataSource(), SP_NAME);
+    public SpGetEmployeeAbsenceList(WorkTimeConnection connection) {
+        super(connection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.VARCHAR));
         declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));

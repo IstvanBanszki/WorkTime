@@ -1,6 +1,6 @@
 package hu.unideb.worktime.jdbc.absence.storedprocedure;
 
-import hu.unideb.worktime.jdbc.connection.WTConnection;
+import hu.unideb.worktime.jdbc.connection.WorkTimeConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -20,8 +20,8 @@ public class SpDeleteAbsence extends StoredProcedure implements ResultSetExtract
     private static final String SP_RESULT = "result";
     
     @Autowired
-    public SpDeleteAbsence(WTConnection wtConnection) {
-        super(wtConnection.getDataSource(), SP_NAME);
+    public SpDeleteAbsence(WorkTimeConnection connection) {
+        super(connection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);

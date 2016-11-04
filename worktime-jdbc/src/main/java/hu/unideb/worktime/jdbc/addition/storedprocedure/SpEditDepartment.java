@@ -1,7 +1,7 @@
 package hu.unideb.worktime.jdbc.addition.storedprocedure;
 
 import hu.unideb.worktime.api.model.Department;
-import hu.unideb.worktime.jdbc.connection.WTConnection;
+import hu.unideb.worktime.jdbc.connection.WorkTimeConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -24,8 +24,8 @@ public class SpEditDepartment extends StoredProcedure implements ResultSetExtrac
     private static final String SP_RESULT = "result";
 
     @Autowired
-    public SpEditDepartment(WTConnection wtConnection) {
-        super(wtConnection.getDataSource(), SP_NAME);
+    public SpEditDepartment(WorkTimeConnection connection) {
+        super(connection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.VARCHAR));
         declareParameter(new SqlParameter(SP_PARAMETER_2, Types.DATE));
         declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));
