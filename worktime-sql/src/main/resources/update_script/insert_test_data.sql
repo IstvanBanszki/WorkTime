@@ -69,10 +69,13 @@ INSERT INTO `worktime`.`worklog` (`begin_date`, `work_hour`, `worker_id`, `note`
 
 -- absence table test data
 INSERT INTO `worktime`.`absence` (`begin_date`, `end_date`, `status`, `absence_type_id`, `worker_id`, `note`) 
-VALUES ( '2016.05.20', '2016.05.20', 2, 2, 1, '');
+VALUES ('2016.05.20', '2016.05.20', 2, 2, 1, '');
 INSERT INTO `worktime`.`absence` (`begin_date`, `end_date`, `status`, `absence_type_id`, `worker_id`, `note`) 
-VALUES ( '2016.05.13', '2016.05.13', 3, 4, 1, '');
+VALUES ('2016.05.13', '2016.05.13', 3, 4, 1, '');
 INSERT INTO `worktime`.`absence` (`begin_date`, `end_date`, `status`, `absence_type_id`, `worker_id`, `note`) 
-VALUES ( '2016.05.10', '2016.05.10', 3, 4, 1, '');
+VALUES ('2016.05.10', '2016.05.10', 3, 4, 1, '');
 
-
+INSERT INTO `worktime`.`entry` (`in_out`, `log_timestamp`, `worker_id`) VALUES (1, '2016-11-04 08:00:00', 1);
+INSERT INTO `worktime`.`entry` (`in_out`, `log_timestamp`, `worker_id`) VALUES (0, '2016-11-04 16:00:00', 1);
+INSERT INTO `worktime`.`entry` (`in_out`, `log_timestamp`, `worker_id`) VALUES (1, '2016-11-05 08:00:00', 1);
+INSERT INTO `worktime`.`entry` (`in_out`, `log_timestamp`, `worker_id`) VALUES (0, '2016-11-05 16:00:00', 1);

@@ -16,3 +16,8 @@ spring:
     cache:
         caffeine:
             spec: expireAfterAccess=7200s
+#    datasource:
+#        driverClassName: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:3306/worktime?useUnicode=yes&characterEncoding=UTF-8&verifyServerCertificate=false&useSSL=false&requireSSL=false
+#        username: ****
+#        password: pwd

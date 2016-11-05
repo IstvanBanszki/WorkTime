@@ -1,7 +1,6 @@
 package hu.unideb.worktime.jdbc.entrance.storedprocedure;
 
 import hu.unideb.worktime.api.model.SaveResult;
-import hu.unideb.worktime.api.model.entrance.EntryRecord;
 import hu.unideb.worktime.jdbc.connection.WorkTimeConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,27 +14,23 @@ import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SpSaveEntry extends StoredProcedure implements ResultSetExtractor<SaveResult> {
+public class SpSaveWorklogByEntry extends StoredProcedure implements ResultSetExtractor<SaveResult> {
     
-    private static final String SP_NAME = "save_entry_log";
-    private static final String SP_PARAMETER_1 = "in_out";
-    private static final String SP_PARAMETER_2 = "log_timestamp";
-    private static final String SP_PARAMETER_3 = "worker_id";
+    private static final String SP_NAME = "save_worklog_by_entry";
+    private static final String SP_PARAMETER_1 = "worker_id";
     private static final String SP_RESULT = "result";
-    
+
     @Autowired
-    public SpSaveEntry(WorkTimeConnection connection) {
+    public SpSaveWorklogByEntry(WorkTimeConnection connection) {
         super(connection.getDataSource(), SP_NAME);
         declareParameter(new SqlParameter(SP_PARAMETER_1, Types.INTEGER));
-        declareParameter(new SqlParameter(SP_PARAMETER_2, Types.TIMESTAMP));
-        declareParameter(new SqlParameter(SP_PARAMETER_3, Types.INTEGER));
         declareParameter(new SqlReturnResultSet(SP_RESULT, this));
         setFunction(false);
         compile();
     }
-
-    public SaveResult saveEntry(EntryRecord value) {
-        return (SaveResult) super.execute(value.getInOut(), value.getLogTimeStamp(), value.getWorkerId()).get(SP_RESULT);
+    
+    public SaveResult saveEntryByWorker(Integer id) {
+        return (SaveResult) super.execute(id).get(SP_RESULT);
     }
 
     @Override
@@ -47,5 +42,5 @@ public class SpSaveEntry extends StoredProcedure implements ResultSetExtractor<S
         }
         return result;
     }
-
+    
 }
