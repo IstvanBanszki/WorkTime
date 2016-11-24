@@ -7,11 +7,11 @@ public class AbsenceDataResponse implements Serializable {
     private final int year;
     private final int holidayNumber;
     private final int absenceNumber;
-    private final int notSetAbsenceNumber;
-    private final int payedAbsenceNumber;
-    private final int unPayedAbsenceNumber;
-    private final int sickPayedAbsenceNumber;
-    private final int verifiedAbsenceNumber;
+    private final int notSetNumber;
+    private final int payedNumber;
+    private final int unPayedNumber;
+    private final int sickPayedNumber;
+    private final int verifiedNumber;
 
     public AbsenceDataResponse(int year, int holidayNumber, int absenceNumber, int notSetAbsenceNumber, 
                                int payedAbsenceNumber, int unPayedAbsenceNumber, int sickPayedAbsenceNumber, 
@@ -19,11 +19,11 @@ public class AbsenceDataResponse implements Serializable {
         this.year = year;
         this.holidayNumber = holidayNumber;
         this.absenceNumber = absenceNumber;
-        this.notSetAbsenceNumber = notSetAbsenceNumber;
-        this.payedAbsenceNumber = payedAbsenceNumber;
-        this.unPayedAbsenceNumber = unPayedAbsenceNumber;
-        this.sickPayedAbsenceNumber = sickPayedAbsenceNumber;
-        this.verifiedAbsenceNumber = verifiedAbsenceNumber;
+        this.notSetNumber = notSetAbsenceNumber;
+        this.payedNumber = payedAbsenceNumber;
+        this.unPayedNumber = unPayedAbsenceNumber;
+        this.sickPayedNumber = sickPayedAbsenceNumber;
+        this.verifiedNumber = verifiedAbsenceNumber;
     }
 
     public static class Builder {
@@ -31,11 +31,11 @@ public class AbsenceDataResponse implements Serializable {
         private int year;
         private int holidayNumber;
         private int absenceNumber;
-        private int notSetAbsenceNumber;
-        private int payedAbsenceNumber;
-        private int unPayedAbsenceNumber;
-        private int sickPayedAbsenceNumber;
-        private int verifiedAbsenceNumber;
+        private int notSetNumber;
+        private int payedNumber;
+        private int unPayedNumber;
+        private int sickPayedNumber;
+        private int verifiedNumber;
 
         public Builder setYear(int year) {
             this.year = year;
@@ -52,35 +52,35 @@ public class AbsenceDataResponse implements Serializable {
             return this;
         }
 
-        public Builder setNotSetAbsenceNumber(int notSetAbsenceNumber) {
-            this.notSetAbsenceNumber = notSetAbsenceNumber;
+        public Builder setNotSetNumber(int notSetNumber) {
+            this.notSetNumber = notSetNumber;
             return this;
         }
 
-        public Builder setPayedAbsenceNumber(int payedAbsenceNumber) {
-            this.payedAbsenceNumber = payedAbsenceNumber;
+        public Builder setPayedNumber(int payedNumber) {
+            this.payedNumber = payedNumber;
             return this;
         }
 
-        public Builder setUnPayedAbsenceNumber(int unPayedAbsenceNumber) {
-            this.unPayedAbsenceNumber = unPayedAbsenceNumber;
+        public Builder setUnPayedNumber(int unPayedNumber) {
+            this.unPayedNumber = unPayedNumber;
             return this;
         }
 
-        public Builder setSickPayedAbsenceNumber(int sickPayedAbsenceNumber) {
-            this.sickPayedAbsenceNumber = sickPayedAbsenceNumber;
+        public Builder setSickPayedNumber(int sickPayedNumber) {
+            this.sickPayedNumber = sickPayedNumber;
             return this;
         }
 
-        public Builder setVerifiedAbsenceNumber(int verifiedAbsenceNumber) {
-            this.verifiedAbsenceNumber = verifiedAbsenceNumber;
+        public Builder setVerifiedNumber(int verifiedNumber) {
+            this.verifiedNumber = verifiedNumber;
             return this;
         }
 
         public AbsenceDataResponse build() {
-            return new AbsenceDataResponse(this.year, this.holidayNumber, this.absenceNumber, this.notSetAbsenceNumber, 
-                                           this.payedAbsenceNumber, this.unPayedAbsenceNumber, this.sickPayedAbsenceNumber, 
-                                           this.verifiedAbsenceNumber);
+            return new AbsenceDataResponse(this.year, this.holidayNumber, this.absenceNumber, this.notSetNumber, 
+                                           this.payedNumber, this.unPayedNumber, this.sickPayedNumber, 
+                                           this.verifiedNumber);
         }
     }
 
@@ -96,24 +96,24 @@ public class AbsenceDataResponse implements Serializable {
         return this.absenceNumber;
     }
 
-    public int getNotSetAbsenceNumber() {
-        return this.notSetAbsenceNumber;
+    public int getNotSetNumber() {
+        return this.notSetNumber;
     }
 
-    public int getPayedAbsenceNumber() {
-        return this.payedAbsenceNumber;
+    public int getPayedNumber() {
+        return this.payedNumber;
     }
 
-    public int getUnPayedAbsenceNumber() {
-        return this.unPayedAbsenceNumber;
+    public int getUnPayedNumber() {
+        return this.unPayedNumber;
     }
 
-    public int getSickPayedAbsenceNumber() {
-        return this.sickPayedAbsenceNumber;
+    public int getSickPayedNumber() {
+        return this.sickPayedNumber;
     }
 
-    public int getVerifiedAbsenceNumber() {
-        return this.verifiedAbsenceNumber;
+    public int getVerifiedNumber() {
+        return this.verifiedNumber;
     }
 
     @Override
@@ -122,11 +122,11 @@ public class AbsenceDataResponse implements Serializable {
         hash = 47 * hash + this.year;
         hash = 47 * hash + this.holidayNumber;
         hash = 47 * hash + this.absenceNumber;
-        hash = 47 * hash + this.notSetAbsenceNumber;
-        hash = 47 * hash + this.payedAbsenceNumber;
-        hash = 47 * hash + this.unPayedAbsenceNumber;
-        hash = 47 * hash + this.sickPayedAbsenceNumber;
-        hash = 47 * hash + this.verifiedAbsenceNumber;
+        hash = 47 * hash + this.notSetNumber;
+        hash = 47 * hash + this.payedNumber;
+        hash = 47 * hash + this.unPayedNumber;
+        hash = 47 * hash + this.sickPayedNumber;
+        hash = 47 * hash + this.verifiedNumber;
         return hash;
     }
 
@@ -145,19 +145,19 @@ public class AbsenceDataResponse implements Serializable {
         return (this.year == other.year) &&
                (this.holidayNumber == other.holidayNumber) &&
                (this.absenceNumber == other.absenceNumber) &&
-               (this.notSetAbsenceNumber == other.notSetAbsenceNumber) &&
-               (this.payedAbsenceNumber == other.payedAbsenceNumber) &&
-               (this.unPayedAbsenceNumber == other.unPayedAbsenceNumber) &&
-               (this.sickPayedAbsenceNumber == other.sickPayedAbsenceNumber) &&
-               (this.verifiedAbsenceNumber == other.verifiedAbsenceNumber);
+               (this.notSetNumber == other.notSetNumber) &&
+               (this.payedNumber == other.payedNumber) &&
+               (this.unPayedNumber == other.unPayedNumber) &&
+               (this.sickPayedNumber == other.sickPayedNumber) &&
+               (this.verifiedNumber == other.verifiedNumber);
     }
 
     @Override
     public String toString() {
         return "AbsenceDataResponse{year=" + this.year + ", holidayNumber=" + this.holidayNumber + 
-               ", absenceNumber=" + this.absenceNumber + ", notSetAbsenceNumber=" + this.notSetAbsenceNumber + 
-               ", payedAbsenceNumber=" + this.payedAbsenceNumber + ", unPayedAbsenceNumber=" + this.unPayedAbsenceNumber + 
-               ", sickPayedAbsenceNumber=" + this.sickPayedAbsenceNumber + ", verifiedAbsenceNumber=" + this.verifiedAbsenceNumber + '}';
+               ", absenceNumber=" + this.absenceNumber + ", notSetNumber=" + this.notSetNumber + 
+               ", payedNumber=" + this.payedNumber + ", unPayedNumber=" + this.unPayedNumber + 
+               ", sickPayedNumber=" + this.sickPayedNumber + ", verifiedNumber=" + this.verifiedNumber + '}';
     }
     
 }
