@@ -106,6 +106,7 @@ CREATE TABLE `worker_holiday_number` (
   `sickpayed_absence_number` int(2) NOT NULL,
   `verified_absence_number` int(2) NOT NULL,
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date_of_modification` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `worker_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_whn_worker_id_idx` (`worker_id`),

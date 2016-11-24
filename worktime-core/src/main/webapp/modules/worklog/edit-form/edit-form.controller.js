@@ -7,7 +7,7 @@
 
 	Controller.$inject = ['$rootScope', '$mdDialog', 'WorklogService', 'ResponseWatcherService'];
 
-	function Controller($rootScope, $mdDialog, WorklogServicem ResponseWatcherService) {
+	function Controller($rootScope, $mdDialog, WorklogService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables

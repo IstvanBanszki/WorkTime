@@ -22,9 +22,9 @@
 		}
 	}
 
-	Controller.$inject = ['$rootScope', '$attrs', 'AdditionService', 'StatusLogService', 'ResponseWatcherService', 'ResponseWatcherService'];
+	Controller.$inject = ['$rootScope', '$attrs', 'AdditionService', 'StatusLogService', 'ResponseWatcherService'];
 
-    function Controller($rootScope, $attrs, AdditionService, StatusLogService, ResponseWatcherService, ResponseWatcherService) {
+    function Controller($rootScope, $attrs, AdditionService, StatusLogService, ResponseWatcherService) {
 
 		var vm = this;
 		//Bindable variables
