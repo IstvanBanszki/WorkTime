@@ -2,8 +2,13 @@
 	<md-content>
 		<p><label class="w3-label">Begin Date</label></p>
 		<p><md-datepicker ng-model="vm.beginDate" md-placeholder="Enter date"></md-datepicker></p>
-		<p><label class="w3-label">End Date</label></p>
-		<p><md-datepicker ng-model="vm.endDate" md-placeholder="Enter date"></md-datepicker></p>
+		<md-checkbox ng-model="vm.multyDayEntry" aria-label="Multy Day Entry">
+			Multy Day Entry!
+		</md-checkbox>
+		<div ng-show="vm.multyDayEntry">
+			<p><label class="w3-label">End Date</label></p>
+			<p><md-datepicker ng-model="vm.endDate" md-placeholder="Enter date"></md-datepicker></p>
+		</div>
 	</md-content>
 
 	<p><label class="w3-label">Absence Type</label></p>

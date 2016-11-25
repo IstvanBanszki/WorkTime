@@ -6,7 +6,7 @@
 		.controller('AbsenceController', Controller);
 
 	function Controller() {
-
+		
 		activate();
 
 		function activate() {

@@ -45,7 +45,7 @@
 		// *********************** //
 		function activate() {
 			if(typeof vm.absences || vm.absences.length === 0) {
-				getAbsences();
+				vm.getAbsences();
 			}
 		}
 
