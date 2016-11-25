@@ -50,6 +50,11 @@
 			<span ng-show="vm.showDownCaret('Status')" class="fa fa-caret-down"></span>
 			<span ng-show="vm.showUpCaret('Status')" class="fa fa-caret-up"></span>
 		</th>
+		<th ng-click="vm.setSearchTypeOrReverse('Note')">
+			Note
+			<span ng-show="vm.showDownCaret('Note')" class="fa fa-caret-down"></span>
+			<span ng-show="vm.showUpCaret('Note')" class="fa fa-caret-up"></span>
+		</th>
 		<th ng-click="vm.setSearchTypeOrReverse('DateOfRegistration')">
 			Date Of Registration
 			<span ng-show="vm.showDownCaret('DateOfRegistration')" class="fa fa-caret-down"></span>
@@ -60,13 +65,25 @@
 			<span ng-show="vm.showDownCaret('DateOfModification')" class="fa fa-caret-down"></span>
 			<span ng-show="vm.showUpCaret('DateOfModification')" class="fa fa-caret-up"></span>
 		</th>
-		<th id="tableOperation"></th>
 	</tr>
 	<tr ng-repeat="absence in vm.employeeAbsences | filter:vm.searchQuery | orderBy:vm.sortType:vm.sortReverse" class="w3-hover-light-green">
 		<td>{{absence.beginDate}}</td>
 		<td>{{absence.endDate}}</td>
 		<td>{{absence.absenceType}}</td>
-		<td>{{absence.status}}</td>
+		<td>
+			<div class="tooltip" ng-show="{{absence.status === 'NOT_SET'}}">
+				<span class="fa fa-question w3-xlarge"></span>
+				<span class="tooltiptext">The status is Not Set</span>
+			</div>
+			<div class="tooltip" ng-show="{{absence.status === 'APPROVE'}}">
+				<span class="fa fa-check w3-xlarge"></span>
+				<span class="tooltiptext">The status is Approved</span>
+			</div>
+			<div class="tooltip" ng-show="{{absence.status === 'NOT_APPROVE'}}">
+				<span class="fa fa-close w3-xlarge"></span>
+				<span class="tooltiptext">The status is Not Approved</span>
+			</div>
+		</td>
 		<td><div class="tooltip" ng-click="vm.updateAbsenceNote($event, absence)">
 				<span class="fa fa-comment-o w3-xlarge"></span>
 				<span class="tooltiptext">Update absence note!</span>
@@ -74,15 +91,5 @@
 			{{absence.note}}</td>
 		<td>{{absence.dateOfRegistration}}</td>
 		<td>{{absence.dateOfModification}}</td>
-		<td>
-			<div class="tooltip" ng-show="{{absence.status !== 'APPROVE'}}">
-				<span class="fa fa-question w3-xlarge" ng-click="vm.acceptEmployeeAbsence($event, absence)"></span>
-				<span class="tooltiptext">The status is not Approved</span>
-			</div>
-			<div class="tooltip" ng-show="{{absence.status === 'APPROVE'}}">
-				<span class="fa fa-check w3-xlarge"></span>
-				<span class="tooltiptext">The status is Approved</span>
-			</div>
-		</td>
 	</tr>
 </table>

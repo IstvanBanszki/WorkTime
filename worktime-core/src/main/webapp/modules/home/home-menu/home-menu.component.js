@@ -44,7 +44,9 @@
 		// Function implementation //
 		// *********************** //
 		function activate() {
-			if ($rootScope.userData.roleName === 'COMPANY-ADMIN-ROLE') {
+			if ($rootScope.userData.roleName === 'SUPERIOR-ROLE') {
+				vm.links.push({ title: 'Administration', url: '#administration' });				
+			} else if ($rootScope.userData.roleName === 'COMPANY-ADMIN-ROLE') {
 				vm.links.push({ title: 'Administration', url: '#administration' });
 				vm.links.push({ title: 'Addition', url: '#addition' });
 			}
