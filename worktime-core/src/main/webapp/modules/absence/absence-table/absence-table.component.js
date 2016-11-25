@@ -44,7 +44,7 @@
 		// Function implementation //
 		// *********************** //
 		function activate() {
-			if(typeof vm.absences || vm.absences.length === 0) {
+			if (typeof vm.absences || vm.absences.length === 0) {
 				vm.getAbsences();
 			}
 		}
@@ -58,7 +58,7 @@
 		}
 
 		function setSearchTypeOrReverse(tableHeader) {
-			if(vm.sortType == tableHeader) {
+			if (vm.sortType == tableHeader) {
 				vm.sortReverse = !vm.sortReverse;
 			} else {
 				vm.sortType = tableHeader;
@@ -94,8 +94,8 @@
 				AbsenceService.deleteAbsence(absence.id).then(
 					function(result) {
 						StatusLogService.showStatusLog(result, 'Delete Absence');
-						for(var i = 0; i < vm.absences.length; i++) {
-							if(vm.absences[i].id === absence.id) {
+						for (var i = 0; i < vm.absences.length; i++) {
+							if (vm.absences[i].id === absence.id) {
 								vm.absences.splice(i, 1);
 								break;
 							}
@@ -120,8 +120,8 @@
 				parent: angular.element(document.body),
 				targetEvent: ev
 			}).then(function(answer) {
-				for(var i = 0; i < vm.absences.length; i++) {
-					if(vm.absences[i].id === absence.id) {
+				for (var i = 0; i < vm.absences.length; i++) {
+					if (vm.absences[i].id === absence.id) {
 						vm.absences[i].beginDate = answer.beginDate;
 						vm.absences[i].endDate = answer.endDate;
 						vm.absences[i].absenceType = answer.absenceType;

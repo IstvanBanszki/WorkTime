@@ -5,9 +5,9 @@
 		.module('Login')
 		.controller('LoginController', Controller);
 
-	Controller.$inject = ['$location', 'LoginService']
+	Controller.$inject = ['$location', 'LoginService', 'ProfileService']
 
-    function Controller($location, LoginService) {
+    function Controller($location, LoginService, ProfileService) {
 
 		var vm = this;
 		//Bindable variables
@@ -17,6 +17,7 @@
 		//Bindable functions
 		vm.login = login;
 		vm.logout = logout;
+		vm.getProfileData = getProfileData;
 
 		// *********************** //
 		// Function implementation //
@@ -29,6 +30,7 @@
 							function(result) {
 								if(result !== "") {
 									LoginService.setUserData(loginResult, result.token, vm.loginName, vm.password);
+									vm.getProfileData(loginResult.workerId);
 									$location.path('/home');
 								} else {
 									vm.error = true;
@@ -54,6 +56,16 @@
 		function logout() {
 			LoginService.removeUserData();
 			$location.path('/login');
+		}
+
+		function getProfileData(workerId) {
+			ProfileService.getProfile(workerId).then(
+				function(result) {
+					ProfileService.setProfileData(result);
+					},
+				function(error) {
+				}
+			)
 		}
 
     }

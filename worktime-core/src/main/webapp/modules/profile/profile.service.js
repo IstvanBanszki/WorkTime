@@ -78,7 +78,8 @@
 		}
 
 		function removeProfileData() {
-			$rootScope.profileData= {};
+			$rootScope.profileData = {};
 		}
+
 	}
 })();

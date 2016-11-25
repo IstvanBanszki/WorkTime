@@ -9,7 +9,7 @@ BEGIN
 
 	SET day_number_to_take = TO_DAYS(end_date) - TO_DAYS(begin_date) + 1;
 
-	IF ( (SELECT COUNT(*) FROM absence a WHERE a.worker_id = worker_id) >= ((SELECT whn.holiday_number_total FROM worker_holiday_number whn WHERE whn.worker_id = worker_id) + day_number_to_take) ) THEN
+	IF ( (SELECT COUNT(*) + day_number_to_take FROM absence a WHERE a.worker_id = worker_id) >= ((SELECT whn.holiday_number_total FROM worker_holiday_number whn WHERE whn.worker_id = worker_id)) ) THEN
 
 		SELECT 0 AS status, 0 AS new_id;
 
