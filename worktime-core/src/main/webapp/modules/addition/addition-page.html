@@ -44,10 +44,10 @@
 						<input class="w3-btn w3-green w3-padding-tiny" ng-click="vm.openSaveOffice()" value="Add New Office"></input>
 						<input class="w3-btn w3-green w3-padding-tiny" ng-click="vm.openSaveDepartment()" value="Add New Department"></input>
 					</div>
-					<div ng-show="vm.openEditOffice()">
+					<div ng-show="vm.showSaveOfficeForm">
 						<office-save-form offices="vm.offices"></office-save-form>
 					</div>
-					<div ng-show="vm.openEditDepartment()">
+					<div ng-show="vm.showSaveDepartmentForm">
 						<department-save-form offices="vm.offices" departments="vm.departments"></department-save-form>
 					</div>
 				</md-content>

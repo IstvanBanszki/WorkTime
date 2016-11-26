@@ -43,8 +43,8 @@
 
 		//Bindable functions
 		vm.openSelect = openSelect;
-		vm.openEditOffice = openEditOffice;
-		vm.openEditDepartment = openEditDepartment;
+		vm.openSaveOffice = openSaveOffice;
+		vm.openSaveDepartment = openSaveDepartment;
 		vm.setDepartments = setDepartments;
 		vm.listInformation = listInformation;
 		vm.editDepartment = editDepartment;
@@ -73,12 +73,12 @@
 			);
 		}
 
-		function openEditOffice() {
-			vm.showEditOfficeForm = !vm.showEditOfficeForm;
+		function openSaveOffice() {
+			vm.showSaveOfficeForm = !vm.showSaveOfficeForm;
 		}
 
-		function openEditDepartment() {
-			vm.showEditDepartmentForm = !vm.showEditDepartmentForm;
+		function openSaveDepartment() {
+			vm.showSaveDepartmentForm = !vm.showSaveDepartmentForm;
 		}
 
 		function openSelect() {

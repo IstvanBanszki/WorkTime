@@ -72,7 +72,7 @@
 		<td>{{absence.absenceType}}</td>
 		<td>
 			<div class="tooltip" ng-show="{{absence.status === 'NOT_SET'}}">
-				<span class="fa fa-question w3-xlarge"></span>
+				<span class="fa fa-question w3-xlarge" ng-click="vm.acceptEmployeeAbsence($event, absence)"></span>
 				<span class="tooltiptext">The status is Not Set</span>
 			</div>
 			<div class="tooltip" ng-show="{{absence.status === 'APPROVE'}}">
