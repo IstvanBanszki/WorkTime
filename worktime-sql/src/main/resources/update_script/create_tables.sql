@@ -116,12 +116,11 @@ CREATE TABLE `worker_holiday_number` (
 /* ***************************************************
 				worklog table creation
    *************************************************** */
-
+   
 CREATE TABLE `worklog` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `begin_date` date NOT NULL,
   `work_hour` tinyint(4) NOT NULL,
-  `work_min` tinyint(4) NOT NULL DEFAULT '0',
   `date_of_registration` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `date_of_modification` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `note` tinytext NOT NULL,
