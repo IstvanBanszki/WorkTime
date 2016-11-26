@@ -155,7 +155,7 @@
 					return deferred.promise;
 				});
 		}
-		function saveUser(loginName, password, role, emailAddress) {
+		function saveUser(loginName, password, role) {
 			var deferred = $q.defer();
 			return $http({
 				method : "PUT",
@@ -166,8 +166,7 @@
 				data: {
 					'loginName': loginName,
 					'password': password,
-					'role': role,
-					'emailAddress': emailAddress
+					'role': role
 				}
 			}).then(function successCallback(response) {
 

@@ -11,6 +11,16 @@
 		</md-select>
 	</md-input-container>
 
+	<p><label class="w3-label">Password</label></p>
+	<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="New Password" type="password" ng-model="vm.password" required/>
+
+	<p><label class="w3-label">Password Again</label></p>
+	<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="New Password" type="password" ng-model="vm.passwordSecond" required/>
+
+	<div class="w3-center" ng-show="vm.passwordError">
+		<p><b>The newly entered passwords are not the same!</b></p>
+	</div>
+	
 	<h2>Worker Related Data</h2>
 	<p><label class="w3-label">First Name:</label></p>
 	<input class="w3-input w3-border w3-padding-hor-16" id="textInput" placeholder="Name" ng-model="vm.firstName" required/>

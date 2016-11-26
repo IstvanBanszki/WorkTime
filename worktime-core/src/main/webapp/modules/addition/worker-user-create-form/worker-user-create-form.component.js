@@ -30,9 +30,12 @@
 		vm.superiors = [];
 
 		vm.roles = [
-			{id: 2, name: 'WORKER_ROLE'}, 
-			{id: 3, name: 'SUPERIOR_ROLE'}
+			{id: 1, name: 'WORKER-ROLE'}, 
+			{id: 2, name: 'SUPERIOR-ROLE'}
 		];
+		vm.password = "";
+		vm.passwordSecond = "";
+		vm.passwordError = false;
 		vm.loginName = "";
 		vm.selectedRoleForCreation = "";
 		vm.firstName = "";
@@ -42,7 +45,7 @@
 		vm.nationality = "";
 		vm.position = "";
 		vm.dailyWorkHourTotal = "";
-		vm.emailAddres = "";
+		vm.emailAddress = "";
 		vm.selectedDepartmentIdForWorkerCreation = 0;
 		vm.selectedSuperiorIdForWorkerCreation = "";
 		//Bindable functions
@@ -65,29 +68,35 @@
 
 		function createNewUserAndWorker() {
 			var userId = 0;
-			AdditionService.saveUser(vm.loginName, '', vm.selectedRoleForCreation, vm.emailAddres).then(
-				function(result) {
-					StatusLogService.showStatusLog(result.status, 'Create User');
+			if (vm.password === vm.passwordSecond) {
+				AdditionService.saveUser(vm.loginName, vm.password, vm.selectedRoleForCreation).then(
+					function(result) {
+						StatusLogService.showStatusLog(result.status, 'Create User');
 
-					userId = result.newId;
-					var dateOfBirthStr = moment(vm.dateOfBirth).format('YYYY.MM.DD');
-					AdditionService.saveWorker(vm.firstName, vm.lastName, vm.selectedGender, dateOfBirthStr, vm.nationality, vm.position, vm.dailyWorkHourTotal, vm.emailAddres, vm.selectedSuperiorIdForWorkerCreation, vm.selectedDepartmentIdForWorkerCreation, userId).then(
-						function(result) {
-							StatusLogService.showStatusLog(result.status, 'Create Worker');
-						},
-						function(error) {
-							StatusLogService.showStatusLog(-1, 'Create Worker');
-							ResponseWatcherService.checkHttpStatus(error.status);
-						}
-					);
-					clearFields();
-				},
-				function(error) {
-					StatusLogService.showStatusLog(-1, 'Create User');
-					ResponseWatcherService.checkHttpStatus(error.status);
-					clearFields();
-				}
-			);
+						userId = result.newId;
+						var dateOfBirthStr = moment(vm.dateOfBirth).format('YYYY.MM.DD');
+						AdditionService.saveWorker(vm.firstName, vm.lastName, vm.selectedGender, dateOfBirthStr, vm.nationality, vm.position, vm.dailyWorkHourTotal, vm.emailAddress, vm.selectedSuperiorIdForWorkerCreation, vm.selectedDepartmentIdForWorkerCreation, userId).then(
+							function(result) {
+								StatusLogService.showStatusLog(result.status, 'Create Worker');
+							},
+							function(error) {
+								StatusLogService.showStatusLog(-1, 'Create Worker');
+								ResponseWatcherService.checkHttpStatus(error.status);
+							}
+						);
+						clearFields();
+					},
+					function(error) {
+						StatusLogService.showStatusLog(-1, 'Create User');
+						ResponseWatcherService.checkHttpStatus(error.status);
+						clearFields();
+					}
+				);
+			} else {
+				vm.password = "";
+				vm.passwordSecond = "";
+				vm.passwordError = true;
+			}
 		}
 
 		function clearFields() {
@@ -100,9 +109,12 @@
 			vm.nationality = "";
 			vm.position = "";
 			vm.dailyWorkHourTotal = "";
-			vm.emailAddres = "";
+			vm.emailAddress = "";
 			vm.selectedDepartmentIdForWorkerCreation = 0;
 			vm.selectedSuperiorIdForWorkerCreation = "";
+			vm.password = "";
+			vm.passwordSecond = "";
+			vm.passwordError = false;
 		}
 
     }

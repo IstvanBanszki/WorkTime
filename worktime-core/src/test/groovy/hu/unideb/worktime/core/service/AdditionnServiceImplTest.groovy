@@ -1,25 +1,23 @@
 package hu.unideb.worktime.core.service
 
 import hu.unideb.worktime.api.model.SaveResult
+import hu.unideb.worktime.api.model.User
 import hu.unideb.worktime.api.model.Worker
-import hu.unideb.worktime.api.model.addition.UserExtended
 import hu.unideb.worktime.api.model.administration.Employee
 import hu.unideb.worktime.core.security.IEncryptionUtility
 import hu.unideb.worktime.core.service.IMailSenderService
-import hu.unideb.worktime.core.service.impl.AdditionnServiceImpl
+import hu.unideb.worktime.core.service.impl.AdditionServiceImpl
 import hu.unideb.worktime.jdbc.addition.ISqlCallAddition
-import org.slf4j.helpers.NOPLogger
 import spock.lang.Specification
-
+	
 class AdditionnServiceImplTest extends Specification {
 	
     def "createWorker method test"() {
         setup:
-            def service = new AdditionnServiceImpl([
-                logger          : NOPLogger.NOP_LOGGER,
+            def service = new AdditionServiceImpl([
                 sqlCallAddition : Mock(ISqlCallAddition) {
                     saveWorker(request) >> result
-                }
+}
             ])
         expect:
             service.createWorker(request) == result
@@ -29,11 +27,10 @@ class AdditionnServiceImplTest extends Specification {
             new Worker() || new SaveResult(0, -5)
             new Worker() || null
     }
-	
+
     def "getSuperior method test"() {
         setup:
-            def service = new AdditionnServiceImpl([
-                logger          : NOPLogger.NOP_LOGGER,
+            def service = new AdditionServiceImpl([
                 sqlCallAddition : Mock(ISqlCallAddition) {
                     getSuperiors() >> result
                 }
@@ -48,27 +45,21 @@ class AdditionnServiceImplTest extends Specification {
         setup:
             def mailSeviceMock = Mock(IMailSenderService)
         and:
-            def service = new AdditionnServiceImpl([
-                logger          : NOPLogger.NOP_LOGGER,
+            def service = new AdditionServiceImpl([
                 sqlCallAddition : Mock(ISqlCallAddition) {
                     saveUser(request, newPassword) >> expected
                 },
                 encryptionUtility: Mock(IEncryptionUtility) {
-                    generateRandomPassword() >> newPassword
-                },
-                mailSenderService: mailSeviceMock
+                    encryptPassword("") >> newPassword
+                }
             ])
-        when:
-            def result = service.createUser(request)
-        then:
-            1 * mailSeviceMock.sendEmailForNewlyRegisteredUser(request, newPassword)
-        and:
-            result == expected
+        expect:
+            service.createUser(request) == expected
         where:
-            request            | newPassword     || expected
-            new UserExtended() | "fearOfTheDark" || new SaveResult(1, 1)
-            new UserExtended() | "fearOfTheDark" || new SaveResult(0, -5)
-            new UserExtended() | "fearOfTheDark" || null
+            request    | newPassword     || expected
+            new User() | "fearOfTheDark" || new SaveResult(1, 1)
+            new User() | "fearOfTheDark" || new SaveResult(0, -5)
+            new User() | "fearOfTheDark" || null
     }
 
 }
