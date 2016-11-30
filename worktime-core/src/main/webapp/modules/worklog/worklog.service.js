@@ -10,11 +10,12 @@
 	function Service($http, $rootScope, $q) {
 
 		return {
-			addWorklog	  : addWorklog,
-			getWorklog 	  : getWorklog,
-			deleteWorklog : deleteWorklog,
-			editWorklog   : editWorklog,
-			exportWorklog : exportWorklog
+			addWorklog	  			: addWorklog,
+			getWorklog 	  			: getWorklog,
+			deleteWorklog 			: deleteWorklog,
+			editWorklog   			: editWorklog,
+			exportWorklog 			: exportWorklog,
+			exportMonthlyStatistics : exportMonthlyStatistics
 		};
 
 		// *********************** //
@@ -109,6 +110,26 @@
 			return $http({
 				method : "GET",
 				url : "/api/worklog/v1/worklogs/export/workerIds/"+workerId+'/dateFilters/'+dateFilter+'/types/'+excelType,
+				headers : {
+					'Content-Type': 'application/json'
+				},
+				responseType: 'arraybuffer'
+			}).then(function successCallback(response) {
+
+					deferred.resolve(response.data);
+					return deferred.promise;
+
+				}, function errorCallback(response) {
+
+					deferred.reject(response);
+					return deferred.promise;
+				});
+		}
+		function exportMonthlyStatistics(workerId, excelType, year, month) {
+			var deferred = $q.defer();
+			return $http({
+				method : "GET",
+				url : "/api/worklog/v1/monthly/statistics/workerIds/"+workerId+'/types/'+excelType+'/years/'+year+'/months/'+month,
 				headers : {
 					'Content-Type': 'application/json'
 				},

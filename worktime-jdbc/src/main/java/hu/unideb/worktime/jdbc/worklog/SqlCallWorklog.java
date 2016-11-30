@@ -5,8 +5,12 @@ import hu.unideb.worktime.jdbc.worklog.storedprocedure.SpEditWorklog;
 import hu.unideb.worktime.jdbc.worklog.storedprocedure.SpDeleteWorklog;
 import hu.unideb.worktime.jdbc.worklog.storedprocedure.SpSaveWorklog;
 import hu.unideb.worktime.api.model.SaveResult;
+import hu.unideb.worktime.api.model.worklog.MontlyStatRequest;
+import hu.unideb.worktime.api.model.worklog.MontlyStatResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogRequest;
+import hu.unideb.worktime.jdbc.worklog.storedprocedure.SpGetMonthlyStatictics;
+import hu.unideb.worktime.jdbc.worklog.storedprocedure.SpGetMonthlyWorklogs;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +24,8 @@ public class SqlCallWorklog implements ISqlCallWorklog {
     @Autowired private SpGetWorklog spGetWorklog;
     @Autowired private SpDeleteWorklog spDeleteWorklog;
     @Autowired private SpEditWorklog spEditWorklog;
+    @Autowired private SpGetMonthlyStatictics spGetMonthlyStatictics;
+    @Autowired private SpGetMonthlyWorklogs spGetMonthlyWorklogs;
     private Logger logger = LoggerFactory.getLogger(SqlCallWorklog.class);
     
     @Override
@@ -85,4 +91,37 @@ public class SqlCallWorklog implements ISqlCallWorklog {
         this.logger.info("Result of edit_worklog SP: {}", result);
         return result;
     }
+
+    @Override
+    public List<WorklogResponse> getMonthlyWorklog(MontlyStatRequest key) {
+        List<WorklogResponse> result = null;
+        this.logger.info("Call get_monthly_worklogs_by_worker SP with given parameters: Key - {}", key);
+        try {
+            result = this.spGetMonthlyWorklogs.getMonthlyWorklogs(key);
+            if(result == null) {
+                this.logger.debug("There is an error while edit the worklog in database! Key - {}", key);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during get_monthly_worklogs_by_worker SP call: {}", ex);
+        }
+        this.logger.info("Result of get_monthly_worklogs_by_worker SP: {}", result);
+        return result;
+    }
+
+    @Override
+    public MontlyStatResponse getMonthlyStatictics(MontlyStatRequest key) {
+        MontlyStatResponse result = null;
+        this.logger.info("Call get_monthly_statictics_by_worker SP with given parameters: Key - {}", key);
+        try {
+            result = this.spGetMonthlyStatictics.getMonthlyStatictics(key);
+            if(result == null) {
+                this.logger.debug("There is an error while edit the worklog in database! Key - {}", key);
+            }
+        } catch (Exception ex) {
+            this.logger.error("There is an exception during get_monthly_statictics_by_worker SP call: {}", ex);
+        }
+        this.logger.info("Result of get_monthly_statictics_by_worker SP: {}", result);
+        return result;
+    }
+
 }

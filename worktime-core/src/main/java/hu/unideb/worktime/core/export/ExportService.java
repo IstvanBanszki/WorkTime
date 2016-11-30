@@ -3,6 +3,8 @@ package hu.unideb.worktime.core.export;
 import hu.unideb.worktime.api.model.absence.AbsenceResponse;
 import hu.unideb.worktime.api.model.administration.AdministrationAbsenceResponse;
 import hu.unideb.worktime.api.model.administration.AdministrationWorklogResponse;
+import hu.unideb.worktime.api.model.worklog.MontlyStatRequest;
+import hu.unideb.worktime.api.model.worklog.MontlyStatResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.jdbc.absence.SqlCallAbsence;
 import hu.unideb.worktime.jdbc.administration.SqlCallAdministration;
@@ -40,6 +42,8 @@ public class ExportService implements IExportService {
     private static final String FILE_NAME_ABSENCE_XLSX = "ExportAbsence.xlsx";
     private static final String FILE_NAME_WORKLOG_XLS = "ExportWorklog.xls";
     private static final String FILE_NAME_WORKLOG_XLSX = "ExportWorklog.xlsx";
+    private static final String FILE_NAME_MONTHLY_STAT_XLS = "ExportMonthlyStat.xls";
+    private static final String FILE_NAME_MONTHLY_STAT_XLSX = "ExportMonthlyStat.xlsx";
     private static final String SHEET_NAME_ABSENCE = "ExportAbsence";
     private static final String SHEET_NAME_WORKLOG = "ExportWorklog";
     private static final String XLS_CONTENT_TYPE = "application/vnd.ms-excel";
@@ -98,7 +102,7 @@ public class ExportService implements IExportService {
         CellStyle dateCellStyle = this.getDateCellStyle(wb);
         int rowIndex = 1;
 
-        this.createWorklogHeaderRow(sheet.createRow(0), this.getHeaderCellStyle(wb), false);
+        this.createWorklogHeaderRow(sheet.createRow(0), this.getHeaderCellStyle(wb), false, false);
 
         for (WorklogResponse response:worklogs) {
 
@@ -159,7 +163,7 @@ public class ExportService implements IExportService {
         this.logger.info("Exporting of worklogs with the following parameters - Key: {}, dateFilter: {}, "
                 + "showDailyWorkhours: {}, excelType: {}", key, dateFilter, showDailyWorkhours, excelType);
         response.setContentType(((excelType == 1) ? XLS_CONTENT_TYPE : XLSX_CONTENT_TYPE));
-        response.setHeader("Content-Disposition", "attachment; filename=" + ((excelType == 1) ? FILE_NAME_WORKLOG_XLS : FILE_NAME_WORKLOG_XLSX));
+        response.setHeader("Content-Disposition", "attachment; filename=" + ((excelType == 1) ? FILE_NAME_MONTHLY_STAT_XLS : FILE_NAME_MONTHLY_STAT_XLSX));
 
         List<AdministrationWorklogResponse> worklogs = this.sqlCallAdministration.getEmloyeeWorklog(key, dateFilter, showDailyWorkhours);
         Workbook wb = (excelType == 1) ? new HSSFWorkbook() : new XSSFWorkbook();
@@ -169,7 +173,7 @@ public class ExportService implements IExportService {
         CellStyle dateTimeCellStyle = this.getDateTimeCellStyle(wb);
         int rowIndex = 1;
 
-        this.createWorklogHeaderRow(sheet.createRow(0), this.getHeaderCellStyle(wb), true);
+        this.createWorklogHeaderRow(sheet.createRow(0), this.getHeaderCellStyle(wb), true, false);
 
         for (AdministrationWorklogResponse worklog:worklogs) {
 
@@ -189,9 +193,65 @@ public class ExportService implements IExportService {
         }
     }
 
+    @Override
+    public void exportMonthlyStat(MontlyStatRequest key, HttpServletResponse servletResponse) {
+        
+        this.logger.info("Exporting of monthly statistics with the following parameters - Key: {}", key);
+        servletResponse.setContentType(((key.getExportType() == 1) ? XLS_CONTENT_TYPE : XLSX_CONTENT_TYPE));
+        servletResponse.setHeader("Content-Disposition", "attachment; filename=" + ((key.getExportType() == 1) ? FILE_NAME_WORKLOG_XLS : FILE_NAME_WORKLOG_XLSX));
+        
+        List<WorklogResponse> worklogs = this.sqlCallWorklog.getMonthlyWorklog(key);
+        MontlyStatResponse montlyStatResponse = this.sqlCallWorklog.getMonthlyStatictics(key);
+
+        Workbook wb = (key.getExportType() == 1) ? new HSSFWorkbook() : new XSSFWorkbook();
+        Sheet sheet = wb.createSheet(SHEET_NAME_WORKLOG);
+
+        CellStyle dataCellStyle = this.getDataCellStyle(wb);
+        CellStyle dateCellStyle = this.getDateCellStyle(wb);
+        int rowIndex = 1;
+
+        this.createWorklogHeaderRow(sheet.createRow(0), this.getHeaderCellStyle(wb), false, true);
+
+        for (WorklogResponse response:worklogs) {
+
+            Row row = sheet.createRow(rowIndex);
+            if (rowIndex++ == 1) {
+                createMonthlyStatRow(row, dataCellStyle, montlyStatResponse);
+            }
+            createWorklogRow(row, dataCellStyle, dateCellStyle, response);
+        }
+        sheet.autoSizeColumn(0);
+        sheet.autoSizeColumn(1);
+        sheet.autoSizeColumn(3);
+        sheet.autoSizeColumn(4);
+        sheet.autoSizeColumn(5);
+
+        try (ServletOutputStream outputStream = servletResponse.getOutputStream()) {
+            wb.write(outputStream);
+            outputStream.flush();
+        } catch (Exception e) {
+            this.logger.error("There is an exception during exporting worklogs. Exception: {}", e);
+        }
+    }
+
     /**********************************/
     /*   DataRow utility methods   */
     /**********************************/
+    private void createMonthlyStatRow(Row row, CellStyle dataCellStyle, MontlyStatResponse response) {
+        
+        Cell sumOfWorkHourCell = row.createCell(3);
+        sumOfWorkHourCell.setCellValue(response.getSumOfWorkHour());
+        sumOfWorkHourCell.setCellStyle(dataCellStyle);
+
+        Cell countOfWorkHourCell = row.createCell(4);
+        countOfWorkHourCell.setCellValue(response.getCountOfWorkHour());
+        countOfWorkHourCell.setCellStyle(dataCellStyle);
+
+        Cell avarageOfWorkHourCell = row.createCell(5);
+        avarageOfWorkHourCell.setCellValue(response.getAvarageWorkHour());
+        avarageOfWorkHourCell.setCellStyle(dataCellStyle);
+    }
+
     private void createAbsenceRow(Row row, CellStyle dataCellStyle, CellStyle dateCellStyle, AbsenceResponse response) {
 
         Cell beginDateCell = row.createCell(0);
@@ -305,7 +365,7 @@ public class ExportService implements IExportService {
         }  
     }
 
-    private void createWorklogHeaderRow(Row headerRow, CellStyle headerCellStyle, boolean administration) {
+    private void createWorklogHeaderRow(Row headerRow, CellStyle headerCellStyle, boolean administration, boolean monthlyStat) {
 
         Cell beginDateCell = headerRow.createCell(0);
         beginDateCell.setCellValue("Begin Date");
@@ -314,6 +374,7 @@ public class ExportService implements IExportService {
         Cell workHourCell = headerRow.createCell(1);
         workHourCell.setCellValue("WorkHour");
         workHourCell.setCellStyle(headerCellStyle);
+
         if (administration) {
 
             Cell dateOfRegCell = headerRow.createCell(2);
@@ -327,7 +388,21 @@ public class ExportService implements IExportService {
             Cell noteCell = headerRow.createCell(4);
             noteCell.setCellValue("Note");
             noteCell.setCellStyle(headerCellStyle);
-        }    
+
+        } else if (monthlyStat) {
+            
+            Cell sumOfWorkHourCell = headerRow.createCell(3);
+            sumOfWorkHourCell.setCellValue("Sum Of Workhour");
+            sumOfWorkHourCell.setCellStyle(headerCellStyle);
+
+            Cell countOfWorkHourCell = headerRow.createCell(4);
+            countOfWorkHourCell.setCellValue("Count Of Workhour");
+            countOfWorkHourCell.setCellStyle(headerCellStyle);
+            
+            Cell avarageOfWorkHourCell = headerRow.createCell(5);
+            avarageOfWorkHourCell.setCellValue("Avarage Of Workhour");
+            avarageOfWorkHourCell.setCellStyle(headerCellStyle);
+        }
     }
     
     /**********************************/
@@ -405,4 +480,5 @@ public class ExportService implements IExportService {
 
         return dateCellStyle;
     }
+
 }

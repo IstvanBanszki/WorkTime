@@ -18,7 +18,7 @@ class WorklogControllerTest extends Specification {
             def sqlCallSaveWorklogMock = Mock(ISqlCallWorklog)
         and:
             def worklogControllerObject = new WorklogController(
-                sqlCallSaveWorklog: sqlCallSaveWorklogMock
+                sqlCallWorklog: sqlCallSaveWorklogMock
             )
         when:
             def response = worklogControllerObject.saveWorklog(workerId, worklogRequest)
@@ -36,7 +36,7 @@ class WorklogControllerTest extends Specification {
             def sqlCallSaveWorklogMock = Mock(ISqlCallWorklog)
         and:
             def worklogControllerObject = new WorklogController(
-                sqlCallSaveWorklog: sqlCallSaveWorklogMock
+                sqlCallWorklog: sqlCallSaveWorklogMock
             )
         when:
             def response = worklogControllerObject.getWorklog(workerId, request)
@@ -52,7 +52,7 @@ class WorklogControllerTest extends Specification {
     def "test deleteWorklog method"() {
         setup:
             def worklogControllerObject = new WorklogController(
-                sqlCallSaveWorklog: Mock(ISqlCallWorklog) {
+                sqlCallWorklog: Mock(ISqlCallWorklog) {
                     deleteWorklog(workerId) >> expectedResult
                 }
             )
@@ -65,7 +65,7 @@ class WorklogControllerTest extends Specification {
     def "test editWorklog method"() {
         setup:
             def worklogControllerObject = new WorklogController(
-                sqlCallSaveWorklog: Mock(ISqlCallWorklog) {
+                sqlCallWorklog: Mock(ISqlCallWorklog) {
                     editWorklog(workerId, worklogRequest) >> expectedResult
                 }
             )

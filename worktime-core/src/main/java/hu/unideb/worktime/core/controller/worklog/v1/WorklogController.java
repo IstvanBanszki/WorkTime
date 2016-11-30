@@ -1,6 +1,7 @@
 package hu.unideb.worktime.core.controller.worklog.v1;
 
 import hu.unideb.worktime.api.model.SaveResult;
+import hu.unideb.worktime.api.model.worklog.MontlyStatRequest;
 import hu.unideb.worktime.api.model.worklog.WorklogResponse;
 import hu.unideb.worktime.api.model.worklog.WorklogRequest;
 import hu.unideb.worktime.core.export.IExportService;
@@ -20,40 +21,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/worklog/v1", produces = "application/json")
 public class WorklogController {
     
-    @Autowired private ISqlCallWorklog sqlCallSaveWorklog;
+    @Autowired private ISqlCallWorklog sqlCallWorklog;
     @Autowired private IExportService exportService;
-    /*
-    --------------------
-    Example JSON content
-    --------------------
-    {
-        "begin": "2016-05-20T08:30:00.000",
-        "workHour": 8,
-        "workerId": 1
-    }
-    */
+
     @Async
     @RequestMapping(value = "/worklogs/workerIds/{workerId}", method = RequestMethod.PUT)
     public @ResponseBody SaveResult saveWorklog(@PathVariable("workerId") Integer workerId, @RequestBody WorklogRequest request) {
-        return this.sqlCallSaveWorklog.saveWorklog(workerId, request);
+        return this.sqlCallWorklog.saveWorklog(workerId, request);
     }
 
     @Async
     @RequestMapping(value = "/worklogs/workerIds/{workerId}/dateFilters/{dateFilter}", method = RequestMethod.GET)
     public @ResponseBody List<WorklogResponse> getWorklog(@PathVariable("workerId") Integer workerId, @PathVariable("dateFilter") String request) {
-        return this.sqlCallSaveWorklog.getWorklog(workerId, request);
+        return this.sqlCallWorklog.getWorklog(workerId, request);
     }
 
     @Async
     @RequestMapping(value = "/worklogs/workerIds/{worklogId}", method = RequestMethod.DELETE)
     public @ResponseBody Integer deleteWorklog(@PathVariable("worklogId") Integer id) {
-        return this.sqlCallSaveWorklog.deleteWorklog(id);
+        return this.sqlCallWorklog.deleteWorklog(id);
     }
 
     @Async
     @RequestMapping(value = "/worklogs/edit/workerIds/{worklogId}", method = RequestMethod.PUT)
     public @ResponseBody Integer editWorklog(@PathVariable("worklogId") Integer id, @RequestBody WorklogRequest request) {
-        return this.sqlCallSaveWorklog.editWorklog(id, request);
+        return this.sqlCallWorklog.editWorklog(id, request);
     }
 
     @Async
@@ -62,4 +54,12 @@ public class WorklogController {
             @PathVariable("type") Integer excelType, HttpServletResponse response) {
         this.exportService.exportWorklogs(workerId, request, excelType, response);
     }
+
+    @Async
+    @RequestMapping(value = "/monthly/statistics/workerIds/{workerId}/types/{type}/years/{year}/months/{month}", method = RequestMethod.GET)
+    public void getMontlyStat(@PathVariable("workerId") Integer workerId, @PathVariable("year") Integer year, 
+            @PathVariable("month") Integer month, @PathVariable("type") Integer excelType, HttpServletResponse response) {
+        this.exportService.exportMonthlyStat(new MontlyStatRequest(workerId, year, month, excelType), response);
+    }
+
 }
