@@ -1,4 +1,4 @@
-# WorkTime
+# WorkTime Manager
 
 A simple webapp for logging work logs and absence.
 
