@@ -20,7 +20,7 @@ repositories {
 	mavenCentral()
 }
 
-dependencies{
+dependencies {
 	compile project(':worktime-api')
 
     compile "org.springframework:spring-core:${springVersion}"
