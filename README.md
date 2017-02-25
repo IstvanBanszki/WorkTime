@@ -16,16 +16,16 @@ The Unit test made by Spock Framework, whit it a very simple and easily understa
 
 Also for the project there is an RFID IC which used by a Texas Instruments Tiva C Series TM4C1294 microcontroller and connects to the server by Ethernet.
 
-Requirements for running the system:
--JDK 1.8
--Gradle
--MySql Database - run each query you got in the worktime-sql module, begin with the update_script/create_tables.sql
+###### Requirements for running the system:
+- JDK 1.8
+- Gradle
+- MySql Database - run each query you got in the worktime-sql module, begin with the update_script/create_tables.sql
 
-Run:
+###### Run:
 1. Navigate to the worktime-core directory and run a "gradle build" command.
 2. Run the "java -jar build\libs\worktime-core-1.0.0-SNAPSHOT.jar"
 
-Summary:
+###### Summary:
 Language: Sql, Java, Groovy, Html, Javascript, CSS, C
 Framework/API: Spring (SpringBoot, JDBC), AngularJS, Angular Material, W3.CSS, Spock
 IDE/Tools: Netbeans, Gradle, Energia, MySql Workbench
