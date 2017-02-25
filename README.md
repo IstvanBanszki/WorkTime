@@ -27,5 +27,7 @@ Also for the project there is an RFID IC which used by a Texas Instruments Tiva 
 
 ###### Summary:
 Language: Sql, Java, Groovy, Html, Javascript, CSS, C
+
 Framework/API: Spring (SpringBoot, JDBC), AngularJS, Angular Material, W3.CSS, Spock
+
 IDE/Tools: Netbeans, Gradle, Energia, MySql Workbench
